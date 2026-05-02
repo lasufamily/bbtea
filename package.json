@@ -1,0 +1,24 @@
+{
+  "name": "bbtsg",
+  "type": "module",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && pagefind --site dist --output-path dist/pagefind",
+    "build:astro": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.2",
+    "@tailwindcss/vite": "^4.2.4",
+    "astro": "^6.2.1",
+    "tailwindcss": "^4.2.4"
+  },
+  "devDependencies": {
+    "pagefind": "^1.5.2"
+  }
+}

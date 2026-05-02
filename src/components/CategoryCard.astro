@@ -1,0 +1,58 @@
+---
+import type { DrinkCategory } from '../lib/types';
+
+interface Props {
+  category: DrinkCategory;
+  outletCount?: number;
+}
+
+const { category, outletCount = 0 } = Astro.props;
+---
+
+<article class="group bg-white rounded-2xl overflow-hidden border border-[var(--color-stone-200)] card-lift shadow-sm">
+  <a href={`/categories/${category.slug}`} class="block" data-pagefind-body>
+
+    <!-- Image -->
+    <div class="aspect-[3/2] overflow-hidden bg-[var(--color-cream-100)]">
+      {category.image ? (
+        <img
+          src={category.image}
+          alt={category.name}
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          loading="lazy"
+          decoding="async"
+          width="480"
+          height="320"
+        />
+      ) : (
+        <div class="w-full h-full flex items-center justify-center text-5xl bg-gradient-to-br from-[var(--color-cream-100)] to-[var(--color-blush-100)]">
+          🧋
+        </div>
+      )}
+    </div>
+
+    <div class="p-5 space-y-2">
+      <h3 class="text-base font-display font-semibold text-[var(--color-stone-900)] group-hover:text-[var(--color-forest-700)] transition-colors leading-snug">
+        {category.name}
+      </h3>
+
+      {category.description && (
+        <p class="text-sm text-[var(--color-stone-600)] leading-relaxed line-clamp-2">
+          {category.description}
+        </p>
+      )}
+
+      <div class="flex items-center justify-between pt-3 border-t border-[var(--color-stone-100)]">
+        <span class="text-xs text-[var(--color-stone-400)]">
+          {outletCount} {outletCount === 1 ? 'shop' : 'shops'}
+        </span>
+        <span class="text-sm font-semibold text-[var(--color-forest-700)] flex items-center gap-1 group-hover:gap-1.5 transition-all">
+          See all
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+          </svg>
+        </span>
+      </div>
+    </div>
+  </a>
+</article>

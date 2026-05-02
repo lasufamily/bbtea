@@ -1,0 +1,125 @@
+---
+import Layout from '../../components/Layout.astro';
+import ListingCard from '../../components/ListingCard.astro';
+import CategoryCard from '../../components/CategoryCard.astro';
+import { getCategories, getOutlets } from '../../lib/airtable';
+import type { DrinkCategory } from '../../lib/types';
+
+export async function getStaticPaths() {
+  const [categories, allOutlets] = await Promise.all([getCategories(), getOutlets()]);
+  return categories.map(category => {
+    const outlets = allOutlets.filter(o => o.drinkCategorySlugs?.includes(category.slug));
+    return {
+      params: { slug: category.slug },
+      props:  { category, outlets },
+    };
+  });
+}
+
+interface Props {
+  category: DrinkCategory;
+  outlets: Awaited<ReturnType<typeof getOutlets>>;
+}
+const { category, outlets } = Astro.props;
+
+const allCategories = await getCategories();
+const otherCategories = allCategories.filter(c => c.slug !== category.slug);
+const allOutlets = await getOutlets();
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: `${category.name} in Singapore`,
+  description: category.description ?? `Find the best ${category.name} bubble tea shops in Singapore.`,
+  url: `https://bubbleteasg.com/categories/${category.slug}`,
+  ...(category.image && { image: category.image }),
+};
+---
+
+<Layout
+  title={`${category.name} in Singapore — Best Bubble Tea Shops | Bubble Tea SG`}
+  description={`Find ${outlets.length} bubble tea shops serving ${category.name} in Singapore. ${category.description ?? ''}`}
+  image={category.image}
+  canonical={`https://bubbleteasg.com/categories/${category.slug}`}
+  jsonLd={jsonLd}
+>
+
+  <!-- Hero -->
+  <section class="relative bg-[var(--color-stone-900)] text-white overflow-hidden" style="min-height: 18rem;">
+    {category.image && (
+      <img
+        src={category.image}
+        alt={category.name}
+        class="absolute inset-0 w-full h-full object-cover opacity-30"
+        fetchpriority="high"
+        decoding="async"
+        width="1200"
+        height="400"
+      />
+    )}
+    <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-forest-900)]/80 to-[var(--color-forest-900)]/95"></div>
+
+    <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-4" data-pagefind-body>
+      <nav class="text-sm text-white/50 flex items-center gap-1.5" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-white transition-colors">Home</a>
+        <span>/</span>
+        <a href="/directory" class="hover:text-white transition-colors">Directory</a>
+        <span>/</span>
+        <span class="text-white/80">Drink Types</span>
+        <span>/</span>
+        <span class="text-white font-medium">{category.name}</span>
+      </nav>
+
+      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-boba-400)]">Drink Type</p>
+      <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight">
+        {category.name}<br />
+        <span class="text-white/70 text-2xl lg:text-3xl font-normal italic">in Singapore</span>
+      </h1>
+      {category.description && (
+        <p class="text-white/70 text-base max-w-2xl leading-relaxed">
+          {category.description}
+        </p>
+      )}
+      <p class="text-white/60 text-sm">
+        {outlets.length} {outlets.length === 1 ? 'shop' : 'shops'} found
+      </p>
+    </div>
+  </section>
+
+  <!-- Outlets -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    {outlets.length > 0 ? (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        {outlets.map(outlet => <ListingCard outlet={outlet} />)}
+      </div>
+    ) : (
+      <div class="text-center py-20 space-y-4">
+        <p class="text-5xl">🔍</p>
+        <h2 class="text-xl font-display font-semibold text-[var(--color-stone-800)]">No shops found for this category</h2>
+        <a href="/directory" class="inline-flex items-center gap-2 mt-2 px-6 py-3 rounded-full bg-[var(--color-forest-700)] text-white text-sm font-semibold hover:bg-[var(--color-forest-800)] transition-colors">
+          Browse All Shops
+        </a>
+      </div>
+    )}
+  </div>
+
+  <!-- Other categories -->
+  {otherCategories.length > 0 && (
+    <section class="bg-[var(--color-cream-100)] border-t border-[var(--color-stone-200)] py-14">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)]">
+          Explore Other Drink Types
+        </h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {otherCategories.slice(0, 4).map(cat => (
+            <CategoryCard
+              category={cat}
+              outletCount={allOutlets.filter(o => o.drinkCategorySlugs?.includes(cat.slug)).length}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+</Layout>

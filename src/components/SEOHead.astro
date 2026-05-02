@@ -1,0 +1,53 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  type?: 'website' | 'article';
+  canonical?: string;
+  noindex?: boolean;
+  jsonLd?: object;
+}
+
+const {
+  title,
+  description,
+  image = 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&auto=format&fit=crop',
+  type = 'website',
+  canonical,
+  noindex = false,
+  jsonLd,
+} = Astro.props;
+
+const siteUrl = 'https://bubbleteasg.com';
+const fullTitle = title.includes('Bubble Tea SG')
+  ? title
+  : `${title} | Bubble Tea SG`;
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).href;
+---
+
+<!-- Primary -->
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+{noindex && <meta name="robots" content="noindex,nofollow" />}
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- Open Graph -->
+<meta property="og:type"        content={type} />
+<meta property="og:url"         content={canonicalUrl} />
+<meta property="og:title"       content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image"       content={image} />
+<meta property="og:locale"      content="en_SG" />
+<meta property="og:site_name"   content="Bubble Tea SG" />
+
+<!-- Twitter / X -->
+<meta name="twitter:card"        content="summary_large_image" />
+<meta name="twitter:title"       content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image"       content={image} />
+
+<!-- JSON-LD -->
+{jsonLd && (
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+)}

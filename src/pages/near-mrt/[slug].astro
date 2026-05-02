@@ -1,0 +1,118 @@
+---
+import Layout from '../../components/Layout.astro';
+import ListingCard from '../../components/ListingCard.astro';
+import { getOutlets } from '../../lib/airtable';
+import { MRT_STATIONS } from '../../lib/mockData';
+import type { MrtStation } from '../../lib/types';
+
+export async function getStaticPaths() {
+  const allOutlets = await getOutlets();
+  // Build from MRT_STATIONS + any extra slugs in actual outlet data
+  const outletMrtSlugs = [...new Set(allOutlets.map(o => o.mrtSlug).filter(Boolean))] as string[];
+  const stationSlugs   = [...new Set([...MRT_STATIONS.map(m => m.slug), ...outletMrtSlugs])];
+
+  return stationSlugs.map(slug => {
+    const station = MRT_STATIONS.find(m => m.slug === slug);
+    const outlets = allOutlets.filter(o => o.mrtSlug === slug);
+    return {
+      params: { slug },
+      props:  { station, outlets },
+    };
+  });
+}
+
+interface Props {
+  station: MrtStation | undefined;
+  outlets: Awaited<ReturnType<typeof getOutlets>>;
+}
+const { station, outlets } = Astro.props;
+const stationName = station?.name ?? Astro.params.slug.replace(/-mrt$/, '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: `Bubble Tea Shops Near ${stationName} MRT`,
+  description: `Find ${outlets.length} bubble tea shops near ${stationName} MRT station in Singapore.`,
+  url: `https://bubbleteasg.com/near-mrt/${Astro.params.slug}`,
+};
+---
+
+<Layout
+  title={`Bubble Tea Near ${stationName} MRT | Bubble Tea SG`}
+  description={`Find ${outlets.length} bubble tea shops near ${stationName} MRT station in Singapore.`}
+  canonical={`https://bubbleteasg.com/near-mrt/${Astro.params.slug}`}
+  jsonLd={jsonLd}
+>
+
+  <!-- Header -->
+  <section class="bg-[var(--color-forest-800)] text-white py-14">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4" data-pagefind-body>
+      <nav class="text-sm text-white/50 flex items-center gap-1.5" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-white transition-colors">Home</a>
+        <span>/</span>
+        <a href="/directory" class="hover:text-white transition-colors">Directory</a>
+        <span>/</span>
+        <span class="text-white/80">Near MRT</span>
+        <span>/</span>
+        <span class="text-white font-medium">{stationName}</span>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <span class="text-3xl">🚇</span>
+        <div>
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-boba-400)]">
+            Near MRT {station?.line ? `· ${station.line} Line` : ''}
+          </p>
+          <h1 class="text-3xl lg:text-4xl font-display font-bold">
+            Bubble Tea Near {stationName} MRT
+          </h1>
+        </div>
+      </div>
+      <p class="text-white/70 text-base max-w-xl">
+        {outlets.length} bubble tea {outlets.length === 1 ? 'shop' : 'shops'} close to {stationName} MRT station.
+      </p>
+    </div>
+  </section>
+
+  <!-- Outlets -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    {outlets.length > 0 ? (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        {outlets.map(outlet => <ListingCard outlet={outlet} />)}
+      </div>
+    ) : (
+      <div class="text-center py-20 space-y-4">
+        <p class="text-5xl">🚇</p>
+        <h2 class="text-xl font-display font-semibold text-[var(--color-stone-800)]">
+          No shops near {stationName} MRT yet
+        </h2>
+        <p class="text-[var(--color-stone-500)] max-w-sm mx-auto">
+          We're growing our coverage. Browse all shops in the meantime.
+        </p>
+        <a href="/directory" class="inline-flex items-center gap-2 mt-2 px-6 py-3 rounded-full bg-[var(--color-forest-700)] text-white text-sm font-semibold hover:bg-[var(--color-forest-800)] transition-colors">
+          Browse All Shops
+        </a>
+      </div>
+    )}
+  </div>
+
+  <!-- Other MRT stations -->
+  <section class="bg-[var(--color-cream-100)] border-t border-[var(--color-stone-200)] py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)]">
+        Other MRT Stations
+      </h2>
+      <div class="flex flex-wrap gap-2">
+        {MRT_STATIONS.filter(m => m.slug !== Astro.params.slug).map(m => (
+          <a
+            href={`/near-mrt/${m.slug}`}
+            class="text-sm px-4 py-2 rounded-full bg-white border border-[var(--color-stone-200)] text-[var(--color-stone-600)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors font-medium"
+          >
+            🚇 {m.name}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</Layout>

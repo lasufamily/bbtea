@@ -1,0 +1,85 @@
+---
+const year = new Date().getFullYear();
+
+const footerLinks = {
+  'Browse': [
+    { href: '/directory',   label: 'All Shops' },
+    { href: '/towns/orchard',  label: 'Towns' },
+    { href: '/categories/brown-sugar-milk-tea', label: 'Drink Types' },
+    { href: '/brands/tiger-sugar', label: 'Brands' },
+    { href: '/near-mrt/orchard-mrt', label: 'Near MRT' },
+  ],
+  'Popular Towns': [
+    { href: '/towns/orchard',   label: 'Orchard' },
+    { href: '/towns/bugis',     label: 'Bugis' },
+    { href: '/towns/tampines',  label: 'Tampines' },
+    { href: '/towns/jurong-east', label: 'Jurong East' },
+    { href: '/towns/woodlands', label: 'Woodlands' },
+  ],
+  'Drink Types': [
+    { href: '/categories/brown-sugar-milk-tea', label: 'Brown Sugar' },
+    { href: '/categories/taro-milk-tea',        label: 'Taro Milk Tea' },
+    { href: '/categories/matcha-series',        label: 'Matcha' },
+    { href: '/categories/fruit-tea',            label: 'Fruit Tea' },
+    { href: '/categories/cheese-foam',          label: 'Cheese Foam' },
+  ],
+};
+---
+
+<footer class="bg-[var(--color-stone-900)] text-white">
+  <!-- Top section -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-10">
+
+      <!-- Brand column -->
+      <div class="lg:col-span-2 space-y-5">
+        <a href="/" class="inline-flex items-center gap-2 text-2xl font-display font-bold tracking-tight">
+          🧋 Bubble Tea <span class="text-[var(--color-boba-400)]">SG</span>
+        </a>
+        <p class="text-sm text-[var(--color-stone-400)] leading-relaxed max-w-sm">
+          Singapore's most comprehensive bubble tea directory — discover the best
+          boba shops across the island, from Orchard to Woodlands.
+        </p>
+        <div class="flex gap-4 pt-1">
+          <a href="/search" class="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-stone-400)] hover:text-white transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            Search
+          </a>
+        </div>
+      </div>
+
+      <!-- Link columns -->
+      {Object.entries(footerLinks).map(([heading, links]) => (
+        <div>
+          <h3 class="text-xs font-semibold tracking-widest uppercase text-[var(--color-stone-400)] mb-4">
+            {heading}
+          </h3>
+          <ul class="space-y-2.5">
+            {links.map(link => (
+              <li>
+                <a
+                  href={link.href}
+                  class="text-sm text-[var(--color-stone-400)] hover:text-white transition-colors link-underline"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-xs text-[var(--color-stone-400)]">
+        © {year} Bubble Tea SG. All rights reserved. · Singapore 🇸🇬
+      </p>
+      <p class="text-xs text-[var(--color-stone-400)]">
+        Built with love for bubble tea lovers across the island.
+      </p>
+    </div>
+  </div>
+</footer>

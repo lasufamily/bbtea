@@ -1,0 +1,282 @@
+---
+import Layout from '../components/Layout.astro';
+import SearchBox from '../components/SearchBox.astro';
+import ListingCard from '../components/ListingCard.astro';
+import BrandCard from '../components/BrandCard.astro';
+import TownCard from '../components/TownCard.astro';
+import CategoryCard from '../components/CategoryCard.astro';
+import { getBrands, getOutlets, getCategories } from '../lib/airtable';
+import { TOWNS } from '../lib/mockData';
+
+const [brands, outlets, categories] = await Promise.all([
+  getBrands(),
+  getOutlets(),
+  getCategories(),
+]);
+
+const featuredBrands   = brands.filter(b => b.featured).slice(0, 5);
+const featuredOutlets  = outlets.filter(o => o.featured).slice(0, 6);
+const featuredTowns    = TOWNS.slice(0, 8);
+const featuredCategories = categories.slice(0, 4);
+
+// Outlet count per brand
+const brandOutletCount = (brandSlug: string) =>
+  outlets.filter(o => o.brandSlug === brandSlug).length;
+
+// Outlet count per town
+const townOutletCount = (townSlug: string) =>
+  outlets.filter(o => o.townSlug === townSlug).length;
+
+// Outlet count per category
+const categoryOutletCount = (catSlug: string) =>
+  outlets.filter(o => o.drinkCategorySlugs?.includes(catSlug)).length;
+
+const totalOutlets = outlets.length;
+const totalBrands  = brands.length;
+const totalTowns   = TOWNS.length;
+---
+
+<Layout
+  title="Bubble Tea SG — Singapore's Best Bubble Tea Directory"
+  description="Discover the best bubble tea shops across Singapore. Browse by town, brand, or drink type and find your perfect boba."
+>
+
+  <!-- ═══════════════════════════════════
+       HERO
+  ════════════════════════════════════ -->
+  <section class="relative min-h-[92vh] flex flex-col items-center justify-center overflow-hidden bg-[var(--color-forest-900)]" aria-label="Hero">
+
+    <!-- Background image -->
+    <div class="absolute inset-0">
+      <img
+        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&auto=format&fit=crop&q=80"
+        alt="Bubble tea with brown sugar drizzle"
+        class="w-full h-full object-cover opacity-25"
+        fetchpriority="high"
+        decoding="async"
+        width="1920"
+        height="1080"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-forest-900)]/60 via-[var(--color-forest-900)]/50 to-[var(--color-forest-900)]/80"></div>
+    </div>
+
+    <!-- Decorative elements -->
+    <div class="absolute top-24 left-8 text-white/10 text-8xl font-display select-none hidden lg:block" aria-hidden="true">茶</div>
+    <div class="absolute bottom-32 right-8 text-white/10 text-8xl font-display select-none hidden lg:block" aria-hidden="true">珍</div>
+
+    <!-- Hero content -->
+    <div class="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto space-y-8">
+      <!-- Eyebrow -->
+      <p class="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-boba-400)] bg-[var(--color-boba-400)]/10 border border-[var(--color-boba-400)]/20 px-4 py-2 rounded-full">
+        <span class="text-base">🇸🇬</span> Singapore's Boba Directory
+      </p>
+
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display font-bold text-white leading-tight text-balance">
+        Discover the Best<br />
+        <span class="italic text-[var(--color-boba-400)]">Bubble Tea Shops</span><br />
+        Across Singapore
+      </h1>
+
+      <p class="text-lg text-white/70 max-w-xl mx-auto leading-relaxed">
+        From Woodlands to Bedok, Orchard to Punggol — your curated guide to
+        {totalOutlets} bubble tea outlets and {totalBrands} brands island-wide.
+      </p>
+
+      <!-- Search bar -->
+      <div class="max-w-xl mx-auto">
+        <SearchBox large placeholder="Search shops, towns, brands, MRT…" id="hero-search" />
+      </div>
+
+      <!-- Quick links -->
+      <div class="flex flex-wrap items-center justify-center gap-2 pt-2">
+        <span class="text-sm text-white/50">Popular:</span>
+        {['Brown Sugar', 'Orchard', 'Halal-Friendly', 'Jurong East', 'Tiger Sugar'].map(tag => (
+          <a
+            href={`/search?q=${encodeURIComponent(tag)}`}
+            class="text-xs px-3 py-1.5 rounded-full bg-white/10 text-white/80 hover:bg-white/20 hover:text-white border border-white/10 transition-colors"
+          >
+            {tag}
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Scroll cue -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40">
+      <span class="text-xs tracking-widest uppercase">Scroll</span>
+      <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       STATS BAR
+  ════════════════════════════════════ -->
+  <section class="bg-[var(--color-forest-700)] text-white py-8">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <dl class="grid grid-cols-3 gap-4 text-center">
+        {[
+          { value: totalOutlets, label: 'Outlets Listed' },
+          { value: totalBrands,  label: 'Brands' },
+          { value: totalTowns,   label: 'Neighbourhoods' },
+        ].map(stat => (
+          <div class="space-y-1">
+            <dt class="text-3xl font-display font-bold">{stat.value}+</dt>
+            <dd class="text-sm text-white/70 font-medium">{stat.label}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       FEATURED SHOPS
+  ════════════════════════════════════ -->
+  <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <header class="mb-10 flex items-end justify-between gap-4">
+      <div class="space-y-2">
+        <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">Curated Selection</p>
+        <h2 class="text-3xl lg:text-4xl font-display font-bold text-[var(--color-stone-900)]">
+          Featured Shops
+        </h2>
+        <p class="text-[var(--color-stone-600)] text-base max-w-lg">
+          Hand-picked bubble tea destinations worth a detour, wherever you are on the island.
+        </p>
+      </div>
+      <a
+        href="/directory"
+        class="hidden sm:inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] transition-colors link-underline"
+      >
+        View all {totalOutlets} shops
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </header>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {featuredOutlets.map((outlet, i) => (
+        <ListingCard outlet={outlet} featured={i === 0} />
+      ))}
+    </div>
+
+    <div class="mt-10 text-center">
+      <a
+        href="/directory"
+        class="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[var(--color-forest-700)] text-white text-sm font-semibold hover:bg-[var(--color-forest-800)] transition-colors shadow-sm"
+      >
+        Explore the Full Directory
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       TOWNS
+  ════════════════════════════════════ -->
+  <section class="py-20 bg-[var(--color-cream-100)]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <header class="mb-10 flex items-end justify-between gap-4">
+        <div class="space-y-2">
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">Browse by Location</p>
+          <h2 class="text-3xl lg:text-4xl font-display font-bold text-[var(--color-stone-900)]">
+            Explore by Town
+          </h2>
+          <p class="text-[var(--color-stone-600)] text-base max-w-lg">
+            Find boba near you — from heartland favourites to Orchard corridor flagship stores.
+          </p>
+        </div>
+      </header>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        {featuredTowns.map(town => (
+          <TownCard town={town} outletCount={townOutletCount(town.slug)} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       DRINK CATEGORIES
+  ════════════════════════════════════ -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <header class="mb-10 space-y-2">
+        <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">What Are You Craving?</p>
+        <h2 class="text-3xl lg:text-4xl font-display font-bold text-[var(--color-stone-900)]">
+          Browse by Drink Type
+        </h2>
+        <p class="text-[var(--color-stone-600)] text-base max-w-lg">
+          From classic milk teas to indulgent brown sugar creations — find your signature order.
+        </p>
+      </header>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {featuredCategories.map(cat => (
+          <CategoryCard category={cat} outletCount={categoryOutletCount(cat.slug)} />
+        ))}
+      </div>
+
+      <div class="mt-8 text-center">
+        <a
+          href="/categories/brown-sugar-milk-tea"
+          class="text-sm font-semibold text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] link-underline transition-colors"
+        >
+          Browse all drink categories →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       BRANDS
+  ════════════════════════════════════ -->
+  <section class="py-20 bg-[var(--color-cream-100)]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <header class="mb-10 flex items-end justify-between gap-4">
+        <div class="space-y-2">
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">The Names You Know</p>
+          <h2 class="text-3xl lg:text-4xl font-display font-bold text-[var(--color-stone-900)]">
+            Featured Brands
+          </h2>
+          <p class="text-[var(--color-stone-600)] text-base max-w-lg">
+            From Taiwan-born icons to Singapore originals — meet the brands shaping the boba scene here.
+          </p>
+        </div>
+      </header>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+        {featuredBrands.map(brand => (
+          <BrandCard brand={brand} outletCount={brandOutletCount(brand.slug)} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       EDITORIAL STRIP
+  ════════════════════════════════════ -->
+  <section class="py-24 bg-[var(--color-forest-800)] text-white overflow-hidden relative">
+    <div class="absolute inset-0 opacity-5" aria-hidden="true">
+      <div class="text-[20rem] font-display font-bold leading-none text-right pr-8 select-none">茶</div>
+    </div>
+    <div class="relative max-w-3xl mx-auto px-4 sm:px-6 text-center space-y-6">
+      <h2 class="text-3xl lg:text-5xl font-display font-bold italic leading-tight">
+        "Life is better<br />with bubble tea."
+      </h2>
+      <p class="text-white/70 text-base leading-relaxed max-w-xl mx-auto">
+        Whether you're a daily taro devotee, a weekend brown sugar pilgrim, or you've just discovered the bliss of bursting popping boba — Singapore has a cup waiting for you.
+      </p>
+      <a
+        href="/directory"
+        class="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-white text-[var(--color-forest-800)] text-sm font-semibold hover:bg-[var(--color-cream-100)] transition-colors"
+      >
+        Find Your Next Cup
+      </a>
+    </div>
+  </section>
+
+</Layout>

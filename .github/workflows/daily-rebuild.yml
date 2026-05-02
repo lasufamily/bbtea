@@ -1,0 +1,19 @@
+name: Daily Rebuild
+
+on:
+  # Runs at 02:00 UTC = 10:00 SGT every day
+  schedule:
+    - cron: '0 2 * * *'
+  # Allow manual trigger from GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  rebuild:
+    name: Trigger Cloudflare Pages Deploy Hook
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger deploy
+        run: |
+          curl -s -X POST "${{ secrets.CF_DEPLOY_HOOK_URL }}" \
+            -o /dev/null \
+            -w "HTTP status: %{http_code}\n"

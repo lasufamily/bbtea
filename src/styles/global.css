@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────
+   Design Tokens – Singapore Boba Directory
+   ───────────────────────────────────────── */
+@theme {
+  /* Palette */
+  --color-cream-50:  #FDFCF8;
+  --color-cream-100: #F8F4EC;
+  --color-cream-200: #EFE7D6;
+
+  --color-forest-700: #1C3D2E;
+  --color-forest-800: #153024;
+  --color-forest-900: #0E2019;
+
+  --color-boba-400:  #C87941;
+  --color-boba-500:  #A85E28;
+  --color-boba-600:  #8A4A1A;
+
+  --color-taro-400:  #9B7BB8;
+  --color-taro-500:  #7C5B9A;
+  --color-taro-600:  #5E3F7A;
+
+  --color-blush-100: #FDF0EC;
+  --color-blush-200: #F9E0D6;
+
+  --color-stone-100: #F5F5F0;
+  --color-stone-200: #E8E8E0;
+  --color-stone-400: #AEAE9E;
+  --color-stone-600: #6B6B5E;
+  --color-stone-800: #2A2A22;
+  --color-stone-900: #1A1A14;
+
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-sans:    'Inter', system-ui, sans-serif;
+
+  /* Spacing scale extras */
+  --spacing-18: 4.5rem;
+  --spacing-22: 5.5rem;
+  --spacing-88: 22rem;
+  --spacing-100: 25rem;
+  --spacing-112: 28rem;
+  --spacing-120: 30rem;
+}
+
+/* ─────────────────────────────────────────
+   Base styles
+   ───────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--color-cream-50);
+    color: var(--color-stone-900);
+    font-family: var(--font-sans);
+    line-height: 1.65;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    line-height: 1.2;
+    color: var(--color-stone-900);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  ::selection {
+    background-color: var(--color-forest-700);
+    color: #fff;
+  }
+}
+
+/* ─────────────────────────────────────────
+   Utilities / helpers
+   ───────────────────────────────────────── */
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .font-sans    { font-family: var(--font-sans); }
+
+  .text-balance { text-wrap: balance; }
+
+  /* Hover lift card */
+  .card-lift {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .card-lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.10);
+  }
+
+  /* Subtle link underline */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0 1px;
+    transition: background-size 0.25s ease;
+  }
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
+
+  /* Editorial divider */
+  .divider-ornament::before,
+  .divider-ornament::after {
+    content: '';
+    display: inline-block;
+    width: 40px;
+    height: 1px;
+    background: currentColor;
+    vertical-align: middle;
+    margin: 0 12px;
+    opacity: 0.4;
+  }
+}

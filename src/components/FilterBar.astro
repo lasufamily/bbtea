@@ -1,0 +1,171 @@
+---
+import type { Brand, DrinkCategory, MrtStation } from '../lib/types';
+import { TOWNS, MRT_STATIONS } from '../lib/mockData';
+
+interface Props {
+  brands: Brand[];
+  categories: DrinkCategory[];
+  selectedTown?: string;
+  selectedBrand?: string;
+  selectedCategory?: string;
+  selectedMrt?: string;
+  selectedPrice?: string;
+  selectedHalal?: string;
+}
+
+const {
+  brands,
+  categories,
+  selectedTown = '',
+  selectedBrand = '',
+  selectedCategory = '',
+  selectedMrt = '',
+  selectedPrice = '',
+  selectedHalal = '',
+} = Astro.props;
+---
+
+<aside aria-label="Filter shops" class="bg-white border border-[var(--color-stone-200)] rounded-2xl p-6 space-y-6 sticky top-24 shadow-sm">
+  <div class="flex items-center justify-between">
+    <h2 class="text-sm font-semibold tracking-wide uppercase text-[var(--color-stone-500)]">
+      Filter
+    </h2>
+    <a
+      href="/directory"
+      class="text-xs text-[var(--color-forest-700)] hover:underline font-medium"
+    >
+      Clear all
+    </a>
+  </div>
+
+  <form id="filter-form" method="get" action="/directory" class="space-y-5">
+
+    <!-- Town -->
+    <div class="space-y-2">
+      <label for="filter-town" class="text-xs font-semibold text-[var(--color-stone-600)] uppercase tracking-wider">
+        Town
+      </label>
+      <select
+        id="filter-town"
+        name="town"
+        class="w-full text-sm rounded-lg border border-[var(--color-stone-200)] bg-white px-3 py-2.5 text-[var(--color-stone-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-forest-700)] cursor-pointer"
+      >
+        <option value="">All Towns</option>
+        {TOWNS.map(town => (
+          <option value={town.slug} selected={selectedTown === town.slug}>
+            {town.name}
+          </option>
+        ))}
+      </select>
+    </div>
+
+    <!-- Brand -->
+    <div class="space-y-2">
+      <label for="filter-brand" class="text-xs font-semibold text-[var(--color-stone-600)] uppercase tracking-wider">
+        Brand
+      </label>
+      <select
+        id="filter-brand"
+        name="brand"
+        class="w-full text-sm rounded-lg border border-[var(--color-stone-200)] bg-white px-3 py-2.5 text-[var(--color-stone-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-forest-700)] cursor-pointer"
+      >
+        <option value="">All Brands</option>
+        {brands.map(brand => (
+          <option value={brand.slug} selected={selectedBrand === brand.slug}>
+            {brand.name}
+          </option>
+        ))}
+      </select>
+    </div>
+
+    <!-- Drink Category -->
+    <div class="space-y-2">
+      <label for="filter-category" class="text-xs font-semibold text-[var(--color-stone-600)] uppercase tracking-wider">
+        Drink Type
+      </label>
+      <select
+        id="filter-category"
+        name="category"
+        class="w-full text-sm rounded-lg border border-[var(--color-stone-200)] bg-white px-3 py-2.5 text-[var(--color-stone-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-forest-700)] cursor-pointer"
+      >
+        <option value="">All Types</option>
+        {categories.map(cat => (
+          <option value={cat.slug} selected={selectedCategory === cat.slug}>
+            {cat.name}
+          </option>
+        ))}
+      </select>
+    </div>
+
+    <!-- Nearest MRT -->
+    <div class="space-y-2">
+      <label for="filter-mrt" class="text-xs font-semibold text-[var(--color-stone-600)] uppercase tracking-wider">
+        Nearest MRT
+      </label>
+      <select
+        id="filter-mrt"
+        name="mrt"
+        class="w-full text-sm rounded-lg border border-[var(--color-stone-200)] bg-white px-3 py-2.5 text-[var(--color-stone-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-forest-700)] cursor-pointer"
+      >
+        <option value="">Any MRT</option>
+        {MRT_STATIONS.map(mrt => (
+          <option value={mrt.slug} selected={selectedMrt === mrt.slug}>
+            {mrt.name}
+          </option>
+        ))}
+      </select>
+    </div>
+
+    <!-- Price range -->
+    <div class="space-y-2">
+      <span class="text-xs font-semibold text-[var(--color-stone-600)] uppercase tracking-wider block">
+        Price Range
+      </span>
+      <div class="flex gap-2">
+        {(['$', '$$', '$$$'] as const).map(price => (
+          <label class={`flex-1 text-center cursor-pointer px-2 py-2 rounded-lg border text-sm font-semibold transition-colors ${selectedPrice === price ? 'bg-[var(--color-forest-700)] text-white border-[var(--color-forest-700)]' : 'border-[var(--color-stone-200)] text-[var(--color-stone-600)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)]'}`}>
+            <input type="radio" name="price" value={price} class="sr-only" checked={selectedPrice === price} />
+            {price}
+          </label>
+        ))}
+      </div>
+    </div>
+
+    <!-- Halal -->
+    <div class="flex items-center justify-between">
+      <label for="filter-halal" class="text-sm font-medium text-[var(--color-stone-700)] cursor-pointer">
+        Halal-friendly only
+      </label>
+      <input
+        type="checkbox"
+        id="filter-halal"
+        name="halal"
+        value="true"
+        checked={selectedHalal === 'true'}
+        class="w-4 h-4 rounded accent-[var(--color-forest-700)] cursor-pointer"
+      />
+    </div>
+
+    <!-- Apply -->
+    <button
+      type="submit"
+      class="w-full py-3 rounded-full text-sm font-semibold bg-[var(--color-forest-700)] text-white hover:bg-[var(--color-forest-800)] transition-colors mt-2"
+    >
+      Apply Filters
+    </button>
+  </form>
+</aside>
+
+<script>
+  // Auto-submit on select change for snappy UX
+  document.querySelectorAll<HTMLSelectElement>('#filter-form select').forEach(sel => {
+    sel.addEventListener('change', () => {
+      (sel.closest('form') as HTMLFormElement)?.submit();
+    });
+  });
+
+  // Auto-submit on checkbox change
+  document.getElementById('filter-halal')?.addEventListener('change', () => {
+    (document.getElementById('filter-form') as HTMLFormElement)?.submit();
+  });
+</script>

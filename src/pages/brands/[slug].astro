@@ -1,0 +1,128 @@
+---
+import Layout from '../../components/Layout.astro';
+import ListingCard from '../../components/ListingCard.astro';
+import { getBrands, getOutlets } from '../../lib/airtable';
+import type { Brand } from '../../lib/types';
+
+export async function getStaticPaths() {
+  const brands = await getBrands();
+  return brands.map(brand => ({
+    params: { slug: brand.slug },
+    props:  { brand },
+  }));
+}
+
+interface Props { brand: Brand }
+const { brand } = Astro.props;
+
+const allOutlets = await getOutlets();
+const outlets    = allOutlets.filter(o => o.brandSlug === brand.slug);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: brand.name,
+  description: brand.description,
+  url: brand.websiteUrl ?? `https://bubbleteasg.com/brands/${brand.slug}`,
+  ...(brand.logo && { logo: brand.logo }),
+  ...(brand.instagramUrl && { sameAs: [brand.instagramUrl] }),
+};
+---
+
+<Layout
+  title={`${brand.name} Bubble Tea Outlets in Singapore | Bubble Tea SG`}
+  description={`Find all ${brand.name} bubble tea outlets in Singapore. ${brand.description ?? ''}`}
+  image={brand.logo}
+  type="article"
+  canonical={`https://bubbleteasg.com/brands/${brand.slug}`}
+  jsonLd={jsonLd}
+>
+
+  <!-- Header -->
+  <section class="bg-[var(--color-cream-100)] border-b border-[var(--color-stone-200)] py-14">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="text-sm text-[var(--color-stone-400)] mb-6 flex items-center gap-1.5" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-[var(--color-stone-700)] transition-colors">Home</a>
+        <span>/</span>
+        <a href="/directory" class="hover:text-[var(--color-stone-700)] transition-colors">Directory</a>
+        <span>/</span>
+        <span class="text-[var(--color-stone-700)] font-medium">{brand.name}</span>
+      </nav>
+
+      <div class="flex items-start gap-6">
+        {brand.logo && (
+          <div class="w-16 h-16 lg:w-20 lg:h-20 rounded-2xl overflow-hidden border border-[var(--color-stone-200)] bg-white flex-shrink-0 shadow-sm">
+            <img
+              src={brand.logo}
+              alt={`${brand.name} logo`}
+              class="w-full h-full object-cover"
+              loading="eager"
+              decoding="async"
+              width="80"
+              height="80"
+            />
+          </div>
+        )}
+        <div class="space-y-2 flex-1" data-pagefind-body>
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">Brand</p>
+          <h1 class="text-3xl lg:text-4xl font-display font-bold text-[var(--color-stone-900)]">{brand.name}</h1>
+          {brand.description && (
+            <p class="text-[var(--color-stone-600)] text-base leading-relaxed max-w-2xl">{brand.description}</p>
+          )}
+          <div class="flex items-center gap-4 pt-2">
+            <span class="text-sm text-[var(--color-stone-500)]">
+              {outlets.length} outlet{outlets.length !== 1 ? 's' : ''} in Singapore
+            </span>
+            {brand.websiteUrl && (
+              <a
+                href={brand.websiteUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-sm font-medium text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] flex items-center gap-1 transition-colors"
+              >
+                Website
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                </svg>
+              </a>
+            )}
+            {brand.instagramUrl && (
+              <a
+                href={brand.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-sm font-medium text-[var(--color-stone-500)] hover:text-[var(--color-stone-800)] flex items-center gap-1 transition-colors"
+              >
+                Instagram
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                </svg>
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Outlets grid -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    {outlets.length > 0 ? (
+      <>
+        <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)] mb-6">
+          All {brand.name} Locations
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {outlets.map(outlet => <ListingCard outlet={outlet} />)}
+        </div>
+      </>
+    ) : (
+      <div class="text-center py-20 space-y-4">
+        <p class="text-5xl">🏗️</p>
+        <p class="text-[var(--color-stone-500)]">No outlets listed yet for {brand.name}.</p>
+        <a href="/directory" class="text-[var(--color-forest-700)] font-medium hover:underline">Browse all shops →</a>
+      </div>
+    )}
+  </div>
+
+</Layout>

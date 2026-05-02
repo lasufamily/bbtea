@@ -1,0 +1,117 @@
+---
+import Layout from '../components/Layout.astro';
+import SearchBox from '../components/SearchBox.astro';
+
+const query = Astro.url.searchParams.get('q') ?? '';
+---
+
+<Layout
+  title={query ? `Search results for "${query}" | Bubble Tea SG` : 'Search | Bubble Tea SG'}
+  description="Search for bubble tea shops, brands, towns, MRT stations and drink types across Singapore."
+>
+
+  <!-- Header -->
+  <section class="bg-[var(--color-cream-100)] border-b border-[var(--color-stone-200)] py-12">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 space-y-4">
+      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
+        Search
+      </p>
+      <h1 class="text-3xl font-display font-bold text-[var(--color-stone-900)]">
+        {query ? <>Results for <em class="not-italic text-[var(--color-forest-700)]">"{query}"</em></> : 'Find Your Perfect Boba'}
+      </h1>
+      <SearchBox large placeholder="Search shops, brands, towns, drinks…" id="main-search" />
+    </div>
+  </section>
+
+  <!-- Pagefind results -->
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- Pagefind UI is injected here after build -->
+    <div id="pagefind-search" class="space-y-6">
+      {!query && (
+        <div class="text-center py-16 space-y-4">
+          <p class="text-5xl">🧋</p>
+          <p class="text-[var(--color-stone-500)] text-base">
+            Type something above to search across all shops, brands, and towns.
+          </p>
+          <div class="flex flex-wrap gap-2 justify-center pt-2">
+            {['Tiger Sugar', 'Brown Sugar', 'Orchard', 'Halal', 'Matcha', 'Taro'].map(s => (
+              <a
+                href={`/search?q=${encodeURIComponent(s)}`}
+                class="text-sm px-4 py-2 rounded-full bg-[var(--color-cream-100)] text-[var(--color-stone-600)] border border-[var(--color-stone-200)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors"
+              >
+                {s}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+
+  </section>
+
+</Layout>
+
+<!-- Pagefind UI — active only after `npm run build` -->
+<link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+<script src="/pagefind/pagefind-ui.js" is:inline></script>
+<script define:vars={{ query }}>
+  function initPagefind() {
+    if (typeof PagefindUI === 'undefined') return;
+    const el = document.getElementById('pagefind-search');
+    if (!el) return;
+    el.innerHTML = '';
+    new PagefindUI({
+      element: '#pagefind-search',
+      showSubResults: true,
+      showImages: true,
+      resetStyles: false,
+      translations: {
+        placeholder: 'Search bubble tea shops…',
+        zero_results: 'No results found for [SEARCH_TERM].',
+      },
+    });
+    if (query) {
+      setTimeout(() => {
+        const inp = el.querySelector('input[type=text]');
+        if (inp) {
+          inp.value = query;
+          inp.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+      }, 150);
+    }
+  }
+
+  if (document.readyState === 'complete') {
+    initPagefind();
+  } else {
+    window.addEventListener('load', initPagefind);
+  }
+</script>
+
+<style is:global>
+  /* Pagefind UI theme overrides */
+  :root {
+    --pagefind-ui-scale: 0.9;
+    --pagefind-ui-primary: var(--color-forest-700);
+    --pagefind-ui-text: var(--color-stone-900);
+    --pagefind-ui-background: transparent;
+    --pagefind-ui-border: var(--color-stone-200);
+    --pagefind-ui-tag: var(--color-cream-100);
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: 12px;
+    --pagefind-ui-font: var(--font-sans);
+  }
+  .pagefind-ui__search-input {
+    border-radius: 99px !important;
+    padding-left: 1.25rem !important;
+  }
+  .pagefind-ui__result {
+    border-bottom: 1px solid var(--color-stone-200) !important;
+    padding: 1.25rem 0 !important;
+  }
+  .pagefind-ui__result-title {
+    font-family: var(--font-display) !important;
+    font-size: 1rem !important;
+  }
+</style>
