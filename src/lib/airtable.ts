@@ -55,7 +55,8 @@ async function fetchTable<T>(
     );
 
     if (!res.ok) {
-      throw new Error(`Airtable fetch failed: ${res.status} ${res.statusText}`);
+      const url = `${BASE_URL}/${encodeURIComponent(tableName)}`;
+      throw new Error(`Airtable fetch failed: ${res.status} ${res.statusText} — URL: ${url}`);
     }
 
     const data = (await res.json()) as AirtableResponse<T>;
