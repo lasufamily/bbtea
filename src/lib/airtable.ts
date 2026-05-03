@@ -2,8 +2,8 @@
  * Airtable data-fetching helpers.
  *
  * All fetching happens at BUILD TIME only — this file is never shipped to
- * the browser. When the env vars are absent (local dev without Airtable)
- * we fall back to the bundled mock data automatically.
+ * the browser. Both AIRTABLE_API_KEY and AIRTABLE_BASE_ID must be set;
+ * an error is thrown at build time if either is missing.
  */
 
 import type {
@@ -12,18 +12,19 @@ import type {
   AirtableRecord, AirtableResponse,
 } from './types';
 
-import { BRANDS, OUTLETS, CATEGORIES } from './mockData';
-
 // ─────────────────────────────────────────
 // Config
 // ─────────────────────────────────────────
-const API_KEY      = import.meta.env.AIRTABLE_API_KEY;
-const BASE_ID      = import.meta.env.AIRTABLE_BASE_ID;
-const USE_MOCK     = import.meta.env.USE_MOCK_DATA === 'true';
-const BASE_URL     = `https://api.airtable.com/v0/${BASE_ID}`;
+const API_KEY  = import.meta.env.AIRTABLE_API_KEY;
+const BASE_ID  = import.meta.env.AIRTABLE_BASE_ID;
+const BASE_URL = `https://api.airtable.com/v0/${BASE_ID}`;
 
-function useMock(): boolean {
-  return USE_MOCK || !API_KEY || !BASE_ID;
+function assertConfig(): void {
+  if (!API_KEY || !BASE_ID) {
+    throw new Error(
+      '[airtable] Missing env vars. Set AIRTABLE_API_KEY and AIRTABLE_BASE_ID before building.',
+    );
+  }
 }
 
 // ─────────────────────────────────────────
@@ -33,6 +34,8 @@ async function fetchTable<T>(
   tableName: string,
   filterFormula?: string,
 ): Promise<AirtableRecord<T>[]> {
+  assertConfig();
+
   const records: AirtableRecord<T>[] = [];
   let offset: string | undefined;
 
@@ -67,11 +70,9 @@ async function fetchTable<T>(
 // Brands
 // ─────────────────────────────────────────
 export async function getBrands(): Promise<Brand[]> {
-  if (useMock()) return BRANDS.filter(b => b.published);
-
   const records = await fetchTable<AirtableBrandFields>(
     'Brands',
-    "{Published} = TRUE()",
+    '{Published} = TRUE()',
   );
 
   return records.map(r => {
@@ -91,13 +92,12 @@ export async function getBrands(): Promise<Brand[]> {
 }
 
 export async function getBrandBySlug(slug: string): Promise<Brand | undefined> {
-  if (useMock()) return BRANDS.find(b => b.slug === slug && b.published);
-
   const records = await fetchTable<AirtableBrandFields>(
     'Brands',
     `AND({Slug} = "${slug}", {Published} = TRUE())`,
   );
-  const brands = await Promise.resolve(records.map(r => {
+
+  const brands = records.map(r => {
     const f = r.fields;
     return {
       id:           r.id,
@@ -110,7 +110,8 @@ export async function getBrandBySlug(slug: string): Promise<Brand | undefined> {
       featured:     f['Featured'] ?? false,
       published:    f['Published'] ?? false,
     } satisfies Brand;
-  }));
+  });
+
   return brands[0];
 }
 
@@ -188,8 +189,6 @@ async function buildOutlets(
 }
 
 export async function getOutlets(): Promise<Outlet[]> {
-  if (useMock()) return OUTLETS.filter(o => o.published);
-
   const [records, brands, cats] = await Promise.all([
     fetchTable<AirtableOutletFields>('Outlets', '{Published} = TRUE()'),
     getBrands(),
@@ -200,8 +199,6 @@ export async function getOutlets(): Promise<Outlet[]> {
 }
 
 export async function getOutletBySlug(slug: string): Promise<Outlet | undefined> {
-  if (useMock()) return OUTLETS.find(o => o.slug === slug && o.published);
-
   const [records, brands, cats] = await Promise.all([
     fetchTable<AirtableOutletFields>('Outlets', `AND({Slug} = "${slug}", {Published} = TRUE())`),
     getBrands(),
@@ -236,8 +233,6 @@ export async function getOutletsByMrt(mrtSlug: string): Promise<Outlet[]> {
 // Drink Categories
 // ─────────────────────────────────────────
 export async function getCategories(): Promise<DrinkCategory[]> {
-  if (useMock()) return CATEGORIES.filter(c => c.published);
-
   const records = await fetchTable<AirtableCategoryFields>(
     'Drink Categories',
     '{Published} = TRUE()',
@@ -257,12 +252,11 @@ export async function getCategories(): Promise<DrinkCategory[]> {
 }
 
 export async function getCategoryBySlug(slug: string): Promise<DrinkCategory | undefined> {
-  if (useMock()) return CATEGORIES.find(c => c.slug === slug && c.published);
-
   const records = await fetchTable<AirtableCategoryFields>(
     'Drink Categories',
     `AND({Slug} = "${slug}", {Published} = TRUE())`,
   );
+
   const cats = records.map(r => {
     const f = r.fields;
     return {
@@ -274,5 +268,6 @@ export async function getCategoryBySlug(slug: string): Promise<DrinkCategory | u
       published:   f['Published'] ?? false,
     } satisfies DrinkCategory;
   });
+
   return cats[0];
 }

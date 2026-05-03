@@ -3,7 +3,6 @@
 interface ImportMetaEnv {
   readonly AIRTABLE_API_KEY: string;
   readonly AIRTABLE_BASE_ID: string;
-  readonly USE_MOCK_DATA: string;
   readonly SITE_URL: string;
 }
 
