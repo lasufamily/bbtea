@@ -76,20 +76,22 @@ export async function getBrands(): Promise<Brand[]> {
     '{Published} = TRUE()',
   );
 
-  return records.map(r => {
-    const f = r.fields;
-    return {
-      id:           r.id,
-      name:         f['Brand Name'],
-      slug:         f['Slug'],
-      logo:         f['Logo']?.[0]?.thumbnails?.large?.url ?? f['Logo']?.[0]?.url,
-      description:  f['Description'],
-      websiteUrl:   f['Website URL'],
-      instagramUrl: f['Instagram URL'],
-      featured:     f['Featured'] ?? false,
-      published:    f['Published'] ?? false,
-    } satisfies Brand;
-  });
+  return records
+    .filter(r => r.fields['Brand Name'] && r.fields['Slug'])
+    .map(r => {
+      const f = r.fields;
+      return {
+        id:           r.id,
+        name:         f['Brand Name'],
+        slug:         f['Slug'],
+        logo:         f['Logo']?.[0]?.thumbnails?.large?.url ?? f['Logo']?.[0]?.url,
+        description:  f['Description'],
+        websiteUrl:   f['Website URL'],
+        instagramUrl: f['Instagram URL'],
+        featured:     f['Featured'] ?? false,
+        published:    f['Published'] ?? false,
+      } satisfies Brand;
+    });
 }
 
 export async function getBrandBySlug(slug: string): Promise<Brand | undefined> {
@@ -130,7 +132,9 @@ async function buildOutlets(
   const brandMap  = new Map(brands.map(b => [b.id, b]));
   const catMap    = new Map(categories.map(c => [c.id, c]));
 
-  return records.map(r => {
+  return records
+    .filter(r => r.fields['Outlet Name'] && r.fields['Slug'])
+    .map(r => {
     const f         = r.fields;
     const brandRef  = f['Brand']?.[0];
     const brand     = brandRef ? brandMap.get(brandRef) : undefined;
@@ -239,17 +243,19 @@ export async function getCategories(): Promise<DrinkCategory[]> {
     '{Published} = TRUE()',
   );
 
-  return records.map(r => {
-    const f = r.fields;
-    return {
-      id:          r.id,
-      name:        f['Category Name'],
-      slug:        f['Slug'],
-      description: f['Description'],
-      image:       f['Image'] ?? undefined,
-      published:   f['Published'] ?? false,
-    } satisfies DrinkCategory;
-  });
+  return records
+    .filter(r => r.fields['Category Name'] && r.fields['Slug'])
+    .map(r => {
+      const f = r.fields;
+      return {
+        id:          r.id,
+        name:        f['Category Name'],
+        slug:        f['Slug'],
+        description: f['Description'],
+        image:       f['Image'] ?? undefined,
+        published:   f['Published'] ?? false,
+      } satisfies DrinkCategory;
+    });
 }
 
 export async function getCategoryBySlug(slug: string): Promise<DrinkCategory | undefined> {
