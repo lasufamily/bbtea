@@ -176,8 +176,11 @@ async function buildOutlets(
       priceRange:           f['Price Range'],
       halalFriendly:        f['Halal-Friendly'] ?? false,
       seatingAvailable:     f['Seating Available'] ?? false,
-      image:                f['Image']?.[0]?.url,
-      galleryImages:        f['Gallery Images']?.map(i => i.url),
+      image:                f['Image'] ?? undefined,
+      galleryImages:        f['Gallery Images']
+                              ?.split(',')
+                              .map(s => s.trim())
+                              .filter(Boolean),
       featured:             f['Featured'] ?? false,
       published:            f['Published'] ?? false,
     } satisfies Outlet;
@@ -247,7 +250,7 @@ export async function getCategories(): Promise<DrinkCategory[]> {
       name:        f['Category Name'],
       slug:        f['Slug'],
       description: f['Description'],
-      image:       f['Image']?.[0]?.url,
+      image:       f['Image'] ?? undefined,
       published:   f['Published'] ?? false,
     } satisfies DrinkCategory;
   });
@@ -267,7 +270,7 @@ export async function getCategoryBySlug(slug: string): Promise<DrinkCategory | u
       name:        f['Category Name'],
       slug:        f['Slug'],
       description: f['Description'],
-      image:       f['Image']?.[0]?.url,
+      image:       f['Image'] ?? undefined,
       published:   f['Published'] ?? false,
     } satisfies DrinkCategory;
   });

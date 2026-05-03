@@ -114,8 +114,8 @@ export interface AirtableOutletFields {
   'Price Range'?: '$' | '$$' | '$$$';
   'Halal-Friendly'?: boolean;
   'Seating Available'?: boolean;
-  'Image'?: { url: string }[];
-  'Gallery Images'?: { url: string }[];
+  'Image'?: string;             // URL field (plain text)
+  'Gallery Images'?: string;    // URL field (plain text, comma-separated)
   'Featured'?: boolean;
   'Published'?: boolean;
 }
@@ -124,6 +124,6 @@ export interface AirtableCategoryFields {
   'Category Name': string;
   'Slug': string;
   'Description'?: string;
-  'Image'?: { url: string }[];
+  'Image'?: string;             // URL field (plain text)
   'Published'?: boolean;
 }
