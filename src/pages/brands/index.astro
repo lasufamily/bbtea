@@ -1,0 +1,95 @@
+---
+import Layout from '../../components/Layout.astro';
+import BrandCard from '../../components/BrandCard.astro';
+import { getBrands, getOutlets } from '../../lib/airtable';
+
+const [brands, outlets] = await Promise.all([getBrands(), getOutlets()]);
+
+const brandOutletCount = (brandSlug: string) =>
+  outlets.filter(o => o.brandSlug === brandSlug).length;
+
+const featuredBrands = brands.filter(b => b.featured);
+const allBrandsSorted = [...brands].sort((a, b) => a.name.localeCompare(b.name));
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Bubble Tea Brands in Singapore',
+  description: `Browse ${brands.length} bubble tea brands across Singapore.`,
+  url: 'https://bubbleteasg.com/brands',
+};
+---
+
+<Layout
+  title="Bubble Tea Brands in Singapore | Bubble Tea SG"
+  description={`Explore all ${brands.length} bubble tea brands in Singapore — from Taiwan-born icons like Tiger Sugar and Gong Cha to local favourites like KOI Thé and LiHo Tea.`}
+  canonical="https://bubbleteasg.com/brands"
+  jsonLd={jsonLd}
+>
+
+  <!-- Hero -->
+  <section class="bg-[var(--color-cream-100)] border-b border-[var(--color-stone-200)] py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4" data-pagefind-body>
+      <nav class="text-sm text-[var(--color-stone-400)] flex items-center gap-1.5" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-[var(--color-stone-700)] transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-[var(--color-stone-700)] font-medium">Brands</span>
+      </nav>
+      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
+        The Names You Know
+      </p>
+      <h1 class="text-3xl lg:text-5xl font-display font-bold text-[var(--color-stone-900)] leading-tight">
+        Bubble Tea Brands<br />in Singapore
+      </h1>
+      <p class="text-[var(--color-stone-600)] text-base max-w-2xl leading-relaxed">
+        From Taiwan-born icons to Singapore originals — meet the {brands.length} brands shaping the boba scene across the island.
+      </p>
+      <div class="flex flex-wrap items-center gap-6 pt-2">
+        <div class="text-sm">
+          <span class="font-bold text-xl text-[var(--color-stone-900)]">{brands.length}</span>
+          <span class="text-[var(--color-stone-400)] ml-1">brands</span>
+        </div>
+        <div class="text-sm">
+          <span class="font-bold text-xl text-[var(--color-stone-900)]">{outlets.length}</span>
+          <span class="text-[var(--color-stone-400)] ml-1">total outlets</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-16">
+
+    <!-- Featured spotlight -->
+    {featuredBrands.length > 0 && (
+      <section class="space-y-6">
+        <header class="space-y-1">
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">Partner Spotlight</p>
+          <h2 class="text-2xl font-display font-bold text-[var(--color-stone-900)]">Featured Brands</h2>
+        </header>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+          {featuredBrands.map(brand => (
+            <BrandCard brand={brand} outletCount={brandOutletCount(brand.slug)} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- All brands A–Z -->
+    <section class="space-y-6">
+      <header class="flex items-end justify-between gap-4">
+        <div class="space-y-1">
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">A–Z</p>
+          <h2 class="text-2xl font-display font-bold text-[var(--color-stone-900)]">All Brands</h2>
+        </div>
+        <span class="text-sm text-[var(--color-stone-400)]">{brands.length} brands</span>
+      </header>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        {allBrandsSorted.map(brand => (
+          <BrandCard brand={brand} outletCount={brandOutletCount(brand.slug)} />
+        ))}
+      </div>
+    </section>
+
+  </div>
+
+</Layout>

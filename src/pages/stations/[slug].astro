@@ -26,21 +26,21 @@ interface Props {
   outlets: Awaited<ReturnType<typeof getOutlets>>;
 }
 const { station, outlets } = Astro.props;
-const stationName = station?.name ?? Astro.params.slug.replace(/-mrt$/, '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+const stationName = station?.name ?? Astro.params.slug.replace(/-mrt$/, '').replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
   name: `Bubble Tea Shops Near ${stationName} MRT`,
   description: `Find ${outlets.length} bubble tea shops near ${stationName} MRT station in Singapore.`,
-  url: `https://bubbleteasg.com/near-mrt/${Astro.params.slug}`,
+  url: `https://bubbleteasg.com/stations/${Astro.params.slug}`,
 };
 ---
 
 <Layout
   title={`Bubble Tea Near ${stationName} MRT | Bubble Tea SG`}
   description={`Find ${outlets.length} bubble tea shops near ${stationName} MRT station in Singapore.`}
-  canonical={`https://bubbleteasg.com/near-mrt/${Astro.params.slug}`}
+  canonical={`https://bubbleteasg.com/stations/${Astro.params.slug}`}
   jsonLd={jsonLd}
 >
 
@@ -50,9 +50,7 @@ const jsonLd = {
       <nav class="text-sm text-white/50 flex items-center gap-1.5" aria-label="Breadcrumb">
         <a href="/" class="hover:text-white transition-colors">Home</a>
         <span>/</span>
-        <a href="/directory" class="hover:text-white transition-colors">Directory</a>
-        <span>/</span>
-        <span class="text-white/80">Near MRT</span>
+        <a href="/stations" class="hover:text-white transition-colors">Stations</a>
         <span>/</span>
         <span class="text-white font-medium">{stationName}</span>
       </nav>
@@ -99,13 +97,18 @@ const jsonLd = {
   <!-- Other MRT stations -->
   <section class="bg-[var(--color-cream-100)] border-t border-[var(--color-stone-200)] py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-      <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)]">
-        Other MRT Stations
-      </h2>
+      <div class="flex items-center justify-between gap-4">
+        <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)]">
+          Other MRT Stations
+        </h2>
+        <a href="/stations" class="text-sm font-semibold text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] transition-colors">
+          View all →
+        </a>
+      </div>
       <div class="flex flex-wrap gap-2">
         {MRT_STATIONS.filter(m => m.slug !== Astro.params.slug).map(m => (
           <a
-            href={`/near-mrt/${m.slug}`}
+            href={`/stations/${m.slug}`}
             class="text-sm px-4 py-2 rounded-full bg-white border border-[var(--color-stone-200)] text-[var(--color-stone-600)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors font-medium"
           >
             🚇 {m.name}

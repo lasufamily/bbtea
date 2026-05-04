@@ -1,0 +1,98 @@
+---
+import Layout from '../../components/Layout.astro';
+import { getOutlets } from '../../lib/airtable';
+import { MRT_STATIONS } from '../../lib/mockData';
+
+const outlets = await getOutlets();
+
+const stationOutletCount = (slug: string) =>
+  outlets.filter(o => o.mrtSlug === slug).length;
+
+// Group stations by line
+const lineGroups: Record<string, typeof MRT_STATIONS> = {};
+for (const station of MRT_STATIONS) {
+  const lines = station.line?.split(' / ') ?? ['Other'];
+  // Use the first line as the primary grouping key
+  const primary = lines[0] ?? 'Other';
+  if (!lineGroups[primary]) lineGroups[primary] = [];
+  lineGroups[primary].push(station);
+}
+
+const lineOrder = ['North-South', 'East-West', 'North-East', 'Circle', 'Downtown', 'Other'];
+const sortedLines = Object.keys(lineGroups).sort(
+  (a, b) => lineOrder.indexOf(a) - lineOrder.indexOf(b),
+);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Bubble Tea Near MRT Stations in Singapore',
+  description: `Find bubble tea shops near ${MRT_STATIONS.length} MRT stations across Singapore.`,
+  url: 'https://bubbleteasg.com/stations',
+};
+---
+
+<Layout
+  title="Bubble Tea Near MRT Stations in Singapore | Bubble Tea SG"
+  description={`Find bubble tea shops near every MRT station in Singapore. Browse ${MRT_STATIONS.length} stations across all lines.`}
+  canonical="https://bubbleteasg.com/stations"
+  jsonLd={jsonLd}
+>
+
+  <!-- Hero -->
+  <section class="bg-[var(--color-forest-800)] text-white py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4" data-pagefind-body>
+      <nav class="text-sm text-white/50 flex items-center gap-1.5" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-white transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-white font-medium">Stations</span>
+      </nav>
+      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-boba-400)]">
+        🚇 Find Boba Near You
+      </p>
+      <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight">
+        Bubble Tea Near<br />MRT Stations
+      </h1>
+      <p class="text-white/70 text-base max-w-2xl leading-relaxed">
+        Travelling by MRT? Find the best bubble tea shops a short walk from your station.
+      </p>
+      <div class="text-sm pt-2">
+        <span class="font-bold text-xl">{MRT_STATIONS.length}</span>
+        <span class="text-white/60 ml-1">stations covered</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stations grouped by line -->
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-12">
+    {sortedLines.map(line => (
+      <section class="space-y-4">
+        <h2 class="text-lg font-display font-semibold text-[var(--color-stone-900)] flex items-center gap-2">
+          <span class="inline-block w-3 h-3 rounded-full bg-[var(--color-forest-700)]" aria-hidden="true"></span>
+          {line} Line
+        </h2>
+        <div class="flex flex-wrap gap-2">
+          {lineGroups[line].map(station => {
+            const count = stationOutletCount(station.slug);
+            return (
+              <a
+                href={`/stations/${station.slug}`}
+                class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-[var(--color-stone-200)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors group shadow-sm"
+              >
+                <span class="text-sm font-medium text-[var(--color-stone-700)] group-hover:text-[var(--color-forest-700)] transition-colors">
+                  🚇 {station.name}
+                </span>
+                {count > 0 && (
+                  <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-[var(--color-cream-100)] text-[var(--color-stone-500)]">
+                    {count}
+                  </span>
+                )}
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    ))}
+  </div>
+
+</Layout>

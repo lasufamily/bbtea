@@ -1,0 +1,127 @@
+---
+import Layout from '../components/Layout.astro';
+import ListingCard from '../components/ListingCard.astro';
+import { getOutlets } from '../lib/airtable';
+import { TOWNS } from '../lib/mockData';
+
+const allOutlets = await getOutlets();
+const outlets = allOutlets.filter(o => o.halalFriendly);
+
+// Group by town, keeping only towns that have halal outlets
+const townGroups = TOWNS
+  .map(town => ({
+    town,
+    outlets: outlets.filter(o => o.townSlug === town.slug),
+  }))
+  .filter(g => g.outlets.length > 0);
+
+const totalBrands = [...new Set(outlets.map(o => o.brandName))].length;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Halal-Friendly Bubble Tea in Singapore',
+  description: `Find ${outlets.length} halal-friendly bubble tea shops across Singapore.`,
+  url: 'https://bubbleteasg.com/halal',
+};
+---
+
+<Layout
+  title="Halal-Friendly Bubble Tea in Singapore | Bubble Tea SG"
+  description={`Find ${outlets.length} halal-friendly bubble tea shops across Singapore. Browse by neighbourhood and enjoy boba worry-free.`}
+  canonical="https://bubbleteasg.com/halal"
+  jsonLd={jsonLd}
+>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-emerald-800 to-[var(--color-forest-900)] text-white py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4" data-pagefind-body>
+      <nav class="text-sm text-white/50 flex items-center gap-1.5" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-white transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-white font-medium">Halal-Friendly</span>
+      </nav>
+      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-emerald-400">
+        ✓ Muslim-Friendly Picks
+      </p>
+      <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight">
+        Halal-Friendly<br />Bubble Tea in Singapore
+      </h1>
+      <p class="text-white/70 text-base max-w-2xl leading-relaxed">
+        Enjoy boba worry-free. Every shop below is listed as halal-friendly by the brand — great for the whole family.
+      </p>
+      <div class="flex flex-wrap items-center gap-6 pt-2">
+        <div class="text-sm">
+          <span class="font-bold text-xl">{outlets.length}</span>
+          <span class="text-white/60 ml-1">{outlets.length === 1 ? 'shop' : 'shops'}</span>
+        </div>
+        <div class="text-sm">
+          <span class="font-bold text-xl">{totalBrands}</span>
+          <span class="text-white/60 ml-1">{totalBrands === 1 ? 'brand' : 'brands'}</span>
+        </div>
+        <div class="text-sm">
+          <span class="font-bold text-xl">{townGroups.length}</span>
+          <span class="text-white/60 ml-1">neighbourhoods</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Grouped by town -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-16">
+
+    {townGroups.length > 0 ? (
+      townGroups.map(({ town, outlets: townOutlets }) => (
+        <section class="space-y-6">
+          <header class="flex items-center gap-3">
+            <h2 class="text-xl font-display font-bold text-[var(--color-stone-900)]">
+              <a href={`/towns/${town.slug}`} class="hover:text-[var(--color-forest-700)] transition-colors">
+                📍 {town.name}
+              </a>
+            </h2>
+            <span class="text-sm text-[var(--color-stone-400)]">
+              {townOutlets.length} {townOutlets.length === 1 ? 'shop' : 'shops'}
+            </span>
+          </header>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {townOutlets.map(outlet => <ListingCard outlet={outlet} />)}
+          </div>
+        </section>
+      ))
+    ) : (
+      <div class="text-center py-24 space-y-4">
+        <p class="text-5xl">🔍</p>
+        <h2 class="text-xl font-display font-semibold text-[var(--color-stone-800)]">
+          No halal-friendly shops listed yet
+        </h2>
+        <p class="text-[var(--color-stone-500)] max-w-sm mx-auto">
+          We're growing our directory. Check back soon or browse all shops.
+        </p>
+        <a href="/directory" class="inline-flex items-center gap-2 mt-2 px-6 py-3 rounded-full bg-[var(--color-forest-700)] text-white text-sm font-semibold hover:bg-[var(--color-forest-800)] transition-colors">
+          Browse All Shops
+        </a>
+      </div>
+    )}
+
+  </div>
+
+  <!-- CTA strip -->
+  <section class="bg-[var(--color-cream-100)] border-t border-[var(--color-stone-200)] py-12">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="space-y-1 text-center sm:text-left">
+        <p class="font-display font-semibold text-[var(--color-stone-900)]">Looking for more shops?</p>
+        <p class="text-sm text-[var(--color-stone-500)]">Browse the full directory and use the Halal-friendly filter.</p>
+      </div>
+      <a
+        href="/directory?halal=true"
+        class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--color-forest-700)] text-white text-sm font-semibold hover:bg-[var(--color-forest-800)] transition-colors shrink-0"
+      >
+        Filter Halal Shops
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+</Layout>

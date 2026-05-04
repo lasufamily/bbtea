@@ -1,0 +1,69 @@
+---
+import Layout from '../../components/Layout.astro';
+import TownCard from '../../components/TownCard.astro';
+import { getOutlets } from '../../lib/airtable';
+import { TOWNS } from '../../lib/mockData';
+
+const outlets = await getOutlets();
+
+const townOutletCount = (townSlug: string) =>
+  outlets.filter(o => o.townSlug === townSlug).length;
+
+const totalOutlets = outlets.length;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Bubble Tea by Town — Singapore',
+  description: 'Browse bubble tea shops by neighbourhood across Singapore.',
+  url: 'https://bubbleteasg.com/towns',
+};
+---
+
+<Layout
+  title="Bubble Tea by Town in Singapore | Bubble Tea SG"
+  description={`Browse bubble tea shops across ${TOWNS.length} neighbourhoods in Singapore — from Orchard to Woodlands, Tampines to Jurong East.`}
+  canonical="https://bubbleteasg.com/towns"
+  jsonLd={jsonLd}
+>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-[var(--color-forest-800)] to-[var(--color-forest-900)] text-white py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4" data-pagefind-body>
+      <nav class="text-sm text-white/50 flex items-center gap-1.5" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-white transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-white font-medium">Towns</span>
+      </nav>
+      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-boba-400)]">
+        📍 Browse by Location
+      </p>
+      <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight">
+        Bubble Tea by Town
+      </h1>
+      <p class="text-white/70 text-base max-w-2xl leading-relaxed">
+        Find the best boba shops in your neighbourhood — from heartland favourites to Orchard corridor flagships.
+      </p>
+      <div class="flex flex-wrap items-center gap-6 pt-2">
+        <div class="text-sm">
+          <span class="font-bold text-xl">{TOWNS.length}</span>
+          <span class="text-white/60 ml-1">neighbourhoods</span>
+        </div>
+        <div class="text-sm">
+          <span class="font-bold text-xl">{totalOutlets}</span>
+          <span class="text-white/60 ml-1">shops listed</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Town grid -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+      {TOWNS.map(town => (
+        <TownCard town={town} outletCount={townOutletCount(town.slug)} />
+      ))}
+    </div>
+  </section>
+
+</Layout>
