@@ -44,28 +44,46 @@ async function fetchTable<T>(
     if (filterFormula) params.set('filterByFormula', filterFormula);
     if (offset)        params.set('offset', offset);
 
-    const res = await fetch(
-      `${BASE_URL}/${encodeURIComponent(tableName)}?${params}`,
-      {
+    const url = `${BASE_URL}/${encodeURIComponent(tableName)}?${params}`;
+
+    // Retry up to 3 times on transient 5xx / 429 errors with exponential back-off
+    let res: Response | undefined;
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      res = await fetch(url, {
         headers: {
           Authorization: `Bearer ${API_KEY}`,
           'Content-Type': 'application/json',
         },
-      },
-    );
-
-    if (!res.ok) {
-      const url = `${BASE_URL}/${encodeURIComponent(tableName)}`;
-      throw new Error(`Airtable fetch failed: ${res.status} ${res.statusText} — URL: ${url}`);
+      });
+      if (res.ok || (res.status < 500 && res.status !== 429)) break;
+      if (attempt < 3) {
+        const delay = attempt * 2000; // 2 s, then 4 s
+        console.warn(`[airtable] ${res.status} on attempt ${attempt}, retrying in ${delay}ms…`);
+        await new Promise(r => setTimeout(r, delay));
+      }
     }
 
-    const data = (await res.json()) as AirtableResponse<T>;
+    if (!res!.ok) {
+      throw new Error(`Airtable fetch failed: ${res!.status} ${res!.statusText} — URL: ${url}`);
+    }
+
+    const data = (await res!.json()) as AirtableResponse<T>;
     records.push(...data.records);
     offset = data.offset;
   } while (offset);
 
   return records;
 }
+
+// ─────────────────────────────────────────
+// Build-time promise caches
+// Astro renders pages concurrently in the same Node process — caching
+// the in-flight promise ensures Airtable is only called once per table,
+// no matter how many pages request the same data simultaneously.
+// ─────────────────────────────────────────
+let _brandsCache:     Promise<Brand[]>         | null = null;
+let _categoriesCache: Promise<DrinkCategory[]> | null = null;
+let _outletsCache:    Promise<Outlet[]>        | null = null;
 
 // ─────────────────────────────────────────
 // Towns (used to resolve linked-record IDs on outlets)
@@ -100,7 +118,7 @@ export async function getTowns(): Promise<import('./types').Town[]> {
 // ─────────────────────────────────────────
 // Brands
 // ─────────────────────────────────────────
-export async function getBrands(): Promise<Brand[]> {
+async function _fetchBrands(): Promise<Brand[]> {
   const records = await fetchTable<AirtableBrandFields>(
     'Brands',
     '{Published} = TRUE()',
@@ -122,6 +140,10 @@ export async function getBrands(): Promise<Brand[]> {
         published:    f['Published'] ?? false,
       } satisfies Brand;
     });
+}
+
+export function getBrands(): Promise<Brand[]> {
+  return (_brandsCache ??= _fetchBrands());
 }
 
 export async function getBrandBySlug(slug: string): Promise<Brand | undefined> {
@@ -234,7 +256,7 @@ async function buildOutlets(
     });
 }
 
-export async function getOutlets(): Promise<Outlet[]> {
+async function _fetchOutlets(): Promise<Outlet[]> {
   const [records, brands, cats, townMap] = await Promise.all([
     fetchTable<AirtableOutletFields>('Bubble Tea Shops', '{Published} = TRUE()'),
     getBrands(),
@@ -243,6 +265,10 @@ export async function getOutlets(): Promise<Outlet[]> {
   ]);
 
   return buildOutlets(records, brands, cats, townMap);
+}
+
+export function getOutlets(): Promise<Outlet[]> {
+  return (_outletsCache ??= _fetchOutlets());
 }
 
 export async function getOutletBySlug(slug: string): Promise<Outlet | undefined> {
@@ -296,7 +322,7 @@ function mapCategory(r: AirtableRecord<AirtableCategoryFields>): DrinkCategory {
   } satisfies DrinkCategory;
 }
 
-export async function getCategories(): Promise<DrinkCategory[]> {
+async function _fetchCategories(): Promise<DrinkCategory[]> {
   const records = await fetchTable<AirtableCategoryFields>(
     'Drinks',
     '{Published} = TRUE()',
@@ -305,6 +331,10 @@ export async function getCategories(): Promise<DrinkCategory[]> {
   return records
     .filter(r => r.fields['Drink Name'] && r.fields['Slug'])
     .map(mapCategory);
+}
+
+export function getCategories(): Promise<DrinkCategory[]> {
+  return (_categoriesCache ??= _fetchCategories());
 }
 
 export async function getCategoryBySlug(slug: string): Promise<DrinkCategory | undefined> {
