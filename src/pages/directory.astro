@@ -3,13 +3,14 @@ import Layout from '../components/Layout.astro';
 import ListingCard from '../components/ListingCard.astro';
 import FilterBar from '../components/FilterBar.astro';
 import SearchBox from '../components/SearchBox.astro';
-import { getBrands, getOutlets, getCategories } from '../lib/airtable';
+import { getBrands, getOutlets, getCategories, getTowns } from '../lib/airtable';
 import type { Outlet } from '../lib/types';
 
-const [brands, allOutlets, categories] = await Promise.all([
+const [brands, allOutlets, categories, towns] = await Promise.all([
   getBrands(),
   getOutlets(),
   getCategories(),
+  getTowns(),
 ]);
 
 // Read query params
@@ -92,6 +93,7 @@ if (q)           activeFilters.push(`"${q}"`);
         <FilterBar
           brands={brands}
           categories={categories}
+          towns={towns}
           selectedTown={town}
           selectedBrand={brand}
           selectedCategory={category}

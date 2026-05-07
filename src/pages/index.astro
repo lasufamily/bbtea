@@ -5,18 +5,18 @@ import ListingCard from '../components/ListingCard.astro';
 import BrandCard from '../components/BrandCard.astro';
 import TownCard from '../components/TownCard.astro';
 import CategoryCard from '../components/CategoryCard.astro';
-import { getBrands, getOutlets, getCategories } from '../lib/airtable';
-import { TOWNS } from '../lib/mockData';
+import { getBrands, getOutlets, getCategories, getTowns } from '../lib/airtable';
 
-const [brands, outlets, categories] = await Promise.all([
+const [brands, outlets, categories, towns] = await Promise.all([
   getBrands(),
   getOutlets(),
   getCategories(),
+  getTowns(),
 ]);
 
 const featuredBrands   = brands.filter(b => b.featured).slice(0, 5);
 const featuredOutlets  = outlets.filter(o => o.featured).slice(0, 6);
-const featuredTowns    = TOWNS.slice(0, 8);
+const featuredTowns    = towns.slice(0, 8);
 const featuredCategories = categories.slice(0, 4);
 
 // Outlet count per brand
@@ -33,7 +33,7 @@ const categoryOutletCount = (catSlug: string) =>
 
 const totalOutlets = outlets.length;
 const totalBrands  = brands.length;
-const totalTowns   = TOWNS.length;
+const totalTowns   = towns.length;
 ---
 
 <Layout

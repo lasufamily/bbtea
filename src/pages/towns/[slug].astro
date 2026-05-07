@@ -1,23 +1,26 @@
 ---
 import Layout from '../../components/Layout.astro';
 import ListingCard from '../../components/ListingCard.astro';
-import { getOutlets } from '../../lib/airtable';
-import { TOWNS } from '../../lib/mockData';
+import { getOutlets, getTowns } from '../../lib/airtable';
 import type { Town } from '../../lib/types';
 
 export async function getStaticPaths() {
-  const allOutlets = await getOutlets();
-  return TOWNS.map(town => {
+  const [allOutlets, towns] = await Promise.all([getOutlets(), getTowns()]);
+  return towns.map(town => {
     const outlets = allOutlets.filter(o => o.townSlug === town.slug);
     return {
       params: { slug: town.slug },
-      props:  { town, outlets },
+      props:  { town, outlets, allTowns: towns },
     };
   });
 }
 
-interface Props { town: Town; outlets: Awaited<ReturnType<typeof getOutlets>> }
-const { town, outlets } = Astro.props;
+interface Props {
+  town: Town;
+  outlets: Awaited<ReturnType<typeof getOutlets>>;
+  allTowns: Town[];
+}
+const { town, outlets, allTowns } = Astro.props;
 
 // Unique brands in this town
 const brandSet = [...new Set(outlets.map(o => o.brandName))];
@@ -121,7 +124,7 @@ const jsonLd = {
         Explore Other Towns
       </h2>
       <div class="flex flex-wrap gap-2">
-        {TOWNS.filter(t => t.slug !== town.slug).map(t => (
+        {allTowns.filter(t => t.slug !== town.slug).map(t => (
           <a
             href={`/towns/${t.slug}`}
             class="text-sm px-4 py-2 rounded-full bg-white border border-[var(--color-stone-200)] text-[var(--color-stone-600)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors font-medium"

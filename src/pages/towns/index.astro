@@ -1,10 +1,9 @@
 ---
 import Layout from '../../components/Layout.astro';
 import TownCard from '../../components/TownCard.astro';
-import { getOutlets } from '../../lib/airtable';
-import { TOWNS } from '../../lib/mockData';
+import { getOutlets, getTowns } from '../../lib/airtable';
 
-const outlets = await getOutlets();
+const [outlets, towns] = await Promise.all([getOutlets(), getTowns()]);
 
 const townOutletCount = (townSlug: string) =>
   outlets.filter(o => o.townSlug === townSlug).length;
@@ -22,7 +21,7 @@ const jsonLd = {
 
 <Layout
   title="Bubble Tea by Town in Singapore | Bubble Tea SG"
-  description={`Browse bubble tea shops across ${TOWNS.length} neighbourhoods in Singapore — from Orchard to Woodlands, Tampines to Jurong East.`}
+  description={`Browse bubble tea shops across ${towns.length} neighbourhoods in Singapore — from Orchard to Woodlands, Tampines to Jurong East.`}
   canonical="https://bubbleteasg.com/towns"
   jsonLd={jsonLd}
 >
@@ -46,7 +45,7 @@ const jsonLd = {
       </p>
       <div class="flex flex-wrap items-center gap-6 pt-2">
         <div class="text-sm">
-          <span class="font-bold text-xl">{TOWNS.length}</span>
+          <span class="font-bold text-xl">{towns.length}</span>
           <span class="text-white/60 ml-1">neighbourhoods</span>
         </div>
         <div class="text-sm">
@@ -60,7 +59,7 @@ const jsonLd = {
   <!-- Town grid -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-      {TOWNS.map(town => (
+      {towns.map(town => (
         <TownCard town={town} outletCount={townOutletCount(town.slug)} />
       ))}
     </div>

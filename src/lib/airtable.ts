@@ -8,7 +8,7 @@
 
 import type {
   Brand, Outlet, DrinkCategory,
-  AirtableBrandFields, AirtableOutletFields, AirtableCategoryFields,
+  AirtableBrandFields, AirtableOutletFields, AirtableCategoryFields, AirtableTownFields,
   AirtableRecord, AirtableResponse,
 } from './types';
 
@@ -68,6 +68,36 @@ async function fetchTable<T>(
 }
 
 // ─────────────────────────────────────────
+// Towns (used to resolve linked-record IDs on outlets)
+// ─────────────────────────────────────────
+let _townMapCache: Map<string, { name: string; slug: string }> | null = null;
+
+async function getTownMap(): Promise<Map<string, { name: string; slug: string }>> {
+  if (_townMapCache) return _townMapCache;
+
+  const records = await fetchTable<AirtableTownFields>('Towns');
+  const map = new Map<string, { name: string; slug: string }>();
+
+  for (const r of records) {
+    const name = r.fields['Name'];
+    if (!name) continue;
+    const slug = name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+    map.set(r.id, { name, slug });
+  }
+
+  _townMapCache = map;
+  return map;
+}
+
+export async function getTowns(): Promise<import('./types').Town[]> {
+  const map = await getTownMap();
+  return Array.from(map.values()).map(({ name, slug }) => ({ name, slug }));
+}
+
+// ─────────────────────────────────────────
 // Brands
 // ─────────────────────────────────────────
 export async function getBrands(): Promise<Brand[]> {
@@ -122,95 +152,105 @@ export async function getBrandBySlug(slug: string): Promise<Brand | undefined> {
 // Outlets
 // ─────────────────────────────────────────
 
-// We need brand data to enrich outlets from Airtable linked records.
-// We pass in pre-fetched brands to avoid extra API calls.
+// We need brand + category + town data to enrich outlets from linked records.
 async function buildOutlets(
   records: AirtableRecord<AirtableOutletFields>[],
   brands: Brand[],
   categories: DrinkCategory[],
+  townMap: Map<string, { name: string; slug: string }>,
 ): Promise<Outlet[]> {
-  const brandMap  = new Map(brands.map(b => [b.id, b]));
-  const catMap    = new Map(categories.map(c => [c.id, c]));
+  const brandMap = new Map(brands.map(b => [b.id, b]));
+  const catMap   = new Map(categories.map(c => [c.id, c]));
 
   return records
     .filter(r => r.fields['Outlet Name'] && r.fields['Slug'])
     .map(r => {
-    const f         = r.fields;
-    const brandRef  = f['Brand']?.[0];
-    const brand     = brandRef ? brandMap.get(brandRef) : undefined;
-    const catIds    = f['Drink Categories'] ?? [];
-    const cats      = catIds.map(id => catMap.get(id)).filter(Boolean) as DrinkCategory[];
+      const f = r.fields;
 
-    let deliveryLinks;
-    try {
-      deliveryLinks = f['Delivery Links'] ? JSON.parse(f['Delivery Links']) : undefined;
-    } catch {
-      deliveryLinks = undefined;
-    }
+      // Linked records
+      const brandRef = f['Brand']?.[0];
+      const brand    = brandRef ? brandMap.get(brandRef) : undefined;
 
-    const townSlug = (f['Town'] ?? '')
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '');
+      const catIds = f['Drink Categories'] ?? [];
+      const cats   = catIds.map(id => catMap.get(id)).filter(Boolean) as DrinkCategory[];
 
-    const mrtSlug = (f['Nearest MRT'] ?? '')
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '') + '-mrt';
+      // Town: multipleRecordLinks → resolve via townMap
+      const townId   = f['Town']?.[0];
+      const townData = townId ? townMap.get(townId) : undefined;
+      const town     = townData?.name ?? '';
+      const townSlug = townData?.slug ?? '';
 
-    return {
-      id:                   r.id,
-      name:                 f['Outlet Name'],
-      slug:                 f['Slug'],
-      brandId:              brand?.id ?? '',
-      brandName:            brand?.name ?? '',
-      brandSlug:            brand?.slug ?? '',
-      brandLogo:            brand?.logo,
-      town:                 f['Town'],
-      townSlug,
-      mall:                 f['Mall / Location'],
-      address:              f['Address'],
-      nearestMrt:           f['Nearest MRT'],
-      mrtSlug:              f['Nearest MRT'] ? mrtSlug : undefined,
-      openingHours:         f['Opening Hours'],
-      phone:                f['Phone'],
-      googleMapsUrl:        f['Google Maps URL'],
-      deliveryLinks,
-      popularDrinks:        f['Popular Drinks']?.split(',').map(s => s.trim()),
-      drinkCategories:      cats.map(c => c.name),
-      drinkCategorySlugs:   cats.map(c => c.slug),
-      priceRange:           f['Price Range'],
-      halalFriendly:        f['Halal-Friendly'] ?? false,
-      seatingAvailable:     f['Seating Available'] ?? false,
-      image:                f['Image'] ?? undefined,
-      galleryImages:        f['Gallery Images']
-                              ?.split(',')
-                              .map(s => s.trim())
-                              .filter(Boolean),
-      featured:             f['Featured'] ?? false,
-      published:            f['Published'] ?? false,
-    } satisfies Outlet;
-  });
+      // MRT slug
+      const mrtSlug = f['Nearest MRT']
+        ? f['Nearest MRT'].toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') + '-mrt'
+        : undefined;
+
+      // Delivery links — stored as JSON multilineText
+      let deliveryLinks;
+      try {
+        deliveryLinks = f['Delivery Links'] ? JSON.parse(f['Delivery Links']) : undefined;
+      } catch {
+        deliveryLinks = undefined;
+      }
+
+      // Gallery images — url field, may contain comma-separated URLs
+      const galleryImages = f['Gallery Images URL']
+        ?.split(',')
+        .map(s => s.trim())
+        .filter(Boolean);
+
+      return {
+        id:                 r.id,
+        name:               f['Outlet Name'],
+        slug:               f['Slug'],
+        brandId:            brand?.id ?? '',
+        brandName:          brand?.name ?? '',
+        brandSlug:          brand?.slug ?? '',
+        brandLogo:          brand?.logo,
+        town,
+        townSlug,
+        mall:               f['Mall / Location'],
+        address:            f['Address'],
+        nearestMrt:         f['Nearest MRT'],
+        mrtSlug,
+        openingHours:       f['Opening Hours'],
+        phone:              f['Phone'],
+        googleMapsUrl:      f['Google Maps URL'],
+        deliveryLinks,
+        popularDrinks:      f['Drinks']?.split(',').map(s => s.trim()).filter(Boolean),
+        drinkCategories:    cats.map(c => c.name),
+        drinkCategorySlugs: cats.map(c => c.slug),
+        priceRange:         f['Price Range'],
+        halalFriendly:      f['Halal-Friendly'] ?? false,
+        seatingAvailable:   f['Seating Available'] ?? false,
+        image:              f['Image URL'] ?? undefined,
+        galleryImages,
+        featured:           f['Featured'] ?? false,
+        published:          f['Published'] ?? false,
+      } satisfies Outlet;
+    });
 }
 
 export async function getOutlets(): Promise<Outlet[]> {
-  const [records, brands, cats] = await Promise.all([
-    fetchTable<AirtableOutletFields>('Outlets', '{Published} = TRUE()'),
+  const [records, brands, cats, townMap] = await Promise.all([
+    fetchTable<AirtableOutletFields>('Bubble Tea Shops', '{Published} = TRUE()'),
     getBrands(),
     getCategories(),
+    getTownMap(),
   ]);
 
-  return buildOutlets(records, brands, cats);
+  return buildOutlets(records, brands, cats, townMap);
 }
 
 export async function getOutletBySlug(slug: string): Promise<Outlet | undefined> {
-  const [records, brands, cats] = await Promise.all([
-    fetchTable<AirtableOutletFields>('Outlets', `AND({Slug} = "${slug}", {Published} = TRUE())`),
+  const [records, brands, cats, townMap] = await Promise.all([
+    fetchTable<AirtableOutletFields>('Bubble Tea Shops', `AND({Slug} = "${slug}", {Published} = TRUE())`),
     getBrands(),
     getCategories(),
+    getTownMap(),
   ]);
 
-  const outlets = await buildOutlets(records, brands, cats);
+  const outlets = await buildOutlets(records, brands, cats, townMap);
   return outlets[0];
 }
 
@@ -235,46 +275,40 @@ export async function getOutletsByMrt(mrtSlug: string): Promise<Outlet[]> {
 }
 
 // ─────────────────────────────────────────
-// Drink Categories
+// Drink Categories  (Airtable table: "Drinks")
 // ─────────────────────────────────────────
+function mapCategory(r: AirtableRecord<AirtableCategoryFields>): DrinkCategory {
+  const f = r.fields;
+  // Image is multipleAttachments — extract the best URL available
+  const imageAttachment = Array.isArray(f['Image']) ? f['Image'][0] : undefined;
+  const image = imageAttachment?.thumbnails?.large?.url ?? imageAttachment?.url;
+
+  return {
+    id:          r.id,
+    name:        f['Drink Name'],
+    slug:        f['Slug'],
+    description: f['Description'],
+    image,
+    published:   f['Published'] ?? false,
+  } satisfies DrinkCategory;
+}
+
 export async function getCategories(): Promise<DrinkCategory[]> {
   const records = await fetchTable<AirtableCategoryFields>(
-    'Drink Categories',
+    'Drinks',
     '{Published} = TRUE()',
   );
 
   return records
-    .filter(r => r.fields['Category Name'] && r.fields['Slug'])
-    .map(r => {
-      const f = r.fields;
-      return {
-        id:          r.id,
-        name:        f['Category Name'],
-        slug:        f['Slug'],
-        description: f['Description'],
-        image:       f['Image'] ?? undefined,
-        published:   f['Published'] ?? false,
-      } satisfies DrinkCategory;
-    });
+    .filter(r => r.fields['Drink Name'] && r.fields['Slug'])
+    .map(mapCategory);
 }
 
 export async function getCategoryBySlug(slug: string): Promise<DrinkCategory | undefined> {
   const records = await fetchTable<AirtableCategoryFields>(
-    'Drink Categories',
+    'Drinks',
     `AND({Slug} = "${slug}", {Published} = TRUE())`,
   );
 
-  const cats = records.map(r => {
-    const f = r.fields;
-    return {
-      id:          r.id,
-      name:        f['Category Name'],
-      slug:        f['Slug'],
-      description: f['Description'],
-      image:       f['Image'] ?? undefined,
-      published:   f['Published'] ?? false,
-    } satisfies DrinkCategory;
-  });
-
-  return cats[0];
+  return records[0] ? mapCategory(records[0]) : undefined;
 }

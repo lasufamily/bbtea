@@ -92,7 +92,9 @@ export interface AirtableBrandFields {
   'Logo'?: { url: string; thumbnails?: { large?: { url: string } } }[];
   'Description'?: string;
   'Website URL'?: string;
+  'Facebook URL'?: string;
   'Instagram URL'?: string;
+  'TikTok URL'?: string;
   'Featured'?: boolean;
   'Published'?: boolean;
 }
@@ -100,30 +102,35 @@ export interface AirtableBrandFields {
 export interface AirtableOutletFields {
   'Outlet Name': string;
   'Slug': string;
-  'Brand'?: string[];          // linked record IDs
-  'Town': string;
+  'Brand'?: string[];           // linked record IDs → Brands table
+  'Town'?: string[];            // linked record IDs → Towns table
   'Mall / Location'?: string;
+  'Street'?: string;
   'Address': string;
   'Nearest MRT'?: string;
   'Opening Hours'?: string;
   'Phone'?: string;
   'Google Maps URL'?: string;
-  'Delivery Links'?: string;   // JSON string
-  'Popular Drinks'?: string;   // comma-separated
-  'Drink Categories'?: string[];  // linked record IDs
+  'Delivery Links'?: string;    // JSON string (multilineText)
+  'Drinks'?: string;            // multilineText — popular/menu drinks (comma-separated)
+  'Drink Categories'?: string[]; // linked record IDs → Drinks table
   'Price Range'?: '$' | '$$' | '$$$';
   'Halal-Friendly'?: boolean;
   'Seating Available'?: boolean;
-  'Image'?: string;             // URL field (plain text)
-  'Gallery Images'?: string;    // URL field (plain text, comma-separated)
+  'Image URL'?: string;         // url field
+  'Gallery Images URL'?: string; // url field (comma-separated for multiple)
   'Featured'?: boolean;
   'Published'?: boolean;
 }
 
 export interface AirtableCategoryFields {
-  'Category Name': string;
+  'Drink Name': string;         // primary field in Drinks table
   'Slug': string;
   'Description'?: string;
-  'Image'?: string;             // URL field (plain text)
+  'Image'?: { url: string; thumbnails?: { large?: { url: string } } }[]; // multipleAttachments
   'Published'?: boolean;
+}
+
+export interface AirtableTownFields {
+  'Name': string;
 }

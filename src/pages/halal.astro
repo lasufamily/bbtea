@@ -1,14 +1,13 @@
 ---
 import Layout from '../components/Layout.astro';
 import ListingCard from '../components/ListingCard.astro';
-import { getOutlets } from '../lib/airtable';
-import { TOWNS } from '../lib/mockData';
+import { getOutlets, getTowns } from '../lib/airtable';
 
-const allOutlets = await getOutlets();
+const [allOutlets, towns] = await Promise.all([getOutlets(), getTowns()]);
 const outlets = allOutlets.filter(o => o.halalFriendly);
 
 // Group by town, keeping only towns that have halal outlets
-const townGroups = TOWNS
+const townGroups = towns
   .map(town => ({
     town,
     outlets: outlets.filter(o => o.townSlug === town.slug),
