@@ -199,6 +199,9 @@ async function buildOutlets(
         .map(s => s.trim())
         .filter(Boolean);
 
+      // Main image: prefer Image URL, fall back to first gallery image
+      const image = f['Image URL']?.trim() || galleryImages?.[0] || undefined;
+
       return {
         id:                 r.id,
         name:               f['Outlet Name'],
@@ -223,7 +226,7 @@ async function buildOutlets(
         priceRange:         f['Price Range'],
         halalFriendly:      f['Halal-Friendly'] ?? false,
         seatingAvailable:   f['Seating Available'] ?? false,
-        image:              f['Image URL'] ?? undefined,
+        image,
         galleryImages,
         featured:           f['Featured'] ?? false,
         published:          f['Published'] ?? false,

@@ -26,17 +26,23 @@ const priceColors: Record<string, string> = {
   data-pagefind-body
 >
   <!-- Image -->
-  <a href={`/shops/${outlet.slug}`} class="block overflow-hidden aspect-[4/3] bg-[var(--color-cream-100)]" tabindex="-1" aria-hidden="true">
+  <a href={`/shops/${outlet.slug}`} class="block overflow-hidden aspect-[4/3] bg-[var(--color-cream-100)] relative" tabindex="-1" aria-hidden="true">
     {outlet.image ? (
-      <img
-        src={outlet.image}
-        alt={`${outlet.name} — ${outlet.brandName} in ${outlet.town}`}
-        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        loading="lazy"
-        decoding="async"
-        width="600"
-        height="450"
-      />
+      <>
+        <img
+          src={outlet.image}
+          alt={`${outlet.name} — ${outlet.brandName} in ${outlet.town}`}
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          loading="lazy"
+          decoding="async"
+          width="600"
+          height="450"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+        />
+        <div class="w-full h-full absolute inset-0 items-center justify-center text-5xl bg-gradient-to-br from-[var(--color-cream-100)] to-[var(--color-cream-200)]" style="display:none">
+          🧋
+        </div>
+      </>
     ) : (
       <div class="w-full h-full flex items-center justify-center text-5xl bg-gradient-to-br from-[var(--color-cream-100)] to-[var(--color-cream-200)]">
         🧋
