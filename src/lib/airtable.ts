@@ -8,9 +8,10 @@
 
 import type {
   Brand, Outlet, DrinkCategory, Mall,
-  AirtableBrandFields, AirtableOutletFields, AirtableCategoryFields, AirtableTownFields, AirtableMallFields,
+  AirtableBrandFields, AirtableOutletFields, AirtableCategoryFields, AirtableTownFields, AirtableMrtStationFields, AirtableMallFields,
   AirtableRecord, AirtableResponse,
 } from './types';
+import { MRT_STATIONS } from './mockData';
 
 // ─────────────────────────────────────────
 // Config
@@ -105,6 +106,26 @@ let _categoriesCache: Promise<DrinkCategory[]> | null = null;
 let _outletsCache:    Promise<Outlet[]>        | null = null;
 let _mallsCache:      Promise<Mall[]>          | null = null;
 
+type NamedSlug = { name: string; slug: string; line?: string };
+
+function isAirtableRecordId(value: string): boolean {
+  return /^rec[a-z0-9]{14,}$/i.test(value);
+}
+
+function firstLinkedValue(value: string | string[] | undefined): string | undefined {
+  if (Array.isArray(value)) return value[0];
+  return value;
+}
+
+function stationSlugFromName(name: string): string {
+  const baseName = name
+    .replace(/\s*\([^)]*\)\s*/g, ' ')
+    .replace(/\s+MRT(?:\s+Station)?$/i, '')
+    .trim();
+
+  return `${slugify(baseName || name)}-mrt`;
+}
+
 // ─────────────────────────────────────────
 // Towns (used to resolve linked-record IDs on outlets)
 // ─────────────────────────────────────────
@@ -130,6 +151,67 @@ async function getTownMap(): Promise<Map<string, { name: string; slug: string }>
 export async function getTowns(): Promise<import('./types').Town[]> {
   const map = await getTownMap();
   return Array.from(map.values()).map(({ name, slug }) => ({ name, slug }));
+}
+
+// ─────────────────────────────────────────
+// MRT Stations (used to resolve linked-record IDs on outlets)
+// ─────────────────────────────────────────
+let _mrtMapCache: Map<string, NamedSlug> | null = null;
+
+function mapMrtStation(r: AirtableRecord<AirtableMrtStationFields>): NamedSlug | undefined {
+  const f = r.fields;
+  const name =
+    normalizeText(f['Name']) ??
+    normalizeText(f['Station']) ??
+    normalizeText(f['Station Name']) ??
+    normalizeText(f['MRT Station']) ??
+    normalizeText(f['MRT Name']) ??
+    normalizeText(f['Nearest MRT']);
+
+  if (!name) return undefined;
+
+  return {
+    name,
+    slug: normalizeText(f['Slug']) ?? stationSlugFromName(name),
+    line: normalizeText(f['Line']) ?? normalizeText(f['Lines']),
+  };
+}
+
+async function fetchMrtStations(): Promise<AirtableRecord<AirtableMrtStationFields>[]> {
+  for (const tableName of ['MRT Stations', 'MRT', 'Stations']) {
+    try {
+      const records = await fetchTable<AirtableMrtStationFields>(tableName);
+      if (records.length > 0) return records;
+    } catch (error) {
+      console.warn(`[airtable] Could not fetch ${tableName}:`, error);
+    }
+  }
+
+  return [];
+}
+
+async function getMrtMap(): Promise<Map<string, NamedSlug>> {
+  if (_mrtMapCache) return _mrtMapCache;
+
+  const map = new Map<string, NamedSlug>();
+
+  for (const station of MRT_STATIONS) {
+    map.set(station.name, station);
+    map.set(station.slug, station);
+  }
+
+  const records = await fetchMrtStations();
+  for (const r of records) {
+    const station = mapMrtStation(r);
+    if (!station) continue;
+
+    map.set(r.id, station);
+    map.set(station.name, station);
+    map.set(station.slug, station);
+  }
+
+  _mrtMapCache = map;
+  return map;
 }
 
 // ─────────────────────────────────────────
@@ -257,8 +339,9 @@ async function buildOutlets(
   records: AirtableRecord<AirtableOutletFields>[],
   brands: Brand[],
   categories: DrinkCategory[],
-  townMap: Map<string, { name: string; slug: string }>,
-  mallMap: Map<string, { name: string; slug: string }>,
+  townMap: Map<string, NamedSlug>,
+  mallMap: Map<string, NamedSlug>,
+  mrtMap: Map<string, NamedSlug>,
 ): Promise<Outlet[]> {
   const brandMap = new Map(brands.map(b => [b.id, b]));
   const catMap   = new Map(categories.map(c => [c.id, c]));
@@ -287,11 +370,15 @@ async function buildOutlets(
       const mall = mallData?.name ?? normalizeText(f['Mall / Location']);
       const mallSlug = mallData?.slug ?? (mall ? slugify(mall) : undefined);
 
-      // MRT slug
-      const nearestMrt = normalizeText(f['Nearest MRT']);
-      const mrtSlug = nearestMrt
-        ? nearestMrt.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') + '-mrt'
-        : undefined;
+      // MRT: supports either a plain text station name or a linked MRT station record ID
+      const mrtRef = firstLinkedValue(f['Nearest MRT']);
+      const mrtData = mrtRef ? mrtMap.get(mrtRef) : undefined;
+      const normalizedMrt = normalizeText(f['Nearest MRT']);
+      const unresolvedMrtRecord = mrtRef ? isAirtableRecordId(mrtRef) : false;
+      const nearestMrt = mrtData?.name ?? (
+        normalizedMrt && !unresolvedMrtRecord && !isAirtableRecordId(normalizedMrt) ? normalizedMrt : undefined
+      );
+      const mrtSlug = mrtData?.slug ?? (nearestMrt ? stationSlugFromName(nearestMrt) : undefined);
 
       // Delivery links — stored as JSON multilineText
       let deliveryLinks;
@@ -344,15 +431,16 @@ async function buildOutlets(
 }
 
 async function _fetchOutlets(): Promise<Outlet[]> {
-  const [records, brands, cats, townMap, mallMap] = await Promise.all([
+  const [records, brands, cats, townMap, mallMap, mrtMap] = await Promise.all([
     fetchTable<AirtableOutletFields>('Bubble Tea Shops', '{Published} = TRUE()'),
     getBrands(),
     getCategories(),
     getTownMap(),
     getMallMap(),
+    getMrtMap(),
   ]);
 
-  return buildOutlets(records, brands, cats, townMap, mallMap);
+  return buildOutlets(records, brands, cats, townMap, mallMap, mrtMap);
 }
 
 export function getOutlets(): Promise<Outlet[]> {
@@ -360,15 +448,16 @@ export function getOutlets(): Promise<Outlet[]> {
 }
 
 export async function getOutletBySlug(slug: string): Promise<Outlet | undefined> {
-  const [records, brands, cats, townMap, mallMap] = await Promise.all([
+  const [records, brands, cats, townMap, mallMap, mrtMap] = await Promise.all([
     fetchTable<AirtableOutletFields>('Bubble Tea Shops', `AND({Slug} = "${slug}", {Published} = TRUE())`),
     getBrands(),
     getCategories(),
     getTownMap(),
     getMallMap(),
+    getMrtMap(),
   ]);
 
-  const outlets = await buildOutlets(records, brands, cats, townMap, mallMap);
+  const outlets = await buildOutlets(records, brands, cats, townMap, mallMap, mrtMap);
   return outlets[0];
 }
 

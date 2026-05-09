@@ -147,6 +147,18 @@ export interface AirtableTownFields {
   'Name': string;
 }
 
+export interface AirtableMrtStationFields {
+  'Name'?: string;
+  'Station'?: string;
+  'Station Name'?: string;
+  'MRT Station'?: string;
+  'MRT Name'?: string;
+  'Nearest MRT'?: string;
+  'Slug'?: string;
+  'Line'?: string;
+  'Lines'?: string;
+}
+
 export interface AirtableMallFields {
   'Name'?: string;
   'Mall Name'?: string;

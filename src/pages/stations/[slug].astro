@@ -16,7 +16,7 @@ export async function getStaticPaths() {
     const outlets = allOutlets.filter(o => o.mrtSlug === slug);
     return {
       params: { slug },
-      props:  { station, outlets },
+      props:  { station, outlets, outletStationName: outlets[0]?.nearestMrt },
     };
   });
 }
@@ -24,22 +24,24 @@ export async function getStaticPaths() {
 interface Props {
   station: MrtStation | undefined;
   outlets: Awaited<ReturnType<typeof getOutlets>>;
+  outletStationName?: string;
 }
-const { station, outlets } = Astro.props;
-const stationName = station?.name ?? Astro.params.slug.replace(/-mrt$/, '').replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
+const { station, outlets, outletStationName } = Astro.props;
+const stationName = station?.name ?? outletStationName ?? Astro.params.slug.replace(/-mrt$/, '').replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
+const stationLabel = /\bMRT\b/i.test(stationName) ? stationName : `${stationName} MRT`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: `Bubble Tea Shops Near ${stationName} MRT`,
-  description: `Find ${outlets.length} bubble tea shops near ${stationName} MRT station in Singapore.`,
+  name: `Bubble Tea Shops Near ${stationLabel}`,
+  description: `Find ${outlets.length} bubble tea shops near ${stationLabel} in Singapore.`,
   url: `https://bubbleteasg.com/stations/${Astro.params.slug}`,
 };
 ---
 
 <Layout
-  title={`Bubble Tea Near ${stationName} MRT | Bubble Tea SG`}
-  description={`Find ${outlets.length} bubble tea shops near ${stationName} MRT station in Singapore.`}
+  title={`Bubble Tea Near ${stationLabel} | Bubble Tea SG`}
+  description={`Find ${outlets.length} bubble tea shops near ${stationLabel} in Singapore.`}
   canonical={`https://bubbleteasg.com/stations/${Astro.params.slug}`}
   jsonLd={jsonLd}
 >
@@ -52,7 +54,7 @@ const jsonLd = {
         <span>/</span>
         <a href="/stations" class="hover:text-[var(--color-stone-900)] transition-colors">Stations</a>
         <span>/</span>
-        <span class="text-[var(--color-stone-700)] font-medium">{stationName}</span>
+        <span class="text-[var(--color-stone-700)] font-medium">{stationLabel}</span>
       </nav>
 
       <div>
@@ -60,11 +62,11 @@ const jsonLd = {
           Near MRT {station?.line ? `· ${station.line} Line` : ''}
         </p>
         <h1 class="mt-3 text-3xl lg:text-4xl font-display font-bold">
-          Bubble Tea Near {stationName} MRT
+          Bubble Tea Near {stationLabel}
         </h1>
       </div>
       <p class="text-[var(--color-stone-600)] text-base max-w-xl">
-        {outlets.length} bubble tea {outlets.length === 1 ? 'shop' : 'shops'} close to {stationName} MRT station.
+        {outlets.length} bubble tea {outlets.length === 1 ? 'shop' : 'shops'} close to {stationLabel}.
       </p>
     </div>
   </section>
@@ -79,7 +81,7 @@ const jsonLd = {
       <div class="text-center py-20 space-y-4">
         <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">No Results</p>
         <h2 class="text-xl font-display font-semibold text-[var(--color-stone-800)]">
-          No shops near {stationName} MRT yet
+          No shops near {stationLabel} yet
         </h2>
         <p class="text-[var(--color-stone-500)] max-w-sm mx-auto">
           We're growing our coverage. Browse all shops in the meantime.
