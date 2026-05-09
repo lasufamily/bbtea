@@ -109,7 +109,7 @@ export interface AirtableOutletFields {
   'Mall / Location'?: string;
   'Street'?: string;
   'Address': string;
-  'Nearest MRT'?: string;
+  'Nearest MRT'?: string | string[];
   'Opening Hours'?: string;
   'Phone'?: string;
   'Google Maps URL'?: string;

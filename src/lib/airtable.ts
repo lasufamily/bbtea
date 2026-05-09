@@ -27,6 +27,18 @@ function assertConfig(): void {
   }
 }
 
+function normalizeText(value: unknown): string | undefined {
+  if (typeof value === 'string') return value.trim() || undefined;
+  if (Array.isArray(value)) {
+    return value
+      .map(item => normalizeText(item))
+      .filter(Boolean)
+      .join(', ') || undefined;
+  }
+  if (value == null) return undefined;
+  return String(value).trim() || undefined;
+}
+
 // ─────────────────────────────────────────
 // Generic paginated fetch
 // ─────────────────────────────────────────
@@ -207,8 +219,9 @@ async function buildOutlets(
       const townSlug = townData?.slug ?? '';
 
       // MRT slug
-      const mrtSlug = f['Nearest MRT']
-        ? f['Nearest MRT'].toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') + '-mrt'
+      const nearestMrt = normalizeText(f['Nearest MRT']);
+      const mrtSlug = nearestMrt
+        ? nearestMrt.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') + '-mrt'
         : undefined;
 
       // Delivery links — stored as JSON multilineText
@@ -240,7 +253,7 @@ async function buildOutlets(
         townSlug,
         mall:               f['Mall / Location'],
         address:            f['Address'],
-        nearestMrt:         f['Nearest MRT'],
+        nearestMrt,
         mrtSlug,
         openingHours:       f['Opening Hours'],
         phone:              f['Phone'],
