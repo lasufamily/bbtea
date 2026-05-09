@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 /* ─────────────────────────────────────────
-   Design Tokens – Singapore Boba Directory
+   Design Tokens - Singapore Boba Directory
    ───────────────────────────────────────── */
 @theme {
   /* Palette */
-  --color-cream-50:  #FDFCF8;
-  --color-cream-100: #F8F4EC;
-  --color-cream-200: #EFE7D6;
+  --color-cream-50:  #FFFFFF;
+  --color-cream-100: #F8F8F6;
+  --color-cream-200: #ECECE7;
 
-  --color-forest-700: #1C3D2E;
-  --color-forest-800: #153024;
-  --color-forest-900: #0E2019;
+  --color-forest-700: #244537;
+  --color-forest-800: #183327;
+  --color-forest-900: #101F19;
 
   --color-boba-400:  #C87941;
   --color-boba-500:  #A85E28;
@@ -24,15 +24,15 @@
   --color-blush-100: #FDF0EC;
   --color-blush-200: #F9E0D6;
 
-  --color-stone-100: #F5F5F0;
-  --color-stone-200: #E8E8E0;
-  --color-stone-400: #AEAE9E;
-  --color-stone-600: #6B6B5E;
-  --color-stone-800: #2A2A22;
-  --color-stone-900: #1A1A14;
+  --color-stone-100: #F4F4F2;
+  --color-stone-200: #E4E4DF;
+  --color-stone-400: #9A9A90;
+  --color-stone-600: #595950;
+  --color-stone-800: #242420;
+  --color-stone-900: #151512;
 
   /* Typography */
-  --font-display: 'Playfair Display', Georgia, serif;
+  --font-display: 'Inter', system-ui, sans-serif;
   --font-sans:    'Inter', system-ui, sans-serif;
 
   /* Spacing scale extras */
@@ -59,7 +59,7 @@
   }
 
   body {
-    background-color: var(--color-cream-50);
+    background-color: #fff;
     color: var(--color-stone-900);
     font-family: var(--font-sans);
     line-height: 1.65;
@@ -67,7 +67,7 @@
 
   h1, h2, h3, h4, h5 {
     font-family: var(--font-display);
-    line-height: 1.2;
+    line-height: 1.12;
     color: var(--color-stone-900);
   }
 
@@ -82,7 +82,7 @@
   }
 
   ::selection {
-    background-color: var(--color-forest-700);
+    background-color: var(--color-stone-900);
     color: #fff;
   }
 }
@@ -96,13 +96,13 @@
 
   .text-balance { text-wrap: balance; }
 
-  /* Hover lift card */
+  /* Minimal card interaction */
   .card-lift {
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    transition: border-color 0.2s ease, transform 0.2s ease;
   }
   .card-lift:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.10);
+    transform: translateY(-2px);
+    border-color: var(--color-stone-900);
   }
 
   /* Subtle link underline */

@@ -30,7 +30,7 @@ const query = Astro.url.searchParams.get('q') ?? '';
     <div id="pagefind-search" class="space-y-6">
       {!query && (
         <div class="text-center py-16 space-y-4">
-          <p class="text-5xl">🧋</p>
+          <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">Search</p>
           <p class="text-[var(--color-stone-500)] text-base">
             Type something above to search across all shops, brands, and towns.
           </p>
@@ -38,7 +38,7 @@ const query = Astro.url.searchParams.get('q') ?? '';
             {['Tiger Sugar', 'Brown Sugar', 'Orchard', 'Halal', 'Matcha', 'Taro'].map(s => (
               <a
                 href={`/search?q=${encodeURIComponent(s)}`}
-                class="text-sm px-4 py-2 rounded-full bg-[var(--color-cream-100)] text-[var(--color-stone-600)] border border-[var(--color-stone-200)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors"
+                class="text-sm px-4 py-2 rounded-lg bg-[var(--color-cream-100)] text-[var(--color-stone-600)] border border-[var(--color-stone-200)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors"
               >
                 {s}
               </a>

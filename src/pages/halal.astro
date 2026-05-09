@@ -33,34 +33,34 @@ const jsonLd = {
 >
 
   <!-- Hero -->
-  <section class="bg-gradient-to-br from-emerald-800 to-[var(--color-forest-900)] text-white py-16">
+  <section class="bg-white border-b border-[var(--color-stone-200)] py-16">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4" data-pagefind-body>
-      <nav class="text-sm text-white/50 flex items-center gap-1.5" aria-label="Breadcrumb">
-        <a href="/" class="hover:text-white transition-colors">Home</a>
+      <nav class="text-sm text-[var(--color-stone-400)] flex items-center gap-1.5" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-[var(--color-stone-900)] transition-colors">Home</a>
         <span>/</span>
-        <span class="text-white font-medium">Halal-Friendly</span>
+        <span class="text-[var(--color-stone-700)] font-medium">Halal-Friendly</span>
       </nav>
-      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-emerald-400">
+      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
         ✓ Muslim-Friendly Picks
       </p>
       <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight">
         Halal-Friendly<br />Bubble Tea in Singapore
       </h1>
-      <p class="text-white/70 text-base max-w-2xl leading-relaxed">
+      <p class="text-[var(--color-stone-600)] text-base max-w-2xl leading-relaxed">
         Enjoy boba worry-free. Every shop below is listed as halal-friendly by the brand — great for the whole family.
       </p>
       <div class="flex flex-wrap items-center gap-6 pt-2">
         <div class="text-sm">
           <span class="font-bold text-xl">{outlets.length}</span>
-          <span class="text-white/60 ml-1">{outlets.length === 1 ? 'shop' : 'shops'}</span>
+          <span class="text-[var(--color-stone-400)] ml-1">{outlets.length === 1 ? 'shop' : 'shops'}</span>
         </div>
         <div class="text-sm">
           <span class="font-bold text-xl">{totalBrands}</span>
-          <span class="text-white/60 ml-1">{totalBrands === 1 ? 'brand' : 'brands'}</span>
+          <span class="text-[var(--color-stone-400)] ml-1">{totalBrands === 1 ? 'brand' : 'brands'}</span>
         </div>
         <div class="text-sm">
           <span class="font-bold text-xl">{townGroups.length}</span>
-          <span class="text-white/60 ml-1">neighbourhoods</span>
+          <span class="text-[var(--color-stone-400)] ml-1">neighbourhoods</span>
         </div>
       </div>
     </div>
@@ -75,7 +75,7 @@ const jsonLd = {
           <header class="flex items-center gap-3">
             <h2 class="text-xl font-display font-bold text-[var(--color-stone-900)]">
               <a href={`/towns/${town.slug}`} class="hover:text-[var(--color-forest-700)] transition-colors">
-                📍 {town.name}
+                {town.name}
               </a>
             </h2>
             <span class="text-sm text-[var(--color-stone-400)]">
@@ -89,14 +89,14 @@ const jsonLd = {
       ))
     ) : (
       <div class="text-center py-24 space-y-4">
-        <p class="text-5xl">🔍</p>
+        <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">No Results</p>
         <h2 class="text-xl font-display font-semibold text-[var(--color-stone-800)]">
           No halal-friendly shops listed yet
         </h2>
         <p class="text-[var(--color-stone-500)] max-w-sm mx-auto">
           We're growing our directory. Check back soon or browse all shops.
         </p>
-        <a href="/directory" class="inline-flex items-center gap-2 mt-2 px-6 py-3 rounded-full bg-[var(--color-forest-700)] text-white text-sm font-semibold hover:bg-[var(--color-forest-800)] transition-colors">
+        <a href="/directory" class="inline-flex items-center gap-2 mt-2 px-6 py-3 rounded-lg bg-[var(--color-stone-900)] text-white text-sm font-semibold hover:bg-white hover:text-[var(--color-stone-900)] border border-[var(--color-stone-900)] transition-colors">
           Browse All Shops
         </a>
       </div>
@@ -113,7 +113,7 @@ const jsonLd = {
       </div>
       <a
         href="/directory?halal=true"
-        class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--color-forest-700)] text-white text-sm font-semibold hover:bg-[var(--color-forest-800)] transition-colors shrink-0"
+        class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[var(--color-stone-900)] text-white text-sm font-semibold hover:bg-white hover:text-[var(--color-stone-900)] border border-[var(--color-stone-900)] transition-colors shrink-0"
       >
         Filter Halal Shops
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

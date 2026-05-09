@@ -58,26 +58,26 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
 >
 
   <!-- Hero image -->
-  <div class="relative h-64 sm:h-80 lg:h-[28rem] bg-[var(--color-stone-800)] overflow-hidden" data-pagefind-body>
+  <div class="relative h-64 sm:h-80 lg:h-[28rem] bg-[var(--color-cream-100)] overflow-hidden border-b border-[var(--color-stone-200)]" data-pagefind-body>
     {outlet.image ? (
       <>
         <img
           src={outlet.image}
           alt={`${outlet.name} — ${outlet.brandName}`}
-          class="w-full h-full object-cover opacity-80"
+          class="w-full h-full object-cover opacity-90"
           fetchpriority="high"
           decoding="async"
           width="1600"
           height="600"
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
         />
-        <div class="w-full h-full absolute inset-0 items-center justify-center text-8xl bg-gradient-to-br from-[var(--color-forest-800)] to-[var(--color-forest-900)]" style="display:none">
-          🧋
+        <div class="w-full h-full absolute inset-0 items-center justify-center bg-[var(--color-cream-100)]" style="display:none">
+          <span class="text-sm font-semibold tracking-wide uppercase text-[var(--color-stone-400)]">Shop</span>
         </div>
       </>
     ) : (
-      <div class="w-full h-full flex items-center justify-center text-8xl bg-gradient-to-br from-[var(--color-forest-800)] to-[var(--color-forest-900)]">
-        🧋
+      <div class="w-full h-full flex items-center justify-center bg-[var(--color-cream-100)]">
+        <span class="text-sm font-semibold tracking-wide uppercase text-[var(--color-stone-400)]">Shop</span>
       </div>
     )}
     <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-stone-900)]/70 via-transparent to-transparent"></div>
@@ -111,12 +111,12 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
               {outlet.brandName}
             </a>
             {outlet.featured && (
-              <span class="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full bg-[var(--color-boba-400)]/10 text-[var(--color-boba-500)]">
+              <span class="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-lg bg-[var(--color-boba-400)]/10 text-[var(--color-boba-500)]">
                 Featured
               </span>
             )}
             {outlet.halalFriendly && (
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-50 text-green-700 border border-green-200">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-green-50 text-green-700 border border-green-200">
                 Halal-friendly
               </span>
             )}
@@ -140,8 +140,8 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
             <h2 class="text-lg font-display font-semibold text-[var(--color-stone-900)]">Popular Drinks</h2>
             <ul class="flex flex-wrap gap-2">
               {outlet.popularDrinks.map(drink => (
-                <li class="px-4 py-2 rounded-full bg-[var(--color-cream-100)] border border-[var(--color-cream-200)] text-sm text-[var(--color-stone-700)] font-medium">
-                  🧋 {drink}
+                <li class="px-4 py-2 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-cream-200)] text-sm text-[var(--color-stone-700)] font-medium">
+                  {drink}
                 </li>
               ))}
             </ul>
@@ -156,7 +156,7 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
               {outlet.drinkCategories.map((cat, i) => (
                 <a
                   href={`/drinks/${outlet.drinkCategorySlugs?.[i] ?? ''}`}
-                  class="text-xs font-semibold px-3 py-1.5 rounded-full bg-[var(--color-forest-700)]/10 text-[var(--color-forest-700)] hover:bg-[var(--color-forest-700)]/20 transition-colors"
+                  class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-[var(--color-forest-700)]/10 text-[var(--color-forest-700)] hover:bg-[var(--color-forest-700)]/20 transition-colors"
                 >
                   {cat}
                 </a>
@@ -171,7 +171,7 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
             <h2 class="text-lg font-display font-semibold text-[var(--color-stone-900)]">Gallery</h2>
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {outlet.galleryImages.map((img, i) => (
-                <div class="aspect-square rounded-xl overflow-hidden bg-[var(--color-cream-100)]">
+                <div class="aspect-square rounded-lg overflow-hidden bg-[var(--color-cream-100)]">
                   <img
                     src={img}
                     alt={`${outlet.name} photo ${i + 1}`}
@@ -190,7 +190,7 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
 
       <!-- Right: info card -->
       <aside class="space-y-5">
-        <div class="bg-white rounded-2xl border border-[var(--color-stone-200)] p-6 space-y-5 sticky top-24 shadow-sm">
+        <div class="bg-white rounded-lg border border-[var(--color-stone-200)] p-6 space-y-5 sticky top-24 shadow-none">
 
           <!-- Address -->
           <div class="space-y-1.5">
@@ -224,7 +224,7 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
                 <svg class="w-4 h-4 text-[var(--color-stone-400)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                 </svg>
-                {outlet.nearestMrt} MRT
+                {outlet.nearestMrt}
               </a>
             </div>
           )}
@@ -272,10 +272,10 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
             <h3 class="text-xs font-semibold tracking-wide uppercase text-[var(--color-stone-400)]">Features</h3>
             <div class="flex flex-wrap gap-2">
               {outlet.halalFriendly && (
-                <span class="text-xs px-2.5 py-1 rounded-full bg-green-50 text-green-700 border border-green-100 font-medium">✓ Halal-friendly</span>
+                <span class="text-xs px-2.5 py-1 rounded-lg bg-green-50 text-green-700 border border-green-100 font-medium">✓ Halal-friendly</span>
               )}
               {outlet.seatingAvailable && (
-                <span class="text-xs px-2.5 py-1 rounded-full bg-[var(--color-cream-100)] text-[var(--color-stone-600)] border border-[var(--color-stone-200)] font-medium">✓ Seating</span>
+                <span class="text-xs px-2.5 py-1 rounded-lg bg-[var(--color-cream-100)] text-[var(--color-stone-600)] border border-[var(--color-stone-200)] font-medium">✓ Seating</span>
               )}
               {!outlet.halalFriendly && !outlet.seatingAvailable && (
                 <span class="text-xs text-[var(--color-stone-400)]">—</span>
@@ -295,7 +295,7 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      class="flex items-center justify-between px-4 py-2.5 rounded-xl border border-[var(--color-stone-200)] text-sm font-medium text-[var(--color-stone-700)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors"
+                      class="flex items-center justify-between px-4 py-2.5 rounded-lg border border-[var(--color-stone-200)] text-sm font-medium text-[var(--color-stone-700)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors"
                     >
                       {link.platform}
                       <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

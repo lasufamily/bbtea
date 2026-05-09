@@ -27,30 +27,30 @@ const jsonLd = {
 >
 
   <!-- Hero -->
-  <section class="bg-gradient-to-br from-[var(--color-forest-800)] to-[var(--color-forest-900)] text-white py-16">
+  <section class="bg-white border-b border-[var(--color-stone-200)] py-16">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4" data-pagefind-body>
-      <nav class="text-sm text-white/50 flex items-center gap-1.5" aria-label="Breadcrumb">
-        <a href="/" class="hover:text-white transition-colors">Home</a>
+      <nav class="text-sm text-[var(--color-stone-400)] flex items-center gap-1.5" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-[var(--color-stone-900)] transition-colors">Home</a>
         <span>/</span>
-        <span class="text-white font-medium">Towns</span>
+        <span class="text-[var(--color-stone-700)] font-medium">Towns</span>
       </nav>
-      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-boba-400)]">
-        📍 Browse by Location
+      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
+        Browse by Location
       </p>
       <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight">
         Bubble Tea by Town
       </h1>
-      <p class="text-white/70 text-base max-w-2xl leading-relaxed">
+      <p class="text-[var(--color-stone-600)] text-base max-w-2xl leading-relaxed">
         Find the best boba shops in your neighbourhood — from heartland favourites to Orchard corridor flagships.
       </p>
       <div class="flex flex-wrap items-center gap-6 pt-2">
         <div class="text-sm">
           <span class="font-bold text-xl">{towns.length}</span>
-          <span class="text-white/60 ml-1">neighbourhoods</span>
+          <span class="text-[var(--color-stone-400)] ml-1">neighbourhoods</span>
         </div>
         <div class="text-sm">
           <span class="font-bold text-xl">{totalOutlets}</span>
-          <span class="text-white/60 ml-1">shops listed</span>
+          <span class="text-[var(--color-stone-400)] ml-1">shops listed</span>
         </div>
       </div>
     </div>

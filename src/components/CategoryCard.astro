@@ -9,7 +9,7 @@ interface Props {
 const { category, outletCount = 0 } = Astro.props;
 ---
 
-<article class="group bg-white rounded-2xl overflow-hidden border border-[var(--color-stone-200)] card-lift shadow-sm">
+<article class="group bg-white rounded-lg overflow-hidden border border-[var(--color-stone-200)] card-lift shadow-none">
   <a href={`/drinks/${category.slug}`} class="block" data-pagefind-body>
 
     <!-- Image -->
@@ -25,8 +25,8 @@ const { category, outletCount = 0 } = Astro.props;
           height="320"
         />
       ) : (
-        <div class="w-full h-full flex items-center justify-center text-5xl bg-gradient-to-br from-[var(--color-cream-100)] to-[var(--color-blush-100)]">
-          🧋
+        <div class="w-full h-full flex items-center justify-center bg-[var(--color-cream-100)]">
+          <span class="text-sm font-semibold tracking-wide uppercase text-[var(--color-stone-400)]">Drink Type</span>
         </div>
       )}
     </div>

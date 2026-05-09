@@ -9,12 +9,12 @@ interface Props {
 const { brand, outletCount = 0 } = Astro.props;
 ---
 
-<article class="group bg-white rounded-2xl overflow-hidden border border-[var(--color-stone-200)] card-lift shadow-sm">
+<article class="group bg-white rounded-lg overflow-hidden border border-[var(--color-stone-200)] card-lift shadow-none">
   <a href={`/brands/${brand.slug}`} class="block p-6 space-y-4" data-pagefind-body>
 
     <!-- Logo / Icon -->
     <div class="flex items-start justify-between gap-4">
-      <div class="w-14 h-14 rounded-xl overflow-hidden bg-[var(--color-cream-100)] flex-shrink-0 border border-[var(--color-stone-200)]">
+      <div class="w-14 h-14 rounded-lg overflow-hidden bg-white flex-shrink-0 border border-[var(--color-stone-200)]">
         {brand.logo ? (
           <img
             src={brand.logo}
@@ -26,11 +26,11 @@ const { brand, outletCount = 0 } = Astro.props;
             height="56"
           />
         ) : (
-          <div class="w-full h-full flex items-center justify-center text-2xl">🧋</div>
+          <div class="w-full h-full flex items-center justify-center text-lg font-semibold text-[var(--color-stone-400)]">{brand.name.slice(0, 1)}</div>
         )}
       </div>
       {brand.featured && (
-        <span class="text-[10px] font-bold tracking-widest uppercase px-2 py-1 rounded-full bg-[var(--color-boba-400)]/10 text-[var(--color-boba-500)]">
+        <span class="text-[10px] font-bold tracking-widest uppercase px-2 py-1 rounded-md bg-white text-[var(--color-stone-700)] border border-[var(--color-stone-200)]">
           Featured
         </span>
       )}

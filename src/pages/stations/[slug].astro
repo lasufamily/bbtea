@@ -45,28 +45,25 @@ const jsonLd = {
 >
 
   <!-- Header -->
-  <section class="bg-[var(--color-forest-800)] text-white py-14">
+  <section class="bg-white border-b border-[var(--color-stone-200)] py-14">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4" data-pagefind-body>
-      <nav class="text-sm text-white/50 flex items-center gap-1.5" aria-label="Breadcrumb">
-        <a href="/" class="hover:text-white transition-colors">Home</a>
+      <nav class="text-sm text-[var(--color-stone-400)] flex items-center gap-1.5" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-[var(--color-stone-900)] transition-colors">Home</a>
         <span>/</span>
-        <a href="/stations" class="hover:text-white transition-colors">Stations</a>
+        <a href="/stations" class="hover:text-[var(--color-stone-900)] transition-colors">Stations</a>
         <span>/</span>
-        <span class="text-white font-medium">{stationName}</span>
+        <span class="text-[var(--color-stone-700)] font-medium">{stationName}</span>
       </nav>
 
-      <div class="flex items-center gap-3">
-        <span class="text-3xl">🚇</span>
-        <div>
-          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-boba-400)]">
-            Near MRT {station?.line ? `· ${station.line} Line` : ''}
-          </p>
-          <h1 class="text-3xl lg:text-4xl font-display font-bold">
-            Bubble Tea Near {stationName} MRT
-          </h1>
-        </div>
+      <div>
+        <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
+          Near MRT {station?.line ? `· ${station.line} Line` : ''}
+        </p>
+        <h1 class="mt-3 text-3xl lg:text-4xl font-display font-bold">
+          Bubble Tea Near {stationName} MRT
+        </h1>
       </div>
-      <p class="text-white/70 text-base max-w-xl">
+      <p class="text-[var(--color-stone-600)] text-base max-w-xl">
         {outlets.length} bubble tea {outlets.length === 1 ? 'shop' : 'shops'} close to {stationName} MRT station.
       </p>
     </div>
@@ -80,14 +77,14 @@ const jsonLd = {
       </div>
     ) : (
       <div class="text-center py-20 space-y-4">
-        <p class="text-5xl">🚇</p>
+        <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">No Results</p>
         <h2 class="text-xl font-display font-semibold text-[var(--color-stone-800)]">
           No shops near {stationName} MRT yet
         </h2>
         <p class="text-[var(--color-stone-500)] max-w-sm mx-auto">
           We're growing our coverage. Browse all shops in the meantime.
         </p>
-        <a href="/directory" class="inline-flex items-center gap-2 mt-2 px-6 py-3 rounded-full bg-[var(--color-forest-700)] text-white text-sm font-semibold hover:bg-[var(--color-forest-800)] transition-colors">
+        <a href="/directory" class="inline-flex items-center gap-2 mt-2 px-6 py-3 rounded-lg bg-[var(--color-stone-900)] text-white text-sm font-semibold hover:bg-white hover:text-[var(--color-stone-900)] border border-[var(--color-stone-900)] transition-colors">
           Browse All Shops
         </a>
       </div>
@@ -109,9 +106,9 @@ const jsonLd = {
         {MRT_STATIONS.filter(m => m.slug !== Astro.params.slug).map(m => (
           <a
             href={`/stations/${m.slug}`}
-            class="text-sm px-4 py-2 rounded-full bg-white border border-[var(--color-stone-200)] text-[var(--color-stone-600)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors font-medium"
+            class="text-sm px-4 py-2 rounded-lg bg-white border border-[var(--color-stone-200)] text-[var(--color-stone-600)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors font-medium"
           >
-            🚇 {m.name}
+            {m.name}
           </a>
         ))}
       </div>

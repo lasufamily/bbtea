@@ -30,22 +30,22 @@ const footerLinks = {
 };
 ---
 
-<footer class="bg-[var(--color-stone-900)] text-white">
+<footer class="bg-white text-[var(--color-stone-900)] border-t border-[var(--color-stone-200)]">
   <!-- Top section -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-10">
 
       <!-- Brand column -->
       <div class="lg:col-span-2 space-y-5">
-        <a href="/" class="inline-flex items-center gap-2 text-2xl font-display font-bold tracking-tight">
-          🧋 Bubble Tea <span class="text-[var(--color-boba-400)]">SG</span>
+        <a href="/" class="inline-flex items-center gap-2 text-xl font-display font-semibold tracking-tight">
+          Bubble Tea <span class="text-[var(--color-forest-700)]">SG</span>
         </a>
-        <p class="text-sm text-[var(--color-stone-400)] leading-relaxed max-w-sm">
+        <p class="text-sm text-[var(--color-stone-600)] leading-relaxed max-w-sm">
           Singapore's most comprehensive bubble tea directory — discover the best
           boba shops across the island, from Orchard to Woodlands.
         </p>
         <div class="flex gap-4 pt-1">
-          <a href="/search" class="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-stone-400)] hover:text-white transition-colors">
+          <a href="/search" class="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-stone-600)] hover:text-[var(--color-stone-900)] transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             Search
           </a>
@@ -63,7 +63,7 @@ const footerLinks = {
               <li>
                 <a
                   href={link.href}
-                  class="text-sm text-[var(--color-stone-400)] hover:text-white transition-colors link-underline"
+                  class="text-sm text-[var(--color-stone-600)] hover:text-[var(--color-stone-900)] transition-colors link-underline"
                 >
                   {link.label}
                 </a>
@@ -76,12 +76,12 @@ const footerLinks = {
   </div>
 
   <!-- Bottom bar -->
-  <div class="border-t border-white/10">
+  <div class="border-t border-[var(--color-stone-200)]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <p class="text-xs text-[var(--color-stone-400)]">
-        © {year} Bubble Tea SG. All rights reserved. · Singapore 🇸🇬
+      <p class="text-xs text-[var(--color-stone-500)]">
+        © {year} Bubble Tea SG. All rights reserved. · Singapore
       </p>
-      <p class="text-xs text-[var(--color-stone-400)]">
+      <p class="text-xs text-[var(--color-stone-500)]">
         Built with love for bubble tea lovers across the island.
       </p>
     </div>

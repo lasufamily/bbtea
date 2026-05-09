@@ -16,16 +16,15 @@ const pathname = Astro.url.pathname;
   class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
   data-header
 >
-  <!-- Backdrop blur bar -->
-  <div class="absolute inset-0 bg-[var(--color-cream-50)]/90 backdrop-blur-md border-b border-[var(--color-stone-200)]"></div>
+  <div class="absolute inset-0 bg-white/95 backdrop-blur-md border-b border-[var(--color-stone-200)]"></div>
 
   <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 lg:h-18">
 
       <!-- Logo -->
       <a href="/" class="flex items-center gap-2.5 group" aria-label="Bubble Tea SG home">
-        <span class="text-xl font-display font-bold tracking-tight text-[var(--color-stone-900)] group-hover:text-[var(--color-forest-700)] transition-colors">
-          🧋 Bubble Tea <span class="text-[var(--color-forest-700)]">SG</span>
+        <span class="text-lg font-display font-semibold tracking-tight text-[var(--color-stone-900)] group-hover:text-[var(--color-forest-700)] transition-colors">
+          Bubble Tea <span class="text-[var(--color-forest-700)]">SG</span>
         </span>
       </a>
 
@@ -50,7 +49,7 @@ const pathname = Astro.url.pathname;
       <div class="flex items-center gap-3">
         <a
           href="/directory"
-          class="hidden sm:inline-flex items-center px-4 py-2 text-sm font-medium rounded-full bg-[var(--color-forest-700)] text-white hover:bg-[var(--color-forest-800)] transition-colors"
+          class="hidden sm:inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-stone-900)] bg-[var(--color-stone-900)] text-white hover:bg-white hover:text-[var(--color-stone-900)] transition-colors"
         >
           Explore All
         </a>
@@ -74,7 +73,7 @@ const pathname = Astro.url.pathname;
   <!-- Mobile menu -->
   <div
     id="mobile-menu"
-    class="hidden lg:hidden absolute inset-x-0 top-full bg-[var(--color-cream-50)] border-b border-[var(--color-stone-200)] shadow-lg"
+    class="hidden lg:hidden absolute inset-x-0 top-full bg-white border-b border-[var(--color-stone-200)] shadow-none"
   >
     <nav class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1" aria-label="Mobile navigation">
       {navLinks.map(link => (
@@ -88,7 +87,7 @@ const pathname = Astro.url.pathname;
       <div class="pt-3 mt-1 border-t border-[var(--color-stone-200)]">
         <a
           href="/directory"
-          class="block w-full text-center px-4 py-3 rounded-lg text-sm font-medium bg-[var(--color-forest-700)] text-white hover:bg-[var(--color-forest-800)] transition-colors"
+          class="block w-full text-center px-4 py-3 rounded-lg text-sm font-medium bg-[var(--color-stone-900)] text-white hover:bg-white hover:text-[var(--color-stone-900)] border border-[var(--color-stone-900)] transition-colors"
         >
           Explore All Shops
         </a>

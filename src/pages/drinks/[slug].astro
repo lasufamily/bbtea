@@ -45,42 +45,42 @@ const jsonLd = {
 >
 
   <!-- Hero -->
-  <section class="relative bg-[var(--color-stone-900)] text-white overflow-hidden" style="min-height: 18rem;">
+  <section class="relative bg-white border-b border-[var(--color-stone-200)] overflow-hidden" style="min-height: 18rem;">
     {category.image && (
       <img
         src={category.image}
         alt={category.name}
-        class="absolute inset-0 w-full h-full object-cover opacity-30"
+        class="absolute inset-0 w-full h-full object-cover opacity-10"
         fetchpriority="high"
         decoding="async"
         width="1200"
         height="400"
       />
     )}
-    <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-forest-900)]/80 to-[var(--color-forest-900)]/95"></div>
+    <div class="absolute inset-0 bg-white/85"></div>
 
     <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-4" data-pagefind-body>
-      <nav class="text-sm text-white/50 flex items-center gap-1.5" aria-label="Breadcrumb">
-        <a href="/" class="hover:text-white transition-colors">Home</a>
+      <nav class="text-sm text-[var(--color-stone-400)] flex items-center gap-1.5" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-[var(--color-stone-900)] transition-colors">Home</a>
         <span>/</span>
-        <a href="/directory" class="hover:text-white transition-colors">Directory</a>
+        <a href="/directory" class="hover:text-[var(--color-stone-900)] transition-colors">Directory</a>
         <span>/</span>
-        <a href="/drinks" class="hover:text-white transition-colors text-white/80">Drink Types</a>
+        <a href="/drinks" class="hover:text-[var(--color-stone-900)] transition-colors text-[var(--color-stone-700)]">Drink Types</a>
         <span>/</span>
-        <span class="text-white font-medium">{category.name}</span>
+        <span class="text-[var(--color-stone-700)] font-medium">{category.name}</span>
       </nav>
 
-      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-boba-400)]">Drink Type</p>
-      <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight">
+      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">Drink Type</p>
+      <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight text-[var(--color-stone-900)]">
         {category.name}<br />
-        <span class="text-white/70 text-2xl lg:text-3xl font-normal italic">in Singapore</span>
+        <span class="text-[var(--color-stone-600)] text-2xl lg:text-3xl font-normal">in Singapore</span>
       </h1>
       {category.description && (
-        <p class="text-white/70 text-base max-w-2xl leading-relaxed">
+        <p class="text-[var(--color-stone-600)] text-base max-w-2xl leading-relaxed">
           {category.description}
         </p>
       )}
-      <p class="text-white/60 text-sm">
+      <p class="text-[var(--color-stone-500)] text-sm">
         {outlets.length} {outlets.length === 1 ? 'shop' : 'shops'} found
       </p>
     </div>
@@ -94,9 +94,9 @@ const jsonLd = {
       </div>
     ) : (
       <div class="text-center py-20 space-y-4">
-        <p class="text-5xl">🔍</p>
+        <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">No Results</p>
         <h2 class="text-xl font-display font-semibold text-[var(--color-stone-800)]">No shops found for this category</h2>
-        <a href="/directory" class="inline-flex items-center gap-2 mt-2 px-6 py-3 rounded-full bg-[var(--color-forest-700)] text-white text-sm font-semibold hover:bg-[var(--color-forest-800)] transition-colors">
+        <a href="/directory" class="inline-flex items-center gap-2 mt-2 px-6 py-3 rounded-lg bg-[var(--color-stone-900)] text-white text-sm font-semibold hover:bg-white hover:text-[var(--color-stone-900)] border border-[var(--color-stone-900)] transition-colors">
           Browse All Shops
         </a>
       </div>

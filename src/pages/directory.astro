@@ -107,7 +107,7 @@ if (q)           activeFilters.push(`"${q}"`);
       <div class="flex-1 min-w-0 space-y-6">
 
         <!-- Mobile filter toggle -->
-        <details class="lg:hidden bg-white border border-[var(--color-stone-200)] rounded-2xl overflow-hidden">
+        <details class="lg:hidden bg-white border border-[var(--color-stone-200)] rounded-lg overflow-hidden">
           <summary class="px-5 py-4 font-semibold text-sm text-[var(--color-stone-700)] cursor-pointer flex items-center gap-2 list-none">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
@@ -145,14 +145,14 @@ if (q)           activeFilters.push(`"${q}"`);
           </div>
         ) : (
           <div class="text-center py-20 space-y-4">
-            <p class="text-5xl">🔍</p>
+            <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">No Results</p>
             <h2 class="text-xl font-display font-semibold text-[var(--color-stone-800)]">No shops found</h2>
             <p class="text-[var(--color-stone-500)] max-w-sm mx-auto">
               Try adjusting your filters or search term to discover more bubble tea shops.
             </p>
             <a
               href="/directory"
-              class="inline-flex items-center gap-2 mt-2 px-6 py-3 rounded-full bg-[var(--color-forest-700)] text-white text-sm font-semibold hover:bg-[var(--color-forest-800)] transition-colors"
+              class="inline-flex items-center gap-2 mt-2 px-6 py-3 rounded-lg bg-[var(--color-stone-900)] text-white text-sm font-semibold hover:bg-white hover:text-[var(--color-stone-900)] border border-[var(--color-stone-900)] transition-colors"
             >
               Clear all filters
             </a>
