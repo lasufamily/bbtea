@@ -26,7 +26,7 @@ const priceColors: Record<string, string> = {
   data-pagefind-body
 >
   <!-- Image -->
-  <a href={`/shops/${outlet.slug}`} class="block overflow-hidden aspect-[4/3] bg-[var(--color-cream-100)] relative" tabindex="-1" aria-hidden="true">
+  <a href={`/bubble-tea-shops/${outlet.slug}`} class="block overflow-hidden aspect-[4/3] bg-[var(--color-cream-100)] relative" tabindex="-1" aria-hidden="true">
     {outlet.image ? (
       <>
         <img
@@ -83,7 +83,7 @@ const priceColors: Record<string, string> = {
 
     <!-- Outlet name -->
     <h3 class="text-base font-display font-semibold text-[var(--color-stone-900)] leading-snug">
-      <a href={`/shops/${outlet.slug}`} class="hover:text-[var(--color-forest-700)] transition-colors">
+      <a href={`/bubble-tea-shops/${outlet.slug}`} class="hover:text-[var(--color-forest-700)] transition-colors">
         {outlet.name}
       </a>
     </h3>
@@ -134,7 +134,7 @@ const priceColors: Record<string, string> = {
     <!-- View link -->
     <div class="pt-2 border-t border-[var(--color-stone-100)] flex items-center justify-between">
       <a
-        href={`/shops/${outlet.slug}`}
+        href={`/bubble-tea-shops/${outlet.slug}`}
         class="text-sm font-semibold text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] flex items-center gap-1 transition-colors group/link"
       >
         View Details

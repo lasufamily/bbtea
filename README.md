@@ -43,7 +43,7 @@ bbtsg/
 │   │   ├── directory.astro       # Filterable shop listing
 │   │   ├── search.astro          # Pagefind search UI
 │   │   ├── 404.astro
-│   │   ├── shops/[slug].astro    # Individual shop page
+│   │   ├── bubble-tea-shops/[slug].astro    # Individual shop page
 │   │   ├── brands/[slug].astro   # Brand page (all outlets)
 │   │   ├── towns/[slug].astro    # Town page
 │   │   ├── categories/[slug].astro

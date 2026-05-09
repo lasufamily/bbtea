@@ -42,7 +42,7 @@ const jsonLd = {
   ...(outlet.image         && { image: outlet.image }),
   priceRange: outlet.priceRange ?? '$$',
   servesCuisine: 'Bubble Tea',
-  url: `https://bubbleteasg.com/shops/${outlet.slug}`,
+  url: `https://bubbleteasg.com/bubble-tea-shops/${outlet.slug}`,
 };
 
 const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '$$$': 'Premium' };
@@ -53,7 +53,7 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
   description={`${outlet.name} is a ${outlet.brandName} bubble tea shop located at ${outlet.mall ?? outlet.address}, ${outlet.town}. ${outlet.popularDrinks?.slice(0,2).join(', ') ?? ''}`}
   image={outlet.image}
   type="article"
-  canonical={`https://bubbleteasg.com/shops/${outlet.slug}`}
+  canonical={`https://bubbleteasg.com/bubble-tea-shops/${outlet.slug}`}
   jsonLd={jsonLd}
 >
 

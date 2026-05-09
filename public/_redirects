@@ -1,1 +1,2 @@
 /near-mrt/*  /stations/:splat  301
+/shops/*  /bubble-tea-shops/:splat  301
