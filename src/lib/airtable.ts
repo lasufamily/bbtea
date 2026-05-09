@@ -7,8 +7,8 @@
  */
 
 import type {
-  Brand, Outlet, DrinkCategory,
-  AirtableBrandFields, AirtableOutletFields, AirtableCategoryFields, AirtableTownFields,
+  Brand, Outlet, DrinkCategory, Mall,
+  AirtableBrandFields, AirtableOutletFields, AirtableCategoryFields, AirtableTownFields, AirtableMallFields,
   AirtableRecord, AirtableResponse,
 } from './types';
 
@@ -37,6 +37,13 @@ function normalizeText(value: unknown): string | undefined {
   }
   if (value == null) return undefined;
   return String(value).trim() || undefined;
+}
+
+function slugify(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
 }
 
 // ─────────────────────────────────────────
@@ -96,6 +103,7 @@ async function fetchTable<T>(
 let _brandsCache:     Promise<Brand[]>         | null = null;
 let _categoriesCache: Promise<DrinkCategory[]> | null = null;
 let _outletsCache:    Promise<Outlet[]>        | null = null;
+let _mallsCache:      Promise<Mall[]>          | null = null;
 
 // ─────────────────────────────────────────
 // Towns (used to resolve linked-record IDs on outlets)
@@ -111,10 +119,7 @@ async function getTownMap(): Promise<Map<string, { name: string; slug: string }>
   for (const r of records) {
     const name = r.fields['Name'];
     if (!name) continue;
-    const slug = name
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '');
+    const slug = slugify(name);
     map.set(r.id, { name, slug });
   }
 
@@ -125,6 +130,63 @@ async function getTownMap(): Promise<Map<string, { name: string; slug: string }>
 export async function getTowns(): Promise<import('./types').Town[]> {
   const map = await getTownMap();
   return Array.from(map.values()).map(({ name, slug }) => ({ name, slug }));
+}
+
+// ─────────────────────────────────────────
+// Malls
+// ─────────────────────────────────────────
+let _mallMapCache: Map<string, { name: string; slug: string }> | null = null;
+
+function mapMall(r: AirtableRecord<AirtableMallFields>): Mall | undefined {
+  const f = r.fields;
+  const name = normalizeText(f['Name']) ?? normalizeText(f['Mall Name']) ?? normalizeText(f['Mall / Location']);
+  if (!name) return undefined;
+
+  const imageAttachment = Array.isArray(f['Image']) ? f['Image'][0] : undefined;
+  const image = f['Image URL']?.trim() || imageAttachment?.thumbnails?.large?.url || imageAttachment?.url;
+
+  return {
+    id:          r.id,
+    name,
+    slug:        normalizeText(f['Slug']) ?? slugify(name),
+    description: f['Description'],
+    image,
+    published:   f['Published'] ?? true,
+  } satisfies Mall;
+}
+
+async function _fetchMalls(): Promise<Mall[]> {
+  const records = await fetchTable<AirtableMallFields>('Malls');
+
+  return records
+    .map(mapMall)
+    .filter(Boolean)
+    .sort((a, b) => a.name.localeCompare(b.name)) as Mall[];
+}
+
+export function getMalls(): Promise<Mall[]> {
+  return (_mallsCache ??= _fetchMalls());
+}
+
+async function getMallMap(): Promise<Map<string, { name: string; slug: string }>> {
+  if (_mallMapCache) return _mallMapCache;
+
+  const malls = await getMalls();
+  const map = new Map<string, { name: string; slug: string }>();
+
+  for (const mall of malls) {
+    map.set(mall.id, { name: mall.name, slug: mall.slug });
+    map.set(mall.name, { name: mall.name, slug: mall.slug });
+    map.set(mall.slug, { name: mall.name, slug: mall.slug });
+  }
+
+  _mallMapCache = map;
+  return map;
+}
+
+export async function getMallBySlug(slug: string): Promise<Mall | undefined> {
+  const malls = await getMalls();
+  return malls.find(mall => mall.slug === slug);
 }
 
 // ─────────────────────────────────────────
@@ -196,6 +258,7 @@ async function buildOutlets(
   brands: Brand[],
   categories: DrinkCategory[],
   townMap: Map<string, { name: string; slug: string }>,
+  mallMap: Map<string, { name: string; slug: string }>,
 ): Promise<Outlet[]> {
   const brandMap = new Map(brands.map(b => [b.id, b]));
   const catMap   = new Map(categories.map(c => [c.id, c]));
@@ -217,6 +280,12 @@ async function buildOutlets(
       const townData = townId ? townMap.get(townId) : undefined;
       const town     = townData?.name ?? '';
       const townSlug = townData?.slug ?? '';
+
+      // Mall: supports either a plain text mall name or a linked Malls record ID
+      const mallRef = Array.isArray(f['Mall / Location']) ? f['Mall / Location'][0] : f['Mall / Location'];
+      const mallData = mallRef ? mallMap.get(mallRef) : undefined;
+      const mall = mallData?.name ?? normalizeText(f['Mall / Location']);
+      const mallSlug = mallData?.slug ?? (mall ? slugify(mall) : undefined);
 
       // MRT slug
       const nearestMrt = normalizeText(f['Nearest MRT']);
@@ -251,7 +320,8 @@ async function buildOutlets(
         brandLogo:          brand?.logo,
         town,
         townSlug,
-        mall:               f['Mall / Location'],
+        mall,
+        mallSlug,
         address:            f['Address'],
         nearestMrt,
         mrtSlug,
@@ -274,14 +344,15 @@ async function buildOutlets(
 }
 
 async function _fetchOutlets(): Promise<Outlet[]> {
-  const [records, brands, cats, townMap] = await Promise.all([
+  const [records, brands, cats, townMap, mallMap] = await Promise.all([
     fetchTable<AirtableOutletFields>('Bubble Tea Shops', '{Published} = TRUE()'),
     getBrands(),
     getCategories(),
     getTownMap(),
+    getMallMap(),
   ]);
 
-  return buildOutlets(records, brands, cats, townMap);
+  return buildOutlets(records, brands, cats, townMap, mallMap);
 }
 
 export function getOutlets(): Promise<Outlet[]> {
@@ -289,14 +360,15 @@ export function getOutlets(): Promise<Outlet[]> {
 }
 
 export async function getOutletBySlug(slug: string): Promise<Outlet | undefined> {
-  const [records, brands, cats, townMap] = await Promise.all([
+  const [records, brands, cats, townMap, mallMap] = await Promise.all([
     fetchTable<AirtableOutletFields>('Bubble Tea Shops', `AND({Slug} = "${slug}", {Published} = TRUE())`),
     getBrands(),
     getCategories(),
     getTownMap(),
+    getMallMap(),
   ]);
 
-  const outlets = await buildOutlets(records, brands, cats, townMap);
+  const outlets = await buildOutlets(records, brands, cats, townMap, mallMap);
   return outlets[0];
 }
 
@@ -318,6 +390,11 @@ export async function getOutletsByCategory(categorySlug: string): Promise<Outlet
 export async function getOutletsByMrt(mrtSlug: string): Promise<Outlet[]> {
   const outlets = await getOutlets();
   return outlets.filter(o => o.mrtSlug === mrtSlug);
+}
+
+export async function getOutletsByMall(mallSlug: string): Promise<Outlet[]> {
+  const outlets = await getOutlets();
+  return outlets.filter(o => o.mallSlug === mallSlug);
 }
 
 // ─────────────────────────────────────────

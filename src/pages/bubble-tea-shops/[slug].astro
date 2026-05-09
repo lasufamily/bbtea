@@ -130,7 +130,18 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
             </svg>
             <a href={`/towns/${outlet.townSlug}`} class="hover:text-[var(--color-forest-700)] transition-colors font-medium">{outlet.town}</a>
-            {outlet.mall && <> · {outlet.mall}</>}
+            {outlet.mall && (
+              <>
+                {' · '}
+                {outlet.mallSlug ? (
+                  <a href={`/malls/${outlet.mallSlug}`} class="hover:text-[var(--color-forest-700)] transition-colors">
+                    {outlet.mall}
+                  </a>
+                ) : (
+                  outlet.mall
+                )}
+              </>
+            )}
           </p>
         </header>
 

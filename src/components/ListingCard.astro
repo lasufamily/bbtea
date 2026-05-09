@@ -99,7 +99,18 @@ const priceColors: Record<string, string> = {
           <a href={`/towns/${outlet.townSlug}`} class="font-medium text-[var(--color-stone-700)] hover:text-[var(--color-forest-700)] transition-colors">
             {outlet.town}
           </a>
-          {outlet.mall && <> · {outlet.mall}</>}
+          {outlet.mall && (
+            <>
+              {' · '}
+              {outlet.mallSlug ? (
+                <a href={`/malls/${outlet.mallSlug}`} class="hover:text-[var(--color-forest-700)] transition-colors">
+                  {outlet.mall}
+                </a>
+              ) : (
+                outlet.mall
+              )}
+            </>
+          )}
         </span>
       </div>
 

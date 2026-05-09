@@ -27,6 +27,7 @@ export interface Outlet {
   town: string;
   townSlug: string;
   mall?: string;
+  mallSlug?: string;
   address: string;
   nearestMrt?: string;
   mrtSlug?: string;
@@ -65,6 +66,15 @@ export interface Town {
   slug: string;
   description?: string;
   image?: string;
+}
+
+export interface Mall {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string;
+  image?: string;
+  published: boolean;
 }
 
 export interface MrtStation {
@@ -106,7 +116,7 @@ export interface AirtableOutletFields {
   'Slug': string;
   'Brand'?: string[];           // linked record IDs → Brands table
   'Town'?: string[];            // linked record IDs → Towns table
-  'Mall / Location'?: string;
+  'Mall / Location'?: string | string[];
   'Street'?: string;
   'Address': string;
   'Nearest MRT'?: string | string[];
@@ -135,4 +145,15 @@ export interface AirtableCategoryFields {
 
 export interface AirtableTownFields {
   'Name': string;
+}
+
+export interface AirtableMallFields {
+  'Name'?: string;
+  'Mall Name'?: string;
+  'Mall / Location'?: string;
+  'Slug'?: string;
+  'Description'?: string;
+  'Image'?: { url: string; thumbnails?: { large?: { url: string } } }[];
+  'Image URL'?: string;
+  'Published'?: boolean;
 }

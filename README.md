@@ -46,8 +46,9 @@ bbtsg/
 │   │   ├── bubble-tea-shops/[slug].astro    # Individual shop page
 │   │   ├── brands/[slug].astro   # Brand page (all outlets)
 │   │   ├── towns/[slug].astro    # Town page
-│   │   ├── categories/[slug].astro
-│   │   └── near-mrt/[slug].astro
+│   │   ├── malls/[slug].astro    # Mall page
+│   │   ├── drinks/[slug].astro
+│   │   └── stations/[slug].astro
 │   └── styles/
 │       └── global.css        # Tailwind v4 + design tokens
 ├── .env.example

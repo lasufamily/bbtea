@@ -1,0 +1,62 @@
+---
+import type { Mall } from '../lib/types';
+
+interface Props {
+  mall: Mall;
+  outletCount?: number;
+}
+
+const { mall, outletCount = 0 } = Astro.props;
+
+const initials = mall.name
+  .split(/\s+/)
+  .slice(0, 2)
+  .map(part => part[0])
+  .join('');
+---
+
+<article class="group bg-white rounded-lg overflow-hidden border border-[var(--color-stone-200)] card-lift shadow-none">
+  <a href={`/malls/${mall.slug}`} class="block" data-pagefind-body>
+    {mall.image ? (
+      <div class="aspect-[3/2] overflow-hidden bg-[var(--color-cream-100)] border-b border-[var(--color-stone-200)]">
+        <img
+          src={mall.image}
+          alt={mall.name}
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          loading="lazy"
+          decoding="async"
+          width="480"
+          height="320"
+        />
+      </div>
+    ) : (
+      <div class="h-20 bg-[var(--color-cream-100)] border-b border-[var(--color-stone-200)] flex items-end p-4">
+        <span class="text-sm font-semibold tracking-wide uppercase text-[var(--color-stone-400)]" aria-hidden="true">{initials}</span>
+      </div>
+    )}
+
+    <div class="p-5 space-y-2">
+      <h3 class="text-base font-display font-semibold text-[var(--color-stone-900)] group-hover:text-[var(--color-forest-700)] transition-colors">
+        {mall.name}
+      </h3>
+
+      {mall.description && (
+        <p class="text-sm text-[var(--color-stone-600)] leading-relaxed line-clamp-2">
+          {mall.description}
+        </p>
+      )}
+
+      <div class="flex items-center justify-between pt-3 border-t border-[var(--color-stone-100)]">
+        <span class="text-xs text-[var(--color-stone-400)]">
+          {outletCount} {outletCount === 1 ? 'shop' : 'shops'}
+        </span>
+        <span class="text-sm font-semibold text-[var(--color-forest-700)] flex items-center gap-1 group-hover:gap-1.5 transition-all">
+          Explore
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+          </svg>
+        </span>
+      </div>
+    </div>
+  </a>
+</article>
