@@ -14,6 +14,14 @@ jobs:
     steps:
       - name: Trigger deploy
         run: |
-          curl -s -X POST "${{ secrets.CF_DEPLOY_HOOK_URL }}" \
-            -o /dev/null \
-            -w "HTTP status: %{http_code}\n"
+          if [ -z "${{ secrets.CF_DEPLOY_HOOK_URL }}" ]; then
+            echo "❌ CF_DEPLOY_HOOK_URL secret is not set. Add it in GitHub repo Settings → Secrets."
+            exit 1
+          fi
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST "${{ secrets.CF_DEPLOY_HOOK_URL }}")
+          echo "HTTP status: $STATUS"
+          if [ "$STATUS" != "200" ]; then
+            echo "❌ Deploy hook failed with status $STATUS"
+            exit 1
+          fi
+          echo "✅ Deploy triggered successfully"
