@@ -18,6 +18,13 @@ const { brand } = Astro.props;
 const allOutlets = await getOutlets();
 const outlets    = allOutlets.filter(o => o.brandSlug === brand.slug);
 
+const brandLinks = [
+  { label: 'Website', url: brand.websiteUrl },
+  { label: 'Facebook', url: brand.facebookUrl },
+  { label: 'Instagram', url: brand.instagramUrl },
+  { label: 'TikTok', url: brand.tiktokUrl },
+].filter((link): link is { label: string; url: string } => Boolean(link.url));
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
@@ -25,7 +32,7 @@ const jsonLd = {
   description: brand.description,
   url: brand.websiteUrl ?? `https://bubbleteasg.com/brands/${brand.slug}`,
   ...(brand.logo && { logo: brand.logo }),
-  ...(brand.instagramUrl && { sameAs: [brand.instagramUrl] }),
+  ...(brandLinks.length > 0 && { sameAs: brandLinks.map(link => link.url) }),
 };
 ---
 
@@ -69,36 +76,23 @@ const jsonLd = {
           {brand.description && (
             <p class="text-[var(--color-stone-600)] text-base leading-relaxed max-w-2xl">{brand.description}</p>
           )}
-          <div class="flex items-center gap-4 pt-2">
+          <div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
             <span class="text-sm text-[var(--color-stone-500)]">
               {outlets.length} outlet{outlets.length !== 1 ? 's' : ''} in Singapore
             </span>
-            {brand.websiteUrl && (
+            {brandLinks.map(link => (
               <a
-                href={brand.websiteUrl}
+                href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="text-sm font-medium text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] flex items-center gap-1 transition-colors"
               >
-                Website
+                {link.label}
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                 </svg>
               </a>
-            )}
-            {brand.instagramUrl && (
-              <a
-                href={brand.instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-sm font-medium text-[var(--color-stone-500)] hover:text-[var(--color-stone-800)] flex items-center gap-1 transition-colors"
-              >
-                Instagram
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                </svg>
-              </a>
-            )}
+            ))}
           </div>
         </div>
       </div>

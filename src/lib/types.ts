@@ -9,7 +9,9 @@ export interface Brand {
   logo?: string;
   description?: string;
   websiteUrl?: string;
+  facebookUrl?: string;
   instagramUrl?: string;
+  tiktokUrl?: string;
   featured: boolean;
   published: boolean;
 }

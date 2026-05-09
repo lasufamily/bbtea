@@ -135,7 +135,9 @@ async function _fetchBrands(): Promise<Brand[]> {
         logo:         f['Logo']?.[0]?.thumbnails?.large?.url ?? f['Logo']?.[0]?.url,
         description:  f['Description'],
         websiteUrl:   f['Website URL'],
+        facebookUrl:  f['Facebook URL'],
         instagramUrl: f['Instagram URL'],
+        tiktokUrl:    f['TikTok URL'],
         featured:     f['Featured'] ?? false,
         published:    f['Published'] ?? false,
       } satisfies Brand;
@@ -161,7 +163,9 @@ export async function getBrandBySlug(slug: string): Promise<Brand | undefined> {
       logo:         f['Logo']?.[0]?.thumbnails?.large?.url ?? f['Logo']?.[0]?.url,
       description:  f['Description'],
       websiteUrl:   f['Website URL'],
+      facebookUrl:  f['Facebook URL'],
       instagramUrl: f['Instagram URL'],
+      tiktokUrl:    f['TikTok URL'],
       featured:     f['Featured'] ?? false,
       published:    f['Published'] ?? false,
     } satisfies Brand;
