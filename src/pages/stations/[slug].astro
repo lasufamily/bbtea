@@ -2,21 +2,18 @@
 import Layout from '../../components/Layout.astro';
 import ListingCard from '../../components/ListingCard.astro';
 import { getOutlets } from '../../lib/airtable';
-import { MRT_STATIONS } from '../../lib/mockData';
+import { getStationsFromOutlets } from '../../lib/stations';
 import type { MrtStation } from '../../lib/types';
 
 export async function getStaticPaths() {
   const allOutlets = await getOutlets();
-  // Build from MRT_STATIONS + any extra slugs in actual outlet data
-  const outletMrtSlugs = [...new Set(allOutlets.map(o => o.mrtSlug).filter(Boolean))] as string[];
-  const stationSlugs   = [...new Set([...MRT_STATIONS.map(m => m.slug), ...outletMrtSlugs])];
+  const stations = getStationsFromOutlets(allOutlets);
 
-  return stationSlugs.map(slug => {
-    const station = MRT_STATIONS.find(m => m.slug === slug);
-    const outlets = allOutlets.filter(o => o.mrtSlug === slug);
+  return stations.map(station => {
+    const outlets = allOutlets.filter(o => o.mrtSlug === station.slug);
     return {
-      params: { slug },
-      props:  { station, outlets, outletStationName: outlets[0]?.nearestMrt },
+      params: { slug: station.slug },
+      props:  { station, outlets, stations },
     };
   });
 }
@@ -24,10 +21,10 @@ export async function getStaticPaths() {
 interface Props {
   station: MrtStation | undefined;
   outlets: Awaited<ReturnType<typeof getOutlets>>;
-  outletStationName?: string;
+  stations: MrtStation[];
 }
-const { station, outlets, outletStationName } = Astro.props;
-const stationName = station?.name ?? outletStationName ?? Astro.params.slug.replace(/-mrt$/, '').replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
+const { station, outlets, stations } = Astro.props;
+const stationName = station?.name ?? Astro.params.slug.replace(/-mrt$/, '').replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
 const stationLabel = /\bMRT\b/i.test(stationName) ? stationName : `${stationName} MRT`;
 
 const jsonLd = {
@@ -105,7 +102,7 @@ const jsonLd = {
         </a>
       </div>
       <div class="flex flex-wrap gap-2">
-        {MRT_STATIONS.filter(m => m.slug !== Astro.params.slug).map(m => (
+        {stations.filter(m => m.slug !== Astro.params.slug).map(m => (
           <a
             href={`/stations/${m.slug}`}
             class="text-sm px-4 py-2 rounded-lg bg-white border border-[var(--color-stone-200)] text-[var(--color-stone-600)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors font-medium"

@@ -11,7 +11,6 @@ import type {
   AirtableBrandFields, AirtableOutletFields, AirtableCategoryFields, AirtableTownFields, AirtableMrtStationFields, AirtableMallFields,
   AirtableRecord, AirtableResponse,
 } from './types';
-import { MRT_STATIONS } from './mockData';
 
 // ─────────────────────────────────────────
 // Config
@@ -178,27 +177,13 @@ function mapMrtStation(r: AirtableRecord<AirtableMrtStationFields>): NamedSlug |
 }
 
 async function fetchMrtStations(): Promise<AirtableRecord<AirtableMrtStationFields>[]> {
-  for (const tableName of ['MRT Stations', 'MRT', 'Stations']) {
-    try {
-      const records = await fetchTable<AirtableMrtStationFields>(tableName);
-      if (records.length > 0) return records;
-    } catch (error) {
-      console.warn(`[airtable] Could not fetch ${tableName}:`, error);
-    }
-  }
-
-  return [];
+  return fetchTable<AirtableMrtStationFields>('Stations');
 }
 
 async function getMrtMap(): Promise<Map<string, NamedSlug>> {
   if (_mrtMapCache) return _mrtMapCache;
 
   const map = new Map<string, NamedSlug>();
-
-  for (const station of MRT_STATIONS) {
-    map.set(station.name, station);
-    map.set(station.slug, station);
-  }
 
   const records = await fetchMrtStations();
   for (const r of records) {
