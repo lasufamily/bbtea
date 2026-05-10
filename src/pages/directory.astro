@@ -71,7 +71,7 @@ if (q)           activeFilters.push(`"${q}"`);
         Singapore Boba Directory
       </p>
       <h1 class="text-3xl lg:text-4xl font-display font-bold text-[var(--color-stone-900)]">
-        {isFiltered ? `${outlets.length} Shops Found` : 'Browse All Shops'}
+        <span id="directory-heading">{isFiltered ? `${outlets.length} Shops Found` : 'Browse All Shops'}</span>
       </h1>
       {isFiltered && (
         <p class="text-sm text-[var(--color-stone-600)]">
@@ -99,6 +99,7 @@ if (q)           activeFilters.push(`"${q}"`);
           categories={categories}
           towns={towns}
           mrtStations={mrtStations}
+          idPrefix="desktop-filters"
           selectedTown={town}
           selectedBrand={brand}
           selectedCategory={category}
@@ -125,6 +126,7 @@ if (q)           activeFilters.push(`"${q}"`);
               categories={categories}
               towns={towns}
               mrtStations={mrtStations}
+              idPrefix="mobile-filters"
               selectedTown={town}
               selectedBrand={brand}
               selectedCategory={category}
@@ -138,34 +140,163 @@ if (q)           activeFilters.push(`"${q}"`);
         <!-- Count header -->
         <div class="flex items-center justify-between">
           <p class="text-sm text-[var(--color-stone-500)]">
-            Showing <strong class="text-[var(--color-stone-800)]">{outlets.length}</strong>
-            {outlets.length === 1 ? 'shop' : 'shops'}
+            Showing <strong id="directory-count" class="text-[var(--color-stone-800)]">{outlets.length}</strong>
+            <span id="directory-count-label">{outlets.length === 1 ? 'shop' : 'shops'}</span>
           </p>
         </div>
 
-        {outlets.length > 0 ? (
-          <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
-            {outlets.map(outlet => (
-              <ListingCard outlet={outlet} />
-            ))}
-          </div>
-        ) : (
-          <div class="text-center py-20 space-y-4">
-            <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">No Results</p>
-            <h2 class="text-xl font-display font-semibold text-[var(--color-stone-800)]">No shops found</h2>
-            <p class="text-[var(--color-stone-500)] max-w-sm mx-auto">
-              Try adjusting your filters or search term to discover more bubble tea shops.
-            </p>
-            <a
-              href="/directory"
-              class="inline-flex items-center gap-2 mt-2 px-6 py-3 rounded-lg bg-[var(--color-stone-900)] text-white text-sm font-semibold hover:bg-white hover:text-[var(--color-stone-900)] border border-[var(--color-stone-900)] transition-colors"
-            >
-              Clear all filters
-            </a>
-          </div>
-        )}
+        <div id="directory-results" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+          {outlets.map(outlet => (
+            <ListingCard outlet={outlet} />
+          ))}
+        </div>
+
+        <div id="directory-empty" class="text-center py-20 space-y-4" hidden>
+          <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">No Results</p>
+          <h2 class="text-xl font-display font-semibold text-[var(--color-stone-800)]">No shops found</h2>
+          <p class="text-[var(--color-stone-500)] max-w-sm mx-auto">
+            Try adjusting your filters or search term to discover more bubble tea shops.
+          </p>
+          <a
+            href="/directory"
+            class="inline-flex items-center gap-2 mt-2 px-6 py-3 rounded-lg bg-[var(--color-stone-900)] text-white text-sm font-semibold hover:bg-white hover:text-[var(--color-stone-900)] border border-[var(--color-stone-900)] transition-colors"
+          >
+            Clear all filters
+          </a>
+        </div>
       </div>
     </div>
   </div>
 
 </Layout>
+
+<script>
+  type DirectoryFilters = {
+    town: string;
+    brand: string;
+    category: string;
+    mrt: string;
+    price: string;
+    halal: string;
+    q: string;
+  };
+
+  const filterKeys = ['town', 'brand', 'category', 'mrt', 'price', 'halal', 'q'] as const;
+
+  const getFiltersFromUrl = (): DirectoryFilters => {
+    const params = new URLSearchParams(window.location.search);
+    return {
+      town: params.get('town') ?? '',
+      brand: params.get('brand') ?? '',
+      category: params.get('category') ?? '',
+      mrt: params.get('mrt') ?? '',
+      price: params.get('price') ?? '',
+      halal: params.get('halal') === 'true' ? 'true' : '',
+      q: params.get('q')?.trim().toLowerCase() ?? '',
+    };
+  };
+
+  const getFiltersFromForm = (form: HTMLFormElement): DirectoryFilters => {
+    const data = new FormData(form);
+    return {
+      town: String(data.get('town') ?? ''),
+      brand: String(data.get('brand') ?? ''),
+      category: String(data.get('category') ?? ''),
+      mrt: String(data.get('mrt') ?? ''),
+      price: String(data.get('price') ?? ''),
+      halal: data.get('halal') === 'true' ? 'true' : '',
+      q: getFiltersFromUrl().q,
+    };
+  };
+
+  const syncForms = (filters: DirectoryFilters) => {
+    document.querySelectorAll<HTMLFormElement>('[data-filter-form]').forEach(form => {
+      form.querySelector<HTMLSelectElement>('select[name="town"]')!.value = filters.town;
+      form.querySelector<HTMLSelectElement>('select[name="brand"]')!.value = filters.brand;
+      form.querySelector<HTMLSelectElement>('select[name="category"]')!.value = filters.category;
+      form.querySelector<HTMLSelectElement>('select[name="mrt"]')!.value = filters.mrt;
+
+      form.querySelectorAll<HTMLInputElement>('input[name="price"]').forEach(input => {
+        input.checked = input.value === filters.price;
+        input.closest('label')?.classList.toggle('bg-[var(--color-stone-900)]', input.checked);
+        input.closest('label')?.classList.toggle('text-white', input.checked);
+        input.closest('label')?.classList.toggle('border-[var(--color-stone-900)]', input.checked);
+        input.closest('label')?.classList.toggle('border-[var(--color-stone-200)]', !input.checked);
+        input.closest('label')?.classList.toggle('text-[var(--color-stone-600)]', !input.checked);
+      });
+
+      const halal = form.querySelector<HTMLInputElement>('input[name="halal"]');
+      if (halal) halal.checked = filters.halal === 'true';
+    });
+  };
+
+  const updateUrl = (filters: DirectoryFilters) => {
+    const params = new URLSearchParams(window.location.search);
+    filterKeys.forEach(key => {
+      const value = filters[key];
+      if (value) params.set(key, value);
+      else params.delete(key);
+    });
+
+    const query = params.toString();
+    const nextUrl = query ? `/directory?${query}` : '/directory';
+    window.history.pushState(filters, '', nextUrl);
+  };
+
+  const matchesFilters = (card: HTMLElement, filters: DirectoryFilters) => {
+    if (filters.town && card.dataset.town !== filters.town) return false;
+    if (filters.brand && card.dataset.brand !== filters.brand) return false;
+    if (filters.category && !(card.dataset.category ?? '').split(' ').includes(filters.category)) return false;
+    if (filters.mrt && card.dataset.mrt !== filters.mrt) return false;
+    if (filters.price && card.dataset.price !== filters.price) return false;
+    if (filters.halal === 'true' && card.dataset.halal !== 'true') return false;
+    if (filters.q && !(card.dataset.search ?? '').includes(filters.q)) return false;
+    return true;
+  };
+
+  const applyFilters = (filters: DirectoryFilters, options: { updateHistory?: boolean } = {}) => {
+    syncForms(filters);
+
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-listing-card]'));
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      const visible = matchesFilters(card, filters);
+      card.hidden = !visible;
+      if (visible) visibleCount += 1;
+    });
+
+    const hasFilters = filterKeys.some(key => Boolean(filters[key]));
+    const heading = document.getElementById('directory-heading');
+    const count = document.getElementById('directory-count');
+    const countLabel = document.getElementById('directory-count-label');
+    const empty = document.getElementById('directory-empty');
+    const results = document.getElementById('directory-results');
+
+    if (heading) heading.textContent = hasFilters ? `${visibleCount} Shops Found` : 'Browse All Shops';
+    if (count) count.textContent = String(visibleCount);
+    if (countLabel) countLabel.textContent = visibleCount === 1 ? 'shop' : 'shops';
+    if (empty) empty.hidden = visibleCount > 0;
+    if (results) results.hidden = visibleCount === 0;
+    if (options.updateHistory) updateUrl(filters);
+  };
+
+  document.querySelectorAll<HTMLFormElement>('[data-filter-form]').forEach(form => {
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      applyFilters(getFiltersFromForm(form), { updateHistory: true });
+    });
+
+    form.querySelectorAll('select, input[name="price"], input[name="halal"]').forEach(control => {
+      control.addEventListener('change', () => {
+        applyFilters(getFiltersFromForm(form), { updateHistory: true });
+      });
+    });
+  });
+
+  window.addEventListener('popstate', () => {
+    applyFilters(getFiltersFromUrl());
+  });
+
+  applyFilters(getFiltersFromUrl());
+</script>
