@@ -25,7 +25,7 @@ const query = Astro.url.searchParams.get('q') ?? '';
 
   <!-- Pagefind results -->
   <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <h2 class="sr-only">{query ? 'Search Results' : 'Search Suggestions'}</h2>
+    <h2 id="search-results-heading" class="sr-only">{query ? 'Search Results' : 'Search Suggestions'}</h2>
 
     <!-- Pagefind UI is injected here after build -->
     <div id="pagefind-search" class="space-y-6">
@@ -63,17 +63,21 @@ const query = Astro.url.searchParams.get('q') ?? '';
     if (!el) return;
     const searchTerm = new URLSearchParams(window.location.search).get('q')?.trim() ?? '';
     const heading = document.getElementById('search-heading');
+    const resultsHeading = document.getElementById('search-results-heading');
     const mainSearch = document.getElementById('main-search');
 
-    if (searchTerm) {
-      if (heading) {
-        heading.innerHTML = `Results for <em class="not-italic text-[var(--color-forest-700)]"></em>`;
-        const term = heading.querySelector('em');
-        if (term) term.textContent = `"${searchTerm}"`;
-      }
-      if (mainSearch instanceof HTMLInputElement) {
-        mainSearch.value = searchTerm;
-      }
+    if (!searchTerm) return;
+
+    if (heading) {
+      heading.innerHTML = `Results for <em class="not-italic text-[var(--color-forest-700)]"></em>`;
+      const term = heading.querySelector('em');
+      if (term) term.textContent = `"${searchTerm}"`;
+    }
+    if (mainSearch instanceof HTMLInputElement) {
+      mainSearch.value = searchTerm;
+    }
+    if (resultsHeading) {
+      resultsHeading.textContent = 'Search Results';
     }
 
     el.innerHTML = '';
@@ -87,9 +91,7 @@ const query = Astro.url.searchParams.get('q') ?? '';
         zero_results: 'No results found for [SEARCH_TERM].',
       },
     });
-    if (searchTerm) {
-      pagefind.triggerSearch(searchTerm);
-    }
+    pagefind.triggerSearch(searchTerm);
   }
 
   if (document.readyState === 'complete') {
@@ -112,9 +114,19 @@ const query = Astro.url.searchParams.get('q') ?? '';
     --pagefind-ui-border-radius: 12px;
     --pagefind-ui-font: var(--font-sans);
   }
-  .pagefind-ui__search-input {
-    border-radius: 99px !important;
-    padding-left: 1.25rem !important;
+  .pagefind-ui__form {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: -1px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+  .pagefind-ui__drawer {
+    margin-top: 0 !important;
   }
   .pagefind-ui__result {
     border-bottom: 1px solid var(--color-stone-200) !important;
