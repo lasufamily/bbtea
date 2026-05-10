@@ -16,10 +16,10 @@ const query = Astro.url.searchParams.get('q') ?? '';
       <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
         Search
       </p>
-      <h1 class="text-3xl font-display font-bold text-[var(--color-stone-900)]">
+      <h1 id="search-heading" class="text-3xl font-display font-bold text-[var(--color-stone-900)]">
         {query ? <>Results for <em class="not-italic text-[var(--color-forest-700)]">"{query}"</em></> : 'Find Your Perfect Boba'}
       </h1>
-      <SearchBox large placeholder="Search shops, brands, towns, drinks…" id="main-search" />
+      <SearchBox large placeholder="Search shops, brands, towns, drinks…" id="main-search" value={query} />
     </div>
   </section>
 
@@ -56,13 +56,28 @@ const query = Astro.url.searchParams.get('q') ?? '';
 <!-- Pagefind UI — active only after `npm run build` -->
 <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
 <script src="/pagefind/pagefind-ui.js" is:inline></script>
-<script define:vars={{ query }}>
+<script>
   function initPagefind() {
     if (typeof PagefindUI === 'undefined') return;
     const el = document.getElementById('pagefind-search');
     if (!el) return;
+    const searchTerm = new URLSearchParams(window.location.search).get('q')?.trim() ?? '';
+    const heading = document.getElementById('search-heading');
+    const mainSearch = document.getElementById('main-search');
+
+    if (searchTerm) {
+      if (heading) {
+        heading.innerHTML = `Results for <em class="not-italic text-[var(--color-forest-700)]"></em>`;
+        const term = heading.querySelector('em');
+        if (term) term.textContent = `"${searchTerm}"`;
+      }
+      if (mainSearch instanceof HTMLInputElement) {
+        mainSearch.value = searchTerm;
+      }
+    }
+
     el.innerHTML = '';
-    new PagefindUI({
+    const pagefind = new PagefindUI({
       element: '#pagefind-search',
       showSubResults: true,
       showImages: true,
@@ -72,14 +87,8 @@ const query = Astro.url.searchParams.get('q') ?? '';
         zero_results: 'No results found for [SEARCH_TERM].',
       },
     });
-    if (query) {
-      setTimeout(() => {
-        const inp = el.querySelector('input[type=text]');
-        if (inp) {
-          inp.value = query;
-          inp.dispatchEvent(new Event('input', { bubbles: true }));
-        }
-      }, 150);
+    if (searchTerm) {
+      pagefind.triggerSearch(searchTerm);
     }
   }
 

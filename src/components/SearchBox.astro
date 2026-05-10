@@ -3,12 +3,14 @@ interface Props {
   placeholder?: string;
   large?: boolean;
   id?: string;
+  value?: string;
 }
 
 const {
   placeholder = 'Search shops, brands, towns, drinks…',
   large = false,
   id = 'search-input',
+  value = '',
 } = Astro.props;
 ---
 
@@ -37,6 +39,7 @@ const {
     type="search"
     id={id}
     name="q"
+    value={value}
     placeholder={placeholder}
     autocomplete="off"
     class={[
