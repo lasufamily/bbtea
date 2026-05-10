@@ -1,13 +1,107 @@
 ---
 import Layout from '../components/Layout.astro';
 import SearchBox from '../components/SearchBox.astro';
+import { getBrands, getCategories, getMalls, getOutlets, getTowns } from '../lib/airtable';
+import { getStationsFromOutlets } from '../lib/stations';
+import { getTownsFromOutlets } from '../lib/towns';
 
 const query = Astro.url.searchParams.get('q') ?? '';
+
+const [brands, categories, malls, outlets, allTowns] = await Promise.all([
+  getBrands(),
+  getCategories(),
+  getMalls(),
+  getOutlets(),
+  getTowns(),
+]);
+
+type WeightedTag = {
+  label: string;
+  weight: number;
+};
+
+const countBy = (values: (string | undefined)[]) => {
+  const counts = new Map<string, number>();
+  values.filter(Boolean).forEach(value => {
+    counts.set(value!, (counts.get(value!) ?? 0) + 1);
+  });
+  return counts;
+};
+
+const topTags = (items: WeightedTag[], limit: number) =>
+  [...items]
+    .filter(item => item.label && item.weight > 0)
+    .sort((a, b) => b.weight - a.weight || a.label.localeCompare(b.label))
+    .slice(0, limit)
+    .map(item => item.label);
+
+const brandCounts = countBy(outlets.map(outlet => outlet.brandSlug));
+const categoryCounts = countBy(outlets.flatMap(outlet => outlet.drinkCategorySlugs ?? []));
+const mallCounts = countBy(outlets.map(outlet => outlet.mallSlug));
+const mrtCounts = countBy(outlets.map(outlet => outlet.mrtSlug));
+const towns = getTownsFromOutlets(outlets, allTowns);
+const townCounts = countBy(outlets.map(outlet => outlet.townSlug));
+const mrtStations = getStationsFromOutlets(outlets);
+
+const suggestedSearches = [
+  ...topTags(
+    brands.map(brand => ({
+      label: brand.name,
+      weight: (brand.featured ? 100 : 0) + (brandCounts.get(brand.slug) ?? 0),
+    })),
+    2,
+  ),
+  ...topTags(
+    categories.map(category => ({
+      label: category.name,
+      weight: (categoryCounts.get(category.slug) ?? 0) + 1,
+    })),
+    2,
+  ),
+  ...topTags(
+    towns.map(town => ({
+      label: town.name,
+      weight: townCounts.get(town.slug) ?? 0,
+    })),
+    2,
+  ),
+  ...topTags(
+    mrtStations.map(station => ({
+      label: station.name,
+      weight: mrtCounts.get(station.slug) ?? 0,
+    })),
+    1,
+  ),
+  ...topTags(
+    malls.map(mall => ({
+      label: mall.name,
+      weight: mallCounts.get(mall.slug) ?? 0,
+    })),
+    1,
+  ),
+  ...(outlets.some(outlet => outlet.halalFriendly) ? ['Halal-Friendly'] : []),
+]
+  .filter((tag, index, tags) => tags.indexOf(tag) === index)
+  .slice(0, 8);
+
+const searchJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Bubble Tea SG',
+  url: 'https://bbtea.sg',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: 'https://bbtea.sg/search?q={search_term_string}',
+    'query-input': 'required name=search_term_string',
+  },
+};
 ---
 
 <Layout
   title={query ? `Search results for "${query}" | BBTea.sg` : 'Search | BBTea.sg'}
   description="Search for bubble tea shops, brands, towns, MRT stations and drink types across Singapore."
+  canonical="https://bbtea.sg/search"
+  jsonLd={searchJsonLd}
 >
 
   <!-- Header -->
@@ -36,7 +130,7 @@ const query = Astro.url.searchParams.get('q') ?? '';
             Type something above to search across all shops, brands, and towns.
           </p>
           <div class="flex flex-wrap gap-2 justify-center pt-2">
-            {['Tiger Sugar', 'Brown Sugar', 'Orchard', 'Halal', 'Matcha', 'Taro'].map(s => (
+            {suggestedSearches.map(s => (
               <a
                 href={`/search?q=${encodeURIComponent(s)}`}
                 class="text-sm px-4 py-2 rounded-lg bg-[var(--color-cream-100)] text-[var(--color-stone-600)] border border-[var(--color-stone-200)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors"
