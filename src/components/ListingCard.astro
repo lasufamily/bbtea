@@ -19,11 +19,28 @@ const priceColors: Record<string, string> = {
   '$$':  'text-[var(--color-boba-500)] bg-[var(--color-blush-100)]',
   '$$$': 'text-[var(--color-taro-500)] bg-[var(--color-taro-400)]/10',
 };
+
+const searchText = [
+  outlet.name,
+  outlet.brandName,
+  outlet.town,
+  outlet.mall,
+  outlet.nearestMrt,
+  ...(outlet.popularDrinks ?? []),
+].filter(Boolean).join(' ').toLowerCase();
 ---
 
 <article
   class={`group bg-white rounded-lg overflow-hidden shadow-none border border-[var(--color-stone-200)] card-lift ${featured ? 'lg:col-span-2' : ''}`}
   data-pagefind-body
+  data-listing-card
+  data-town={outlet.townSlug}
+  data-brand={outlet.brandSlug}
+  data-category={(outlet.drinkCategorySlugs ?? []).join(' ')}
+  data-mrt={outlet.mrtSlug ?? ''}
+  data-price={outlet.priceRange ?? ''}
+  data-halal={outlet.halalFriendly ? 'true' : 'false'}
+  data-search={searchText}
 >
   <!-- Image -->
   <a href={`/bubble-tea-shops/${outlet.slug}`} class="block overflow-hidden aspect-[4/3] bg-[var(--color-cream-100)] relative" tabindex="-1" aria-hidden="true">
