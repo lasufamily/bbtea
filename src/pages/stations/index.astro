@@ -17,7 +17,7 @@ const jsonLd = {
 ---
 
 <Layout
-  title="Bubble Tea Near MRT Stations in Singapore | Bubble Tea SG"
+  title="Bubble Tea Near MRT Stations in Singapore | BBTea.sg"
   description={`Find bubble tea shops near MRT stations in Singapore. Browse ${stations.length} stations with listed bubble tea shops.`}
   canonical="https://bbtea.sg/stations"
   jsonLd={jsonLd}
@@ -49,6 +49,7 @@ const jsonLd = {
 
   <!-- Stations -->
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <h2 class="sr-only">All MRT Stations With Bubble Tea Shops</h2>
     <div class="flex flex-wrap gap-2">
       {stations.map(station => {
         const count = stationOutletCount(station.slug);

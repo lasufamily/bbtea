@@ -18,7 +18,7 @@ const jsonLd = {
 ---
 
 <Layout
-  title="Bubble Tea Drink Types in Singapore | Bubble Tea SG"
+  title="Bubble Tea Drink Types in Singapore | BBTea.sg"
   description={`Browse all ${categories.length} bubble tea drink types — from classic milk teas and brown sugar boba to matcha, taro, and fruit teas. Find where to get them in Singapore.`}
   canonical="https://bbtea.sg/drinks"
   jsonLd={jsonLd}
@@ -56,6 +56,7 @@ const jsonLd = {
 
   <!-- Category grid -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <h2 class="sr-only">All Bubble Tea Drink Types</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
       {categories.map(cat => (
         <CategoryCard category={cat} outletCount={categoryOutletCount(cat.slug)} />

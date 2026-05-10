@@ -22,7 +22,7 @@ const jsonLd = {
 ---
 
 <Layout
-  title="Bubble Tea by Town in Singapore | Bubble Tea SG"
+  title="Bubble Tea by Town in Singapore | BBTea.sg"
   description={`Browse bubble tea shops across ${towns.length} neighbourhoods in Singapore.`}
   canonical="https://bbtea.sg/towns"
   jsonLd={jsonLd}
@@ -60,6 +60,7 @@ const jsonLd = {
 
   <!-- Town grid -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <h2 class="sr-only">All Bubble Tea Towns</h2>
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
       {towns.map(town => (
         <TownCard town={town} outletCount={townOutletCount(town.slug)} />

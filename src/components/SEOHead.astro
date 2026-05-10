@@ -20,9 +20,9 @@ const {
 } = Astro.props;
 
 const siteUrl = 'https://bbtea.sg';
-const fullTitle = title.includes('Bubble Tea SG')
+const fullTitle = title.includes('BBTea')
   ? title
-  : `${title} | Bubble Tea SG`;
+  : `${title} | BBTea.sg`;
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).href;
 ---
 
@@ -39,7 +39,7 @@ const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).href;
 <meta property="og:description" content={description} />
 <meta property="og:image"       content={image} />
 <meta property="og:locale"      content="en_SG" />
-<meta property="og:site_name"   content="Bubble Tea SG" />
+<meta property="og:site_name"   content="BBTea.sg" />
 
 <!-- Twitter / X -->
 <meta name="twitter:card"        content="summary_large_image" />
