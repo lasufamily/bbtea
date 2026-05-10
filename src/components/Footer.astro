@@ -1,5 +1,13 @@
 ---
+import { getOutlets, getTowns } from '../lib/airtable';
+import { getTownsFromOutlets } from '../lib/towns';
+
 const year = new Date().getFullYear();
+const [outlets, allTowns] = await Promise.all([getOutlets(), getTowns()]);
+const popularTownLinks = getTownsFromOutlets(outlets, allTowns).slice(0, 5).map(town => ({
+  href: `/towns/${town.slug}`,
+  label: town.name,
+}));
 
 const footerLinks = {
   'Browse': [
@@ -13,13 +21,7 @@ const footerLinks = {
     { href: '/catering',   label: 'Catering' },
     { href: '/blog',       label: 'Blog' },
   ],
-  'Popular Towns': [
-    { href: '/towns/orchard',   label: 'Orchard' },
-    { href: '/towns/bugis',     label: 'Bugis' },
-    { href: '/towns/tampines',  label: 'Tampines' },
-    { href: '/towns/jurong-east', label: 'Jurong East' },
-    { href: '/towns/woodlands', label: 'Woodlands' },
-  ],
+  'Popular Towns': popularTownLinks,
   'Drink Types': [
     { href: '/drinks/brown-sugar-milk-tea', label: 'Brown Sugar' },
     { href: '/drinks/taro-milk-tea',        label: 'Taro Milk Tea' },

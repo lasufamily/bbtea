@@ -5,15 +5,17 @@ import FilterBar from '../components/FilterBar.astro';
 import SearchBox from '../components/SearchBox.astro';
 import { getBrands, getOutlets, getCategories, getTowns } from '../lib/airtable';
 import { getStationsFromOutlets } from '../lib/stations';
+import { getTownsFromOutlets } from '../lib/towns';
 import type { Outlet } from '../lib/types';
 
-const [brands, allOutlets, categories, towns] = await Promise.all([
+const [brands, allOutlets, categories, allTowns] = await Promise.all([
   getBrands(),
   getOutlets(),
   getCategories(),
   getTowns(),
 ]);
 const mrtStations = getStationsFromOutlets(allOutlets);
+const towns = getTownsFromOutlets(allOutlets, allTowns);
 
 // Read query params
 const url  = Astro.url;

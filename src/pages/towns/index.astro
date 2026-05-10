@@ -2,8 +2,10 @@
 import Layout from '../../components/Layout.astro';
 import TownCard from '../../components/TownCard.astro';
 import { getOutlets, getTowns } from '../../lib/airtable';
+import { getTownsFromOutlets } from '../../lib/towns';
 
-const [outlets, towns] = await Promise.all([getOutlets(), getTowns()]);
+const [outlets, allTowns] = await Promise.all([getOutlets(), getTowns()]);
+const towns = getTownsFromOutlets(outlets, allTowns);
 
 const townOutletCount = (townSlug: string) =>
   outlets.filter(o => o.townSlug === townSlug).length;
@@ -21,7 +23,7 @@ const jsonLd = {
 
 <Layout
   title="Bubble Tea by Town in Singapore | Bubble Tea SG"
-  description={`Browse bubble tea shops across ${towns.length} neighbourhoods in Singapore — from Orchard to Woodlands, Tampines to Jurong East.`}
+  description={`Browse bubble tea shops across ${towns.length} neighbourhoods in Singapore.`}
   canonical="https://bbtea.sg/towns"
   jsonLd={jsonLd}
 >

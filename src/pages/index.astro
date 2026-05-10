@@ -6,13 +6,15 @@ import BrandCard from '../components/BrandCard.astro';
 import TownCard from '../components/TownCard.astro';
 import CategoryCard from '../components/CategoryCard.astro';
 import { getBrands, getOutlets, getCategories, getTowns } from '../lib/airtable';
+import { getTownsFromOutlets } from '../lib/towns';
 
-const [brands, outlets, categories, towns] = await Promise.all([
+const [brands, outlets, categories, allTowns] = await Promise.all([
   getBrands(),
   getOutlets(),
   getCategories(),
   getTowns(),
 ]);
+const towns = getTownsFromOutlets(outlets, allTowns);
 
 const featuredBrands   = brands.filter(b => b.featured).slice(0, 5);
 const featuredOutlets  = outlets.filter(o => o.featured).slice(0, 6);

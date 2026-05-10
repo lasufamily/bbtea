@@ -2,15 +2,18 @@
 import Layout from '../../components/Layout.astro';
 import ListingCard from '../../components/ListingCard.astro';
 import { getOutlets, getTowns } from '../../lib/airtable';
+import { getTownsFromOutlets } from '../../lib/towns';
 import type { Town } from '../../lib/types';
 
 export async function getStaticPaths() {
   const [allOutlets, towns] = await Promise.all([getOutlets(), getTowns()]);
-  return towns.map(town => {
+  const activeTowns = getTownsFromOutlets(allOutlets, towns);
+
+  return activeTowns.map(town => {
     const outlets = allOutlets.filter(o => o.townSlug === town.slug);
     return {
       params: { slug: town.slug },
-      props:  { town, outlets, allTowns: towns },
+      props:  { town, outlets, allTowns: activeTowns },
     };
   });
 }
