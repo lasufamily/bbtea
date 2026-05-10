@@ -1,4 +1,4 @@
-# 🧋 Bubble Tea SG — Singapore Bubble Tea Directory
+# 🧋 BBTea.sg — Singapore Bubble Tea Directory
 
 A production-ready, editorial-style static directory website for bubble tea shops across Singapore. Built with **Astro**, **Tailwind CSS v4**, **Airtable** as the CMS, **Pagefind** for full-text search, and deployed on **Cloudflare Pages**.
 
@@ -93,7 +93,7 @@ The site works immediately with mock data. No Airtable account needed for local 
 
 ### 1. Create a new Airtable Base
 
-Create a base called **Bubble Tea SG** with three tables:
+Create a base called **BBTea.sg** with three tables:
 
 #### Table: `Brands`
 | Field | Type |
