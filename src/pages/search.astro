@@ -27,8 +27,8 @@ const query = Astro.url.searchParams.get('q') ?? '';
   <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <h2 id="search-results-heading" class="sr-only">{query ? 'Search Results' : 'Search Suggestions'}</h2>
 
-    <!-- Pagefind UI is injected here after build -->
-    <div id="pagefind-search" class="space-y-6">
+    <!-- Search results are injected here after build -->
+    <div id="pagefind-search" class="space-y-6" aria-live="polite">
       {!query && (
         <div class="text-center py-16 space-y-4">
           <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">Search</p>
@@ -53,12 +53,8 @@ const query = Astro.url.searchParams.get('q') ?? '';
 
 </Layout>
 
-<!-- Pagefind UI — active only after `npm run build` -->
-<link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
-<script src="/pagefind/pagefind-ui.js" is:inline></script>
-<script>
-  function initPagefind() {
-    if (typeof PagefindUI === 'undefined') return;
+<script is:inline>
+  async function initPagefind() {
     const el = document.getElementById('pagefind-search');
     if (!el) return;
     const searchTerm = new URLSearchParams(window.location.search).get('q')?.trim() ?? '';
@@ -80,18 +76,61 @@ const query = Astro.url.searchParams.get('q') ?? '';
       resultsHeading.textContent = 'Search Results';
     }
 
-    el.innerHTML = '';
-    const pagefind = new PagefindUI({
-      element: '#pagefind-search',
-      showSubResults: true,
-      showImages: true,
-      resetStyles: false,
-      translations: {
-        placeholder: 'Search bubble tea shops…',
-        zero_results: 'No results found for [SEARCH_TERM].',
-      },
-    });
-    pagefind.triggerSearch(searchTerm);
+    el.innerHTML = '<p class="text-[var(--color-stone-500)]">Searching...</p>';
+
+    try {
+      const pagefind = await import('/pagefind/pagefind.js');
+      const search = await pagefind.search(searchTerm);
+      const results = await Promise.all(
+        search.results.slice(0, 10).map((result) => result.data())
+      );
+
+      if (!results.length) {
+        el.innerHTML = `<p class="text-[var(--color-stone-600)]">No results found for ${escapeHtml(searchTerm)}.</p>`;
+        return;
+      }
+
+      const resultLabel = `${search.results.length} ${search.results.length === 1 ? 'result' : 'results'} for ${escapeHtml(searchTerm)}`;
+      el.innerHTML = `
+        <p class="text-sm font-semibold text-[var(--color-stone-700)]">${resultLabel}</p>
+        <ol class="divide-y divide-[var(--color-stone-200)]">
+          ${results.map(renderResult).join('')}
+        </ol>
+      `;
+    } catch (error) {
+      console.error(error);
+      el.innerHTML = '<p class="text-[var(--color-stone-600)]">Search results could not be loaded. Please try again.</p>';
+    }
+  }
+
+  function renderResult(result) {
+    const title = escapeHtml(result.meta?.title || 'Untitled');
+    const url = escapeHtml(result.meta?.url || result.url || '#');
+    const excerpt = result.excerpt || '';
+    const image = result.meta?.image
+      ? `<img src="${escapeHtml(result.meta.image)}" alt="" class="w-16 h-16 rounded-md object-cover bg-[var(--color-cream-100)] flex-none" loading="lazy" />`
+      : '';
+
+    return `
+      <li class="py-6">
+        <a href="${url}" class="group flex gap-5">
+          ${image}
+          <span class="space-y-2 min-w-0">
+            <span class="block font-display text-lg font-semibold text-[var(--color-stone-900)] group-hover:text-[var(--color-forest-700)] transition-colors">${title}</span>
+            <span class="block text-sm sm:text-base text-[var(--color-stone-600)] leading-relaxed">${excerpt}</span>
+          </span>
+        </a>
+      </li>
+    `;
+  }
+
+  function escapeHtml(value) {
+    return String(value)
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#039;');
   }
 
   if (document.readyState === 'complete') {
@@ -102,38 +141,9 @@ const query = Astro.url.searchParams.get('q') ?? '';
 </script>
 
 <style is:global>
-  /* Pagefind UI theme overrides */
-  :root {
-    --pagefind-ui-scale: 0.9;
-    --pagefind-ui-primary: var(--color-forest-700);
-    --pagefind-ui-text: var(--color-stone-900);
-    --pagefind-ui-background: transparent;
-    --pagefind-ui-border: var(--color-stone-200);
-    --pagefind-ui-tag: var(--color-cream-100);
-    --pagefind-ui-border-width: 1px;
-    --pagefind-ui-border-radius: 12px;
-    --pagefind-ui-font: var(--font-sans);
-  }
-  .pagefind-ui__form {
-    position: absolute !important;
-    width: 1px !important;
-    height: 1px !important;
-    margin: -1px !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-    clip: rect(0, 0, 0, 0) !important;
-    white-space: nowrap !important;
-    border: 0 !important;
-  }
-  .pagefind-ui__drawer {
-    margin-top: 0 !important;
-  }
-  .pagefind-ui__result {
-    border-bottom: 1px solid var(--color-stone-200) !important;
-    padding: 1.25rem 0 !important;
-  }
-  .pagefind-ui__result-title {
-    font-family: var(--font-display) !important;
-    font-size: 1rem !important;
+  mark {
+    background: #fff35a;
+    color: inherit;
+    padding: 0 0.1em;
   }
 </style>
