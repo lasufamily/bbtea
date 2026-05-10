@@ -85,7 +85,7 @@ The site works immediately with mock data. No Airtable account needed for local 
 | `AIRTABLE_API_KEY` | For live data | Personal Access Token from airtable.com/create/tokens |
 | `AIRTABLE_BASE_ID` | For live data | Found in your Airtable base URL |
 | `USE_MOCK_DATA`    | No       | Set to `true` to force mock data even if Airtable vars exist |
-| `SITE_URL`         | No       | Public site URL (default: https://bubbleteasg.com) |
+| `SITE_URL`         | No       | Public site URL (default: https://bbtea.sg) |
 
 ---
 

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bubbleteasg.com/sitemap-index.xml
+Sitemap: https://bbtea.sg/sitemap-index.xml

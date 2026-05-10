@@ -32,14 +32,14 @@ const jsonLd = {
   '@type': 'CollectionPage',
   name: `Bubble Tea Shops Near ${stationLabel}`,
   description: `Find ${outlets.length} bubble tea shops near ${stationLabel} in Singapore.`,
-  url: `https://bubbleteasg.com/stations/${Astro.params.slug}`,
+  url: `https://bbtea.sg/stations/${Astro.params.slug}`,
 };
 ---
 
 <Layout
   title={`Bubble Tea Near ${stationLabel} | Bubble Tea SG`}
   description={`Find ${outlets.length} bubble tea shops near ${stationLabel} in Singapore.`}
-  canonical={`https://bubbleteasg.com/stations/${Astro.params.slug}`}
+  canonical={`https://bbtea.sg/stations/${Astro.params.slug}`}
   jsonLd={jsonLd}
 >
 

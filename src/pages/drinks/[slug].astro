@@ -31,7 +31,7 @@ const jsonLd = {
   '@type': 'CollectionPage',
   name: `${category.name} in Singapore`,
   description: category.description ?? `Find the best ${category.name} bubble tea shops in Singapore.`,
-  url: `https://bubbleteasg.com/drinks/${category.slug}`,
+  url: `https://bbtea.sg/drinks/${category.slug}`,
   ...(category.image && { image: category.image }),
 };
 ---
@@ -40,7 +40,7 @@ const jsonLd = {
   title={`${category.name} in Singapore — Best Bubble Tea Shops | Bubble Tea SG`}
   description={`Find ${outlets.length} bubble tea shops serving ${category.name} in Singapore. ${category.description ?? ''}`}
   image={category.image}
-  canonical={`https://bubbleteasg.com/drinks/${category.slug}`}
+  canonical={`https://bbtea.sg/drinks/${category.slug}`}
   jsonLd={jsonLd}
 >
 

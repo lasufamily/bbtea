@@ -30,7 +30,7 @@ const jsonLd = {
   '@type': 'Organization',
   name: brand.name,
   description: brand.description,
-  url: brand.websiteUrl ?? `https://bubbleteasg.com/brands/${brand.slug}`,
+  url: brand.websiteUrl ?? `https://bbtea.sg/brands/${brand.slug}`,
   ...(brand.logo && { logo: brand.logo }),
   ...(brandLinks.length > 0 && { sameAs: brandLinks.map(link => link.url) }),
 };
@@ -41,7 +41,7 @@ const jsonLd = {
   description={`Find all ${brand.name} bubble tea outlets in Singapore. ${brand.description ?? ''}`}
   image={brand.logo}
   type="article"
-  canonical={`https://bubbleteasg.com/brands/${brand.slug}`}
+  canonical={`https://bbtea.sg/brands/${brand.slug}`}
   jsonLd={jsonLd}
 >
 

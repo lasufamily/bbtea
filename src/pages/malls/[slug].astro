@@ -31,7 +31,7 @@ const jsonLd = {
   '@type': 'CollectionPage',
   name: `Bubble Tea Shops at ${mall.name}, Singapore`,
   description: mall.description ?? `Discover bubble tea shops at ${mall.name}, Singapore.`,
-  url: `https://bubbleteasg.com/malls/${mall.slug}`,
+  url: `https://bbtea.sg/malls/${mall.slug}`,
 };
 ---
 
@@ -39,7 +39,7 @@ const jsonLd = {
   title={`Bubble Tea Shops at ${mall.name} | Bubble Tea SG`}
   description={`Discover ${outlets.length} bubble tea shops at ${mall.name}, Singapore. ${mall.description ?? ''}`}
   image={mall.image}
-  canonical={`https://bubbleteasg.com/malls/${mall.slug}`}
+  canonical={`https://bbtea.sg/malls/${mall.slug}`}
   jsonLd={jsonLd}
 >
 

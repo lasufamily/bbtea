@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://bubbleteasg.com',
+  site: 'https://bbtea.sg',
   output: 'static',
   integrations: [
     sitemap(),
