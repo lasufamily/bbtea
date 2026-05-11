@@ -147,7 +147,44 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
         </header>
 
         <!-- Drinks -->
-        {outletDrinks.length > 0 && (
+        {outlet.drinkGroups && outlet.drinkGroups.length > 0 ? (
+          <section class="space-y-5">
+            <h2 class="text-lg font-display font-semibold text-[var(--color-stone-900)]">Drinks</h2>
+            <div class="space-y-6">
+              {outlet.drinkGroups.map(group => (
+                <div class="space-y-2.5">
+                  <div class="flex items-baseline gap-2">
+                    {group.categorySlug ? (
+                      <a
+                        href={`/drinks?category=${group.categorySlug}`}
+                        class="text-sm font-bold tracking-wide uppercase text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] transition-colors"
+                      >
+                        {group.category}
+                      </a>
+                    ) : (
+                      <h3 class="text-sm font-bold tracking-wide uppercase text-[var(--color-stone-600)]">{group.category}</h3>
+                    )}
+                    <span class="text-xs text-[var(--color-stone-400)]">
+                      {group.drinks.length} {group.drinks.length === 1 ? 'drink' : 'drinks'}
+                    </span>
+                  </div>
+                  <ul class="flex flex-wrap gap-2">
+                    {group.drinks.map(drink => (
+                      <li>
+                        <a
+                          href={`/drinks/${drink.slug}`}
+                          class="block px-4 py-2 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-cream-200)] text-sm text-[var(--color-stone-700)] font-medium hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors"
+                        >
+                          {drink.name}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : outletDrinks.length > 0 && (
           <section class="space-y-4">
             <h2 class="text-lg font-display font-semibold text-[var(--color-stone-900)]">Drinks</h2>
             <ul class="flex flex-wrap gap-2">

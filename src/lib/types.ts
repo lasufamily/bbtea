@@ -37,6 +37,7 @@ export interface Outlet {
   deliveryLinks?: DeliveryLink[];
   drinks?: Pick<Drink, 'name' | 'slug'>[];
   popularDrinks?: string[];
+  drinkGroups?: OutletDrinkGroup[];
   drinkCategories?: string[];
   drinkCategorySlugs?: string[];
   priceRange?: '$' | '$$' | '$$$';
@@ -46,6 +47,12 @@ export interface Outlet {
   galleryImages?: string[];
   featured: boolean;
   published: boolean;
+}
+
+export interface OutletDrinkGroup {
+  category: string;
+  categorySlug?: string;
+  drinks: Pick<Drink, 'name' | 'slug'>[];
 }
 
 export interface DrinkCategory {

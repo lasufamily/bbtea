@@ -351,9 +351,23 @@ async function buildOutlets(
 
       const brandDrinks = brand ? drinksByBrandId.get(brand.id) ?? [] : [];
       const drinkCategoryMap = new Map<string, string>();
+      const drinkGroupsMap = new Map<string, { category: string; categorySlug?: string; drinks: { name: string; slug: string }[] }>();
       for (const drink of brandDrinks) {
+        const category = drink.category ?? 'Other Drinks';
+        const categorySlug = drink.categorySlug;
+        const groupKey = categorySlug ?? category;
+
         if (drink.category && drink.categorySlug) drinkCategoryMap.set(drink.categorySlug, drink.category);
+        const group = drinkGroupsMap.get(groupKey) ?? { category, categorySlug, drinks: [] };
+        group.drinks.push({ name: drink.name, slug: drink.slug });
+        drinkGroupsMap.set(groupKey, group);
       }
+      const drinkGroups = Array.from(drinkGroupsMap.values())
+        .map(group => ({
+          ...group,
+          drinks: group.drinks.sort((a, b) => a.name.localeCompare(b.name)),
+        }))
+        .sort((a, b) => a.category.localeCompare(b.category));
 
       // Town: multipleRecordLinks → resolve via townMap
       const townId   = f['Town']?.[0];
@@ -415,6 +429,7 @@ async function buildOutlets(
         deliveryLinks,
         drinks:             brandDrinks.map(drink => ({ name: drink.name, slug: drink.slug })),
         popularDrinks:      brandDrinks.map(drink => drink.name),
+        drinkGroups,
         drinkCategories:    Array.from(drinkCategoryMap.values()),
         drinkCategorySlugs: Array.from(drinkCategoryMap.keys()),
         priceRange:         f['Price Range'],
