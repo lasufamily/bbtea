@@ -1,15 +1,15 @@
 ---
 import Layout from '../components/Layout.astro';
 import SearchBox from '../components/SearchBox.astro';
-import { getBrands, getCategories, getMalls, getOutlets, getTowns } from '../lib/airtable';
+import { getBrands, getDrinks, getMalls, getOutlets, getTowns } from '../lib/airtable';
 import { getStationsFromOutlets } from '../lib/stations';
 import { getTownsFromOutlets } from '../lib/towns';
 
 const query = Astro.url.searchParams.get('q') ?? '';
 
-const [brands, categories, malls, outlets, allTowns] = await Promise.all([
+const [brands, drinks, malls, outlets, allTowns] = await Promise.all([
   getBrands(),
-  getCategories(),
+  getDrinks(),
   getMalls(),
   getOutlets(),
   getTowns(),
@@ -36,7 +36,6 @@ const topTags = (items: WeightedTag[], limit: number) =>
     .map(item => item.label);
 
 const brandCounts = countBy(outlets.map(outlet => outlet.brandSlug));
-const categoryCounts = countBy(outlets.flatMap(outlet => outlet.drinkCategorySlugs ?? []));
 const mallCounts = countBy(outlets.map(outlet => outlet.mallSlug));
 const mrtCounts = countBy(outlets.map(outlet => outlet.mrtSlug));
 const towns = getTownsFromOutlets(outlets, allTowns);
@@ -52,9 +51,9 @@ const suggestedSearches = [
     2,
   ),
   ...topTags(
-    categories.map(category => ({
-      label: category.name,
-      weight: (categoryCounts.get(category.slug) ?? 0) + 1,
+    drinks.map(drink => ({
+      label: drink.name,
+      weight: drink.brands.length + 1,
     })),
     2,
   ),
@@ -99,7 +98,7 @@ const searchJsonLd = {
 
 <Layout
   title={query ? `Search results for "${query}" | BBTea.sg` : 'Search | BBTea.sg'}
-  description="Search for bubble tea shops, brands, towns, MRT stations and drink types across Singapore."
+  description="Search for bubble tea shops, brands, towns, MRT stations and drinks across Singapore."
   canonical="https://bbtea.sg/search"
   jsonLd={searchJsonLd}
 >
@@ -127,7 +126,7 @@ const searchJsonLd = {
         <div class="text-center py-16 space-y-4">
           <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">Search</p>
           <p class="text-[var(--color-stone-500)] text-base">
-            Type something above to search across all shops, brands, and towns.
+            Type something above to search across all shops, brands, drinks, and towns.
           </p>
           <div class="flex flex-wrap gap-2 justify-center pt-2">
             {suggestedSearches.map(s => (

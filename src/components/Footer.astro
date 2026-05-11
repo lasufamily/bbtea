@@ -1,9 +1,9 @@
 ---
-import { getOutlets, getTowns } from '../lib/airtable';
+import { getCategories, getOutlets, getTowns } from '../lib/airtable';
 import { getTownsFromOutlets } from '../lib/towns';
 
 const year = new Date().getFullYear();
-const [outlets, allTowns] = await Promise.all([getOutlets(), getTowns()]);
+const [outlets, allTowns, categories] = await Promise.all([getOutlets(), getTowns(), getCategories()]);
 const popularTownLinks = getTownsFromOutlets(outlets, allTowns).slice(0, 5).map(town => ({
   href: `/towns/${town.slug}`,
   label: town.name,
@@ -13,7 +13,7 @@ const footerLinks = {
   'Browse': [
     { href: '/directory',  label: 'All Shops' },
     { href: '/towns',      label: 'Towns' },
-    { href: '/drinks',     label: 'Drink Types' },
+    { href: '/drinks',     label: 'Drinks' },
     { href: '/brands',     label: 'Brands' },
     { href: '/stations',   label: 'Near MRT' },
     { href: '/halal',      label: 'Halal-Friendly' },
@@ -22,13 +22,10 @@ const footerLinks = {
     { href: '/blog',       label: 'Blog' },
   ],
   'Popular Towns': popularTownLinks,
-  'Drink Types': [
-    { href: '/drinks/brown-sugar-milk-tea', label: 'Brown Sugar' },
-    { href: '/drinks/taro-milk-tea',        label: 'Taro Milk Tea' },
-    { href: '/drinks/matcha-series',        label: 'Matcha' },
-    { href: '/drinks/fruit-tea',            label: 'Fruit Tea' },
-    { href: '/drinks/cheese-foam',          label: 'Cheese Foam' },
-  ],
+  'Drink Categories': categories.slice(0, 5).map(category => ({
+    href: `/drinks?category=${category.slug}`,
+    label: category.name,
+  })),
 };
 ---
 

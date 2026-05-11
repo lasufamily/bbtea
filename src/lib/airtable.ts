@@ -7,8 +7,8 @@
  */
 
 import type {
-  Brand, Outlet, DrinkCategory, Mall,
-  AirtableBrandFields, AirtableOutletFields, AirtableCategoryFields, AirtableTownFields, AirtableMrtStationFields, AirtableMallFields,
+  Brand, Outlet, Drink, DrinkCategory, Mall,
+  AirtableBrandFields, AirtableOutletFields, AirtableDrinkFields, AirtableTownFields, AirtableMrtStationFields, AirtableMallFields,
   AirtableRecord, AirtableResponse,
 } from './types';
 
@@ -101,6 +101,7 @@ async function fetchTable<T>(
 // no matter how many pages request the same data simultaneously.
 // ─────────────────────────────────────────
 let _brandsCache:     Promise<Brand[]>         | null = null;
+let _drinksCache:     Promise<Drink[]>         | null = null;
 let _categoriesCache: Promise<DrinkCategory[]> | null = null;
 let _outletsCache:    Promise<Outlet[]>        | null = null;
 let _mallsCache:      Promise<Mall[]>          | null = null;
@@ -323,13 +324,21 @@ export async function getBrandBySlug(slug: string): Promise<Brand | undefined> {
 async function buildOutlets(
   records: AirtableRecord<AirtableOutletFields>[],
   brands: Brand[],
-  categories: DrinkCategory[],
+  drinks: Drink[],
   townMap: Map<string, NamedSlug>,
   mallMap: Map<string, NamedSlug>,
   mrtMap: Map<string, NamedSlug>,
 ): Promise<Outlet[]> {
   const brandMap = new Map(brands.map(b => [b.id, b]));
-  const catMap   = new Map(categories.map(c => [c.id, c]));
+  const drinksByBrandId = new Map<string, Drink[]>();
+
+  for (const drink of drinks) {
+    for (const brand of drink.brands) {
+      const brandDrinks = drinksByBrandId.get(brand.id) ?? [];
+      brandDrinks.push(drink);
+      drinksByBrandId.set(brand.id, brandDrinks);
+    }
+  }
 
   return records
     .filter(r => r.fields['Outlet Name'] && r.fields['Slug'])
@@ -340,8 +349,11 @@ async function buildOutlets(
       const brandRef = f['Brand']?.[0];
       const brand    = brandRef ? brandMap.get(brandRef) : undefined;
 
-      const catIds = f['Drink Categories'] ?? [];
-      const cats   = catIds.map(id => catMap.get(id)).filter(Boolean) as DrinkCategory[];
+      const brandDrinks = brand ? drinksByBrandId.get(brand.id) ?? [] : [];
+      const drinkCategoryMap = new Map<string, string>();
+      for (const drink of brandDrinks) {
+        if (drink.category && drink.categorySlug) drinkCategoryMap.set(drink.categorySlug, drink.category);
+      }
 
       // Town: multipleRecordLinks → resolve via townMap
       const townId   = f['Town']?.[0];
@@ -401,9 +413,9 @@ async function buildOutlets(
         phone:              f['Phone'],
         googleMapsUrl:      f['Google Maps URL'],
         deliveryLinks,
-        popularDrinks:      f['Drinks']?.split(',').map(s => s.trim()).filter(Boolean),
-        drinkCategories:    cats.map(c => c.name),
-        drinkCategorySlugs: cats.map(c => c.slug),
+        popularDrinks:      brandDrinks.slice(0, 4).map(drink => drink.name),
+        drinkCategories:    Array.from(drinkCategoryMap.values()),
+        drinkCategorySlugs: Array.from(drinkCategoryMap.keys()),
         priceRange:         f['Price Range'],
         halalFriendly:      f['Halal-Friendly'] ?? false,
         seatingAvailable:   f['Seating Available'] ?? false,
@@ -416,16 +428,16 @@ async function buildOutlets(
 }
 
 async function _fetchOutlets(): Promise<Outlet[]> {
-  const [records, brands, cats, townMap, mallMap, mrtMap] = await Promise.all([
+  const [records, brands, drinks, townMap, mallMap, mrtMap] = await Promise.all([
     fetchTable<AirtableOutletFields>('Bubble Tea Shops', '{Published} = TRUE()'),
     getBrands(),
-    getCategories(),
+    getDrinks(),
     getTownMap(),
     getMallMap(),
     getMrtMap(),
   ]);
 
-  return buildOutlets(records, brands, cats, townMap, mallMap, mrtMap);
+  return buildOutlets(records, brands, drinks, townMap, mallMap, mrtMap);
 }
 
 export function getOutlets(): Promise<Outlet[]> {
@@ -433,16 +445,16 @@ export function getOutlets(): Promise<Outlet[]> {
 }
 
 export async function getOutletBySlug(slug: string): Promise<Outlet | undefined> {
-  const [records, brands, cats, townMap, mallMap, mrtMap] = await Promise.all([
+  const [records, brands, drinks, townMap, mallMap, mrtMap] = await Promise.all([
     fetchTable<AirtableOutletFields>('Bubble Tea Shops', `AND({Slug} = "${slug}", {Published} = TRUE())`),
     getBrands(),
-    getCategories(),
+    getDrinks(),
     getTownMap(),
     getMallMap(),
     getMrtMap(),
   ]);
 
-  const outlets = await buildOutlets(records, brands, cats, townMap, mallMap, mrtMap);
+  const outlets = await buildOutlets(records, brands, drinks, townMap, mallMap, mrtMap);
   return outlets[0];
 }
 
@@ -472,33 +484,95 @@ export async function getOutletsByMall(mallSlug: string): Promise<Outlet[]> {
 }
 
 // ─────────────────────────────────────────
-// Drink Categories  (Airtable table: "Drinks")
+// Drinks
 // ─────────────────────────────────────────
-function mapCategory(r: AirtableRecord<AirtableCategoryFields>): DrinkCategory {
+function mapDrink(r: AirtableRecord<AirtableDrinkFields>, brandMap: Map<string, Brand>): Drink {
   const f = r.fields;
-  // Image is multipleAttachments — extract the best URL available
   const imageAttachment = Array.isArray(f['Image']) ? f['Image'][0] : undefined;
   const image = imageAttachment?.thumbnails?.large?.url ?? imageAttachment?.url;
+  const category = normalizeText(f['Category']);
 
   return {
     id:          r.id,
     name:        f['Drink Name'],
     slug:        f['Slug'],
+    category,
+    categorySlug: category ? slugify(category) : undefined,
+    brands:      (f['Brands'] ?? [])
+      .map(id => brandMap.get(id))
+      .filter((brand): brand is Brand => Boolean(brand))
+      .map(brand => ({
+        id: brand.id,
+        name: brand.name,
+        slug: brand.slug,
+        logo: brand.logo,
+      })),
     description: f['Description'],
+    priceM:      f['Price (M)'],
+    priceL:      f['Price (L)'],
+    calories:    f['Calories (kcal)'],
     image,
-    published:   f['Published'] ?? false,
-  } satisfies DrinkCategory;
+    published:   f['Published'] ?? true,
+  } satisfies Drink;
 }
 
-async function _fetchCategories(): Promise<DrinkCategory[]> {
-  const records = await fetchTable<AirtableCategoryFields>(
-    'Drinks',
-    '{Published} = TRUE()',
-  );
+async function _fetchDrinks(): Promise<Drink[]> {
+  const [records, brands] = await Promise.all([
+    fetchTable<AirtableDrinkFields>('Drinks'),
+    getBrands(),
+  ]);
+
+  const brandMap = new Map(brands.map(brand => [brand.id, brand]));
 
   return records
     .filter(r => r.fields['Drink Name'] && r.fields['Slug'])
-    .map(mapCategory);
+    .map(record => mapDrink(record, brandMap))
+    .filter(drink => drink.published)
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+export function getDrinks(): Promise<Drink[]> {
+  return (_drinksCache ??= _fetchDrinks());
+}
+
+export async function getDrinkBySlug(slug: string): Promise<Drink | undefined> {
+  const drinks = await getDrinks();
+  return drinks.find(drink => drink.slug === slug);
+}
+
+export async function getDrinksByBrand(brandSlug: string): Promise<Drink[]> {
+  const drinks = await getDrinks();
+  return drinks.filter(drink => drink.brands.some(brand => brand.slug === brandSlug));
+}
+
+export async function getDrinksByCategory(categorySlug: string): Promise<Drink[]> {
+  const drinks = await getDrinks();
+  return drinks.filter(drink => drink.categorySlug === categorySlug);
+}
+
+function categoryDescription(name: string): string {
+  return `Browse ${name.toLowerCase()} drinks from bubble tea brands in Singapore.`;
+}
+
+async function _fetchCategories(): Promise<DrinkCategory[]> {
+  const drinks = await getDrinks();
+  const categories = new Map<string, DrinkCategory>();
+
+  for (const drink of drinks) {
+    if (!drink.category || !drink.categorySlug) continue;
+    if (categories.has(drink.categorySlug)) continue;
+
+    categories.set(drink.categorySlug, {
+      id: drink.categorySlug,
+      name: drink.category,
+      slug: drink.categorySlug,
+      description: categoryDescription(drink.category),
+      image: drink.image,
+      published: true,
+    });
+  }
+
+  return Array.from(categories.values()).sort((a, b) => a.name.localeCompare(b.name));
 }
 
 export function getCategories(): Promise<DrinkCategory[]> {
@@ -506,10 +580,6 @@ export function getCategories(): Promise<DrinkCategory[]> {
 }
 
 export async function getCategoryBySlug(slug: string): Promise<DrinkCategory | undefined> {
-  const records = await fetchTable<AirtableCategoryFields>(
-    'Drinks',
-    `AND({Slug} = "${slug}", {Published} = TRUE())`,
-  );
-
-  return records[0] ? mapCategory(records[0]) : undefined;
+  const categories = await getCategories();
+  return categories.find(category => category.slug === slug);
 }

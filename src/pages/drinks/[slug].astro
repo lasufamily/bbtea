@@ -1,122 +1,156 @@
 ---
 import Layout from '../../components/Layout.astro';
-import ListingCard from '../../components/ListingCard.astro';
-import CategoryCard from '../../components/CategoryCard.astro';
-import { getCategories, getOutlets } from '../../lib/airtable';
-import type { DrinkCategory } from '../../lib/types';
+import DrinkCard from '../../components/DrinkCard.astro';
+import { getDrinks } from '../../lib/airtable';
+import type { Drink } from '../../lib/types';
 
 export async function getStaticPaths() {
-  const [categories, allOutlets] = await Promise.all([getCategories(), getOutlets()]);
-  return categories.map(category => {
-    const outlets = allOutlets.filter(o => o.drinkCategorySlugs?.includes(category.slug));
-    return {
-      params: { slug: category.slug },
-      props:  { category, outlets },
-    };
-  });
+  const drinks = await getDrinks();
+  return drinks.map(drink => ({
+    params: { slug: drink.slug },
+    props:  { drink },
+  }));
 }
 
 interface Props {
-  category: DrinkCategory;
-  outlets: Awaited<ReturnType<typeof getOutlets>>;
+  drink: Drink;
 }
-const { category, outlets } = Astro.props;
 
-const allCategories = await getCategories();
-const otherCategories = allCategories.filter(c => c.slug !== category.slug);
-const allOutlets = await getOutlets();
+const { drink } = Astro.props;
+const allDrinks = await getDrinks();
+const relatedDrinks = allDrinks
+  .filter(item => item.slug !== drink.slug && item.categorySlug === drink.categorySlug)
+  .slice(0, 4);
+
+const priceRows = [
+  { label: 'Medium', value: drink.priceM },
+  { label: 'Large', value: drink.priceL },
+].filter(row => typeof row.value === 'number');
+
+const brandNames = drink.brands.map(brand => brand.name).join(', ');
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'CollectionPage',
-  name: `${category.name} in Singapore`,
-  description: category.description ?? `Find the best ${category.name} bubble tea shops in Singapore.`,
-  url: `https://bbtea.sg/drinks/${category.slug}`,
-  ...(category.image && { image: category.image }),
+  '@type': 'Product',
+  name: drink.name,
+  description: drink.description ?? `${drink.name}${brandNames ? ` by ${brandNames}` : ''}.`,
+  category: drink.category,
+  ...(drink.image && { image: drink.image }),
+  ...(drink.brands.length === 1 && { brand: { '@type': 'Brand', name: drink.brands[0].name } }),
+  ...(priceRows[0] && {
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'SGD',
+      price: priceRows[0].value,
+      availability: 'https://schema.org/InStock',
+    },
+  }),
 };
 ---
 
 <Layout
-  title={`${category.name} in Singapore — Best Bubble Tea Shops | BBTea.sg`}
-  description={`Find ${outlets.length} bubble tea shops serving ${category.name} in Singapore. ${category.description ?? ''}`}
-  image={category.image}
-  canonical={`https://bbtea.sg/drinks/${category.slug}`}
+  title={`${drink.name} in Singapore | BBTea.sg`}
+  description={`${drink.name}${brandNames ? ` from ${brandNames}` : ''}. ${drink.category ? `${drink.category}. ` : ''}${drink.calories ? `${drink.calories}. ` : ''}${drink.description ?? ''}`}
+  image={drink.image}
+  type="article"
+  canonical={`https://bbtea.sg/drinks/${drink.slug}`}
   jsonLd={jsonLd}
 >
 
-  <!-- Hero -->
-  <section class="relative bg-white border-b border-[var(--color-stone-200)] overflow-hidden" style="min-height: 18rem;">
-    {category.image && (
-      <img
-        src={category.image}
-        alt={category.name}
-        class="absolute inset-0 w-full h-full object-cover opacity-10"
-        fetchpriority="high"
-        decoding="async"
-        width="1200"
-        height="400"
-      />
-    )}
-    <div class="absolute inset-0 bg-white/85"></div>
-
-    <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-4" data-pagefind-body>
-      <nav class="text-sm text-[var(--color-stone-400)] flex items-center gap-1.5" aria-label="Breadcrumb">
+  <section class="bg-white border-b border-[var(--color-stone-200)]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-18">
+      <nav class="text-sm text-[var(--color-stone-400)] mb-8 flex items-center gap-1.5" aria-label="Breadcrumb">
         <a href="/" class="hover:text-[var(--color-stone-900)] transition-colors">Home</a>
         <span>/</span>
-        <a href="/directory" class="hover:text-[var(--color-stone-900)] transition-colors">Directory</a>
+        <a href="/drinks" class="hover:text-[var(--color-stone-900)] transition-colors">Drinks</a>
         <span>/</span>
-        <a href="/drinks" class="hover:text-[var(--color-stone-900)] transition-colors text-[var(--color-stone-700)]">Drink Types</a>
-        <span>/</span>
-        <span class="text-[var(--color-stone-700)] font-medium">{category.name}</span>
+        <span class="text-[var(--color-stone-700)] font-medium">{drink.name}</span>
       </nav>
 
-      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">Drink Type</p>
-      <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight text-[var(--color-stone-900)]">
-        {category.name}<br />
-        <span class="text-[var(--color-stone-600)] text-2xl lg:text-3xl font-normal">in Singapore</span>
-      </h1>
-      {category.description && (
-        <p class="text-[var(--color-stone-600)] text-base max-w-2xl leading-relaxed">
-          {category.description}
-        </p>
-      )}
-      <p class="text-[var(--color-stone-500)] text-sm">
-        {outlets.length} {outlets.length === 1 ? 'shop' : 'shops'} found
-      </p>
+      <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-14 items-start">
+        <div class="aspect-[4/3] rounded-lg overflow-hidden bg-[var(--color-cream-100)] border border-[var(--color-stone-200)]">
+          {drink.image ? (
+            <img
+              src={drink.image}
+              alt={drink.name}
+              class="w-full h-full object-cover"
+              loading="eager"
+              decoding="async"
+              width="720"
+              height="540"
+            />
+          ) : (
+            <div class="w-full h-full flex items-center justify-center">
+              <span class="text-sm font-semibold tracking-wide uppercase text-[var(--color-stone-400)]">Drink</span>
+            </div>
+          )}
+        </div>
+
+        <div class="space-y-6" data-pagefind-body>
+          <div class="space-y-3">
+            <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
+              {drink.category ?? 'Drink'}
+            </p>
+            <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight text-[var(--color-stone-900)]">
+              {drink.name}
+            </h1>
+            {drink.description && (
+              <p class="text-[var(--color-stone-600)] text-base leading-relaxed max-w-2xl">
+                {drink.description}
+              </p>
+            )}
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            {drink.brands.map(brand => (
+              <a
+                href={`/brands/${brand.slug}`}
+                class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--color-cream-100)] text-sm font-semibold text-[var(--color-stone-700)] border border-[var(--color-stone-200)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors"
+              >
+                {brand.logo && (
+                  <img src={brand.logo} alt="" class="w-5 h-5 rounded object-cover" loading="lazy" decoding="async" />
+                )}
+                {brand.name}
+              </a>
+            ))}
+          </div>
+
+          <dl class="grid sm:grid-cols-3 gap-3">
+            {priceRows.map(row => (
+              <div class="rounded-lg border border-[var(--color-stone-200)] bg-white p-4">
+                <dt class="text-xs font-semibold uppercase tracking-wide text-[var(--color-stone-400)]">{row.label}</dt>
+                <dd class="mt-1 text-2xl font-display font-semibold text-[var(--color-stone-900)]">
+                  ${row.value!.toFixed(2)}
+                </dd>
+              </div>
+            ))}
+            {drink.calories && (
+              <div class="rounded-lg border border-[var(--color-stone-200)] bg-white p-4">
+                <dt class="text-xs font-semibold uppercase tracking-wide text-[var(--color-stone-400)]">Calories</dt>
+                <dd class="mt-1 text-base font-semibold text-[var(--color-stone-900)]">{drink.calories}</dd>
+              </div>
+            )}
+          </dl>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Outlets -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    {outlets.length > 0 ? (
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-        {outlets.map(outlet => <ListingCard outlet={outlet} />)}
-      </div>
-    ) : (
-      <div class="text-center py-20 space-y-4">
-        <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">No Results</p>
-        <h2 class="text-xl font-display font-semibold text-[var(--color-stone-800)]">No shops found for this category</h2>
-        <a href="/directory" class="inline-flex items-center gap-2 mt-2 px-6 py-3 rounded-lg bg-[var(--color-stone-900)] text-white text-sm font-semibold hover:bg-white hover:text-[var(--color-stone-900)] border border-[var(--color-stone-900)] transition-colors">
-          Browse All Shops
-        </a>
-      </div>
-    )}
-  </div>
-
-  <!-- Other categories -->
-  {otherCategories.length > 0 && (
+  {relatedDrinks.length > 0 && (
     <section class="bg-[var(--color-cream-100)] border-t border-[var(--color-stone-200)] py-14">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-        <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)]">
-          Explore Other Drink Types
-        </h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {otherCategories.slice(0, 4).map(cat => (
-            <CategoryCard
-              category={cat}
-              outletCount={allOutlets.filter(o => o.drinkCategorySlugs?.includes(cat.slug)).length}
-            />
-          ))}
+        <div class="flex items-end justify-between gap-4">
+          <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)]">
+            More {drink.category} Drinks
+          </h2>
+          {drink.categorySlug && (
+            <a href={`/drinks?category=${drink.categorySlug}`} class="text-sm font-semibold text-[var(--color-forest-700)] hover:underline">
+              View all
+            </a>
+          )}
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {relatedDrinks.map(item => <DrinkCard drink={item} />)}
         </div>
       </div>
     </section>

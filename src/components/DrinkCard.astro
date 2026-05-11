@@ -1,0 +1,81 @@
+---
+import type { Drink } from '../lib/types';
+
+interface Props {
+  drink: Drink;
+}
+
+const { drink } = Astro.props;
+
+const priceParts = [
+  typeof drink.priceM === 'number' ? `M $${drink.priceM.toFixed(2)}` : undefined,
+  typeof drink.priceL === 'number' ? `L $${drink.priceL.toFixed(2)}` : undefined,
+].filter(Boolean);
+---
+
+<article
+  class="group bg-white rounded-lg overflow-hidden border border-[var(--color-stone-200)] card-lift shadow-none"
+  data-pagefind-body
+>
+  <a href={`/drinks/${drink.slug}`} class="block">
+    <div class="aspect-[3/2] overflow-hidden bg-[var(--color-cream-100)]">
+      {drink.image ? (
+        <img
+          src={drink.image}
+          alt={drink.name}
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          loading="lazy"
+          decoding="async"
+          width="480"
+          height="320"
+        />
+      ) : (
+        <div class="w-full h-full flex items-center justify-center bg-[var(--color-cream-100)]">
+          <span class="text-sm font-semibold tracking-wide uppercase text-[var(--color-stone-400)]">Drink</span>
+        </div>
+      )}
+    </div>
+
+    <div class="p-5 space-y-3">
+      <div class="flex flex-wrap gap-1.5">
+        {drink.category && (
+          <span class="text-[11px] font-semibold px-2.5 py-1 rounded-md bg-[var(--color-cream-100)] text-[var(--color-stone-600)] border border-[var(--color-cream-200)]">
+            {drink.category}
+          </span>
+        )}
+        {drink.brands.slice(0, 2).map(brand => (
+          <span class="text-[11px] font-semibold px-2.5 py-1 rounded-md bg-white text-[var(--color-forest-700)] border border-[var(--color-stone-200)]">
+            {brand.name}
+          </span>
+        ))}
+        {drink.brands.length > 2 && (
+          <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-white text-[var(--color-stone-400)] border border-[var(--color-stone-200)]">
+            +{drink.brands.length - 2} brands
+          </span>
+        )}
+      </div>
+
+      <h3 class="text-base font-display font-semibold text-[var(--color-stone-900)] group-hover:text-[var(--color-forest-700)] transition-colors leading-snug">
+        {drink.name}
+      </h3>
+
+      {drink.description && (
+        <p class="text-sm text-[var(--color-stone-600)] leading-relaxed line-clamp-2">
+          {drink.description}
+        </p>
+      )}
+
+      <div class="flex items-center justify-between gap-3 pt-3 border-t border-[var(--color-stone-100)]">
+        <span class="text-xs text-[var(--color-stone-500)]">
+          {priceParts.length > 0 ? priceParts.join(' · ') : drink.calories ?? 'Menu details'}
+        </span>
+        <span class="text-sm font-semibold text-[var(--color-forest-700)] flex items-center gap-1 group-hover:gap-1.5 transition-all">
+          Details
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+          </svg>
+        </span>
+      </div>
+    </div>
+  </a>
+</article>

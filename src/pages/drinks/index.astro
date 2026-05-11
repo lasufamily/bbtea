@@ -1,67 +1,93 @@
 ---
 import Layout from '../../components/Layout.astro';
-import CategoryCard from '../../components/CategoryCard.astro';
-import { getCategories, getOutlets } from '../../lib/airtable';
+import DrinkCard from '../../components/DrinkCard.astro';
+import { getCategories, getDrinks } from '../../lib/airtable';
 
-const [categories, outlets] = await Promise.all([getCategories(), getOutlets()]);
+const [allDrinks, categories] = await Promise.all([getDrinks(), getCategories()]);
+const selectedCategory = Astro.url.searchParams.get('category') ?? '';
+const drinks = selectedCategory
+  ? allDrinks.filter(drink => drink.categorySlug === selectedCategory)
+  : allDrinks;
+const selectedCategoryName = categories.find(category => category.slug === selectedCategory)?.name;
 
-const categoryOutletCount = (catSlug: string) =>
-  outlets.filter(o => o.drinkCategorySlugs?.includes(catSlug)).length;
+const brandCount = new Set(allDrinks.flatMap(drink => drink.brands.map(brand => brand.slug))).size;
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'Bubble Tea Drink Types in Singapore',
-  description: `Browse ${categories.length} bubble tea drink categories served at shops across Singapore.`,
+  name: selectedCategoryName ? `${selectedCategoryName} Drinks in Singapore` : 'Bubble Tea Drinks in Singapore',
+  description: `Browse ${drinks.length} bubble tea drinks served by brands across Singapore.`,
   url: 'https://bbtea.sg/drinks',
 };
 ---
 
 <Layout
-  title="Bubble Tea Drink Types in Singapore | BBTea.sg"
-  description={`Browse all ${categories.length} bubble tea drink types — from classic milk teas and brown sugar boba to matcha, taro, and fruit teas. Find where to get them in Singapore.`}
+  title={selectedCategoryName ? `${selectedCategoryName} Drinks in Singapore | BBTea.sg` : 'Bubble Tea Drinks in Singapore | BBTea.sg'}
+  description={`Browse ${drinks.length} bubble tea drinks with prices, calories, categories, and brands in Singapore.`}
   canonical="https://bbtea.sg/drinks"
   jsonLd={jsonLd}
 >
 
-  <!-- Hero -->
   <section class="bg-white border-b border-[var(--color-stone-200)] py-16">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4" data-pagefind-body>
       <nav class="text-sm text-[var(--color-stone-400)] flex items-center gap-1.5" aria-label="Breadcrumb">
         <a href="/" class="hover:text-[var(--color-stone-900)] transition-colors">Home</a>
         <span>/</span>
-        <span class="text-[var(--color-stone-700)] font-medium">Drink Types</span>
+        <span class="text-[var(--color-stone-700)] font-medium">Drinks</span>
       </nav>
       <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
-        What Are You Craving?
+        Menus Across Singapore
       </p>
       <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight">
-        Bubble Tea Drink Types
+        {selectedCategoryName ?? 'Bubble Tea Drinks'}
       </h1>
       <p class="text-[var(--color-stone-600)] text-base max-w-2xl leading-relaxed">
-        From classic milk teas to indulgent brown sugar creations — find your signature order and the shops that do it best.
+        Compare individual drinks by brand, category, price, and calories. Shared drink names can belong to multiple brands on the same record.
       </p>
       <div class="flex flex-wrap items-center gap-6 pt-2">
         <div class="text-sm">
-          <span class="font-bold text-xl">{categories.length}</span>
-          <span class="text-[var(--color-stone-400)] ml-1">drink types</span>
+          <span class="font-bold text-xl">{drinks.length}</span>
+          <span class="text-[var(--color-stone-400)] ml-1">{drinks.length === 1 ? 'drink' : 'drinks'}</span>
         </div>
         <div class="text-sm">
-          <span class="font-bold text-xl">{outlets.length}</span>
-          <span class="text-[var(--color-stone-400)] ml-1">shops listed</span>
+          <span class="font-bold text-xl">{brandCount}</span>
+          <span class="text-[var(--color-stone-400)] ml-1">{brandCount === 1 ? 'brand' : 'brands'}</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Category grid -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-    <h2 class="sr-only">All Bubble Tea Drink Types</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-      {categories.map(cat => (
-        <CategoryCard category={cat} outletCount={categoryOutletCount(cat.slug)} />
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 border-b border-[var(--color-stone-200)]">
+    <div class="flex flex-wrap gap-2">
+      <a
+        href="/drinks"
+        class={`text-sm px-4 py-2 rounded-lg border transition-colors ${!selectedCategory ? 'bg-[var(--color-stone-900)] text-white border-[var(--color-stone-900)]' : 'bg-white text-[var(--color-stone-600)] border-[var(--color-stone-200)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)]'}`}
+      >
+        All Drinks
+      </a>
+      {categories.map(category => (
+        <a
+          href={`/drinks?category=${category.slug}`}
+          class={`text-sm px-4 py-2 rounded-lg border transition-colors ${selectedCategory === category.slug ? 'bg-[var(--color-stone-900)] text-white border-[var(--color-stone-900)]' : 'bg-white text-[var(--color-stone-600)] border-[var(--color-stone-200)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)]'}`}
+        >
+          {category.name}
+        </a>
       ))}
     </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    {drinks.length > 0 ? (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        {drinks.map(drink => <DrinkCard drink={drink} />)}
+      </div>
+    ) : (
+      <div class="text-center py-20 space-y-4">
+        <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">No Results</p>
+        <h2 class="text-xl font-display font-semibold text-[var(--color-stone-800)]">No drinks found</h2>
+        <a href="/drinks" class="text-[var(--color-forest-700)] font-medium hover:underline">Browse all drinks</a>
+      </div>
+    )}
   </section>
 
 </Layout>

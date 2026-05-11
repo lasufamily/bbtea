@@ -1,7 +1,8 @@
 ---
 import Layout from '../../components/Layout.astro';
 import ListingCard from '../../components/ListingCard.astro';
-import { getBrands, getOutlets } from '../../lib/airtable';
+import DrinkCard from '../../components/DrinkCard.astro';
+import { getBrands, getDrinksByBrand, getOutlets } from '../../lib/airtable';
 import type { Brand } from '../../lib/types';
 
 export async function getStaticPaths() {
@@ -17,6 +18,7 @@ const { brand } = Astro.props;
 
 const allOutlets = await getOutlets();
 const outlets    = allOutlets.filter(o => o.brandSlug === brand.slug);
+const drinks     = await getDrinksByBrand(brand.slug);
 
 const brandLinks = [
   { label: 'Website', url: brand.websiteUrl },
@@ -80,6 +82,9 @@ const jsonLd = {
             <span class="text-sm text-[var(--color-stone-500)]">
               {outlets.length} outlet{outlets.length !== 1 ? 's' : ''} in Singapore
             </span>
+            <span class="text-sm text-[var(--color-stone-500)]">
+              {drinks.length} drink{drinks.length !== 1 ? 's' : ''}
+            </span>
             {brandLinks.map(link => (
               <a
                 href={link.url}
@@ -118,5 +123,23 @@ const jsonLd = {
       </div>
     )}
   </div>
+
+  {drinks.length > 0 && (
+    <section class="bg-[var(--color-cream-100)] border-t border-[var(--color-stone-200)] py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <div class="flex items-end justify-between gap-4">
+          <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)]">
+            {brand.name} Drinks
+          </h2>
+          <a href="/drinks" class="text-sm font-semibold text-[var(--color-forest-700)] hover:underline">
+            Browse all drinks
+          </a>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {drinks.slice(0, 4).map(drink => <DrinkCard drink={drink} />)}
+        </div>
+      </div>
+    </section>
+  )}
 
 </Layout>

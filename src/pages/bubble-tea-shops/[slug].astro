@@ -162,11 +162,11 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
         <!-- Drink Categories -->
         {outlet.drinkCategories && outlet.drinkCategories.length > 0 && (
           <section class="space-y-3">
-            <h2 class="text-lg font-display font-semibold text-[var(--color-stone-900)]">Drink Types</h2>
+            <h2 class="text-lg font-display font-semibold text-[var(--color-stone-900)]">Drink Categories</h2>
             <div class="flex flex-wrap gap-2">
               {outlet.drinkCategories.map((cat, i) => (
                 <a
-                  href={`/drinks/${outlet.drinkCategorySlugs?.[i] ?? ''}`}
+                  href={`/drinks?category=${outlet.drinkCategorySlugs?.[i] ?? ''}`}
                   class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-[var(--color-forest-700)]/10 text-[var(--color-forest-700)] hover:bg-[var(--color-forest-700)]/20 transition-colors"
                 >
                   {cat}
