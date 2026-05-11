@@ -35,6 +35,7 @@ export interface Outlet {
   phone?: string;
   googleMapsUrl?: string;
   deliveryLinks?: DeliveryLink[];
+  drinks?: Pick<Drink, 'name' | 'slug'>[];
   popularDrinks?: string[];
   drinkCategories?: string[];
   drinkCategorySlugs?: string[];
