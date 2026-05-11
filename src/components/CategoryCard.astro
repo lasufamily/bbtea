@@ -10,7 +10,7 @@ const { category, outletCount = 0 } = Astro.props;
 ---
 
 <article class="group bg-white rounded-lg overflow-hidden border border-[var(--color-stone-200)] card-lift shadow-none">
-  <a href={`/drinks/${category.slug}`} class="block" data-pagefind-body>
+  <a href={`/drinks?category=${category.slug}`} class="block" data-pagefind-body>
 
     <!-- Image -->
     <div class="aspect-[3/2] overflow-hidden bg-[var(--color-cream-100)]">
@@ -26,7 +26,7 @@ const { category, outletCount = 0 } = Astro.props;
         />
       ) : (
         <div class="w-full h-full flex items-center justify-center bg-[var(--color-cream-100)]">
-          <span class="text-sm font-semibold tracking-wide uppercase text-[var(--color-stone-400)]">Drink Type</span>
+          <span class="text-sm font-semibold tracking-wide uppercase text-[var(--color-stone-400)]">Drink Category</span>
         </div>
       )}
     </div>

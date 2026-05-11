@@ -56,6 +56,28 @@ export interface DrinkCategory {
   published: boolean;
 }
 
+export interface DrinkBrand {
+  id: string;
+  name: string;
+  slug: string;
+  logo?: string;
+}
+
+export interface Drink {
+  id: string;
+  name: string;
+  slug: string;
+  category?: string;
+  categorySlug?: string;
+  brands: DrinkBrand[];
+  description?: string;
+  priceM?: number;
+  priceL?: number;
+  calories?: string;
+  image?: string;
+  published: boolean;
+}
+
 export interface DeliveryLink {
   platform: string;
   url: string;
@@ -135,10 +157,15 @@ export interface AirtableOutletFields {
   'Published'?: boolean;
 }
 
-export interface AirtableCategoryFields {
-  'Drink Name': string;         // primary field in Drinks table
+export interface AirtableDrinkFields {
+  'Drink Name': string;
+  'Category'?: string;
   'Slug': string;
+  'Brands'?: string[];          // linked record IDs → Brands table
   'Description'?: string;
+  'Price (M)'?: number;
+  'Price (L)'?: number;
+  'Calories (kcal)'?: string;
   'Image'?: { url: string; thumbnails?: { large?: { url: string } } }[]; // multipleAttachments
   'Published'?: boolean;
 }
