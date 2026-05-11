@@ -23,6 +23,7 @@ const relatedOutlets = allOutlets
     (o.townSlug === outlet.townSlug || o.brandSlug === outlet.brandSlug)
   )
   .slice(0, 3);
+const outletDrinks = outlet.drinks ?? outlet.popularDrinks?.map(name => ({ name, slug: undefined })) ?? [];
 
 // JSON-LD structured data
 const jsonLd = {
@@ -145,14 +146,25 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
           </p>
         </header>
 
-        <!-- Popular Drinks -->
-        {outlet.popularDrinks && outlet.popularDrinks.length > 0 && (
+        <!-- Drinks -->
+        {outletDrinks.length > 0 && (
           <section class="space-y-4">
-            <h2 class="text-lg font-display font-semibold text-[var(--color-stone-900)]">Popular Drinks</h2>
+            <h2 class="text-lg font-display font-semibold text-[var(--color-stone-900)]">Drinks</h2>
             <ul class="flex flex-wrap gap-2">
-              {outlet.popularDrinks.map(drink => (
-                <li class="px-4 py-2 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-cream-200)] text-sm text-[var(--color-stone-700)] font-medium">
-                  {drink}
+              {outletDrinks.map(drink => (
+                <li>
+                  {drink.slug ? (
+                    <a
+                      href={`/drinks/${drink.slug}`}
+                      class="block px-4 py-2 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-cream-200)] text-sm text-[var(--color-stone-700)] font-medium hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors"
+                    >
+                      {drink.name}
+                    </a>
+                  ) : (
+                    <span class="block px-4 py-2 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-cream-200)] text-sm text-[var(--color-stone-700)] font-medium">
+                      {drink.name}
+                    </span>
+                  )}
                 </li>
               ))}
             </ul>
