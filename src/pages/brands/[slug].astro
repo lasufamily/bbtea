@@ -19,6 +19,7 @@ const { brand } = Astro.props;
 const allOutlets = await getOutlets();
 const outlets    = allOutlets.filter(o => o.brandSlug === brand.slug);
 const drinks     = await getDrinksByBrand(brand.slug);
+const hasMenuPage = drinks.length > 0;
 
 const brandLinks = [
   { label: 'Website', url: brand.websiteUrl },
@@ -85,6 +86,17 @@ const jsonLd = {
             <span class="text-sm text-[var(--color-stone-500)]">
               {drinks.length} drink{drinks.length !== 1 ? 's' : ''}
             </span>
+            {hasMenuPage && (
+              <a
+                href={`/menus/${brand.slug}`}
+                class="text-sm font-medium text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] flex items-center gap-1 transition-colors"
+              >
+                View menu
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </a>
+            )}
             {brandLinks.map(link => (
               <a
                 href={link.url}

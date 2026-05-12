@@ -24,6 +24,7 @@ const relatedOutlets = allOutlets
   )
   .slice(0, 3);
 const outletDrinks = outlet.drinks ?? outlet.popularDrinks?.map(name => ({ name, slug: undefined })) ?? [];
+const hasMenuPage = outletDrinks.length > 0 && Boolean(outlet.brandSlug);
 
 // JSON-LD structured data
 const jsonLd = {
@@ -144,12 +145,30 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
               </>
             )}
           </p>
+          {hasMenuPage && (
+            <a
+              href={`/menus/${outlet.brandSlug}`}
+              class="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] transition-colors"
+            >
+              View {outlet.brandName} menu
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+              </svg>
+            </a>
+          )}
         </header>
 
         <!-- Drinks -->
         {outlet.drinkGroups && outlet.drinkGroups.length > 0 ? (
           <section class="space-y-5">
-            <h2 class="text-lg font-display font-semibold text-[var(--color-stone-900)]">Drinks</h2>
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <h2 class="text-lg font-display font-semibold text-[var(--color-stone-900)]">Drinks</h2>
+              {hasMenuPage && (
+                <a href={`/menus/${outlet.brandSlug}`} class="text-sm font-semibold text-[var(--color-forest-700)] hover:underline">
+                  Full menu
+                </a>
+              )}
+            </div>
             <div class="space-y-6">
               {outlet.drinkGroups.map(group => (
                 <div class="space-y-2.5">
