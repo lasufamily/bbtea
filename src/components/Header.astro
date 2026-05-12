@@ -25,9 +25,14 @@ const pathname = Astro.url.pathname;
 
       <!-- Logo -->
       <a href="/" class="flex items-center gap-2.5 group" aria-label="BBTea.sg home">
-        <span class="text-lg font-display font-semibold tracking-tight text-[var(--color-stone-900)] group-hover:text-[var(--color-forest-700)] transition-colors">
-          BBTea<span class="text-[var(--color-forest-700)]">.sg</span>
-        </span>
+        <img
+          src="/bbtea-logo.png"
+          alt="BBTea.sg"
+          class="h-auto w-24 transition-opacity group-hover:opacity-80 sm:w-28 lg:w-32"
+          width="1400"
+          height="700"
+          decoding="async"
+        />
       </a>
 
       <!-- Desktop nav -->
