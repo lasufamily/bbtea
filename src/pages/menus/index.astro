@@ -1,0 +1,135 @@
+---
+import Layout from '../../components/Layout.astro';
+import { getBrands, getDrinks } from '../../lib/airtable';
+
+const [brands, drinks] = await Promise.all([getBrands(), getDrinks()]);
+
+const drinksByBrandSlug = new Map<string, number>();
+for (const drink of drinks) {
+  for (const brand of drink.brands) {
+    drinksByBrandSlug.set(brand.slug, (drinksByBrandSlug.get(brand.slug) ?? 0) + 1);
+  }
+}
+
+const menuBrands = brands
+  .map(brand => ({
+    ...brand,
+    drinkCount: drinksByBrandSlug.get(brand.slug) ?? 0,
+  }))
+  .filter(brand => brand.drinkCount > 0)
+  .sort((a, b) => a.name.localeCompare(b.name));
+
+const categoryCount = new Set(drinks.map(drink => drink.categorySlug).filter(Boolean)).size;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Bubble Tea Menus in Singapore',
+  description: `Browse bubble tea menus from ${menuBrands.length} brands in Singapore.`,
+  url: 'https://bbtea.sg/menus',
+};
+---
+
+<Layout
+  title="Bubble Tea Menus in Singapore | BBTea.sg"
+  description={`Browse bubble tea menus from ${menuBrands.length} Singapore brands with drink categories, prices, and calories.`}
+  canonical="https://bbtea.sg/menus"
+  jsonLd={jsonLd}
+>
+
+  <section class="bg-white border-b border-[var(--color-stone-200)] py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4" data-pagefind-body>
+      <nav class="text-sm text-[var(--color-stone-400)] flex items-center gap-1.5" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-[var(--color-stone-900)] transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-[var(--color-stone-700)] font-medium">Menus</span>
+      </nav>
+      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
+        Brand Menus
+      </p>
+      <h1 class="text-3xl lg:text-5xl font-display font-bold text-[var(--color-stone-900)] leading-tight">
+        Bubble Tea Menus<br />in Singapore
+      </h1>
+      <p class="text-[var(--color-stone-600)] text-base max-w-2xl leading-relaxed">
+        Compare brand menus by category, price, and calories. Only brands with drinks listed in Airtable appear here.
+      </p>
+      <div class="flex flex-wrap items-center gap-6 pt-2">
+        <div class="text-sm">
+          <span class="font-bold text-xl text-[var(--color-stone-900)]">{menuBrands.length}</span>
+          <span class="text-[var(--color-stone-400)] ml-1">{menuBrands.length === 1 ? 'menu' : 'menus'}</span>
+        </div>
+        <div class="text-sm">
+          <span class="font-bold text-xl text-[var(--color-stone-900)]">{drinks.length}</span>
+          <span class="text-[var(--color-stone-400)] ml-1">{drinks.length === 1 ? 'drink' : 'drinks'}</span>
+        </div>
+        <div class="text-sm">
+          <span class="font-bold text-xl text-[var(--color-stone-900)]">{categoryCount}</span>
+          <span class="text-[var(--color-stone-400)] ml-1">{categoryCount === 1 ? 'category' : 'categories'}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    {menuBrands.length > 0 ? (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        {menuBrands.map(brand => (
+          <article class="group bg-white rounded-lg overflow-hidden border border-[var(--color-stone-200)] card-lift shadow-none">
+            <a href={`/menus/${brand.slug}`} class="block p-6 space-y-4" data-pagefind-body>
+              <div class="flex items-start justify-between gap-4">
+                <div class="w-14 h-14 rounded-lg overflow-hidden bg-white flex-shrink-0 border border-[var(--color-stone-200)]">
+                  {brand.logo ? (
+                    <img
+                      src={brand.logo}
+                      alt={`${brand.name} logo`}
+                      class="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                      width="56"
+                      height="56"
+                    />
+                  ) : (
+                    <div class="w-full h-full flex items-center justify-center text-lg font-semibold text-[var(--color-stone-400)]">{brand.name.slice(0, 1)}</div>
+                  )}
+                </div>
+                <span class="text-[10px] font-bold tracking-widest uppercase px-2 py-1 rounded-md bg-[var(--color-cream-100)] text-[var(--color-stone-700)] border border-[var(--color-stone-200)]">
+                  Menu
+                </span>
+              </div>
+
+              <div class="space-y-2">
+                <h2 class="text-base font-display font-semibold text-[var(--color-stone-900)] group-hover:text-[var(--color-forest-700)] transition-colors leading-snug">
+                  {brand.name}
+                </h2>
+                {brand.description && (
+                  <p class="text-sm text-[var(--color-stone-600)] leading-relaxed line-clamp-2">
+                    {brand.description}
+                  </p>
+                )}
+              </div>
+
+              <div class="flex items-center justify-between pt-2 border-t border-[var(--color-stone-100)]">
+                <span class="text-xs text-[var(--color-stone-400)]">
+                  {brand.drinkCount} {brand.drinkCount === 1 ? 'drink' : 'drinks'}
+                </span>
+                <span class="text-sm font-semibold text-[var(--color-forest-700)] flex items-center gap-1 group-hover:gap-1.5 transition-all">
+                  View menu
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                  </svg>
+                </span>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+    ) : (
+      <div class="text-center py-20 space-y-4">
+        <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">No Menus</p>
+        <h2 class="text-xl font-display font-semibold text-[var(--color-stone-800)]">No brand menus found</h2>
+        <a href="/drinks" class="text-[var(--color-forest-700)] font-medium hover:underline">Browse all drinks</a>
+      </div>
+    )}
+  </section>
+
+</Layout>
