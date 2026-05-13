@@ -41,6 +41,7 @@ export interface Outlet {
   drinkCategories?: string[];
   drinkCategorySlugs?: string[];
   priceRange?: '$' | '$$' | '$$$';
+  halal?: HalalStatus;
   halalFriendly: boolean;
   seatingAvailable: boolean;
   image?: string;
@@ -48,6 +49,8 @@ export interface Outlet {
   featured: boolean;
   published: boolean;
 }
+
+export type HalalStatus = 'Halal-certified' | 'Halal-friendly' | 'Muslim-owned';
 
 export interface OutletDrinkGroup {
   category: string;
@@ -157,6 +160,7 @@ export interface AirtableOutletFields {
   'Drinks'?: string;            // multilineText — popular/menu drinks (comma-separated)
   'Drink Categories'?: string[]; // linked record IDs → Drinks table
   'Price Range'?: '$' | '$$' | '$$$';
+  'Halal'?: HalalStatus;
   'Halal-Friendly'?: boolean;
   'Seating Available'?: boolean;
   'Image URL'?: string;         // url field
