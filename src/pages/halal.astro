@@ -19,15 +19,15 @@ const totalBrands = [...new Set(outlets.map(o => o.brandName))].length;
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'Halal-Friendly Bubble Tea in Singapore',
-  description: `Find ${outlets.length} halal-friendly bubble tea shops across Singapore.`,
+  name: 'Halal Bubble Tea in Singapore',
+  description: `Find ${outlets.length} halal bubble tea shops across Singapore.`,
   url: 'https://bbtea.sg/halal',
 };
 ---
 
 <Layout
-  title="Halal-Friendly Bubble Tea in Singapore | BBTea.sg"
-  description={`Find ${outlets.length} halal-friendly bubble tea shops across Singapore. Browse by neighbourhood and enjoy boba worry-free.`}
+  title="Halal Bubble Tea in Singapore | BBTea.sg"
+  description={`Find ${outlets.length} halal bubble tea shops across Singapore. Browse by neighbourhood and enjoy boba worry-free.`}
   canonical="https://bbtea.sg/halal"
   jsonLd={jsonLd}
 >
@@ -38,16 +38,16 @@ const jsonLd = {
       <nav class="text-sm text-[var(--color-stone-400)] flex items-center gap-1.5" aria-label="Breadcrumb">
         <a href="/" class="hover:text-[var(--color-stone-900)] transition-colors">Home</a>
         <span>/</span>
-        <span class="text-[var(--color-stone-700)] font-medium">Halal-Friendly</span>
+        <span class="text-[var(--color-stone-700)] font-medium">Halal</span>
       </nav>
       <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
         ✓ Muslim-Friendly Picks
       </p>
       <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight">
-        Halal-Friendly<br />Bubble Tea in Singapore
+        Halal<br />Bubble Tea in Singapore
       </h1>
       <p class="text-[var(--color-stone-600)] text-base max-w-2xl leading-relaxed">
-        Enjoy boba worry-free. Every shop below is listed as halal-friendly by the brand — great for the whole family.
+        Enjoy boba worry-free. Every shop below has a Halal status listed by the brand — great for the whole family.
       </p>
       <div class="flex flex-wrap items-center gap-6 pt-2">
         <div class="text-sm">
@@ -91,7 +91,7 @@ const jsonLd = {
       <div class="text-center py-24 space-y-4">
         <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">No Results</p>
         <h2 class="text-xl font-display font-semibold text-[var(--color-stone-800)]">
-          No halal-friendly shops listed yet
+          No halal shops listed yet
         </h2>
         <p class="text-[var(--color-stone-500)] max-w-sm mx-auto">
           We're growing our directory. Check back soon or browse all shops.
@@ -109,7 +109,7 @@ const jsonLd = {
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
       <div class="space-y-1 text-center sm:text-left">
         <p class="font-display font-semibold text-[var(--color-stone-900)]">Looking for more shops?</p>
-        <p class="text-sm text-[var(--color-stone-500)]">Browse the full directory and use the Halal-friendly filter.</p>
+        <p class="text-sm text-[var(--color-stone-500)]">Browse the full directory and use the Halal filter.</p>
       </div>
       <a
         href="/directory?halal=true"

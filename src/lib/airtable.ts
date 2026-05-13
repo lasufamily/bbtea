@@ -407,7 +407,7 @@ async function buildOutlets(
 
       // Main image: prefer Image URL, fall back to first gallery image
       const image = f['Image URL']?.trim() || galleryImages?.[0] || undefined;
-      const halal = f['Halal'] ?? (f['Halal-Friendly'] ? 'Halal-friendly' : undefined);
+      const halal = f['Halal'];
 
       return {
         id:                 r.id,
@@ -435,7 +435,7 @@ async function buildOutlets(
         drinkCategorySlugs: Array.from(drinkCategoryMap.keys()),
         priceRange:         f['Price Range'],
         halal,
-        halalFriendly:      Boolean(halal),
+        halalFriendly:      Boolean(halal ?? f['Halal-Friendly']),
         seatingAvailable:   f['Seating Available'] ?? false,
         image,
         galleryImages,

@@ -78,7 +78,7 @@ const suggestedSearches = [
     })),
     1,
   ),
-  ...(outlets.some(outlet => outlet.halalFriendly) ? ['Halal-Friendly'] : []),
+  ...(outlets.some(outlet => outlet.halalFriendly) ? ['Halal'] : []),
 ]
   .filter((tag, index, tags) => tags.indexOf(tag) === index)
   .slice(0, 8);
