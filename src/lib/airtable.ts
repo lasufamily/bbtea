@@ -15,8 +15,11 @@ import type {
 // ─────────────────────────────────────────
 // Config
 // ─────────────────────────────────────────
-const API_KEY  = import.meta.env.AIRTABLE_API_KEY;
-const BASE_ID  = import.meta.env.AIRTABLE_BASE_ID;
+const airtableEnv = (import.meta as ImportMeta & {
+  env?: Record<string, string | undefined>;
+}).env;
+const API_KEY  = airtableEnv?.AIRTABLE_API_KEY;
+const BASE_ID  = airtableEnv?.AIRTABLE_BASE_ID;
 const BASE_URL = `https://api.airtable.com/v0/${BASE_ID}`;
 
 function assertConfig(): void {
@@ -117,6 +120,10 @@ function firstLinkedValue(value: string | string[] | undefined): string | undefi
   return value;
 }
 
+export function getAirtableTownName(fields: AirtableTownFields): string | undefined {
+  return normalizeText(fields['Town Name']) ?? normalizeText(fields['Name']);
+}
+
 function stationSlugFromName(name: string): string {
   const baseName = name
     .replace(/\s*\([^)]*\)\s*/g, ' ')
@@ -138,7 +145,7 @@ async function getTownMap(): Promise<Map<string, { name: string; slug: string }>
   const map = new Map<string, { name: string; slug: string }>();
 
   for (const r of records) {
-    const name = r.fields['Name'];
+    const name = getAirtableTownName(r.fields);
     if (!name) continue;
     const slug = slugify(name);
     map.set(r.id, { name, slug });

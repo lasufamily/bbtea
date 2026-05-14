@@ -183,7 +183,8 @@ export interface AirtableDrinkFields {
 }
 
 export interface AirtableTownFields {
-  'Name': string;
+  'Name'?: string;
+  'Town Name'?: string;
 }
 
 export interface AirtableMrtStationFields {
