@@ -46,7 +46,7 @@ const jsonLd = {
   ...(outlet.image         && { image: outlet.image }),
   priceRange: outlet.priceRange ?? '$$',
   servesCuisine: 'Bubble Tea',
-  url: `https://bbtea.sg/bubble-tea-shops/${outlet.slug}`,
+  url: `https://bbtea.sg/bubble-tea-shops/${outlet.slug}/`,
 };
 
 const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '$$$': 'Premium' };
@@ -57,7 +57,7 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
   description={`${outlet.name} is a ${outlet.brandName} bubble tea shop located at ${outlet.mall ?? outlet.address}, ${outlet.town}. ${outlet.popularDrinks?.slice(0,2).join(', ') ?? ''}`}
   image={outlet.image}
   type="article"
-  canonical={`https://bbtea.sg/bubble-tea-shops/${outlet.slug}`}
+  canonical={`https://bbtea.sg/bubble-tea-shops/${outlet.slug}/`}
   jsonLd={jsonLd}
 >
 
@@ -90,9 +90,9 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
     <nav class="absolute top-6 left-4 sm:left-8 flex items-center gap-1.5 text-white/80 text-sm" aria-label="Breadcrumb">
       <a href="/" class="hover:text-white transition-colors">Home</a>
       <span>/</span>
-      <a href="/directory" class="hover:text-white transition-colors">Directory</a>
+      <a href="/directory/" class="hover:text-white transition-colors">Directory</a>
       <span>/</span>
-      <a href={`/towns/${outlet.townSlug}`} class="hover:text-white transition-colors">{outlet.town}</a>
+      <a href={`/towns/${outlet.townSlug}/`} class="hover:text-white transition-colors">{outlet.town}</a>
       <span>/</span>
       <span class="text-white font-medium truncate max-w-[140px]">{outlet.name}</span>
     </nav>
@@ -109,7 +109,7 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
         <header class="space-y-3">
           <div class="flex items-center gap-2 flex-wrap">
             <a
-              href={`/brands/${outlet.brandSlug}`}
+              href={`/brands/${outlet.brandSlug}/`}
               class="text-xs font-bold tracking-[0.15em] uppercase text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] transition-colors"
             >
               {outlet.brandName}
@@ -133,12 +133,12 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
             </svg>
-            <a href={`/towns/${outlet.townSlug}`} class="hover:text-[var(--color-forest-700)] transition-colors font-medium">{outlet.town}</a>
+            <a href={`/towns/${outlet.townSlug}/`} class="hover:text-[var(--color-forest-700)] transition-colors font-medium">{outlet.town}</a>
             {outlet.mall && (
               <>
                 {' · '}
                 {outlet.mallSlug ? (
-                  <a href={`/malls/${outlet.mallSlug}`} class="hover:text-[var(--color-forest-700)] transition-colors">
+                  <a href={`/malls/${outlet.mallSlug}/`} class="hover:text-[var(--color-forest-700)] transition-colors">
                     {outlet.mall}
                   </a>
                 ) : (
@@ -149,7 +149,7 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
           </p>
           {hasMenuPage && (
             <a
-              href={`/menus/${outlet.brandSlug}`}
+              href={`/menus/${outlet.brandSlug}/`}
               class="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] transition-colors"
             >
               View {outlet.brandName} menu
@@ -166,7 +166,7 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
             <div class="flex flex-wrap items-center justify-between gap-3">
               <h2 class="text-lg font-display font-semibold text-[var(--color-stone-900)]">Drinks</h2>
               {hasMenuPage && (
-                <a href={`/menus/${outlet.brandSlug}`} class="text-sm font-semibold text-[var(--color-forest-700)] hover:underline">
+                <a href={`/menus/${outlet.brandSlug}/`} class="text-sm font-semibold text-[var(--color-forest-700)] hover:underline">
                   Full menu
                 </a>
               )}
@@ -177,7 +177,7 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
                   <div class="flex items-baseline gap-2">
                     {group.categorySlug ? (
                       <a
-                        href={`/drinks?category=${group.categorySlug}`}
+                        href={`/drinks/?category=${group.categorySlug}`}
                         class="text-sm font-bold tracking-wide uppercase text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] transition-colors"
                       >
                         {group.category}
@@ -193,7 +193,7 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
                     {group.drinks.map(drink => (
                       <li>
                         <a
-                          href={`/drinks/${drink.slug}`}
+                          href={`/drinks/${drink.slug}/`}
                           class="block px-4 py-2 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-cream-200)] text-sm text-[var(--color-stone-700)] font-medium hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors"
                         >
                           {drink.name}
@@ -213,7 +213,7 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
                 <li>
                   {drink.slug ? (
                     <a
-                      href={`/drinks/${drink.slug}`}
+                      href={`/drinks/${drink.slug}/`}
                       class="block px-4 py-2 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-cream-200)] text-sm text-[var(--color-stone-700)] font-medium hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors"
                     >
                       {drink.name}
@@ -282,7 +282,7 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
             <div class="space-y-1.5">
               <h3 class="text-xs font-semibold tracking-wide uppercase text-[var(--color-stone-400)]">Nearest MRT</h3>
               <a
-                href={`/stations/${outlet.mrtSlug}`}
+                href={`/stations/${outlet.mrtSlug}/`}
                 class="text-sm font-medium text-[var(--color-stone-700)] hover:text-[var(--color-forest-700)] flex items-center gap-1.5 transition-colors"
               >
                 <svg class="w-4 h-4 text-[var(--color-stone-400)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">

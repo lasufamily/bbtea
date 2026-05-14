@@ -5,26 +5,26 @@ import { getTownsFromOutlets } from '../lib/towns';
 const year = new Date().getFullYear();
 const [outlets, allTowns, categories] = await Promise.all([getOutlets(), getTowns(), getCategories()]);
 const popularTownLinks = getTownsFromOutlets(outlets, allTowns).slice(0, 5).map(town => ({
-  href: `/towns/${town.slug}`,
+  href: `/towns/${town.slug}/`,
   label: town.name,
 }));
 
 const footerLinks = {
   'Browse': [
-    { href: '/directory',  label: 'All Shops' },
-    { href: '/towns',      label: 'Towns' },
-    { href: '/menus',      label: 'Menus' },
-    { href: '/drinks',     label: 'Drinks' },
-    { href: '/brands',     label: 'Brands' },
-    { href: '/stations',   label: 'Near MRT' },
-    { href: '/halal',      label: 'Halal' },
-    { href: '/malls',      label: 'By Mall' },
-    { href: '/catering',   label: 'Catering' },
-    { href: '/blog',       label: 'Blog' },
+    { href: '/directory/',  label: 'All Shops' },
+    { href: '/towns/',      label: 'Towns' },
+    { href: '/menus/',      label: 'Menus' },
+    { href: '/drinks/',     label: 'Drinks' },
+    { href: '/brands/',     label: 'Brands' },
+    { href: '/stations/',   label: 'Near MRT' },
+    { href: '/halal/',      label: 'Halal' },
+    { href: '/malls/',      label: 'By Mall' },
+    { href: '/catering/',   label: 'Catering' },
+    { href: '/blog/',       label: 'Blog' },
   ],
   'Popular Towns': popularTownLinks,
   'Drink Categories': categories.slice(0, 5).map(category => ({
-    href: `/drinks?category=${category.slug}`,
+    href: `/drinks/?category=${category.slug}`,
     label: category.name,
   })),
 };
@@ -53,7 +53,7 @@ const footerLinks = {
           boba shops across the island, from Orchard to Woodlands.
         </p>
         <div class="flex gap-4 pt-1">
-          <a href="/search" class="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-stone-600)] hover:text-[var(--color-stone-900)] transition-colors">
+          <a href="/search/" class="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-stone-600)] hover:text-[var(--color-stone-900)] transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             Search
           </a>
@@ -90,8 +90,8 @@ const footerLinks = {
         © {year} BBTea.sg. All rights reserved. · Singapore
       </p>
       <div class="flex items-center gap-4 text-xs text-[var(--color-stone-500)]">
-        <a href="/privacy" class="hover:text-[var(--color-stone-900)] transition-colors">Privacy Policy</a>
-        <a href="/terms" class="hover:text-[var(--color-stone-900)] transition-colors">Terms of Service</a>
+        <a href="/privacy/" class="hover:text-[var(--color-stone-900)] transition-colors">Privacy Policy</a>
+        <a href="/terms/" class="hover:text-[var(--color-stone-900)] transition-colors">Terms of Service</a>
       </div>
     </div>
   </div>

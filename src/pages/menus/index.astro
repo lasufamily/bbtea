@@ -26,14 +26,14 @@ const jsonLd = {
   '@type': 'CollectionPage',
   name: 'Bubble Tea Menus in Singapore',
   description: `Browse bubble tea menus from ${menuBrands.length} brands in Singapore.`,
-  url: 'https://bbtea.sg/menus',
+  url: 'https://bbtea.sg/menus/',
 };
 ---
 
 <Layout
   title="Bubble Tea Menus in Singapore | BBTea.sg"
   description={`Browse bubble tea menus from ${menuBrands.length} Singapore brands with drink categories, prices, and calories.`}
-  canonical="https://bbtea.sg/menus"
+  canonical="https://bbtea.sg/menus/"
   jsonLd={jsonLd}
 >
 
@@ -75,7 +75,7 @@ const jsonLd = {
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
         {menuBrands.map(brand => (
           <article class="group bg-white rounded-lg overflow-hidden border border-[var(--color-stone-200)] card-lift shadow-none">
-            <a href={`/menus/${brand.slug}`} class="block p-6 space-y-4" data-pagefind-body>
+            <a href={`/menus/${brand.slug}/`} class="block p-6 space-y-4" data-pagefind-body>
               <div class="flex items-start justify-between gap-4">
                 <div class="w-14 h-14 rounded-lg overflow-hidden bg-white flex-shrink-0 border border-[var(--color-stone-200)]">
                   {brand.logo ? (
@@ -127,7 +127,7 @@ const jsonLd = {
       <div class="text-center py-20 space-y-4">
         <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">No Menus</p>
         <h2 class="text-xl font-display font-semibold text-[var(--color-stone-800)]">No brand menus found</h2>
-        <a href="/drinks" class="text-[var(--color-forest-700)] font-medium hover:underline">Browse all drinks</a>
+        <a href="/drinks/" class="text-[var(--color-forest-700)] font-medium hover:underline">Browse all drinks</a>
       </div>
     )}
   </section>

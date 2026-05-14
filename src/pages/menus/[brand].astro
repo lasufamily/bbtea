@@ -66,7 +66,7 @@ const jsonLd = {
   '@type': 'Menu',
   name: `${brand.name} Menu`,
   description: `${brand.name} bubble tea menu in Singapore with prices and calories.`,
-  url: `https://bbtea.sg/menus/${brand.slug}`,
+  url: `https://bbtea.sg/menus/${brand.slug}/`,
   hasMenuSection: groupedDrinks.map(group => ({
     '@type': 'MenuSection',
     name: group.category,
@@ -91,7 +91,7 @@ const jsonLd = {
   description={`Browse the ${brand.name} menu in Singapore. See drinks grouped by category with prices and calories from Airtable.`}
   image={brand.logo}
   type="article"
-  canonical={`https://bbtea.sg/menus/${brand.slug}`}
+  canonical={`https://bbtea.sg/menus/${brand.slug}/`}
   jsonLd={jsonLd}
 >
 
@@ -100,7 +100,7 @@ const jsonLd = {
       <nav class="text-sm text-[var(--color-stone-400)] mb-6 flex items-center gap-1.5" aria-label="Breadcrumb">
         <a href="/" class="hover:text-[var(--color-stone-700)] transition-colors">Home</a>
         <span>/</span>
-        <a href="/menus" class="hover:text-[var(--color-stone-700)] transition-colors">Menus</a>
+        <a href="/menus/" class="hover:text-[var(--color-stone-700)] transition-colors">Menus</a>
         <span>/</span>
         <span class="text-[var(--color-stone-700)] font-medium">{brand.name}</span>
       </nav>
@@ -134,7 +134,7 @@ const jsonLd = {
             <span class="text-sm text-[var(--color-stone-500)]">
               {groupedDrinks.length} categor{groupedDrinks.length === 1 ? 'y' : 'ies'}
             </span>
-            <a href={`/brands/${brand.slug}`} class="text-sm font-medium text-[var(--color-forest-700)] hover:underline">
+            <a href={`/brands/${brand.slug}/`} class="text-sm font-medium text-[var(--color-forest-700)] hover:underline">
               View brand profile
             </a>
           </div>
@@ -167,7 +167,7 @@ const jsonLd = {
             {group.drinks.map(drink => (
               <article class="grid md:grid-cols-[minmax(0,1.5fr)_160px_170px] gap-3 md:gap-4 px-5 py-4">
                 <div class="space-y-1">
-                  <a href={`/drinks/${drink.slug}`} class="font-display text-lg font-semibold text-[var(--color-stone-900)] hover:text-[var(--color-forest-700)] transition-colors">
+                  <a href={`/drinks/${drink.slug}/`} class="font-display text-lg font-semibold text-[var(--color-stone-900)] hover:text-[var(--color-forest-700)] transition-colors">
                     {drink.name}
                   </a>
                   {drink.description && (

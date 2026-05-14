@@ -17,14 +17,14 @@ const jsonLd = {
   '@type': 'CollectionPage',
   name: selectedCategoryName ? `${selectedCategoryName} Drinks in Singapore` : 'Bubble Tea Drinks in Singapore',
   description: `Browse ${drinks.length} bubble tea drinks served by brands across Singapore.`,
-  url: 'https://bbtea.sg/drinks',
+  url: 'https://bbtea.sg/drinks/',
 };
 ---
 
 <Layout
   title={selectedCategoryName ? `${selectedCategoryName} Drinks in Singapore | BBTea.sg` : 'Bubble Tea Drinks in Singapore | BBTea.sg'}
   description={`Browse ${drinks.length} bubble tea drinks with prices, calories, categories, and brands in Singapore.`}
-  canonical="https://bbtea.sg/drinks"
+  canonical="https://bbtea.sg/drinks/"
   jsonLd={jsonLd}
 >
 
@@ -60,14 +60,14 @@ const jsonLd = {
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 border-b border-[var(--color-stone-200)]">
     <div class="flex flex-wrap gap-2">
       <a
-        href="/drinks"
+        href="/drinks/"
         class={`text-sm px-4 py-2 rounded-lg border transition-colors ${!selectedCategory ? 'bg-[var(--color-stone-900)] text-white border-[var(--color-stone-900)]' : 'bg-white text-[var(--color-stone-600)] border-[var(--color-stone-200)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)]'}`}
       >
         All Drinks
       </a>
       {categories.map(category => (
         <a
-          href={`/drinks?category=${category.slug}`}
+          href={`/drinks/?category=${category.slug}`}
           class={`text-sm px-4 py-2 rounded-lg border transition-colors ${selectedCategory === category.slug ? 'bg-[var(--color-stone-900)] text-white border-[var(--color-stone-900)]' : 'bg-white text-[var(--color-stone-600)] border-[var(--color-stone-200)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)]'}`}
         >
           {category.name}
@@ -85,7 +85,7 @@ const jsonLd = {
       <div class="text-center py-20 space-y-4">
         <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">No Results</p>
         <h2 class="text-xl font-display font-semibold text-[var(--color-stone-800)]">No drinks found</h2>
-        <a href="/drinks" class="text-[var(--color-forest-700)] font-medium hover:underline">Browse all drinks</a>
+        <a href="/drinks/" class="text-[var(--color-forest-700)] font-medium hover:underline">Browse all drinks</a>
       </div>
     )}
   </section>

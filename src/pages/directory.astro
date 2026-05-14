@@ -79,7 +79,7 @@ if (q)           activeFilters.push(`"${q}"`);
             <><span class="font-medium capitalize">{f}</span>{i < activeFilters.length - 1 ? ', ' : ''}</>
           ))}
           &nbsp;·&nbsp;
-          <a href="/directory" class="text-[var(--color-forest-700)] hover:underline font-medium">Clear filters</a>
+          <a href="/directory/" class="text-[var(--color-forest-700)] hover:underline font-medium">Clear filters</a>
         </p>
       )}
       <div class="max-w-xl">
@@ -158,7 +158,7 @@ if (q)           activeFilters.push(`"${q}"`);
             Try adjusting your filters or search term to discover more bubble tea shops.
           </p>
           <a
-            href="/directory"
+            href="/directory/"
             class="inline-flex items-center gap-2 mt-2 px-6 py-3 rounded-lg bg-[var(--color-stone-900)] text-white text-sm font-semibold hover:bg-white hover:text-[var(--color-stone-900)] border border-[var(--color-stone-900)] transition-colors"
           >
             Clear all filters
@@ -239,7 +239,7 @@ if (q)           activeFilters.push(`"${q}"`);
     });
 
     const query = params.toString();
-    const nextUrl = query ? `/directory?${query}` : '/directory';
+    const nextUrl = query ? `/directory/?${query}` : '/directory/';
     window.history.pushState(filters, '', nextUrl);
   };
 

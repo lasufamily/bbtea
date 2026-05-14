@@ -33,14 +33,14 @@ const jsonLd = {
   '@type': 'CollectionPage',
   name: `Best Bubble Tea Shops in ${town.name}, Singapore`,
   description: town.description ?? `Discover the best bubble tea shops in ${town.name}, Singapore.`,
-  url: `https://bbtea.sg/towns/${town.slug}`,
+  url: `https://bbtea.sg/towns/${town.slug}/`,
 };
 ---
 
 <Layout
   title={`Best Bubble Tea Shops in ${town.name} | BBTea.sg`}
   description={`Discover ${outlets.length} bubble tea shops in ${town.name}, Singapore. ${town.description ?? ''}`}
-  canonical={`https://bbtea.sg/towns/${town.slug}`}
+  canonical={`https://bbtea.sg/towns/${town.slug}/`}
   jsonLd={jsonLd}
 >
 
@@ -50,9 +50,9 @@ const jsonLd = {
       <nav class="text-sm text-[var(--color-stone-400)] flex items-center gap-1.5" aria-label="Breadcrumb">
         <a href="/" class="hover:text-[var(--color-stone-900)] transition-colors">Home</a>
         <span>/</span>
-        <a href="/directory" class="hover:text-[var(--color-stone-900)] transition-colors">Directory</a>
+        <a href="/directory/" class="hover:text-[var(--color-stone-900)] transition-colors">Directory</a>
         <span>/</span>
-        <a href="/towns" class="hover:text-[var(--color-stone-900)] transition-colors text-[var(--color-stone-700)]">Towns</a>
+        <a href="/towns/" class="hover:text-[var(--color-stone-900)] transition-colors text-[var(--color-stone-700)]">Towns</a>
         <span>/</span>
         <span class="text-[var(--color-stone-700)] font-medium">{town.name}</span>
       </nav>
@@ -113,7 +113,7 @@ const jsonLd = {
         <p class="text-[var(--color-stone-500)] max-w-sm mx-auto">
           We're growing our directory. Check back soon or browse all available shops.
         </p>
-        <a href="/directory" class="inline-flex items-center gap-2 mt-2 px-6 py-3 rounded-lg bg-[var(--color-stone-900)] text-white text-sm font-semibold hover:bg-white hover:text-[var(--color-stone-900)] border border-[var(--color-stone-900)] transition-colors">
+        <a href="/directory/" class="inline-flex items-center gap-2 mt-2 px-6 py-3 rounded-lg bg-[var(--color-stone-900)] text-white text-sm font-semibold hover:bg-white hover:text-[var(--color-stone-900)] border border-[var(--color-stone-900)] transition-colors">
           Browse All Shops
         </a>
       </div>
@@ -129,7 +129,7 @@ const jsonLd = {
       <div class="flex flex-wrap gap-2">
         {allTowns.filter(t => t.slug !== town.slug).map(t => (
           <a
-            href={`/towns/${t.slug}`}
+            href={`/towns/${t.slug}/`}
             class="text-sm px-4 py-2 rounded-lg bg-white border border-[var(--color-stone-200)] text-[var(--color-stone-600)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors font-medium"
           >
             {t.name}

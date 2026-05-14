@@ -1,0 +1,23 @@
+/node_modules/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/.git/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/.astro/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/src/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/package.json
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/package-lock.json
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/tsconfig.json
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/astro.config.mjs
+  X-Robots-Tag: noindex, nofollow, noarchive

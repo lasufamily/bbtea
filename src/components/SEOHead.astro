@@ -23,7 +23,20 @@ const siteUrl = 'https://bbtea.sg';
 const fullTitle = title.includes('BBTea')
   ? title
   : `${title} | BBTea.sg`;
-const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).href;
+
+function normalizeCanonical(input: string) {
+  const url = new URL(input, siteUrl);
+  url.protocol = 'https:';
+  url.hostname = 'bbtea.sg';
+  if (!url.pathname.endsWith('/') && !url.pathname.split('/').pop()?.includes('.')) {
+    url.pathname += '/';
+  }
+  url.search = '';
+  url.hash = '';
+  return url.href;
+}
+
+const canonicalUrl = normalizeCanonical(canonical ?? Astro.url.pathname);
 ---
 
 <!-- Primary -->

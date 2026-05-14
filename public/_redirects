@@ -1,2 +1,10 @@
+/node_modules/*  /404.html  404
+/.git/*  /404.html  404
+/.astro/*  /404.html  404
+/src/*  /404.html  404
+/package.json  /404.html  404
+/package-lock.json  /404.html  404
+/tsconfig.json  /404.html  404
+/astro.config.mjs  /404.html  404
 /near-mrt/*  /stations/:splat  301
 /shops/*  /bubble-tea-shops/:splat  301

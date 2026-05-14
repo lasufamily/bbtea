@@ -1,13 +1,13 @@
 ---
 const navLinks = [
-  { href: '/directory', label: 'Directory' },
-  { href: '/towns',     label: 'Towns' },
-  { href: '/malls',     label: 'Malls' },
-  { href: '/menus',     label: 'Menus' },
-  { href: '/drinks',    label: 'Drinks' },
-  { href: '/brands',    label: 'Brands' },
-  { href: '/blog',      label: 'Blog' },
-  { href: '/search',    label: 'Search' },
+  { href: '/directory/', label: 'Directory' },
+  { href: '/towns/',     label: 'Towns' },
+  { href: '/malls/',     label: 'Malls' },
+  { href: '/menus/',     label: 'Menus' },
+  { href: '/drinks/',    label: 'Drinks' },
+  { href: '/brands/',    label: 'Brands' },
+  { href: '/blog/',      label: 'Blog' },
+  { href: '/search/',    label: 'Search' },
 ];
 
 const pathname = Astro.url.pathname;
@@ -55,7 +55,7 @@ const pathname = Astro.url.pathname;
       <!-- CTA + mobile toggle -->
       <div class="flex items-center gap-3">
         <a
-          href="/directory"
+          href="/directory/"
           class="hidden sm:inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-stone-900)] bg-[var(--color-stone-900)] text-white hover:bg-white hover:text-[var(--color-stone-900)] transition-colors"
         >
           Explore All
@@ -93,7 +93,7 @@ const pathname = Astro.url.pathname;
       ))}
       <div class="pt-3 mt-1 border-t border-[var(--color-stone-200)]">
         <a
-          href="/directory"
+          href="/directory/"
           class="block w-full text-center px-4 py-3 rounded-lg text-sm font-medium bg-[var(--color-stone-900)] text-white hover:bg-white hover:text-[var(--color-stone-900)] border border-[var(--color-stone-900)] transition-colors"
         >
           Explore All Shops

@@ -44,7 +44,7 @@ const jsonLd = {
   description={`Find all ${brand.name} bubble tea outlets in Singapore. ${brand.description ?? ''}`}
   image={brand.logo}
   type="article"
-  canonical={`https://bbtea.sg/brands/${brand.slug}`}
+  canonical={`https://bbtea.sg/brands/${brand.slug}/`}
   jsonLd={jsonLd}
 >
 
@@ -54,7 +54,7 @@ const jsonLd = {
       <nav class="text-sm text-[var(--color-stone-400)] mb-6 flex items-center gap-1.5" aria-label="Breadcrumb">
         <a href="/" class="hover:text-[var(--color-stone-700)] transition-colors">Home</a>
         <span>/</span>
-        <a href="/brands" class="hover:text-[var(--color-stone-700)] transition-colors">Brands</a>
+        <a href="/brands/" class="hover:text-[var(--color-stone-700)] transition-colors">Brands</a>
         <span>/</span>
         <span class="text-[var(--color-stone-700)] font-medium">{brand.name}</span>
       </nav>
@@ -88,7 +88,7 @@ const jsonLd = {
             </span>
             {hasMenuPage && (
               <a
-                href={`/menus/${brand.slug}`}
+                href={`/menus/${brand.slug}/`}
                 class="text-sm font-medium text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] flex items-center gap-1 transition-colors"
               >
                 View menu
@@ -131,7 +131,7 @@ const jsonLd = {
       <div class="text-center py-20 space-y-4">
         <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">No Results</p>
         <p class="text-[var(--color-stone-500)]">No outlets listed yet for {brand.name}.</p>
-        <a href="/directory" class="text-[var(--color-forest-700)] font-medium hover:underline">Browse all shops →</a>
+        <a href="/directory/" class="text-[var(--color-forest-700)] font-medium hover:underline">Browse all shops →</a>
       </div>
     )}
   </div>
@@ -143,7 +143,7 @@ const jsonLd = {
           <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)]">
             {brand.name} Drinks
           </h2>
-          <a href="/drinks" class="text-sm font-semibold text-[var(--color-forest-700)] hover:underline">
+          <a href="/drinks/" class="text-sm font-semibold text-[var(--color-forest-700)] hover:underline">
             Browse all drinks
           </a>
         </div>

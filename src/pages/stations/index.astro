@@ -12,14 +12,14 @@ const jsonLd = {
   '@type': 'CollectionPage',
   name: 'Bubble Tea Near MRT Stations in Singapore',
   description: `Find bubble tea shops near ${stations.length} MRT stations across Singapore.`,
-  url: 'https://bbtea.sg/stations',
+  url: 'https://bbtea.sg/stations/',
 };
 ---
 
 <Layout
   title="Bubble Tea Near MRT Stations in Singapore | BBTea.sg"
   description={`Find bubble tea shops near MRT stations in Singapore. Browse ${stations.length} stations with listed bubble tea shops.`}
-  canonical="https://bbtea.sg/stations"
+  canonical="https://bbtea.sg/stations/"
   jsonLd={jsonLd}
 >
 
@@ -55,7 +55,7 @@ const jsonLd = {
         const count = stationOutletCount(station.slug);
         return (
           <a
-            href={`/stations/${station.slug}`}
+            href={`/stations/${station.slug}/`}
             class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white border border-[var(--color-stone-200)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors group shadow-none"
           >
             <span class="text-sm font-medium text-[var(--color-stone-700)] group-hover:text-[var(--color-forest-700)] transition-colors">

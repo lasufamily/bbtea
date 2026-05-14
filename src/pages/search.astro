@@ -90,7 +90,7 @@ const searchJsonLd = {
   url: 'https://bbtea.sg',
   potentialAction: {
     '@type': 'SearchAction',
-    target: 'https://bbtea.sg/search?q={search_term_string}',
+    target: 'https://bbtea.sg/search/?q={search_term_string}',
     'query-input': 'required name=search_term_string',
   },
 };
@@ -99,7 +99,7 @@ const searchJsonLd = {
 <Layout
   title={query ? `Search results for "${query}" | BBTea.sg` : 'Search | BBTea.sg'}
   description="Search for bubble tea shops, brands, towns, MRT stations and drinks across Singapore."
-  canonical="https://bbtea.sg/search"
+  canonical="https://bbtea.sg/search/"
   jsonLd={searchJsonLd}
 >
 
@@ -131,7 +131,7 @@ const searchJsonLd = {
           <div class="flex flex-wrap gap-2 justify-center pt-2">
             {suggestedSearches.map(s => (
               <a
-                href={`/search?q=${encodeURIComponent(s)}`}
+                href={`/search/?q=${encodeURIComponent(s)}`}
                 class="text-sm px-4 py-2 rounded-lg bg-[var(--color-cream-100)] text-[var(--color-stone-600)] border border-[var(--color-stone-200)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors"
               >
                 {s}

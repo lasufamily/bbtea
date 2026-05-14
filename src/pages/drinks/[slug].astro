@@ -53,7 +53,7 @@ const jsonLd = {
   description={`${drink.name}${brandNames ? ` from ${brandNames}` : ''}. ${drink.category ? `${drink.category}. ` : ''}${drink.calories ? `${drink.calories}. ` : ''}${drink.description ?? ''}`}
   image={drink.image}
   type="article"
-  canonical={`https://bbtea.sg/drinks/${drink.slug}`}
+  canonical={`https://bbtea.sg/drinks/${drink.slug}/`}
   jsonLd={jsonLd}
 >
 
@@ -62,7 +62,7 @@ const jsonLd = {
       <nav class="text-sm text-[var(--color-stone-400)] mb-8 flex items-center gap-1.5" aria-label="Breadcrumb">
         <a href="/" class="hover:text-[var(--color-stone-900)] transition-colors">Home</a>
         <span>/</span>
-        <a href="/drinks" class="hover:text-[var(--color-stone-900)] transition-colors">Drinks</a>
+        <a href="/drinks/" class="hover:text-[var(--color-stone-900)] transition-colors">Drinks</a>
         <span>/</span>
         <span class="text-[var(--color-stone-700)] font-medium">{drink.name}</span>
       </nav>
@@ -104,7 +104,7 @@ const jsonLd = {
           <div class="flex flex-wrap gap-2">
             {drink.brands.map(brand => (
               <a
-                href={`/brands/${brand.slug}`}
+                href={`/brands/${brand.slug}/`}
                 class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--color-cream-100)] text-sm font-semibold text-[var(--color-stone-700)] border border-[var(--color-stone-200)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors"
               >
                 {brand.logo && (
@@ -144,7 +144,7 @@ const jsonLd = {
             More {drink.category} Drinks
           </h2>
           {drink.categorySlug && (
-            <a href={`/drinks?category=${drink.categorySlug}`} class="text-sm font-semibold text-[var(--color-forest-700)] hover:underline">
+            <a href={`/drinks/?category=${drink.categorySlug}`} class="text-sm font-semibold text-[var(--color-forest-700)] hover:underline">
               View all
             </a>
           )}

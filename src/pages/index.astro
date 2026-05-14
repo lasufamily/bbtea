@@ -68,7 +68,7 @@ const totalDrinks  = drinks.length;
           <div class="flex flex-wrap items-center gap-2">
             {['Brown Sugar', 'Orchard', 'Halal', 'Jurong East', 'Tiger Sugar'].map(tag => (
               <a
-                href={`/search?q=${encodeURIComponent(tag)}`}
+                href={`/search/?q=${encodeURIComponent(tag)}`}
                 class="text-xs px-3 py-2 rounded-md bg-white text-[var(--color-stone-700)] hover:text-[var(--color-stone-900)] border border-[var(--color-stone-200)] hover:border-[var(--color-stone-900)] transition-colors"
               >
                 {tag}
@@ -110,7 +110,7 @@ const totalDrinks  = drinks.length;
         </p>
       </div>
       <a
-        href="/directory"
+        href="/directory/"
         class="hidden sm:inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] transition-colors link-underline"
       >
         View all {totalOutlets} shops
@@ -128,7 +128,7 @@ const totalDrinks  = drinks.length;
 
     <div class="mt-10 text-center">
       <a
-        href="/directory"
+        href="/directory/"
         class="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg bg-[var(--color-stone-900)] text-white text-sm font-semibold hover:bg-white hover:text-[var(--color-stone-900)] border border-[var(--color-stone-900)] transition-colors shadow-none"
       >
         Explore the Full Directory
@@ -187,7 +187,7 @@ const totalDrinks  = drinks.length;
 
       <div class="mt-8 text-center">
         <a
-          href="/drinks"
+          href="/drinks/"
           class="text-sm font-semibold text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] link-underline transition-colors"
         >
           Browse all drinks →
@@ -233,7 +233,7 @@ const totalDrinks  = drinks.length;
         Browse the directory by location, brand, station, or drink type, then go straight to the details that matter.
       </p>
       <a
-        href="/directory"
+        href="/directory/"
         class="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg bg-[var(--color-stone-900)] text-white text-sm font-semibold hover:bg-white hover:text-[var(--color-stone-900)] border border-[var(--color-stone-900)] transition-colors"
       >
         Find Your Next Cup
