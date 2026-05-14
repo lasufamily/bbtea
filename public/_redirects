@@ -6,5 +6,9 @@
 /package-lock.json  /404.html  404
 /tsconfig.json  /404.html  404
 /astro.config.mjs  /404.html  404
+/drinks/matcha-series  /drinks/  301
+/drinks/matcha-series/  /drinks/  301
+/catering  /directory/  301
+/catering/  /directory/  301
 /near-mrt/*  /stations/:splat  301
 /shops/*  /bubble-tea-shops/:splat  301
