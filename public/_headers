@@ -10,6 +10,21 @@
 /src/*
   X-Robots-Tag: noindex, nofollow, noarchive
 
+/app/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/components/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/prisma/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/lib/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/public/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+
 /package.json
   X-Robots-Tag: noindex, nofollow, noarchive
 
