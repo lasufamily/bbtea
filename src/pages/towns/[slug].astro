@@ -2,6 +2,7 @@
 import Layout from '../../components/Layout.astro';
 import ListingCard from '../../components/ListingCard.astro';
 import { getOutlets, getTowns } from '../../lib/airtable';
+import { formatNumber, parseTownList } from '../../lib/townContent';
 import { getTownsFromOutlets } from '../../lib/towns';
 import type { Town } from '../../lib/types';
 
@@ -27,48 +28,225 @@ const { town, outlets, allTowns } = Astro.props;
 
 // Unique brands in this town
 const brandSet = [...new Set(outlets.map(o => o.brandName))];
+const knownFor = town.knownFor ?? [];
+const mrtLines = town.mrtLines ?? [];
+const descriptionParagraphs = town.description?.split(/\n+/).map(p => p.trim()).filter(Boolean) ?? [];
+const population = formatNumber(town.population);
+const townContext = [town.region, town.planningArea].filter(Boolean).join(' · ');
+
+const guideSections = [
+  {
+    title: 'Food Scene',
+    eyebrow: town.foodSceneVibe,
+    groups: [
+      { title: 'Famous Hawker Centres', items: parseTownList(town.famousHawkerCentres) },
+      { title: 'Michelin-Recommended Stalls', items: parseTownList(town.michelinRecommendedStalls) },
+      { title: 'Late-Night Food Spots', items: parseTownList(town.lateNightFoodSpots) },
+    ],
+  },
+  {
+    title: 'Things To Do',
+    groups: [
+      { title: 'Landmarks', items: parseTownList(town.topLandmarks) },
+      { title: 'Parks and Green Spaces', items: parseTownList(town.parksAndGreenSpaces) },
+      { title: 'Malls and Shopping', items: parseTownList(town.mallsAndShopping) },
+      { title: 'Sports and Recreation', items: parseTownList(town.sportsAndRecreation) },
+    ],
+  },
+  {
+    title: 'Local Character',
+    groups: [
+      { title: 'Neighbourhood Vibe', items: parseTownList(town.neighbourhoodVibe) },
+      { title: 'Arts and Culture', items: parseTownList(town.artsAndCulture) },
+      { title: 'Heritage Sites', items: parseTownList(town.heritageSites) },
+      { title: 'Annual Events and Festivals', items: parseTownList(town.annualEventsAndFestivals) },
+      { title: 'Nightlife', items: parseTownList(town.nightlife) },
+    ],
+  },
+  {
+    title: 'Practical Tips',
+    groups: [
+      { title: 'Local Tips', items: parseTownList(town.localTips) },
+      { title: 'Supermarkets and Wet Markets', items: parseTownList(town.supermarketsAndWetMarkets) },
+      { title: 'Notable Schools', items: parseTownList(town.notableSchools) },
+      { title: 'Hospitals and Polyclinics', items: parseTownList(town.hospitalsAndPolyclinics) },
+      { title: 'Religious Buildings', items: parseTownList(town.religiousBuildings) },
+    ],
+  },
+  {
+    title: 'Getting Around',
+    groups: [
+      { title: 'Key MRT Stations', items: parseTownList(town.keyMrtStations) },
+      { title: 'Bus Interchange', items: parseTownList(town.dedicatedBusInterchange) },
+      { title: 'Expressway Access', items: parseTownList(town.expresswayAccess) },
+    ],
+  },
+].map(section => ({
+  ...section,
+  groups: section.groups.filter(group => group.items.length > 0),
+})).filter(section => section.groups.length > 0);
+
+const metaDescription = town.tagline
+  ? `${town.tagline} Find ${outlets.length} bubble tea shops in ${town.name}, with local food, transport, parks and neighbourhood tips.`
+  : `Discover ${outlets.length} bubble tea shops in ${town.name}, Singapore, plus local food, transport, parks and neighbourhood tips.`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'CollectionPage',
-  name: `Best Bubble Tea Shops in ${town.name}, Singapore`,
-  description: town.description ?? `Discover the best bubble tea shops in ${town.name}, Singapore.`,
-  url: `https://bbtea.sg/towns/${town.slug}/`,
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': `https://bbtea.sg/towns/${town.slug}/#page`,
+      name: `Best Bubble Tea Shops in ${town.name}, Singapore`,
+      description: metaDescription,
+      url: `https://bbtea.sg/towns/${town.slug}/`,
+      isPartOf: { '@id': 'https://bbtea.sg/#website' },
+      about: {
+        '@type': 'Place',
+        name: `${town.name}, Singapore`,
+      },
+      mainEntity: { '@id': `https://bbtea.sg/towns/${town.slug}/#outlets` },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `https://bbtea.sg/towns/${town.slug}/#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://bbtea.sg/' },
+        { '@type': 'ListItem', position: 2, name: 'Towns', item: 'https://bbtea.sg/towns/' },
+        { '@type': 'ListItem', position: 3, name: town.name, item: `https://bbtea.sg/towns/${town.slug}/` },
+      ],
+    },
+    {
+      '@type': 'ItemList',
+      '@id': `https://bbtea.sg/towns/${town.slug}/#outlets`,
+      name: `Bubble tea shops in ${town.name}`,
+      numberOfItems: outlets.length,
+      itemListElement: outlets.map((outlet, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        url: `https://bbtea.sg/bubble-tea-shops/${outlet.slug}/`,
+        name: outlet.name,
+      })),
+    },
+  ],
 };
 ---
 
 <Layout
   title={`Best Bubble Tea Shops in ${town.name} | BBTea.sg`}
-  description={`Discover ${outlets.length} bubble tea shops in ${town.name}, Singapore. ${town.description ?? ''}`}
+  description={metaDescription}
   canonical={`https://bbtea.sg/towns/${town.slug}/`}
   jsonLd={jsonLd}
 >
 
   <!-- Page hero -->
-  <section class="bg-white border-b border-[var(--color-stone-200)] py-16">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4" data-pagefind-body>
+  <section class="bg-white border-b border-[var(--color-stone-200)] py-12 lg:py-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-7" data-pagefind-body>
       <nav class="text-sm text-[var(--color-stone-400)] flex items-center gap-1.5" aria-label="Breadcrumb">
         <a href="/" class="hover:text-[var(--color-stone-900)] transition-colors">Home</a>
-        <span>/</span>
-        <a href="/directory/" class="hover:text-[var(--color-stone-900)] transition-colors">Directory</a>
         <span>/</span>
         <a href="/towns/" class="hover:text-[var(--color-stone-900)] transition-colors text-[var(--color-stone-700)]">Towns</a>
         <span>/</span>
         <span class="text-[var(--color-stone-700)] font-medium">{town.name}</span>
       </nav>
-      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
-        {town.name} · Singapore
-      </p>
-      <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight">
-        Best Bubble Tea Shops<br />
-        in {town.name}
-      </h1>
-      {town.description && (
-        <p class="text-[var(--color-stone-600)] text-base max-w-2xl leading-relaxed">
-          {town.description}
-        </p>
-      )}
+
+      <div class="grid lg:grid-cols-[1fr_20rem] gap-8 lg:gap-12 items-start">
+        <div class="space-y-5">
+          <div class="space-y-2">
+            <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
+              {townContext || `${town.name} · Singapore`}
+            </p>
+            <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight">
+              Best Bubble Tea Shops in {town.name}
+            </h1>
+            {town.tagline && (
+              <p class="text-lg lg:text-xl text-[var(--color-stone-700)] font-medium max-w-3xl">
+                {town.tagline}
+              </p>
+            )}
+          </div>
+
+          {descriptionParagraphs.length > 0 && (
+            <div class="space-y-4 text-[var(--color-stone-600)] text-base leading-relaxed max-w-3xl">
+              {descriptionParagraphs.map(paragraph => <p>{paragraph}</p>)}
+            </div>
+          )}
+        </div>
+
+        <aside class="bg-[var(--color-cream-100)] border border-[var(--color-stone-200)] rounded-lg p-5 space-y-4">
+          <h2 class="text-sm font-semibold tracking-[0.16em] uppercase text-[var(--color-stone-500)]">
+            At a Glance
+          </h2>
+          <dl class="space-y-3 text-sm">
+            <div class="flex justify-between gap-4">
+              <dt class="text-[var(--color-stone-500)]">Bubble tea shops</dt>
+              <dd class="font-semibold text-[var(--color-stone-900)]">{outlets.length}</dd>
+            </div>
+            <div class="flex justify-between gap-4">
+              <dt class="text-[var(--color-stone-500)]">Brands listed</dt>
+              <dd class="font-semibold text-[var(--color-stone-900)]">{brandSet.length}</dd>
+            </div>
+            {town.foodSceneVibe && (
+              <div class="flex justify-between gap-4">
+                <dt class="text-[var(--color-stone-500)]">Food scene</dt>
+                <dd class="font-semibold text-[var(--color-stone-900)] text-right">{town.foodSceneVibe}</dd>
+              </div>
+            )}
+            {population && (
+              <div class="flex justify-between gap-4">
+                <dt class="text-[var(--color-stone-500)]">Population</dt>
+                <dd class="font-semibold text-[var(--color-stone-900)]">{population}</dd>
+              </div>
+            )}
+            {town.establishedYear && (
+              <div class="flex justify-between gap-4">
+                <dt class="text-[var(--color-stone-500)]">Established</dt>
+                <dd class="font-semibold text-[var(--color-stone-900)]">{town.establishedYear}</dd>
+              </div>
+            )}
+            {town.parkingAvailability && (
+              <div class="flex justify-between gap-4">
+                <dt class="text-[var(--color-stone-500)]">Parking</dt>
+                <dd class="font-semibold text-[var(--color-stone-900)]">{town.parkingAvailability}</dd>
+              </div>
+            )}
+            {town.travelTimeToCbd && (
+              <div class="pt-3 border-t border-[var(--color-stone-200)]">
+                <dt class="text-[var(--color-stone-500)] mb-1">CBD travel time</dt>
+                <dd class="font-medium text-[var(--color-stone-800)] leading-snug">{town.travelTimeToCbd}</dd>
+              </div>
+            )}
+          </dl>
+        </aside>
+      </div>
+
       <!-- Quick stats -->
+      <div class="flex flex-wrap items-center gap-2 pt-1">
+        {knownFor.map(tag => (
+          <span class="text-xs px-3 py-1.5 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-stone-200)] text-[var(--color-stone-700)] font-medium">
+            {tag}
+          </span>
+        ))}
+        {mrtLines.map(line => (
+          <span class="text-xs px-3 py-1.5 rounded-lg bg-white border border-[var(--color-stone-200)] text-[var(--color-forest-700)] font-semibold">
+            {line}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Bubble tea listings -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-14" data-pagefind-body>
+    <div class="max-w-3xl space-y-3 mb-8">
+      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
+        Bubble Tea in {town.name}
+      </p>
+      <h2 class="text-2xl lg:text-3xl font-display font-semibold text-[var(--color-stone-900)]">
+        Where to get boba around {town.name}
+      </h2>
+      <p class="text-[var(--color-stone-600)] leading-relaxed">
+        This guide lists {outlets.length} {outlets.length === 1 ? 'bubble tea shop' : 'bubble tea shops'} across {brandSet.length} {brandSet.length === 1 ? 'brand' : 'brands'} in {town.name}, alongside the local food, transport and neighbourhood context that makes the area easier to explore.
+      </p>
       <div class="flex flex-wrap items-center gap-6 pt-2">
         <div class="text-sm">
           <span class="font-bold text-xl">{outlets.length}</span>
@@ -82,24 +260,18 @@ const jsonLd = {
         )}
       </div>
     </div>
-  </section>
 
-  <!-- Brand pills -->
-  {brandSet.length > 0 && (
-    <section class="bg-[var(--color-cream-100)] border-b border-[var(--color-stone-200)] py-4">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap gap-2">
+    {brandSet.length > 0 && (
+      <div class="flex flex-wrap gap-2 mb-8">
         <span class="text-xs font-semibold text-[var(--color-stone-400)] self-center mr-1">Brands:</span>
         {brandSet.map(b => (
-          <span class="text-xs px-3 py-1.5 rounded-lg bg-white border border-[var(--color-stone-200)] text-[var(--color-stone-600)] font-medium">
+          <span class="text-xs px-3 py-1.5 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-stone-200)] text-[var(--color-stone-600)] font-medium">
             {b}
           </span>
         ))}
       </div>
-    </section>
-  )}
+    )}
 
-  <!-- Outlets -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     {outlets.length > 0 ? (
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
         {outlets.map(outlet => <ListingCard outlet={outlet} />)}
@@ -118,10 +290,62 @@ const jsonLd = {
         </a>
       </div>
     )}
-  </div>
+  </section>
+
+  <!-- Local guide -->
+  {guideSections.length > 0 && (
+    <section class="bg-[var(--color-cream-100)] border-y border-[var(--color-stone-200)] py-12 lg:py-16" data-pagefind-body>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+        <div class="max-w-3xl space-y-3">
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
+            Local Guide
+          </p>
+          <h2 class="text-2xl lg:text-3xl font-display font-semibold">
+            What to know before exploring {town.name}
+          </h2>
+          <p class="text-[var(--color-stone-600)] leading-relaxed">
+            Use these notes as a local-first companion to the shop listings, especially if you are planning food stops, a weekend walk, or a quick drink run around the area.
+          </p>
+        </div>
+
+        <div class="space-y-8">
+          {guideSections.map(section => (
+            <article class="bg-white border border-[var(--color-stone-200)] rounded-lg p-5 lg:p-7 space-y-5">
+              <div class="flex flex-wrap items-end justify-between gap-3">
+                <h3 class="text-xl lg:text-2xl font-display font-semibold">{section.title}</h3>
+                {section.eyebrow && (
+                  <span class="text-xs px-3 py-1.5 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-stone-200)] text-[var(--color-stone-600)] font-semibold">
+                    {section.eyebrow}
+                  </span>
+                )}
+              </div>
+
+              <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
+                {section.groups.map(group => (
+                  <div class="space-y-3">
+                    <h4 class="text-sm font-semibold tracking-[0.12em] uppercase text-[var(--color-stone-500)]">
+                      {group.title}
+                    </h4>
+                    <div class="space-y-3">
+                      {group.items.map(item => (
+                        <div class="text-sm leading-relaxed text-[var(--color-stone-600)] border-t border-[var(--color-stone-100)] pt-3 first:border-t-0 first:pt-0">
+                          {item.title && <p class="font-semibold text-[var(--color-stone-900)]">{item.title}</p>}
+                          {item.description && <p>{item.description}</p>}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- Neighbouring towns -->
-  <section class="bg-[var(--color-cream-100)] border-t border-[var(--color-stone-200)] py-12">
+  <section class="bg-white border-t border-[var(--color-stone-200)] py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
       <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)]">
         Explore Other Towns

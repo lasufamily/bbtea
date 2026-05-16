@@ -99,6 +99,36 @@ export interface Town {
   slug: string;
   description?: string;
   image?: string;
+  region?: string;
+  planningArea?: string;
+  tagline?: string;
+  knownFor?: string[];
+  establishedYear?: number;
+  population?: number;
+  famousHawkerCentres?: string;
+  michelinRecommendedStalls?: string;
+  lateNightFoodSpots?: string;
+  foodSceneVibe?: string;
+  topLandmarks?: string;
+  parksAndGreenSpaces?: string;
+  heritageSites?: string;
+  mallsAndShopping?: string;
+  religiousBuildings?: string;
+  sportsAndRecreation?: string;
+  neighbourhoodVibe?: string;
+  artsAndCulture?: string;
+  annualEventsAndFestivals?: string;
+  nightlife?: string;
+  localTips?: string;
+  notableSchools?: string;
+  hospitalsAndPolyclinics?: string;
+  supermarketsAndWetMarkets?: string;
+  mrtLines?: string[];
+  keyMrtStations?: string;
+  dedicatedBusInterchange?: string;
+  expresswayAccess?: string;
+  travelTimeToCbd?: string;
+  parkingAvailability?: string;
 }
 
 export interface Mall {
@@ -185,6 +215,39 @@ export interface AirtableDrinkFields {
 export interface AirtableTownFields {
   'Name'?: string;
   'Town Name'?: string;
+  'Slug'?: string;
+  'Description'?: string;
+  'Region'?: string;
+  'Planning Area'?: string;
+  'Town Description'?: string;
+  'Town Tagline'?: string;
+  'Known For'?: string[];
+  'Established Year'?: number;
+  'Population'?: number;
+  'Famous Hawker Centres'?: string;
+  'Michelin-Recommended Stalls'?: string;
+  'Late-Night Food Spots'?: string;
+  'Food Scene Vibe'?: string;
+  'Top Landmarks'?: string;
+  'Parks and Green Spaces'?: string;
+  'Heritage Sites'?: string;
+  'Malls and Shopping'?: string;
+  'Religious Buildings'?: string;
+  'Sports and Recreation'?: string;
+  'Neighbourhood Vibe'?: string;
+  'Arts and Culture'?: string;
+  'Annual Events and Festivals'?: string;
+  'Nightlife'?: string;
+  'Local Tips'?: string;
+  'Notable Schools'?: string;
+  'Hospitals and Polyclinics'?: string;
+  'Supermarkets and Wet Markets'?: string;
+  'MRT Lines'?: string[];
+  'Key MRT Stations'?: string;
+  'Dedicated Bus Interchange'?: string;
+  'Expressway Access'?: string;
+  'Travel Time to CBD'?: string;
+  'Parking Availability'?: string;
 }
 
 export interface AirtableMrtStationFields {

@@ -108,6 +108,7 @@ let _drinksCache:     Promise<Drink[]>         | null = null;
 let _categoriesCache: Promise<DrinkCategory[]> | null = null;
 let _outletsCache:    Promise<Outlet[]>        | null = null;
 let _mallsCache:      Promise<Mall[]>          | null = null;
+let _townsCache:      Promise<import('./types').Town[]> | null = null;
 
 type NamedSlug = { name: string; slug: string; line?: string };
 
@@ -155,9 +156,58 @@ async function getTownMap(): Promise<Map<string, { name: string; slug: string }>
   return map;
 }
 
+function mapTown(r: AirtableRecord<AirtableTownFields>): import('./types').Town | undefined {
+  const f = r.fields;
+  const name = getAirtableTownName(f);
+  if (!name) return undefined;
+
+  return {
+    name,
+    slug: normalizeText(f['Slug']) ?? slugify(name),
+    description: normalizeText(f['Town Description']) ?? normalizeText(f['Description']),
+    region: normalizeText(f['Region']),
+    planningArea: normalizeText(f['Planning Area']),
+    tagline: normalizeText(f['Town Tagline']),
+    knownFor: f['Known For'] ?? [],
+    establishedYear: f['Established Year'],
+    population: f['Population'],
+    famousHawkerCentres: normalizeText(f['Famous Hawker Centres']),
+    michelinRecommendedStalls: normalizeText(f['Michelin-Recommended Stalls']),
+    lateNightFoodSpots: normalizeText(f['Late-Night Food Spots']),
+    foodSceneVibe: normalizeText(f['Food Scene Vibe']),
+    topLandmarks: normalizeText(f['Top Landmarks']),
+    parksAndGreenSpaces: normalizeText(f['Parks and Green Spaces']),
+    heritageSites: normalizeText(f['Heritage Sites']),
+    mallsAndShopping: normalizeText(f['Malls and Shopping']),
+    religiousBuildings: normalizeText(f['Religious Buildings']),
+    sportsAndRecreation: normalizeText(f['Sports and Recreation']),
+    neighbourhoodVibe: normalizeText(f['Neighbourhood Vibe']),
+    artsAndCulture: normalizeText(f['Arts and Culture']),
+    annualEventsAndFestivals: normalizeText(f['Annual Events and Festivals']),
+    nightlife: normalizeText(f['Nightlife']),
+    localTips: normalizeText(f['Local Tips']),
+    notableSchools: normalizeText(f['Notable Schools']),
+    hospitalsAndPolyclinics: normalizeText(f['Hospitals and Polyclinics']),
+    supermarketsAndWetMarkets: normalizeText(f['Supermarkets and Wet Markets']),
+    mrtLines: f['MRT Lines'] ?? [],
+    keyMrtStations: normalizeText(f['Key MRT Stations']),
+    dedicatedBusInterchange: normalizeText(f['Dedicated Bus Interchange']),
+    expresswayAccess: normalizeText(f['Expressway Access']),
+    travelTimeToCbd: normalizeText(f['Travel Time to CBD']),
+    parkingAvailability: normalizeText(f['Parking Availability']),
+  };
+}
+
+async function _fetchTowns(): Promise<import('./types').Town[]> {
+  const records = await fetchTable<AirtableTownFields>('Towns');
+  return records
+    .map(mapTown)
+    .filter((town): town is import('./types').Town => Boolean(town))
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
 export async function getTowns(): Promise<import('./types').Town[]> {
-  const map = await getTownMap();
-  return Array.from(map.values()).map(({ name, slug }) => ({ name, slug }));
+  return (_townsCache ??= _fetchTowns());
 }
 
 // ─────────────────────────────────────────
