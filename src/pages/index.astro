@@ -33,6 +33,14 @@ const totalOutlets = outlets.length;
 const totalBrands  = brands.length;
 const totalTowns   = towns.length;
 const totalDrinks  = drinks.length;
+
+const heroSuggestions = [
+  featuredDrinks[0]?.name,
+  featuredTowns[0]?.name,
+  ...(outlets.some(outlet => outlet.halalFriendly) ? ['Halal'] : []),
+  featuredTowns[1]?.name,
+  featuredBrands[0]?.name ?? brands[0]?.name,
+].filter((tag): tag is string => Boolean(tag));
 ---
 
 <Layout
@@ -66,7 +74,7 @@ const totalDrinks  = drinks.length;
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
-            {['Brown Sugar', 'Orchard', 'Halal', 'Jurong East', 'Tiger Sugar'].map(tag => (
+            {heroSuggestions.map(tag => (
               <a
                 href={`/search/?q=${encodeURIComponent(tag)}`}
                 class="text-xs px-3 py-2 rounded-md bg-white text-[var(--color-stone-700)] hover:text-[var(--color-stone-900)] border border-[var(--color-stone-200)] hover:border-[var(--color-stone-900)] transition-colors"
