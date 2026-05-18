@@ -9,6 +9,9 @@
     "dev": "astro dev",
     "build": "astro build && pagefind --site dist --output-path dist/pagefind",
     "build:astro": "astro build",
+    "scan:indexing": "node scripts/daily-page-indexing-scan.mjs",
+    "test": "node --test scripts/*.test.mjs",
+    "test:indexing": "node --test scripts/daily-page-indexing-scan.test.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },

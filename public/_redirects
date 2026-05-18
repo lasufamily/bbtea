@@ -1,3 +1,13 @@
+http://www.bbtea.sg/node_modules/*  /404.html  404
+https://www.bbtea.sg/node_modules/*  /404.html  404
+http://www.bbtea.sg/.git/*  /404.html  404
+https://www.bbtea.sg/.git/*  /404.html  404
+http://www.bbtea.sg/.astro/*  /404.html  404
+https://www.bbtea.sg/.astro/*  /404.html  404
+http://www.bbtea.sg/src/*  /404.html  404
+https://www.bbtea.sg/src/*  /404.html  404
+http://www.bbtea.sg/lib/*  /404.html  404
+https://www.bbtea.sg/lib/*  /404.html  404
 http://www.bbtea.sg/*  https://bbtea.sg/:splat  301
 https://www.bbtea.sg/*  https://bbtea.sg/:splat  301
 /node_modules/*  /404.html  404
@@ -13,6 +23,9 @@ https://www.bbtea.sg/*  https://bbtea.sg/:splat  301
 /package-lock.json  /404.html  404
 /tsconfig.json  /404.html  404
 /astro.config.mjs  /404.html  404
+/blog  /directory/  301
+/blog/  /directory/  301
+/cdn-cgi/l/email-protection  /404.html  404
 /index.html  /  301
 /oldindex.xhtml  /  301
 /brands/8-tea-bar  /brands/  301

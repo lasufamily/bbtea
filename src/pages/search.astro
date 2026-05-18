@@ -83,17 +83,6 @@ const suggestedSearches = [
   .filter((tag, index, tags) => tags.indexOf(tag) === index)
   .slice(0, 8);
 
-const searchJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: 'BBTea.sg',
-  url: 'https://bbtea.sg',
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: 'https://bbtea.sg/search/?q={search_term_string}',
-    'query-input': 'required name=search_term_string',
-  },
-};
 ---
 
 <Layout
@@ -101,7 +90,6 @@ const searchJsonLd = {
   description="Search for bubble tea shops, brands, towns, MRT stations and drinks across Singapore."
   canonical="https://bbtea.sg/search/"
   noindex
-  jsonLd={searchJsonLd}
 >
 
   <!-- Header -->
@@ -133,6 +121,7 @@ const searchJsonLd = {
             {suggestedSearches.map(s => (
               <a
                 href={`/search/?q=${encodeURIComponent(s)}`}
+                rel="nofollow"
                 class="text-sm px-4 py-2 rounded-lg bg-[var(--color-cream-100)] text-[var(--color-stone-600)] border border-[var(--color-stone-200)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors"
               >
                 {s}

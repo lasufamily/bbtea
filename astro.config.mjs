@@ -12,6 +12,9 @@ export default defineConfig({
     sitemap({
       changefreq: 'weekly',
       lastmod: new Date(),
+      filter(page) {
+        return page !== 'https://bbtea.sg/search/';
+      },
       serialize(item) {
         if (item.url === 'https://bbtea.sg/') {
           return { ...item, changefreq: 'daily', priority: 1 };

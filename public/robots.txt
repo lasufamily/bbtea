@@ -1,4 +1,14 @@
 User-agent: *
 Allow: /
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /.astro/
+Disallow: /src/
+Disallow: /app/
+Disallow: /components/
+Disallow: /prisma/
+Disallow: /lib/
+Disallow: /public/
+Disallow: /cdn-cgi/
 
 Sitemap: https://bbtea.sg/sitemap-index.xml
