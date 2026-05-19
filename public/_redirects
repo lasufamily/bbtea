@@ -23,8 +23,6 @@ https://www.bbtea.sg/*  https://bbtea.sg/:splat  301
 /package-lock.json  /404.html  404
 /tsconfig.json  /404.html  404
 /astro.config.mjs  /404.html  404
-/blog  /directory/  301
-/blog/  /directory/  301
 /cdn-cgi/l/email-protection  /404.html  404
 /index.html  /  301
 /oldindex.xhtml  /  301
