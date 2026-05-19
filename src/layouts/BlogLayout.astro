@@ -1,0 +1,147 @@
+---
+import Layout from '../components/Layout.astro';
+
+interface FrontmatterProps {
+  title: string;
+  description: string;
+  coverImage: string;
+  coverImageAlt: string;
+  date: string;
+  lastUpdated?: string;
+  author?: string;
+  tags?: string[];
+  jsonLd?: object;
+}
+
+interface Props extends FrontmatterProps {
+  frontmatter?: FrontmatterProps;
+}
+
+// MDX layouts in Astro receive frontmatter under `frontmatter` key;
+// plain .astro usage receives them as direct props.
+const data: FrontmatterProps = Astro.props.frontmatter ?? (Astro.props as FrontmatterProps);
+
+const {
+  title,
+  description,
+  coverImage,
+  coverImageAlt,
+  date,
+  lastUpdated,
+  author = 'BBTea.sg Editorial',
+  tags = [],
+  jsonLd,
+} = data;
+
+const publishedDate = new Date(date);
+const updatedDate = lastUpdated ? new Date(lastUpdated) : publishedDate;
+
+const formattedDate = publishedDate.toLocaleDateString('en-SG', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const formattedUpdated = updatedDate.toLocaleDateString('en-SG', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const articleJsonLd = jsonLd ?? {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  image: coverImage,
+  author: {
+    '@type': 'Organization',
+    name: author,
+    url: 'https://bbtea.sg',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'BBTea.sg',
+    url: 'https://bbtea.sg',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://bbtea.sg/favicon.svg',
+    },
+  },
+  datePublished: date,
+  dateModified: lastUpdated ?? date,
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': Astro.url.href,
+  },
+};
+---
+
+<Layout
+  title={title}
+  description={description}
+  image={coverImage}
+  type="article"
+  jsonLd={articleJsonLd}
+>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 py-10 lg:py-16">
+
+    <!-- Header -->
+    <header class="mb-8">
+      {tags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mb-4">
+          {tags.map(tag => (
+            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-forest-700/10 text-forest-700">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+
+      <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-stone-900 leading-tight mb-4">
+        {title}
+      </h1>
+
+      <p class="text-lg text-stone-600 mb-5 leading-relaxed">{description}</p>
+
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-stone-400 border-b border-stone-200 pb-5">
+        <span>By {author}</span>
+        <span aria-hidden="true">·</span>
+        <time datetime={date}>{formattedDate}</time>
+        {lastUpdated && lastUpdated !== date && (
+          <>
+            <span aria-hidden="true">·</span>
+            <span>Updated <time datetime={lastUpdated}>{formattedUpdated}</time></span>
+          </>
+        )}
+      </div>
+    </header>
+
+    <!-- Cover image -->
+    <figure class="mb-10 -mx-4 sm:-mx-6 lg:-mx-0">
+      <img
+        src={coverImage}
+        alt={coverImageAlt}
+        class="w-full rounded-lg object-cover max-h-[460px]"
+        loading="eager"
+        width="1200"
+        height="630"
+      />
+    </figure>
+
+    <!-- Body -->
+    <div class="blog-prose max-w-none">
+      <slot />
+    </div>
+
+    <!-- Back to blog -->
+    <div class="mt-16 pt-8 border-t border-stone-200">
+      <a href="/blog/" class="inline-flex items-center gap-2 text-sm text-forest-700 hover:text-boba-500 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+        </svg>
+        Back to all guides
+      </a>
+    </div>
+  </article>
+</Layout>

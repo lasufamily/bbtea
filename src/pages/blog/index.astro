@@ -1,0 +1,68 @@
+---
+import Layout from '../../components/Layout.astro';
+
+const posts = [
+  {
+    slug: 'how-to-make-bubble-tea-singapore',
+    title: 'How to Make Bubble Tea at Home in Singapore (Step-by-Step Guide)',
+    description: 'Learn how to make bubble tea at home in Singapore with perfectly cooked tapioca pearls, a strong tea base, and the right sweetness level — for under $2 a cup.',
+    date: '2026-05-18',
+    coverImage: 'https://images.unsplash.com/photo-1627781245399-a1fe415c0046?fm=jpg&q=60&w=800&auto=format&fit=crop',
+    tags: ['How-To', 'Recipes'],
+  },
+];
+---
+
+<Layout
+  title="Bubble Tea Guides & Tips"
+  description="Step-by-step guides, recipes, and tips for bubble tea lovers in Singapore — from home brewing to navigating your favourite shops."
+>
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 py-12 lg:py-20">
+    <header class="mb-10">
+      <h1 class="font-display text-3xl sm:text-4xl font-bold text-stone-900 mb-3">
+        Bubble Tea Guides
+      </h1>
+      <p class="text-stone-500 text-lg">
+        Recipes, how-tos, and everything you need to know about Singapore's favourite drink.
+      </p>
+    </header>
+
+    <ul class="grid gap-8 sm:grid-cols-2" role="list">
+      {posts.map(post => (
+        <li>
+          <a
+            href={`/blog/${post.slug}/`}
+            class="group block rounded-2xl overflow-hidden border border-stone-200 hover:border-forest-700/40 transition-colors shadow-sm hover:shadow-md"
+          >
+            <div class="aspect-[16/9] overflow-hidden">
+              <img
+                src={post.coverImage}
+                alt={post.title}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+                width="800"
+                height="450"
+              />
+            </div>
+            <div class="p-5">
+              <div class="flex flex-wrap gap-1.5 mb-2">
+                {post.tags.map(tag => (
+                  <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-forest-700/10 text-forest-700">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <h2 class="font-display font-semibold text-stone-900 text-lg leading-snug group-hover:text-forest-700 transition-colors mb-1">
+                {post.title}
+              </h2>
+              <p class="text-sm text-stone-500 line-clamp-2">{post.description}</p>
+              <time class="mt-3 block text-xs text-stone-400" datetime={post.date}>
+                {new Date(post.date).toLocaleDateString('en-SG', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </time>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Layout>
