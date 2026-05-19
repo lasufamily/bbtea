@@ -26,6 +26,7 @@ https://www.bbtea.sg/*  https://bbtea.sg/:splat  301
 /cdn-cgi/l/email-protection  /404.html  404
 /index.html  /  301
 /oldindex.xhtml  /  301
+/blog  /blog/  301
 /brands/8-tea-bar  /brands/  301
 /brands/8-tea-bar/  /brands/  301
 /bubble-tea-shops/8-tea-bar-changi  /directory/  301
