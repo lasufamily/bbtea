@@ -1,0 +1,68 @@
+---
+import Layout from '../components/Layout.astro';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'BBTea.sg Newsletter',
+  description: 'Subscribe to the BBTea.sg newsletter for Singapore bubble tea finds, drink guides, and directory updates.',
+  url: 'https://bbtea.sg/newsletter/',
+  publisher: {
+    '@type': 'Organization',
+    name: 'BBTea.sg',
+    url: 'https://bbtea.sg',
+  },
+};
+---
+
+<Layout
+  title="BBTea.sg Newsletter | Singapore Bubble Tea Updates"
+  description="Subscribe to the BBTea.sg newsletter for Singapore bubble tea finds, drink guides, and directory updates."
+  canonical="https://bbtea.sg/newsletter/"
+  jsonLd={jsonLd}
+>
+
+  <section class="bg-white border-b border-[var(--color-stone-200)] py-16 lg:py-20">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <nav class="text-sm text-[var(--color-stone-400)] flex items-center gap-1.5" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-[var(--color-stone-900)] transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-[var(--color-stone-700)] font-medium">Newsletter</span>
+      </nav>
+
+      <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-14 items-start">
+        <div class="space-y-5 max-w-2xl">
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
+            BBTea.sg Newsletter
+          </p>
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-bold leading-tight text-balance">
+            Singapore bubble tea finds, straight to your inbox.
+          </h1>
+          <p class="text-base lg:text-lg text-[var(--color-stone-600)] leading-relaxed">
+            Get occasional notes on new shop pages, useful drink guides, neighbourhood finds, and updates from the BBTea.sg directory.
+          </p>
+        </div>
+
+        <div class="rounded-lg border border-[var(--color-stone-200)] bg-[var(--color-cream-100)] p-4 sm:p-6">
+          <div class="rounded-lg border border-[var(--color-stone-200)] bg-white p-2 sm:p-4">
+            <script
+              async
+              src="https://subscribe-forms.beehiiv.com/v3/loader.js"
+              data-beehiiv-form="6b439e95-a5a6-44d1-aeae-53687c44dfe7"
+              is:inline
+            ></script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script
+    slot="body-end"
+    type="text/javascript"
+    async
+    src="https://subscribe-forms.beehiiv.com/attribution.js"
+    is:inline
+  ></script>
+
+</Layout>
