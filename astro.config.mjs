@@ -15,7 +15,10 @@ export default defineConfig({
       changefreq: 'weekly',
       lastmod: new Date(),
       filter(page) {
-        return page !== 'https://bbtea.sg/search/';
+        return ![
+          'https://bbtea.sg/search/',
+          'https://bbtea.sg/contact-form/',
+        ].includes(page);
       },
       serialize(item) {
         if (item.url === 'https://bbtea.sg/') {
