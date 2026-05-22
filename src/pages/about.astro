@@ -1,0 +1,304 @@
+---
+import Layout from '../components/Layout.astro';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'About BBTea.sg',
+  description: 'BBTea.sg is Singapore\'s most comprehensive directory for bubble tea, coffee, and cafes — covering the island\'s rich drink culture from hawker kopi to specialty brews.',
+  url: 'https://bbtea.sg/about/',
+  publisher: {
+    '@type': 'Organization',
+    name: 'BBTea.sg',
+    url: 'https://bbtea.sg',
+    email: 'hello@bbtea.sg',
+  },
+};
+
+const categories = [
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15M14.25 3.104c.251.023.501.05.75.082M19.8 15a2.25 2.25 0 0 1 .45 1.32V19.5a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25v-3.18a2.25 2.25 0 0 1 .45-1.32l.8-1M19.8 15l-7.8 2.25L4.25 15"/>
+    </svg>`,
+    label: 'Bubble Tea',
+    description: 'The heart of what we do. From classic milk teas and fruit teas to brown sugar boba and cheese foam — we map every outlet, brand, and drink across the island so you always know where to get your fix.',
+    accent: 'var(--color-taro-400)',
+    bg: 'var(--color-blush-100)',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 8.25v7.5m12-7.5v7.5M3 8.25h18M3 15.75h18M6 8.25C6 5.904 8.686 4 12 4s6 1.904 6 4.25M3 8.25A2.25 2.25 0 0 1 5.25 6h13.5A2.25 2.25 0 0 1 21 8.25"/>
+    </svg>`,
+    label: 'Coffee',
+    description: 'Singapore has always been serious about coffee — from the heritage kopi of the kopitiam to third-wave specialty roasters pushing single origins. We cover both ends of the spectrum and everything in between.',
+    accent: 'var(--color-boba-400)',
+    bg: '#FDF6EE',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016 2.993 2.993 0 0 0 2.25-1.016 3.001 3.001 0 0 0 3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72l1.189-1.19A1.5 1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 1.06.44l1.19 1.189a3 3 0 0 1-.621 4.72M6.75 18h3.75a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 0 0 0-.75.75v3.75c0 .414.336.75.75.75Z"/>
+    </svg>`,
+    label: 'Cafes',
+    description: "Independent cafes are woven into the fabric of Singaporean weekends. Whether you\'re hunting for an aesthetic brunch spot in Tiong Bahru, a quiet work corner in Dempsey, or a hidden gem in a JB shophouse, we point the way.",
+    accent: 'var(--color-forest-700)',
+    bg: 'var(--color-cream-100)',
+  },
+];
+
+const socialLinks = [
+  {
+    label: 'Instagram',
+    href: 'https://www.instagram.com/bbtea.sg/',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069Zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073Zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324ZM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881Z"/>
+    </svg>`,
+  },
+  {
+    label: 'TikTok',
+    href: 'https://www.tiktok.com/@bbtea.sg',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.2 8.2 0 0 0 4.79 1.52V6.77a4.85 4.85 0 0 1-1.02-.08Z"/>
+    </svg>`,
+  },
+  {
+    label: 'Facebook',
+    href: 'https://www.facebook.com/bbtea.sg',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073Z"/>
+    </svg>`,
+  },
+  {
+    label: 'X / Twitter',
+    href: 'https://x.com/bbteasg',
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+      <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+    </svg>`,
+  },
+];
+---
+
+<Layout
+  title="About BBTea.sg | Singapore's Bubble Tea, Coffee & Cafe Directory"
+  description="BBTea.sg is Singapore's most comprehensive guide to bubble tea, coffee, and cafes — rooted in the island's rich drink culture, from hawker kopi to modern boba shops."
+  canonical="https://bbtea.sg/about/"
+  jsonLd={jsonLd}
+>
+
+  <!-- ═══════════════════════════════════
+       HERO
+  ════════════════════════════════════ -->
+  <section class="bg-white border-b border-[var(--color-stone-200)]">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+
+      <!-- Breadcrumb -->
+      <nav class="text-sm text-[var(--color-stone-400)] flex items-center gap-1.5 mb-10" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-[var(--color-stone-900)] transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-[var(--color-stone-700)] font-medium">About</span>
+      </nav>
+
+      <div class="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-20 items-start">
+        <div class="space-y-7 max-w-2xl">
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
+            About BBTea.sg
+          </p>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-semibold leading-[1.05] text-[var(--color-stone-900)] text-balance">
+            Singapore's drink culture, all in one place.
+          </h1>
+          <p class="text-base lg:text-lg text-[var(--color-stone-600)] leading-relaxed">
+            BBTea.sg is an independent editorial directory dedicated to the drinks that define everyday life in Singapore —
+            bubble tea, coffee, and cafes. We exist to make it effortless to discover the best spots across the island,
+            whether you're craving a taro milk tea in Tampines or hunting for a third-wave pour-over in Tiong Bahru.
+          </p>
+          <p class="text-base text-[var(--color-stone-600)] leading-relaxed">
+            No sponsored rankings. No paywalls. Just a clean, comprehensive guide — updated regularly and built for people
+            who take their drinks seriously.
+          </p>
+        </div>
+
+        <!-- Ornamental stat -->
+        <aside class="hidden lg:block border border-[var(--color-stone-200)] rounded-lg p-8 text-center space-y-1 min-w-[160px]">
+          <p class="text-5xl font-display font-semibold text-[var(--color-stone-900)]">3</p>
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)] mt-2">Categories</p>
+          <div class="pt-5 flex flex-col gap-3 text-left">
+            {categories.map(cat => (
+              <div class="flex items-center gap-2.5">
+                <span
+                  class="w-2 h-2 rounded-full shrink-0"
+                  style={`background-color: ${cat.accent}`}
+                ></span>
+                <span class="text-sm text-[var(--color-stone-600)]">{cat.label}</span>
+              </div>
+            ))}
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       WHAT WE COVER
+  ════════════════════════════════════ -->
+  <section class="py-20 bg-[var(--color-cream-100)]">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <header class="mb-12 space-y-2">
+        <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">What We Cover</p>
+        <h2 class="text-3xl lg:text-4xl font-display font-bold text-[var(--color-stone-900)]">
+          Three pillars, one directory.
+        </h2>
+        <p class="text-[var(--color-stone-600)] text-base max-w-xl mt-3">
+          Singapore's drink scene spans traditions and trends. We track all of it.
+        </p>
+      </header>
+
+      <div class="grid sm:grid-cols-3 gap-6">
+        {categories.map(cat => (
+          <div
+            class="rounded-xl p-7 flex flex-col gap-5 border border-[var(--color-stone-200)] bg-white"
+          >
+            <div
+              class="w-11 h-11 rounded-lg flex items-center justify-center shrink-0"
+              style={`background-color: ${cat.bg}; color: ${cat.accent}`}
+              set:html={cat.icon}
+            />
+            <div class="space-y-3">
+              <h3 class="text-lg font-display font-semibold text-[var(--color-stone-900)]">
+                {cat.label}
+              </h3>
+              <p class="text-sm text-[var(--color-stone-600)] leading-relaxed">
+                {cat.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       SINGAPORE DRINK CULTURE
+  ════════════════════════════════════ -->
+  <section class="py-20 bg-white border-t border-[var(--color-stone-200)]">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-[0.85fr_1.15fr] gap-14 lg:gap-20 items-start">
+
+        <!-- Left: editorial pull quote -->
+        <div class="lg:sticky lg:top-24 space-y-6">
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">Singapore's Drink Culture</p>
+          <blockquote class="text-2xl lg:text-3xl font-display font-semibold leading-snug text-[var(--color-stone-900)] text-balance">
+            "From the morning kopi to the afternoon milk tea run — Singapore has always been a city shaped by its drinks."
+          </blockquote>
+          <div class="w-12 h-px bg-[var(--color-stone-300)]"></div>
+          <p class="text-sm text-[var(--color-stone-500)]">The BBTea.sg team</p>
+        </div>
+
+        <!-- Right: body copy -->
+        <div class="space-y-5 text-[var(--color-stone-600)] text-base leading-relaxed">
+          <p>
+            Long before bubble tea became a global phenomenon, Singapore already had a deep and layered relationship with
+            hot and cold beverages. The kopitiam — the neighbourhood coffee shop — has been the social anchor of Singaporean
+            mornings for over a century. A cup of kopi-o, pulled teh tarik, or iced Milo is more than a drink; it is a
+            daily ritual, a moment of pause, a thread in the social fabric.
+          </p>
+          <p>
+            That culture evolved. In the 1990s, <em>bubble tea</em> arrived from Taiwan and swept the island. Today,
+            Singapore is home to dozens of homegrown and international boba brands — from legacy chains with hundreds of
+            outlets to small-batch artisanal shops with rotating seasonal menus. The queues at launch days still stretch
+            around the block.
+          </p>
+          <p>
+            Alongside this, a specialty coffee movement has taken root. Barista-owned roasteries, Japanese-influenced
+            cafe concepts, and proudly local cafe brands now share the streetscape with the neighbourhood kopitiam — and
+            both are thriving. The cafe as a third place — somewhere between home and office — is deeply embedded in how
+            Singaporeans work, meet, and unwind.
+          </p>
+          <p>
+            BBTea.sg was built to honour and serve this culture. We believe the best way to navigate Singapore's drink
+            scene is through clear, well-organised, and regularly updated information — not algorithms, not paid placement,
+            and not clutter. Just the places, the brands, and the drinks that matter to you.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       CONNECT / CONTACT
+  ════════════════════════════════════ -->
+  <section class="py-20 bg-[var(--color-cream-100)] border-t border-[var(--color-stone-200)]">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-[1fr_auto] gap-10 items-start">
+
+        <div class="space-y-5 max-w-lg">
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">Say Hello</p>
+          <h2 class="text-3xl lg:text-4xl font-display font-bold text-[var(--color-stone-900)]">
+            Follow along & get in touch.
+          </h2>
+          <p class="text-base text-[var(--color-stone-600)] leading-relaxed">
+            We share new listings, drink reviews, and Singapore cafe finds on social. For questions, collaborations,
+            or listing inquiries, drop us a line — we'd love to hear from you.
+          </p>
+          <p class="text-base text-[var(--color-stone-600)]">
+            Email us at{' '}
+            <a
+              href="mailto:hello@bbtea.sg"
+              class="text-[var(--color-forest-700)] font-medium underline underline-offset-2 hover:text-[var(--color-forest-800)] transition-colors"
+            >
+              hello@bbtea.sg
+            </a>
+          </p>
+        </div>
+
+        <!-- Social buttons -->
+        <div class="flex flex-col gap-3 sm:items-end">
+          {socialLinks.map(link => (
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-[var(--color-stone-200)] bg-white text-sm font-medium text-[var(--color-stone-700)] hover:border-[var(--color-stone-900)] hover:text-[var(--color-stone-900)] hover:shadow-sm transition-all duration-200"
+            >
+              <span set:html={link.icon} />
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       CTA STRIP
+  ════════════════════════════════════ -->
+  <section class="py-24 bg-white border-t border-[var(--color-stone-200)]">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 text-center space-y-6">
+      <h2 class="text-3xl lg:text-4xl font-display font-semibold text-[var(--color-stone-900)]">
+        Ready to find your next cup?
+      </h2>
+      <p class="text-[var(--color-stone-600)] text-base leading-relaxed">
+        Browse hundreds of bubble tea shops, cafes, and coffee spots across Singapore — searchable by location, brand, MRT, and more.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+        <a
+          href="/directory/"
+          class="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg bg-[var(--color-stone-900)] text-white text-sm font-semibold hover:bg-white hover:text-[var(--color-stone-900)] border border-[var(--color-stone-900)] transition-colors"
+        >
+          Explore the Directory
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a
+          href="/search/"
+          class="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg bg-white text-[var(--color-stone-900)] text-sm font-semibold border border-[var(--color-stone-200)] hover:border-[var(--color-stone-900)] transition-colors"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          Search
+        </a>
+      </div>
+    </div>
+  </section>
+
+</Layout>
