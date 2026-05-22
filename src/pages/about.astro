@@ -5,7 +5,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'AboutPage',
   name: 'About BBTea.sg',
-  description: 'BBTea.sg is Singapore\'s most comprehensive directory for bubble tea, coffee, and cafes — covering the island\'s rich drink culture from hawker kopi to specialty brews.',
+  description: 'BBTea.sg is an independent guide to bubble tea shops, coffee spots, and cafes across Singapore, from hawker kopi to modern boba brands.',
   url: 'https://bbtea.sg/about/',
   publisher: {
     '@type': 'Organization',
@@ -21,7 +21,7 @@ const categories = [
       <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15M14.25 3.104c.251.023.501.05.75.082M19.8 15a2.25 2.25 0 0 1 .45 1.32V19.5a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25v-3.18a2.25 2.25 0 0 1 .45-1.32l.8-1M19.8 15l-7.8 2.25L4.25 15"/>
     </svg>`,
     label: 'Bubble Tea',
-    description: 'The heart of what we do. From classic milk teas and fruit teas to brown sugar boba and cheese foam — we map every outlet, brand, and drink across the island so you always know where to get your fix.',
+    description: 'This is where BBTea.sg started. We track milk teas, fruit teas, brown sugar boba, cheese foam drinks, outlet details, and the brands people actually look for.',
     accent: 'var(--color-taro-400)',
     bg: 'var(--color-blush-100)',
   },
@@ -30,7 +30,7 @@ const categories = [
       <path stroke-linecap="round" stroke-linejoin="round" d="M6 8.25v7.5m12-7.5v7.5M3 8.25h18M3 15.75h18M6 8.25C6 5.904 8.686 4 12 4s6 1.904 6 4.25M3 8.25A2.25 2.25 0 0 1 5.25 6h13.5A2.25 2.25 0 0 1 21 8.25"/>
     </svg>`,
     label: 'Coffee',
-    description: 'Singapore has always been serious about coffee — from the heritage kopi of the kopitiam to third-wave specialty roasters pushing single origins. We cover both ends of the spectrum and everything in between.',
+    description: 'Singapore has always taken coffee seriously. We cover kopitiam kopi, specialty roasters, quiet work cafes, and the places locals keep going back to.',
     accent: 'var(--color-boba-400)',
     bg: '#FDF6EE',
   },
@@ -39,7 +39,7 @@ const categories = [
       <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016 2.993 2.993 0 0 0 2.25-1.016 3.001 3.001 0 0 0 3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72l1.189-1.19A1.5 1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 1.06.44l1.19 1.189a3 3 0 0 1-.621 4.72M6.75 18h3.75a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75H6.75a.75.75 0 0 0-.75.75v3.75c0 .414.336.75.75.75Z"/>
     </svg>`,
     label: 'Cafes',
-    description: "Independent cafes are woven into the fabric of Singaporean weekends. Whether you\'re hunting for an aesthetic brunch spot in Tiong Bahru, a quiet work corner in Dempsey, or a hidden gem in a JB shophouse, we point the way.",
+    description: "Some days you want brunch. Some days you want a laptop corner, a proper matcha, or somewhere calm after a long week. We keep those finds easy to browse.",
     accent: 'var(--color-forest-700)',
     bg: 'var(--color-cream-100)',
   },
@@ -79,7 +79,7 @@ const socialLinks = [
 
 <Layout
   title="About BBTea.sg | Singapore's Bubble Tea, Coffee & Cafe Directory"
-  description="BBTea.sg is Singapore's most comprehensive guide to bubble tea, coffee, and cafes — rooted in the island's rich drink culture, from hawker kopi to modern boba shops."
+  description="BBTea.sg is an independent guide to bubble tea shops, coffee spots, and cafes across Singapore, from hawker kopi to modern boba brands."
   canonical="https://bbtea.sg/about/"
   jsonLd={jsonLd}
 >
@@ -103,16 +103,15 @@ const socialLinks = [
             About BBTea.sg
           </p>
           <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-semibold leading-[1.05] text-[var(--color-stone-900)] text-balance">
-            Singapore's drink culture, all in one place.
+            A clearer way to find your next drink in Singapore.
           </h1>
           <p class="text-base lg:text-lg text-[var(--color-stone-600)] leading-relaxed">
-            BBTea.sg is an independent editorial directory dedicated to the drinks that define everyday life in Singapore —
-            bubble tea, coffee, and cafes. We exist to make it effortless to discover the best spots across the island,
-            whether you're craving a taro milk tea in Tampines or hunting for a third-wave pour-over in Tiong Bahru.
+            BBTea.sg is an independent guide to bubble tea shops, coffee spots, and cafes around Singapore. Use it when
+            you want taro milk tea in Tampines, kopi near the office, or a cafe worth crossing town for.
           </p>
           <p class="text-base text-[var(--color-stone-600)] leading-relaxed">
-            No sponsored rankings. No paywalls. Just a clean, comprehensive guide — updated regularly and built for people
-            who take their drinks seriously.
+            We keep the pages clean, practical, and updated. No sponsored rankings, no paywalls, and no need to dig
+            through five tabs just to find the outlet you wanted.
           </p>
         </div>
 
@@ -144,10 +143,10 @@ const socialLinks = [
       <header class="mb-12 space-y-2">
         <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">What We Cover</p>
         <h2 class="text-3xl lg:text-4xl font-display font-bold text-[var(--color-stone-900)]">
-          Three pillars, one directory.
+          Bubble tea, coffee, and cafes.
         </h2>
         <p class="text-[var(--color-stone-600)] text-base max-w-xl mt-3">
-          Singapore's drink scene spans traditions and trends. We track all of it.
+          Singapore drinks everything from kopi to brown sugar boba. We try to keep the useful bits in one place.
         </p>
       </header>
 
@@ -186,7 +185,7 @@ const socialLinks = [
         <div class="lg:sticky lg:top-24 space-y-6">
           <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">Singapore's Drink Culture</p>
           <blockquote class="text-2xl lg:text-3xl font-display font-semibold leading-snug text-[var(--color-stone-900)] text-balance">
-            "From the morning kopi to the afternoon milk tea run — Singapore has always been a city shaped by its drinks."
+            "Morning kopi, afternoon milk tea, late night iced Milo. In Singapore, drinks are part of the day."
           </blockquote>
           <div class="w-12 h-px bg-[var(--color-stone-300)]"></div>
           <p class="text-sm text-[var(--color-stone-500)]">The BBTea.sg team</p>
@@ -195,27 +194,24 @@ const socialLinks = [
         <!-- Right: body copy -->
         <div class="space-y-5 text-[var(--color-stone-600)] text-base leading-relaxed">
           <p>
-            Long before bubble tea became a global phenomenon, Singapore already had a deep and layered relationship with
-            hot and cold beverages. The kopitiam — the neighbourhood coffee shop — has been the social anchor of Singaporean
-            mornings for over a century. A cup of kopi-o, pulled teh tarik, or iced Milo is more than a drink; it is a
-            daily ritual, a moment of pause, a thread in the social fabric.
+            Before bubble tea queues became normal, Singapore already knew how to take drinks seriously. Kopitiams have
+            anchored neighbourhood mornings for generations. Kopi-o, teh tarik, iced Milo, barley water, sugar cane juice:
+            everyone has an order, and usually an opinion about where to get it.
           </p>
           <p>
-            That culture evolved. In the 1990s, <em>bubble tea</em> arrived from Taiwan and swept the island. Today,
-            Singapore is home to dozens of homegrown and international boba brands — from legacy chains with hundreds of
-            outlets to small-batch artisanal shops with rotating seasonal menus. The queues at launch days still stretch
-            around the block.
+            Then bubble tea arrived from Taiwan in the 1990s and never really left. Today the island has homegrown brands,
+            international chains, tiny kiosks, seasonal menus, and launch day queues that still manage to surprise people.
+            The details change fast, especially when outlets open, move, and disappear.
           </p>
           <p>
-            Alongside this, a specialty coffee movement has taken root. Barista-owned roasteries, Japanese-influenced
-            cafe concepts, and proudly local cafe brands now share the streetscape with the neighbourhood kopitiam — and
-            both are thriving. The cafe as a third place — somewhere between home and office — is deeply embedded in how
-            Singaporeans work, meet, and unwind.
+            Coffee has changed too. Kopitiams are still part of the rhythm, but now they sit beside roasteries, Japanese
+            style cafes, grab and go espresso bars, and neighbourhood spots that turn into regular weekend habits. Some
+            people want a flat white. Some just want a cold kopi and a quiet table.
           </p>
           <p>
-            BBTea.sg was built to honour and serve this culture. We believe the best way to navigate Singapore's drink
-            scene is through clear, well-organised, and regularly updated information — not algorithms, not paid placement,
-            and not clutter. Just the places, the brands, and the drinks that matter to you.
+            BBTea.sg exists because finding a drink should be easier than scrolling through old posts and half-updated
+            maps. We pull the basics together, clean them up, and keep improving the directory so you can spend less time
+            searching and more time deciding what to order.
           </p>
         </div>
       </div>
@@ -236,7 +232,7 @@ const socialLinks = [
           </h2>
           <p class="text-base text-[var(--color-stone-600)] leading-relaxed">
             We share new listings, drink reviews, and Singapore cafe finds on social. For questions, collaborations,
-            or listing inquiries, drop us a line — we'd love to hear from you.
+            or listing inquiries, drop us a line. We read every message.
           </p>
           <p class="text-base text-[var(--color-stone-600)]">
             Email us at{' '}
@@ -276,7 +272,7 @@ const socialLinks = [
         Ready to find your next cup?
       </h2>
       <p class="text-[var(--color-stone-600)] text-base leading-relaxed">
-        Browse hundreds of bubble tea shops, cafes, and coffee spots across Singapore — searchable by location, brand, MRT, and more.
+        Browse hundreds of bubble tea shops, cafes, and coffee spots across Singapore by location, brand, MRT, and more.
       </p>
       <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
         <a
