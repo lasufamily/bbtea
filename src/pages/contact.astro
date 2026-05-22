@@ -1,0 +1,97 @@
+---
+import Layout from '../components/Layout.astro';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Contact BBTea.sg',
+  description: 'Contact BBTea.sg for corrections, feedback, partnerships, and general enquiries.',
+  url: 'https://bbtea.sg/contact/',
+  publisher: {
+    '@type': 'Organization',
+    name: 'BBTea.sg',
+    url: 'https://bbtea.sg',
+    email: 'hello@bbtea.sg',
+  },
+};
+---
+
+<Layout
+  title="Contact BBTea.sg | Singapore Bubble Tea Directory"
+  description="Contact BBTea.sg for corrections, feedback, partnerships, and general enquiries."
+  canonical="https://bbtea.sg/contact/"
+  jsonLd={jsonLd}
+>
+
+  <section class="bg-white border-b border-[var(--color-stone-200)] py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      <nav class="text-sm text-[var(--color-stone-400)] flex items-center gap-1.5" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-[var(--color-stone-900)] transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-[var(--color-stone-700)] font-medium">Contact</span>
+      </nav>
+
+      <div class="space-y-5 max-w-3xl">
+        <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
+          Contact us
+        </p>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-bold leading-tight text-balance">
+          Tell us what we should know.
+        </h1>
+        <p class="text-base lg:text-lg text-[var(--color-stone-600)] leading-relaxed">
+          Send corrections, outlet updates, feedback, collaboration ideas, or anything else that helps make BBTea.sg more useful.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-[0.8fr_1.2fr] gap-10 lg:gap-14 items-start">
+        <aside class="space-y-8">
+          <div class="space-y-3">
+            <h2 class="text-2xl font-display font-bold text-[var(--color-stone-900)]">
+              Use this form for
+            </h2>
+            <ul class="space-y-3 text-sm text-[var(--color-stone-600)]">
+              <li class="flex gap-3">
+                <span class="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--color-forest-700)] shrink-0"></span>
+                Corrections to shop details, menus, outlet pages, or opening information
+              </li>
+              <li class="flex gap-3">
+                <span class="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--color-forest-700)] shrink-0"></span>
+                Suggestions for brands, drinks, towns, malls, or MRT areas we should cover
+              </li>
+              <li class="flex gap-3">
+                <span class="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--color-forest-700)] shrink-0"></span>
+                General feedback, partnerships, and media enquiries
+              </li>
+            </ul>
+          </div>
+
+          <div class="border border-[var(--color-stone-200)] rounded-lg p-5 space-y-2 bg-[var(--color-cream-100)]">
+            <h2 class="text-base font-semibold text-[var(--color-stone-900)]">
+              Prefer email?
+            </h2>
+            <p class="text-sm text-[var(--color-stone-600)]">
+              You can also reach us directly at
+              <a href="mailto:hello@bbtea.sg" class="text-[var(--color-forest-700)] underline hover:text-[var(--color-forest-800)] transition-colors">hello@bbtea.sg</a>.
+            </p>
+          </div>
+        </aside>
+
+        <div class="border border-[var(--color-stone-200)] rounded-lg overflow-hidden bg-white">
+          <div
+            style="width:100%;height:500px;"
+            data-fillout-id="ewzrN3SaoBus"
+            data-fillout-embed-type="standard"
+            data-fillout-inherit-parameters
+            data-fillout-dynamic-resize
+          ></div>
+          <script src="https://server.fillout.com/embed/v1/" is:inline></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>
