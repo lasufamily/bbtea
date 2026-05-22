@@ -17,7 +17,7 @@ export default defineConfig({
       filter(page) {
         return ![
           'https://bbtea.sg/search/',
-          'https://bbtea.sg/contact-form/',
+          'https://bbtea.sg/hello/',
         ].includes(page);
       },
       serialize(item) {
