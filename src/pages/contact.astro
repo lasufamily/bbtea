@@ -82,13 +82,25 @@ const jsonLd = {
 
         <div class="border border-[var(--color-stone-200)] rounded-lg overflow-hidden bg-white">
           <div
+            id="contact-fillout-form"
             style="width:100%;height:500px;"
-            data-fillout-id="ewzrN3SaoBus"
-            data-fillout-embed-type="standard"
-            data-fillout-inherit-parameters
-            data-fillout-dynamic-resize
           ></div>
-          <script src="https://server.fillout.com/embed/v1/" is:inline></script>
+          <script is:inline>
+            (() => {
+              const form = document.getElementById('contact-fillout-form');
+              if (!form) return;
+
+              form.dataset.filloutId = atob('ZXd6ck4zU2FvQnVz');
+              form.dataset.filloutEmbedType = 'standard';
+              form.setAttribute('data-fillout-inherit-parameters', '');
+              form.setAttribute('data-fillout-dynamic-resize', '');
+
+              const script = document.createElement('script');
+              script.src = 'https://server.fillout.com/embed/v1/';
+              script.async = true;
+              document.body.appendChild(script);
+            })();
+          </script>
         </div>
       </div>
     </div>
