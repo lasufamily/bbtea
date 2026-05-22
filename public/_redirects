@@ -1,5 +1,3 @@
-/contact  /hello/  200
-/contact/  /hello/  200
 http://www.bbtea.sg/node_modules/*  /404.html  404
 https://www.bbtea.sg/node_modules/*  /404.html  404
 http://www.bbtea.sg/.git/*  /404.html  404

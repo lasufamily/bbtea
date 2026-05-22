@@ -15,10 +15,7 @@ export default defineConfig({
       changefreq: 'weekly',
       lastmod: new Date(),
       filter(page) {
-        return ![
-          'https://bbtea.sg/search/',
-          'https://bbtea.sg/hello/',
-        ].includes(page);
+        return page !== 'https://bbtea.sg/search/';
       },
       serialize(item) {
         if (item.url === 'https://bbtea.sg/') {
