@@ -30,8 +30,8 @@ const jsonLd = {
         <span class="text-[var(--color-stone-700)] font-medium">Newsletter</span>
       </nav>
 
-      <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-14 items-start">
-        <div class="space-y-5 max-w-2xl">
+      <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-10 lg:gap-16 items-center">
+        <div class="space-y-5 max-w-xl">
           <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
             BBTea.sg Newsletter
           </p>
@@ -43,15 +43,13 @@ const jsonLd = {
           </p>
         </div>
 
-        <div class="rounded-lg border border-[var(--color-stone-200)] bg-[var(--color-cream-100)] p-4 sm:p-6">
-          <div class="rounded-lg border border-[var(--color-stone-200)] bg-white p-2 sm:p-4">
-            <script
-              async
-              src="https://subscribe-forms.beehiiv.com/v3/loader.js"
-              data-beehiiv-form="6b439e95-a5a6-44d1-aeae-53687c44dfe7"
-              is:inline
-            ></script>
-          </div>
+        <div class="newsletter-embed w-full max-w-[520px] mx-auto lg:mx-0 lg:justify-self-end">
+          <script
+            async
+            src="https://subscribe-forms.beehiiv.com/v3/loader.js"
+            data-beehiiv-form="6b439e95-a5a6-44d1-aeae-53687c44dfe7"
+            is:inline
+          ></script>
         </div>
       </div>
     </div>
@@ -66,3 +64,14 @@ const jsonLd = {
   ></script>
 
 </Layout>
+
+<style>
+  .newsletter-embed {
+    min-height: 410px;
+  }
+
+  .newsletter-embed :global(iframe) {
+    margin-inline: auto;
+    max-width: 100%;
+  }
+</style>
