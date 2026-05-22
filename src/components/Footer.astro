@@ -10,6 +10,12 @@ const popularTownLinks = getTownsFromOutlets(outlets, allTowns).slice(0, 5).map(
 }));
 
 const footerLinks = {
+  'About': [
+    { href: '/about/',      label: 'About' },
+    { href: '/contact/',    label: 'Contact' },
+    { href: '/advertise/',  label: 'Advertise' },
+    { href: '/newsletter/', label: 'Newsletter' },
+  ],
   'Browse': [
     { href: '/directory/',  label: 'All Shops' },
     { href: '/towns/',      label: 'Towns' },
@@ -20,7 +26,6 @@ const footerLinks = {
     { href: '/halal/',      label: 'Halal' },
     { href: '/malls/',      label: 'By Mall' },
     { href: '/blog/',       label: 'Blog' },
-    { href: '/advertise/',  label: 'Advertise' },
   ],
   'Popular Towns': popularTownLinks,
   'Drink Categories': categories.slice(0, 5).map(category => ({
@@ -33,7 +38,7 @@ const footerLinks = {
 <footer class="bg-white text-[var(--color-stone-900)] border-t border-[var(--color-stone-200)]">
   <!-- Top section -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
-    <div class="grid grid-cols-1 lg:grid-cols-5 gap-10">
+    <div class="grid grid-cols-1 lg:grid-cols-6 gap-10">
 
       <!-- Brand column -->
       <div class="lg:col-span-2 space-y-5">
@@ -90,7 +95,6 @@ const footerLinks = {
         © {year} BBTea.sg. All rights reserved. · Singapore
       </p>
       <div class="flex items-center gap-4 text-xs text-[var(--color-stone-500)]">
-        <a href="/advertise/" class="hover:text-[var(--color-stone-900)] transition-colors">Advertise</a>
         <a href="/privacy/" class="hover:text-[var(--color-stone-900)] transition-colors">Privacy Policy</a>
         <a href="/terms/" class="hover:text-[var(--color-stone-900)] transition-colors">Terms of Service</a>
       </div>
