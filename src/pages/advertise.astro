@@ -1,8 +1,6 @@
 ---
 import Layout from '../components/Layout.astro';
 
-const formEmbedUrl = 'https://airtable.com/embed/appDx02VjVHFsHlAj/shrfpUJtJqEzOYr0h';
-
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ContactPage',
@@ -78,16 +76,14 @@ const jsonLd = {
         </aside>
 
         <div class="border border-[var(--color-stone-200)] rounded-lg overflow-hidden bg-white">
-          <iframe
-            class="airtable-embed block w-full"
-            src={formEmbedUrl}
-            title="Advertise with BBTea.sg inquiry form"
-            frameborder="0"
-            width="100%"
-            height="1900"
-            loading="lazy"
-            style="background: transparent;"
-          ></iframe>
+          <div
+            style="width:100%;height:500px;"
+            data-fillout-id="7Y8BqnK91xus"
+            data-fillout-embed-type="standard"
+            data-fillout-inherit-parameters
+            data-fillout-dynamic-resize
+          ></div>
+          <script src="https://server.fillout.com/embed/v1/" is:inline></script>
         </div>
       </div>
     </div>
