@@ -1,0 +1,152 @@
+import assert from 'node:assert/strict';
+
+const {
+  mapBrandRecord,
+  mapCoffeeShopRecord,
+  getAllVenueTowns,
+  getAllVenueStations,
+} = await import('../src/lib/airtable.ts');
+const { pathSegment } = await import('../src/lib/url.ts');
+
+assert.equal(pathSegment('%-arabica'), '%25-arabica', 'URL paths should encode Airtable slugs with reserved characters');
+
+const coffeeBrand = mapBrandRecord({
+  id: 'brand_luckin',
+  createdTime: '2026-05-25T00:00:00.000Z',
+  fields: {
+    'Brand Name': 'Luckin Coffee',
+    Slug: 'airtable-luckin-coffee',
+    'Website URL': 'https://www.luckincoffee.com/',
+    Published: true,
+  },
+});
+
+assert.equal(coffeeBrand?.slug, 'airtable-luckin-coffee', 'Brand slugs should come from the Airtable Slug field');
+assert.equal(coffeeBrand?.published, true);
+
+assert.equal(
+  mapBrandRecord({
+    id: 'brand_without_slug',
+    createdTime: '2026-05-25T00:00:00.000Z',
+    fields: {
+      'Brand Name': 'Brand Without Airtable Slug',
+      Published: true,
+    },
+  }),
+  undefined,
+  'Published brands without Airtable slugs should not get generated fallback slugs',
+);
+
+const brandMap = new Map([
+  ['brand_luckin', coffeeBrand],
+]);
+
+const townMap = new Map([
+  ['town_punggol', { name: 'Punggol', slug: 'punggol' }],
+]);
+
+const mallMap = new Map([
+  ['mall_waterway', { name: 'Waterway Point', slug: 'waterway-point' }],
+]);
+
+const mrtMap = new Map([
+  ['mrt_punggol', { name: 'Punggol MRT', slug: 'punggol-mrt', line: 'North East' }],
+]);
+
+const coffeeOutlet = mapCoffeeShopRecord(
+  {
+    id: 'coffee_1',
+    createdTime: '2026-05-25T00:00:00.000Z',
+    fields: {
+      'Outlet Name': 'Luckin Coffee Waterway Point',
+      Slug: 'luckin-coffee-waterway-point',
+      Brand: ['brand_luckin'],
+      Town: ['town_punggol'],
+      'Mall / Location': ['mall_waterway'],
+      Category: 'Coffee',
+      Address: '83 Punggol Central, Waterway Point, #01-K12, Singapore 828761',
+      'Nearest MRT': ['mrt_punggol'],
+      'Opening Hours': 'Monday 8 AM to 10 PM',
+      Phone: '80696025',
+      'Google Maps URL': 'https://maps.example/luckin-waterway',
+      'Website URL': 'https://www.luckincoffee.com/',
+      'Price Range': '$$',
+      'Seating Available': true,
+      'Image URL': 'https://images.example/luckin.jpg',
+      'Gallery Images URL': 'https://images.example/one.jpg, https://images.example/two.jpg',
+      Featured: true,
+      Published: true,
+    },
+  },
+  brandMap,
+  townMap,
+  mallMap,
+  mrtMap,
+);
+
+assert.equal(coffeeOutlet?.type, 'coffee');
+assert.equal(coffeeOutlet?.path, '/coffee-shops/luckin-coffee-waterway-point/');
+assert.equal(coffeeOutlet?.brandName, 'Luckin Coffee');
+assert.equal(coffeeOutlet?.town, 'Punggol');
+assert.equal(coffeeOutlet?.townSlug, 'punggol');
+assert.equal(coffeeOutlet?.mall, 'Waterway Point');
+assert.equal(coffeeOutlet?.mallSlug, 'waterway-point');
+assert.equal(coffeeOutlet?.nearestMrt, 'Punggol MRT');
+assert.equal(coffeeOutlet?.mrtSlug, 'punggol-mrt');
+assert.deepEqual(coffeeOutlet?.galleryImages, [
+  'https://images.example/one.jpg',
+  'https://images.example/two.jpg',
+]);
+
+assert.equal(
+  mapCoffeeShopRecord(
+    {
+      id: 'draft',
+      createdTime: '2026-05-25T00:00:00.000Z',
+      fields: {
+        'Outlet Name': 'Draft Coffee',
+        Slug: 'draft-coffee',
+        Address: 'Somewhere',
+        Published: false,
+      },
+    },
+    brandMap,
+    townMap,
+    mallMap,
+    mrtMap,
+  ),
+  undefined,
+  'Unpublished coffee shops should not become static pages',
+);
+
+const bubbleOutlet = {
+  id: 'bubble_1',
+  name: 'Boba Punggol',
+  slug: 'boba-punggol',
+  brandId: 'brand_boba',
+  brandName: 'Boba Brand',
+  brandSlug: 'boba-brand',
+  town: 'Punggol',
+  townSlug: 'punggol',
+  address: '1 Punggol',
+  nearestMrt: 'Punggol MRT',
+  mrtSlug: 'punggol-mrt',
+  halalFriendly: false,
+  seatingAvailable: false,
+  featured: false,
+  published: true,
+};
+
+assert.deepEqual(
+  getAllVenueTowns([bubbleOutlet], [coffeeOutlet], [{ name: 'Punggol', slug: 'punggol', tagline: 'Waterfront town' }]),
+  [{ name: 'Punggol', slug: 'punggol', tagline: 'Waterfront town' }],
+  'Town pages should include towns that have either bubble tea or coffee outlets and preserve Airtable town records',
+);
+
+assert.deepEqual(
+  getAllVenueStations([bubbleOutlet], [coffeeOutlet]),
+  [{ name: 'Punggol MRT', slug: 'punggol-mrt' }],
+  'Station pages should dedupe stations across bubble tea and coffee outlets',
+);
+
+console.log('coffee shop helpers ok');

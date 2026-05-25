@@ -1,5 +1,6 @@
 ---
 import type { Brand } from '../lib/types';
+import { pathSegment } from '../lib/url';
 
 interface Props {
   brand: Brand;
@@ -10,7 +11,7 @@ const { brand, outletCount = 0 } = Astro.props;
 ---
 
 <article class="group bg-white rounded-lg overflow-hidden border border-[var(--color-stone-200)] card-lift shadow-none">
-  <a href={`/brands/${brand.slug}/`} class="block p-6 space-y-4" data-pagefind-body>
+  <a href={`/brands/${pathSegment(brand.slug)}/`} class="block p-6 space-y-4" data-pagefind-body>
 
     <!-- Logo / Icon -->
     <div class="flex items-start justify-between gap-4">

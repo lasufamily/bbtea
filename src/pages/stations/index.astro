@@ -1,24 +1,24 @@
 ---
 import Layout from '../../components/Layout.astro';
-import { getOutlets } from '../../lib/airtable';
-import { getStationsFromOutlets } from '../../lib/stations';
+import { getCoffeeOutlets, getOutlets, getAllVenueStations } from '../../lib/airtable';
 
-const outlets = await getOutlets();
-const stations = getStationsFromOutlets(outlets);
-const stationOutletCount = (slug: string) => outlets.filter(o => o.mrtSlug === slug).length;
+const [outlets, coffeeOutlets] = await Promise.all([getOutlets(), getCoffeeOutlets()]);
+const stations = getAllVenueStations(outlets, coffeeOutlets);
+const stationOutletCount = (slug: string) =>
+  outlets.filter(o => o.mrtSlug === slug).length + coffeeOutlets.filter(o => o.mrtSlug === slug).length;
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'Bubble Tea Near MRT Stations in Singapore',
-  description: `Find bubble tea shops near ${stations.length} MRT stations across Singapore.`,
+  name: 'Bubble Tea and Coffee Near MRT Stations in Singapore',
+  description: `Find bubble tea and coffee shops near ${stations.length} MRT stations across Singapore.`,
   url: 'https://bbtea.sg/stations/',
 };
 ---
 
 <Layout
-  title="Bubble Tea Near MRT Stations in Singapore | BBTea.sg"
-  description={`Find bubble tea shops near MRT stations in Singapore. Browse ${stations.length} stations with listed bubble tea shops.`}
+  title="Bubble Tea and Coffee Near MRT Stations in Singapore | BBTea.sg"
+  description={`Find bubble tea and coffee shops near MRT stations in Singapore. Browse ${stations.length} stations with listed drink shops.`}
   canonical="https://bbtea.sg/stations/"
   jsonLd={jsonLd}
 >
@@ -32,13 +32,13 @@ const jsonLd = {
         <span class="text-[var(--color-stone-700)] font-medium">Stations</span>
       </nav>
       <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
-        Find Boba Near You
+        Find Drinks Near You
       </p>
       <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight">
-        Bubble Tea Near<br />MRT Stations
+        Bubble Tea and Coffee Near<br />MRT Stations
       </h1>
       <p class="text-[var(--color-stone-600)] text-base max-w-2xl leading-relaxed">
-        Travelling by MRT? Find the best bubble tea shops a short walk from your station.
+        Travelling by MRT? Find bubble tea and coffee shops a short walk from your station.
       </p>
       <div class="text-sm pt-2">
         <span class="font-bold text-xl">{stations.length}</span>
@@ -49,7 +49,7 @@ const jsonLd = {
 
   <!-- Stations -->
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-    <h2 class="sr-only">All MRT Stations With Bubble Tea Shops</h2>
+    <h2 class="sr-only">All MRT Stations With Bubble Tea and Coffee Shops</h2>
     <div class="flex flex-wrap gap-2">
       {stations.map(station => {
         const count = stationOutletCount(station.slug);

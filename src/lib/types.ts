@@ -50,6 +50,48 @@ export interface Outlet {
   published: boolean;
 }
 
+export type VenueType = 'bubble-tea' | 'coffee';
+
+export interface CoffeeOutlet {
+  id: string;
+  type: 'coffee';
+  path: string;
+  name: string;
+  slug: string;
+  brandId: string;
+  brandName: string;
+  brandSlug: string;
+  brandLogo?: string;
+  town: string;
+  townSlug: string;
+  mall?: string;
+  mallSlug?: string;
+  category?: string;
+  streetName?: string;
+  postalCode?: string;
+  address: string;
+  nearestMrt?: string;
+  mrtSlug?: string;
+  openingHours?: string;
+  phone?: string;
+  googleMapsUrl?: string;
+  deliveryLinks?: DeliveryLink[];
+  websiteUrl?: string;
+  facebookUrl?: string;
+  instagramUrl?: string;
+  tiktokUrl?: string;
+  priceRange?: '$' | '$$' | '$$$';
+  halal?: HalalStatus;
+  halalFriendly: boolean;
+  seatingAvailable: boolean;
+  image?: string;
+  galleryImages?: string[];
+  featured: boolean;
+  published: boolean;
+}
+
+export type VenueOutlet = Outlet | CoffeeOutlet;
+
 export type HalalStatus = 'Halal-certified' | 'Halal-friendly' | 'Muslim-owned';
 
 export interface OutletDrinkGroup {
@@ -195,6 +237,34 @@ export interface AirtableOutletFields {
   'Seating Available'?: boolean;
   'Image URL'?: string;         // url field
   'Gallery Images URL'?: string; // url field (comma-separated for multiple)
+  'Featured'?: boolean;
+  'Published'?: boolean;
+}
+
+export interface AirtableCoffeeShopFields {
+  'Outlet Name': string;
+  'Slug': string;
+  'Brand'?: string[];
+  'Town'?: string | string[];
+  'Mall / Location'?: string | string[];
+  'Category'?: string;
+  'Street Name'?: string;
+  'Postal Code'?: string;
+  'Address': string;
+  'Nearest MRT'?: string | string[];
+  'Opening Hours'?: string;
+  'Phone'?: string;
+  'Google Maps URL'?: string;
+  'Delivery Links'?: string;
+  'Website URL'?: string;
+  'Facebook URL'?: string;
+  'Instagram URL'?: string;
+  'TikTok URL'?: string;
+  'Price Range'?: '$' | '$$' | '$$$';
+  'Halal'?: HalalStatus;
+  'Seating Available'?: boolean;
+  'Image URL'?: string;
+  'Gallery Images URL'?: string;
   'Featured'?: boolean;
   'Published'?: boolean;
 }

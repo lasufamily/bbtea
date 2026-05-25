@@ -1,6 +1,6 @@
-import type { MrtStation, Outlet } from './types';
+import type { MrtStation, VenueOutlet } from './types';
 
-export function getStationsFromOutlets(outlets: Outlet[]): MrtStation[] {
+export function getStationsFromOutlets(outlets: VenueOutlet[]): MrtStation[] {
   const stationMap = new Map<string, MrtStation>();
 
   for (const outlet of outlets) {

@@ -1,17 +1,18 @@
 ---
 import Layout from '../../components/Layout.astro';
 import ListingCard from '../../components/ListingCard.astro';
-import { getMalls, getOutlets } from '../../lib/airtable';
+import { getCoffeeOutlets, getMalls, getOutlets } from '../../lib/airtable';
 import type { Mall } from '../../lib/types';
 
 export async function getStaticPaths() {
-  const [allOutlets, malls] = await Promise.all([getOutlets(), getMalls()]);
+  const [allOutlets, coffeeOutlets, malls] = await Promise.all([getOutlets(), getCoffeeOutlets(), getMalls()]);
 
   return malls.map(mall => {
     const outlets = allOutlets.filter(o => o.mallSlug === mall.slug);
+    const coffee = coffeeOutlets.filter(o => o.mallSlug === mall.slug);
     return {
       params: { slug: mall.slug },
-      props:  { mall, outlets, allMalls: malls },
+      props:  { mall, outlets, coffeeOutlets: coffee, allMalls: malls },
     };
   });
 }
@@ -19,25 +20,27 @@ export async function getStaticPaths() {
 interface Props {
   mall: Mall;
   outlets: Awaited<ReturnType<typeof getOutlets>>;
+  coffeeOutlets: Awaited<ReturnType<typeof getCoffeeOutlets>>;
   allMalls: Mall[];
 }
-const { mall, outlets, allMalls } = Astro.props;
+const { mall, outlets, coffeeOutlets, allMalls } = Astro.props;
 
-const brandSet = [...new Set(outlets.map(o => o.brandName).filter(Boolean))];
-const townSet = [...new Set(outlets.map(o => o.town).filter(Boolean))];
+const brandSet = [...new Set([...outlets, ...coffeeOutlets].map(o => o.brandName).filter(Boolean))];
+const townSet = [...new Set([...outlets, ...coffeeOutlets].map(o => o.town).filter(Boolean))];
+const venueCount = outlets.length + coffeeOutlets.length;
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: `Bubble Tea Shops at ${mall.name}, Singapore`,
-  description: mall.description ?? `Discover bubble tea shops at ${mall.name}, Singapore.`,
+  name: `Bubble Tea and Coffee Shops at ${mall.name}, Singapore`,
+  description: mall.description ?? `Discover bubble tea and coffee shops at ${mall.name}, Singapore.`,
   url: `https://bbtea.sg/malls/${mall.slug}/`,
 };
 ---
 
 <Layout
-  title={`Bubble Tea Shops at ${mall.name} | BBTea.sg`}
-  description={`Discover ${outlets.length} bubble tea shops at ${mall.name}, Singapore. ${mall.description ?? ''}`}
+  title={`Bubble Tea and Coffee Shops at ${mall.name} | BBTea.sg`}
+  description={`Discover ${outlets.length} bubble tea shops and ${coffeeOutlets.length} coffee shops at ${mall.name}, Singapore. ${mall.description ?? ''}`}
   image={mall.image}
   canonical={`https://bbtea.sg/malls/${mall.slug}/`}
   jsonLd={jsonLd}
@@ -59,7 +62,7 @@ const jsonLd = {
         {mall.name} · Singapore
       </p>
       <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight">
-        Bubble Tea Shops<br />
+        Bubble Tea and Coffee<br />
         at {mall.name}
       </h1>
       {mall.description && (
@@ -69,8 +72,8 @@ const jsonLd = {
       )}
       <div class="flex flex-wrap items-center gap-6 pt-2">
         <div class="text-sm">
-          <span class="font-bold text-xl">{outlets.length}</span>
-          <span class="text-[var(--color-stone-400)] ml-1">{outlets.length === 1 ? 'shop' : 'shops'}</span>
+          <span class="font-bold text-xl">{venueCount}</span>
+          <span class="text-[var(--color-stone-400)] ml-1">{venueCount === 1 ? 'venue' : 'venues'}</span>
         </div>
         {brandSet.length > 0 && (
           <div class="text-sm">
@@ -101,9 +104,24 @@ const jsonLd = {
 
   <!-- Outlets -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    {outlets.length > 0 ? (
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-        {outlets.map(outlet => <ListingCard outlet={outlet} />)}
+    {venueCount > 0 ? (
+      <div class="space-y-12">
+        {outlets.length > 0 && (
+          <section class="space-y-5">
+            <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)]">Bubble Tea Shops</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+              {outlets.map(outlet => <ListingCard outlet={outlet} />)}
+            </div>
+          </section>
+        )}
+        {coffeeOutlets.length > 0 && (
+          <section class="space-y-5">
+            <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)]">Coffee Shops</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+              {coffeeOutlets.map(outlet => <ListingCard outlet={outlet} />)}
+            </div>
+          </section>
+        )}
       </div>
     ) : (
       <div class="text-center py-20 space-y-4">

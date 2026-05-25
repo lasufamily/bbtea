@@ -1,20 +1,20 @@
 ---
 import Layout from '../../components/Layout.astro';
 import ListingCard from '../../components/ListingCard.astro';
-import { getOutlets, getTowns } from '../../lib/airtable';
+import { getCoffeeOutlets, getOutlets, getTowns, getAllVenueTowns } from '../../lib/airtable';
 import { formatNumber, parseTownList } from '../../lib/townContent';
-import { getTownsFromOutlets } from '../../lib/towns';
 import type { Town } from '../../lib/types';
 
 export async function getStaticPaths() {
-  const [allOutlets, towns] = await Promise.all([getOutlets(), getTowns()]);
-  const activeTowns = getTownsFromOutlets(allOutlets, towns);
+  const [allOutlets, coffeeOutlets, towns] = await Promise.all([getOutlets(), getCoffeeOutlets(), getTowns()]);
+  const activeTowns = getAllVenueTowns(allOutlets, coffeeOutlets, towns);
 
   return activeTowns.map(town => {
     const outlets = allOutlets.filter(o => o.townSlug === town.slug);
+    const coffee = coffeeOutlets.filter(o => o.townSlug === town.slug);
     return {
       params: { slug: town.slug },
-      props:  { town, outlets, allTowns: activeTowns },
+      props:  { town, outlets, coffeeOutlets: coffee, allTowns: activeTowns },
     };
   });
 }
@@ -22,12 +22,14 @@ export async function getStaticPaths() {
 interface Props {
   town: Town;
   outlets: Awaited<ReturnType<typeof getOutlets>>;
+  coffeeOutlets: Awaited<ReturnType<typeof getCoffeeOutlets>>;
   allTowns: Town[];
 }
-const { town, outlets, allTowns } = Astro.props;
+const { town, outlets, coffeeOutlets, allTowns } = Astro.props;
+const venueCount = outlets.length + coffeeOutlets.length;
 
 // Unique brands in this town
-const brandSet = [...new Set(outlets.map(o => o.brandName))];
+const brandSet = [...new Set([...outlets, ...coffeeOutlets].map(o => o.brandName).filter(Boolean))];
 const knownFor = town.knownFor ?? [];
 const mrtLines = town.mrtLines ?? [];
 const descriptionParagraphs = town.description?.split(/\n+/).map(p => p.trim()).filter(Boolean) ?? [];
@@ -87,8 +89,8 @@ const guideSections = [
 })).filter(section => section.groups.length > 0);
 
 const metaDescription = town.tagline
-  ? `${town.tagline} Find ${outlets.length} bubble tea shops in ${town.name}, with local food, transport, parks and neighbourhood tips.`
-  : `Discover ${outlets.length} bubble tea shops in ${town.name}, Singapore, plus local food, transport, parks and neighbourhood tips.`;
+  ? `${town.tagline} Find ${outlets.length} bubble tea shops and ${coffeeOutlets.length} coffee shops in ${town.name}, with local food, transport, parks and neighbourhood tips.`
+  : `Discover ${outlets.length} bubble tea shops and ${coffeeOutlets.length} coffee shops in ${town.name}, Singapore, plus local food, transport, parks and neighbourhood tips.`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -118,12 +120,12 @@ const jsonLd = {
     {
       '@type': 'ItemList',
       '@id': `https://bbtea.sg/towns/${town.slug}/#outlets`,
-      name: `Bubble tea shops in ${town.name}`,
-      numberOfItems: outlets.length,
-      itemListElement: outlets.map((outlet, index) => ({
+      name: `Bubble tea and coffee shops in ${town.name}`,
+      numberOfItems: venueCount,
+      itemListElement: [...outlets, ...coffeeOutlets].map((outlet, index) => ({
         '@type': 'ListItem',
         position: index + 1,
-        url: `https://bbtea.sg/bubble-tea-shops/${outlet.slug}/`,
+        url: 'path' in outlet ? `https://bbtea.sg${outlet.path}` : `https://bbtea.sg/bubble-tea-shops/${outlet.slug}/`,
         name: outlet.name,
       })),
     },
@@ -180,6 +182,10 @@ const jsonLd = {
             <div class="flex justify-between gap-4">
               <dt class="text-[var(--color-stone-500)]">Bubble tea shops</dt>
               <dd class="font-semibold text-[var(--color-stone-900)]">{outlets.length}</dd>
+            </div>
+            <div class="flex justify-between gap-4">
+              <dt class="text-[var(--color-stone-500)]">Coffee shops</dt>
+              <dd class="font-semibold text-[var(--color-stone-900)]">{coffeeOutlets.length}</dd>
             </div>
             <div class="flex justify-between gap-4">
               <dt class="text-[var(--color-stone-500)]">Brands listed</dt>
@@ -246,6 +252,7 @@ const jsonLd = {
       </h2>
       <p class="text-[var(--color-stone-600)] leading-relaxed">
         This guide lists {outlets.length} {outlets.length === 1 ? 'bubble tea shop' : 'bubble tea shops'} across {brandSet.length} {brandSet.length === 1 ? 'brand' : 'brands'} in {town.name}, alongside the local food, transport and neighbourhood context that makes the area easier to explore.
+        {coffeeOutlets.length > 0 && ` It also includes ${coffeeOutlets.length} ${coffeeOutlets.length === 1 ? 'coffee outlet' : 'coffee outlets'} from your Airtable Coffee Shops table.`}
       </p>
       <div class="flex flex-wrap items-center gap-6 pt-2">
         <div class="text-sm">
@@ -291,6 +298,27 @@ const jsonLd = {
       </div>
     )}
   </section>
+
+  {coffeeOutlets.length > 0 && (
+    <section class="bg-[var(--color-cream-100)] border-y border-[var(--color-stone-200)] py-12 lg:py-14" data-pagefind-body>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <div class="max-w-3xl space-y-3">
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
+            Coffee in {town.name}
+          </p>
+          <h2 class="text-2xl lg:text-3xl font-display font-semibold text-[var(--color-stone-900)]">
+            Coffee outlets around {town.name}
+          </h2>
+          <p class="text-[var(--color-stone-600)] leading-relaxed">
+            These coffee listings are pulled from your Airtable Coffee Shops table and linked to the same town, mall and MRT records as the rest of the directory.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {coffeeOutlets.map(outlet => <ListingCard outlet={outlet} />)}
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- Local guide -->
   {guideSections.length > 0 && (

@@ -1,6 +1,7 @@
 ---
 import Layout from '../../components/Layout.astro';
 import { getBrands, getDrinks, getDrinksByBrand } from '../../lib/airtable';
+import { pathSegment } from '../../lib/url';
 import type { Brand, Drink } from '../../lib/types';
 
 export async function getStaticPaths() {
@@ -134,7 +135,7 @@ const jsonLd = {
             <span class="text-sm text-[var(--color-stone-500)]">
               {groupedDrinks.length} categor{groupedDrinks.length === 1 ? 'y' : 'ies'}
             </span>
-            <a href={`/brands/${brand.slug}/`} class="text-sm font-medium text-[var(--color-forest-700)] hover:underline">
+            <a href={`/brands/${pathSegment(brand.slug)}/`} class="text-sm font-medium text-[var(--color-forest-700)] hover:underline">
               View brand profile
             </a>
           </div>

@@ -1,12 +1,12 @@
 ---
 import Layout from '../../components/Layout.astro';
 import BrandCard from '../../components/BrandCard.astro';
-import { getBrands, getOutlets } from '../../lib/airtable';
+import { getBrands, getCoffeeOutlets, getOutlets } from '../../lib/airtable';
 
-const [brands, outlets] = await Promise.all([getBrands(), getOutlets()]);
+const [brands, outlets, coffeeOutlets] = await Promise.all([getBrands(), getOutlets(), getCoffeeOutlets()]);
 
 const brandOutletCount = (brandSlug: string) =>
-  outlets.filter(o => o.brandSlug === brandSlug).length;
+  outlets.filter(o => o.brandSlug === brandSlug).length + coffeeOutlets.filter(o => o.brandSlug === brandSlug).length;
 
 const featuredBrands = brands.filter(b => b.featured);
 const allBrandsSorted = [...brands].sort((a, b) => a.name.localeCompare(b.name));
@@ -14,15 +14,15 @@ const allBrandsSorted = [...brands].sort((a, b) => a.name.localeCompare(b.name))
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'Bubble Tea Brands in Singapore',
-  description: `Browse ${brands.length} bubble tea brands across Singapore.`,
+  name: 'Bubble Tea and Coffee Brands in Singapore',
+  description: `Browse ${brands.length} bubble tea and coffee brands across Singapore.`,
   url: 'https://bbtea.sg/brands/',
 };
 ---
 
 <Layout
-  title="Bubble Tea Brands in Singapore | BBTea.sg"
-  description={`Explore all ${brands.length} bubble tea brands in Singapore, from Taiwan-born icons to local favourites.`}
+  title="Bubble Tea and Coffee Brands in Singapore | BBTea.sg"
+  description={`Explore all ${brands.length} bubble tea and coffee brands in Singapore, from Taiwan-born icons to local favourites and coffee chains.`}
   canonical="https://bbtea.sg/brands/"
   jsonLd={jsonLd}
 >
@@ -39,10 +39,10 @@ const jsonLd = {
         The Names You Know
       </p>
       <h1 class="text-3xl lg:text-5xl font-display font-bold text-[var(--color-stone-900)] leading-tight">
-        Bubble Tea Brands<br />in Singapore
+        Bubble Tea and Coffee<br />Brands in Singapore
       </h1>
       <p class="text-[var(--color-stone-600)] text-base max-w-2xl leading-relaxed">
-        From Taiwan-born icons to Singapore originals — meet the {brands.length} brands shaping the boba scene across the island.
+        From Taiwan-born boba icons to modern coffee chains — meet the {brands.length} brands shaping drink runs across Singapore.
       </p>
       <div class="flex flex-wrap items-center gap-6 pt-2">
         <div class="text-sm">
@@ -51,7 +51,11 @@ const jsonLd = {
         </div>
         <div class="text-sm">
           <span class="font-bold text-xl text-[var(--color-stone-900)]">{outlets.length}</span>
-          <span class="text-[var(--color-stone-400)] ml-1">total outlets</span>
+          <span class="text-[var(--color-stone-400)] ml-1">bubble tea outlets</span>
+        </div>
+        <div class="text-sm">
+          <span class="font-bold text-xl text-[var(--color-stone-900)]">{coffeeOutlets.length}</span>
+          <span class="text-[var(--color-stone-400)] ml-1">coffee outlets</span>
         </div>
       </div>
     </div>

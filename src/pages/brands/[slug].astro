@@ -2,7 +2,8 @@
 import Layout from '../../components/Layout.astro';
 import ListingCard from '../../components/ListingCard.astro';
 import DrinkCard from '../../components/DrinkCard.astro';
-import { getBrands, getDrinksByBrand, getOutlets } from '../../lib/airtable';
+import { getBrands, getCoffeeOutlets, getDrinksByBrand, getOutlets } from '../../lib/airtable';
+import { pathSegment } from '../../lib/url';
 import type { Brand } from '../../lib/types';
 
 export async function getStaticPaths() {
@@ -18,8 +19,12 @@ const { brand } = Astro.props;
 
 const allOutlets = await getOutlets();
 const outlets    = allOutlets.filter(o => o.brandSlug === brand.slug);
+const allCoffeeOutlets = await getCoffeeOutlets();
+const coffeeOutlets = allCoffeeOutlets.filter(o => o.brandSlug === brand.slug);
 const drinks     = await getDrinksByBrand(brand.slug);
 const hasMenuPage = drinks.length > 0;
+const venueCount = outlets.length + coffeeOutlets.length;
+const primaryCategory = coffeeOutlets.length > 0 && outlets.length === 0 ? 'Coffee' : 'Bubble Tea';
 
 const brandLinks = [
   { label: 'Website', url: brand.websiteUrl },
@@ -33,18 +38,18 @@ const jsonLd = {
   '@type': 'Organization',
   name: brand.name,
   description: brand.description,
-  url: brand.websiteUrl ?? `https://bbtea.sg/brands/${brand.slug}`,
+  url: brand.websiteUrl ?? `https://bbtea.sg/brands/${pathSegment(brand.slug)}`,
   ...(brand.logo && { logo: brand.logo }),
   ...(brandLinks.length > 0 && { sameAs: brandLinks.map(link => link.url) }),
 };
 ---
 
 <Layout
-  title={`${brand.name} Bubble Tea Outlets in Singapore | BBTea.sg`}
-  description={`Find all ${brand.name} bubble tea outlets in Singapore. ${brand.description ?? ''}`}
+  title={`${brand.name} Outlets in Singapore | BBTea.sg`}
+  description={`Find all ${brand.name} outlets in Singapore, including bubble tea and coffee listings where available. ${brand.description ?? ''}`}
   image={brand.logo}
   type="article"
-  canonical={`https://bbtea.sg/brands/${brand.slug}/`}
+  canonical={`https://bbtea.sg/brands/${pathSegment(brand.slug)}/`}
   jsonLd={jsonLd}
 >
 
@@ -81,14 +86,26 @@ const jsonLd = {
           )}
           <div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
             <span class="text-sm text-[var(--color-stone-500)]">
-              {outlets.length} outlet{outlets.length !== 1 ? 's' : ''} in Singapore
+              {venueCount} outlet{venueCount !== 1 ? 's' : ''} in Singapore
             </span>
-            <span class="text-sm text-[var(--color-stone-500)]">
-              {drinks.length} drink{drinks.length !== 1 ? 's' : ''}
-            </span>
+            {outlets.length > 0 && (
+              <span class="text-sm text-[var(--color-stone-500)]">
+                {outlets.length} bubble tea outlet{outlets.length !== 1 ? 's' : ''}
+              </span>
+            )}
+            {coffeeOutlets.length > 0 && (
+              <span class="text-sm text-[var(--color-stone-500)]">
+                {coffeeOutlets.length} coffee outlet{coffeeOutlets.length !== 1 ? 's' : ''}
+              </span>
+            )}
+            {drinks.length > 0 && (
+              <span class="text-sm text-[var(--color-stone-500)]">
+                {drinks.length} drink{drinks.length !== 1 ? 's' : ''}
+              </span>
+            )}
             {hasMenuPage && (
               <a
-                href={`/menus/${brand.slug}/`}
+                href={`/menus/${pathSegment(brand.slug)}/`}
                 class="text-sm font-medium text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] flex items-center gap-1 transition-colors"
               >
                 View menu
@@ -118,19 +135,33 @@ const jsonLd = {
 
   <!-- Outlets grid -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    {outlets.length > 0 ? (
-      <>
+    {venueCount > 0 ? (
+      <div class="space-y-12">
+        {outlets.length > 0 && (
+          <section>
         <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)] mb-6">
-          All {brand.name} Locations
+          {brand.name} Bubble Tea Locations
         </h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {outlets.map(outlet => <ListingCard outlet={outlet} />)}
         </div>
-      </>
+          </section>
+        )}
+        {coffeeOutlets.length > 0 && (
+          <section>
+            <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)] mb-6">
+              {brand.name} Coffee Locations
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+              {coffeeOutlets.map(outlet => <ListingCard outlet={outlet} />)}
+            </div>
+          </section>
+        )}
+      </div>
     ) : (
       <div class="text-center py-20 space-y-4">
         <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">No Results</p>
-        <p class="text-[var(--color-stone-500)]">No outlets listed yet for {brand.name}.</p>
+        <p class="text-[var(--color-stone-500)]">No {primaryCategory.toLowerCase()} outlets listed yet for {brand.name}.</p>
         <a href="/directory/" class="text-[var(--color-forest-700)] font-medium hover:underline">Browse all shops →</a>
       </div>
     )}

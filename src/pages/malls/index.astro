@@ -1,27 +1,27 @@
 ---
 import Layout from '../../components/Layout.astro';
 import MallCard from '../../components/MallCard.astro';
-import { getMalls, getOutlets } from '../../lib/airtable';
+import { getCoffeeOutlets, getMalls, getOutlets } from '../../lib/airtable';
 
-const [malls, outlets] = await Promise.all([getMalls(), getOutlets()]);
+const [malls, outlets, coffeeOutlets] = await Promise.all([getMalls(), getOutlets(), getCoffeeOutlets()]);
 
 const mallOutletCount = (mallSlug: string) =>
-  outlets.filter(o => o.mallSlug === mallSlug).length;
+  outlets.filter(o => o.mallSlug === mallSlug).length + coffeeOutlets.filter(o => o.mallSlug === mallSlug).length;
 
-const totalOutlets = outlets.filter(o => o.mallSlug).length;
+const totalOutlets = outlets.filter(o => o.mallSlug).length + coffeeOutlets.filter(o => o.mallSlug).length;
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'Bubble Tea by Mall in Singapore',
-  description: 'Browse bubble tea shops by shopping mall and food centre across Singapore.',
+  name: 'Bubble Tea and Coffee by Mall in Singapore',
+  description: 'Browse bubble tea and coffee shops by shopping mall and food centre across Singapore.',
   url: 'https://bbtea.sg/malls/',
 };
 ---
 
 <Layout
-  title="Bubble Tea by Mall in Singapore | BBTea.sg"
-  description={`Browse bubble tea shops across ${malls.length} malls, food centres, and shopping destinations in Singapore.`}
+  title="Bubble Tea and Coffee by Mall in Singapore | BBTea.sg"
+  description={`Browse bubble tea and coffee shops across ${malls.length} malls, food centres, and shopping destinations in Singapore.`}
   canonical="https://bbtea.sg/malls/"
   jsonLd={jsonLd}
 >
@@ -38,10 +38,10 @@ const jsonLd = {
         Browse by Mall
       </p>
       <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight">
-        Bubble Tea by Mall
+        Bubble Tea and Coffee by Mall
       </h1>
       <p class="text-[var(--color-stone-600)] text-base max-w-2xl leading-relaxed">
-        Find boba at Singapore's malls, markets, food centres, and shopping destinations.
+        Find boba and coffee at Singapore's malls, markets, food centres, and shopping destinations.
       </p>
       <div class="flex flex-wrap items-center gap-6 pt-2">
         <div class="text-sm">

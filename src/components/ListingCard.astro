@@ -1,12 +1,22 @@
 ---
-import type { Outlet } from '../lib/types';
+import type { VenueOutlet } from '../lib/types';
+import { pathSegment } from '../lib/url';
 
 interface Props {
-  outlet: Outlet;
+  outlet: VenueOutlet;
   featured?: boolean;
 }
 
 const { outlet, featured = false } = Astro.props;
+const listingPath = 'path' in outlet ? outlet.path : `/bubble-tea-shops/${pathSegment(outlet.slug)}/`;
+const venueType = 'type' in outlet ? outlet.type : 'bubble-tea';
+const venueLabel = venueType === 'coffee' ? 'Coffee Shop' : 'Bubble Tea Shop';
+const primaryTags = venueType === 'coffee'
+  ? [outlet.category, outlet.seatingAvailable ? 'Seating' : undefined].filter(Boolean)
+  : outlet.popularDrinks ?? [];
+const categoryData = venueType === 'coffee'
+  ? outlet.category?.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') ?? ''
+  : (outlet.drinkCategorySlugs ?? []).join(' ');
 
 const priceLabels: Record<string, string> = {
   '$':   'Budget-friendly',
@@ -28,7 +38,7 @@ const searchText = [
   outlet.town,
   outlet.mall,
   outlet.nearestMrt,
-  ...(outlet.popularDrinks ?? []),
+  ...primaryTags,
 ].filter(Boolean).join(' ').toLowerCase();
 ---
 
@@ -38,19 +48,19 @@ const searchText = [
   data-listing-card
   data-town={outlet.townSlug}
   data-brand={outlet.brandSlug}
-  data-category={(outlet.drinkCategorySlugs ?? []).join(' ')}
+  data-category={categoryData}
   data-mrt={outlet.mrtSlug ?? ''}
   data-price={outlet.priceRange ?? ''}
   data-halal={outlet.halalFriendly ? 'true' : 'false'}
   data-search={searchText}
 >
   <!-- Image -->
-  <a href={`/bubble-tea-shops/${outlet.slug}/`} class="block overflow-hidden aspect-[4/3] bg-[var(--color-cream-100)] relative" tabindex="-1" aria-hidden="true">
+  <a href={listingPath} class="block overflow-hidden aspect-[4/3] bg-[var(--color-cream-100)] relative" tabindex="-1" aria-hidden="true">
     {outlet.image ? (
       <>
         <img
           src={outlet.image}
-          alt={`${outlet.name} — ${outlet.brandName} in ${outlet.town}`}
+          alt={`${outlet.name} — ${outlet.brandName || venueLabel} in ${outlet.town}`}
           class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           loading="lazy"
           decoding="async"
@@ -59,12 +69,12 @@ const searchText = [
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
         />
         <div class="w-full h-full absolute inset-0 items-center justify-center bg-[var(--color-cream-100)]" style="display:none">
-          <span class="text-sm font-semibold tracking-wide uppercase text-[var(--color-stone-400)]">Shop</span>
+          <span class="text-sm font-semibold tracking-wide uppercase text-[var(--color-stone-400)]">{venueLabel}</span>
         </div>
       </>
     ) : (
       <div class="w-full h-full flex items-center justify-center bg-[var(--color-cream-100)]">
-        <span class="text-sm font-semibold tracking-wide uppercase text-[var(--color-stone-400)]">Shop</span>
+        <span class="text-sm font-semibold tracking-wide uppercase text-[var(--color-stone-400)]">{venueLabel}</span>
       </div>
     )}
   </a>
@@ -74,12 +84,18 @@ const searchText = [
 
     <!-- Brand pill + badges -->
     <div class="flex items-center justify-between gap-2 flex-wrap">
-      <a
-        href={`/brands/${outlet.brandSlug}/`}
-        class="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] uppercase transition-colors"
-      >
-        {outlet.brandName}
-      </a>
+      {outlet.brandSlug ? (
+        <a
+          href={`/brands/${pathSegment(outlet.brandSlug)}/`}
+          class="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] uppercase transition-colors"
+        >
+          {outlet.brandName}
+        </a>
+      ) : (
+        <span class="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide text-[var(--color-forest-700)] uppercase">
+          {venueLabel}
+        </span>
+      )}
       <div class="flex items-center gap-1.5 flex-wrap">
         {outlet.featured && (
           <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-white text-[var(--color-stone-700)] border border-[var(--color-stone-200)] flex items-center gap-0.5">
@@ -102,7 +118,7 @@ const searchText = [
 
     <!-- Outlet name -->
     <h3 class="text-base font-display font-semibold text-[var(--color-stone-900)] leading-snug">
-      <a href={`/bubble-tea-shops/${outlet.slug}/`} class="hover:text-[var(--color-forest-700)] transition-colors">
+      <a href={listingPath} class="hover:text-[var(--color-forest-700)] transition-colors">
         {outlet.name}
       </a>
     </h3>
@@ -146,16 +162,16 @@ const searchText = [
     </div>
 
     <!-- Popular drinks -->
-    {outlet.popularDrinks && outlet.popularDrinks.length > 0 && (
+    {primaryTags.length > 0 && (
       <div class="flex flex-wrap gap-1.5 pt-1">
-        {outlet.popularDrinks.slice(0, 3).map(drink => (
+        {primaryTags.slice(0, 3).map(drink => (
           <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-[var(--color-cream-100)] text-[var(--color-stone-600)] border border-[var(--color-cream-200)]">
             {drink}
           </span>
         ))}
-        {outlet.popularDrinks.length > 3 && (
+        {primaryTags.length > 3 && (
           <span class="text-[11px] font-medium px-2.5 py-1 rounded-md bg-[var(--color-cream-100)] text-[var(--color-stone-400)]">
-            +{outlet.popularDrinks.length - 3} more
+            +{primaryTags.length - 3} more
           </span>
         )}
       </div>
@@ -164,7 +180,7 @@ const searchText = [
     <!-- View link -->
     <div class="pt-2 border-t border-[var(--color-stone-100)] flex items-center justify-between">
       <a
-        href={`/bubble-tea-shops/${outlet.slug}/`}
+        href={listingPath}
         class="text-sm font-semibold text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] flex items-center gap-1 transition-colors group/link"
       >
         View Details

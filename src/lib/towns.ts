@@ -1,6 +1,6 @@
-import type { Outlet, Town } from './types';
+import type { Town, VenueOutlet } from './types';
 
-export function getTownsFromOutlets(outlets: Outlet[], towns: Town[] = []): Town[] {
+export function getTownsFromOutlets(outlets: VenueOutlet[], towns: Town[] = []): Town[] {
   const townDetails = new Map(towns.map(town => [town.slug, town]));
   const townMap = new Map<string, Town>();
 

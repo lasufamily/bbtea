@@ -1,29 +1,28 @@
 ---
 import Layout from '../../components/Layout.astro';
 import TownCard from '../../components/TownCard.astro';
-import { getOutlets, getTowns } from '../../lib/airtable';
-import { getTownsFromOutlets } from '../../lib/towns';
+import { getCoffeeOutlets, getOutlets, getTowns, getAllVenueTowns } from '../../lib/airtable';
 
-const [outlets, allTowns] = await Promise.all([getOutlets(), getTowns()]);
-const towns = getTownsFromOutlets(outlets, allTowns);
+const [outlets, coffeeOutlets, allTowns] = await Promise.all([getOutlets(), getCoffeeOutlets(), getTowns()]);
+const towns = getAllVenueTowns(outlets, coffeeOutlets, allTowns);
 
 const townOutletCount = (townSlug: string) =>
-  outlets.filter(o => o.townSlug === townSlug).length;
+  outlets.filter(o => o.townSlug === townSlug).length + coffeeOutlets.filter(o => o.townSlug === townSlug).length;
 
-const totalOutlets = outlets.length;
+const totalOutlets = outlets.length + coffeeOutlets.length;
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'Bubble Tea by Town — Singapore',
-  description: 'Browse bubble tea shops by neighbourhood across Singapore.',
+  name: 'Bubble Tea and Coffee by Town — Singapore',
+  description: 'Browse bubble tea and coffee shops by neighbourhood across Singapore.',
   url: 'https://bbtea.sg/towns/',
 };
 ---
 
 <Layout
-  title="Bubble Tea by Town in Singapore | BBTea.sg"
-  description={`Browse bubble tea shops across ${towns.length} neighbourhoods in Singapore.`}
+  title="Bubble Tea and Coffee by Town in Singapore | BBTea.sg"
+  description={`Browse bubble tea and coffee shops across ${towns.length} neighbourhoods in Singapore.`}
   canonical="https://bbtea.sg/towns/"
   jsonLd={jsonLd}
 >
@@ -40,10 +39,10 @@ const jsonLd = {
         Browse by Location
       </p>
       <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight">
-        Bubble Tea by Town
+        Bubble Tea and Coffee by Town
       </h1>
       <p class="text-[var(--color-stone-600)] text-base max-w-2xl leading-relaxed">
-        Find the best boba shops in your neighbourhood — from heartland favourites to Orchard corridor flagships.
+        Find boba and coffee shops in your neighbourhood, from heartland favourites to Orchard corridor flagships.
       </p>
       <div class="flex flex-wrap items-center gap-6 pt-2">
         <div class="text-sm">

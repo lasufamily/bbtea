@@ -1,43 +1,43 @@
 ---
 import Layout from '../../components/Layout.astro';
 import ListingCard from '../../components/ListingCard.astro';
-import { getOutlets } from '../../lib/airtable';
+import { getCoffeeOutlets } from '../../lib/airtable';
 import { pathSegment } from '../../lib/url';
-import type { Outlet } from '../../lib/types';
+import type { CoffeeOutlet } from '../../lib/types';
 
 export async function getStaticPaths() {
-  const outlets = await getOutlets();
+  const outlets = await getCoffeeOutlets();
   return outlets.map(outlet => ({
     params: { slug: outlet.slug },
     props:  { outlet },
   }));
 }
 
-interface Props { outlet: Outlet }
+interface Props { outlet: CoffeeOutlet }
 const { outlet } = Astro.props;
 
 // Related outlets: same town or same brand (excluding self)
-const allOutlets    = await getOutlets();
+const allOutlets    = await getCoffeeOutlets();
 const relatedOutlets = allOutlets
   .filter(o =>
     o.id !== outlet.id &&
     (o.townSlug === outlet.townSlug || o.brandSlug === outlet.brandSlug)
   )
   .slice(0, 3);
-const outletDrinks = outlet.drinks ?? outlet.popularDrinks?.map(name => ({ name, slug: undefined })) ?? [];
-const hasMenuPage = outletDrinks.length > 0 && Boolean(outlet.brandSlug);
 const halalLabel = outlet.halal ?? (outlet.halalFriendly ? 'Halal' : undefined);
 const hasFeatures = Boolean(halalLabel) || outlet.seatingAvailable;
+const brandLabel = outlet.brandName || outlet.category || 'Coffee';
 
 // JSON-LD structured data
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'FoodEstablishment',
+  '@type': 'CafeOrCoffeeShop',
   name: outlet.name,
-  description: `${outlet.brandName} bubble tea outlet in ${outlet.town}, Singapore.`,
+  description: `${brandLabel} outlet in ${outlet.town}, Singapore.`,
   address: {
     '@type': 'PostalAddress',
     streetAddress: outlet.address,
+    postalCode: outlet.postalCode,
     addressLocality: outlet.town,
     addressCountry: 'SG',
   },
@@ -45,20 +45,21 @@ const jsonLd = {
   ...(outlet.googleMapsUrl && { hasMap: outlet.googleMapsUrl }),
   ...(outlet.openingHours  && { openingHours: outlet.openingHours }),
   ...(outlet.image         && { image: outlet.image }),
+  ...(outlet.websiteUrl    && { sameAs: outlet.websiteUrl }),
   priceRange: outlet.priceRange ?? '$$',
-  servesCuisine: 'Bubble Tea',
-  url: `https://bbtea.sg/bubble-tea-shops/${outlet.slug}/`,
+  servesCuisine: 'Coffee',
+  url: `https://bbtea.sg${outlet.path}`,
 };
 
 const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '$$$': 'Premium' };
 ---
 
 <Layout
-  title={`${outlet.name} — ${outlet.brandName} in ${outlet.town} | BBTea.sg`}
-  description={`${outlet.name} is a ${outlet.brandName} bubble tea shop located at ${outlet.mall ?? outlet.address}, ${outlet.town}. ${outlet.popularDrinks?.slice(0,2).join(', ') ?? ''}`}
+  title={`${outlet.name} — Coffee in ${outlet.town} | BBTea.sg`}
+  description={`${outlet.name} is a coffee outlet${outlet.brandName ? ` by ${outlet.brandName}` : ''} located at ${outlet.mall ?? outlet.address}, ${outlet.town}.`}
   image={outlet.image}
   type="article"
-  canonical={`https://bbtea.sg/bubble-tea-shops/${outlet.slug}/`}
+  canonical={`https://bbtea.sg${outlet.path}`}
   jsonLd={jsonLd}
 >
 
@@ -68,7 +69,7 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
       <>
         <img
           src={outlet.image}
-          alt={`${outlet.name} — ${outlet.brandName}`}
+          alt={`${outlet.name} — ${brandLabel}`}
           class="w-full h-full object-cover opacity-90"
           fetchpriority="high"
           decoding="async"
@@ -77,12 +78,12 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
         />
         <div class="w-full h-full absolute inset-0 items-center justify-center bg-[var(--color-cream-100)]" style="display:none">
-          <span class="text-sm font-semibold tracking-wide uppercase text-[var(--color-stone-400)]">Shop</span>
+          <span class="text-sm font-semibold tracking-wide uppercase text-[var(--color-stone-400)]">Coffee Shop</span>
         </div>
       </>
     ) : (
       <div class="w-full h-full flex items-center justify-center bg-[var(--color-cream-100)]">
-        <span class="text-sm font-semibold tracking-wide uppercase text-[var(--color-stone-400)]">Shop</span>
+        <span class="text-sm font-semibold tracking-wide uppercase text-[var(--color-stone-400)]">Coffee Shop</span>
       </div>
     )}
     <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-stone-900)]/70 via-transparent to-transparent"></div>
@@ -109,12 +110,16 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
         <!-- Header -->
         <header class="space-y-3">
           <div class="flex items-center gap-2 flex-wrap">
-            <a
-              href={`/brands/${pathSegment(outlet.brandSlug)}/`}
-              class="text-xs font-bold tracking-[0.15em] uppercase text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] transition-colors"
-            >
-              {outlet.brandName}
-            </a>
+            {outlet.brandSlug ? (
+              <a
+                href={`/brands/${pathSegment(outlet.brandSlug)}/`}
+                class="text-xs font-bold tracking-[0.15em] uppercase text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] transition-colors"
+              >
+                {outlet.brandName}
+              </a>
+            ) : (
+              <span class="text-xs font-bold tracking-[0.15em] uppercase text-[var(--color-forest-700)]">{brandLabel}</span>
+            )}
             {outlet.featured && (
               <span class="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-lg bg-[var(--color-boba-400)]/10 text-[var(--color-boba-500)]">
                 Featured
@@ -148,87 +153,39 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
               </>
             )}
           </p>
-          {hasMenuPage && (
+          {outlet.websiteUrl && (
             <a
-              href={`/menus/${pathSegment(outlet.brandSlug)}/`}
+              href={outlet.websiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               class="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] transition-colors"
             >
-              View {outlet.brandName} menu
+              Visit website
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
               </svg>
             </a>
           )}
         </header>
 
-        <!-- Drinks -->
-        {outlet.drinkGroups && outlet.drinkGroups.length > 0 ? (
-          <section class="space-y-5">
-            <div class="flex flex-wrap items-center justify-between gap-3">
-              <h2 class="text-lg font-display font-semibold text-[var(--color-stone-900)]">Drinks</h2>
-              {hasMenuPage && (
-                <a href={`/menus/${pathSegment(outlet.brandSlug)}/`} class="text-sm font-semibold text-[var(--color-forest-700)] hover:underline">
-                  Full menu
-                </a>
-              )}
-            </div>
-            <div class="space-y-6">
-              {outlet.drinkGroups.map(group => (
-                <div class="space-y-2.5">
-                  <div class="flex items-baseline gap-2">
-                    {group.categorySlug ? (
-                      <a
-                        href={`/drinks/?category=${group.categorySlug}`}
-                        class="text-sm font-bold tracking-wide uppercase text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] transition-colors"
-                      >
-                        {group.category}
-                      </a>
-                    ) : (
-                      <h3 class="text-sm font-bold tracking-wide uppercase text-[var(--color-stone-600)]">{group.category}</h3>
-                    )}
-                    <span class="text-xs text-[var(--color-stone-400)]">
-                      {group.drinks.length} {group.drinks.length === 1 ? 'drink' : 'drinks'}
-                    </span>
-                  </div>
-                  <ul class="flex flex-wrap gap-2">
-                    {group.drinks.map(drink => (
-                      <li>
-                        <a
-                          href={`/drinks/${drink.slug}/`}
-                          class="block px-4 py-2 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-cream-200)] text-sm text-[var(--color-stone-700)] font-medium hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors"
-                        >
-                          {drink.name}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </section>
-        ) : outletDrinks.length > 0 && (
-          <section class="space-y-4">
-            <h2 class="text-lg font-display font-semibold text-[var(--color-stone-900)]">Drinks</h2>
-            <ul class="flex flex-wrap gap-2">
-              {outletDrinks.map(drink => (
-                <li>
-                  {drink.slug ? (
-                    <a
-                      href={`/drinks/${drink.slug}/`}
-                      class="block px-4 py-2 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-cream-200)] text-sm text-[var(--color-stone-700)] font-medium hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors"
-                    >
-                      {drink.name}
-                    </a>
-                  ) : (
-                    <span class="block px-4 py-2 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-cream-200)] text-sm text-[var(--color-stone-700)] font-medium">
-                      {drink.name}
-                    </span>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
+        <section class="space-y-4">
+          <h2 class="text-lg font-display font-semibold text-[var(--color-stone-900)]">Coffee Outlet Details</h2>
+          <p class="text-[var(--color-stone-600)] leading-relaxed">
+            {outlet.name} is listed from Airtable as a {outlet.category?.toLowerCase() ?? 'coffee'} outlet in {outlet.town}. Use the address, MRT and mall links here to plan a coffee stop nearby.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            {outlet.category && (
+              <span class="text-xs px-3 py-1.5 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-stone-200)] text-[var(--color-stone-700)] font-medium">
+                {outlet.category}
+              </span>
+            )}
+            {outlet.postalCode && (
+              <span class="text-xs px-3 py-1.5 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-stone-200)] text-[var(--color-stone-700)] font-medium">
+                Singapore {outlet.postalCode}
+              </span>
+            )}
+          </div>
+        </section>
 
         <!-- Gallery -->
         {outlet.galleryImages && outlet.galleryImages.length > 0 && (

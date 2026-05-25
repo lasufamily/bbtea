@@ -7,10 +7,13 @@
  */
 
 import type {
-  Brand, Outlet, Drink, DrinkCategory, Mall,
-  AirtableBrandFields, AirtableOutletFields, AirtableDrinkFields, AirtableTownFields, AirtableMrtStationFields, AirtableMallFields,
+  Brand, Outlet, CoffeeOutlet, VenueOutlet, Drink, DrinkCategory, Mall, Town, MrtStation,
+  AirtableBrandFields, AirtableOutletFields, AirtableCoffeeShopFields, AirtableDrinkFields, AirtableTownFields, AirtableMrtStationFields, AirtableMallFields,
   AirtableRecord, AirtableResponse,
 } from './types';
+import { getTownsFromOutlets } from './towns.ts';
+import { getStationsFromOutlets } from './stations.ts';
+import { pathSegment } from './url.ts';
 
 // ─────────────────────────────────────────
 // Config
@@ -107,6 +110,7 @@ let _brandsCache:     Promise<Brand[]>         | null = null;
 let _drinksCache:     Promise<Drink[]>         | null = null;
 let _categoriesCache: Promise<DrinkCategory[]> | null = null;
 let _outletsCache:    Promise<Outlet[]>        | null = null;
+let _coffeeOutletsCache: Promise<CoffeeOutlet[]> | null = null;
 let _mallsCache:      Promise<Mall[]>          | null = null;
 let _townsCache:      Promise<import('./types').Town[]> | null = null;
 
@@ -150,6 +154,8 @@ async function getTownMap(): Promise<Map<string, { name: string; slug: string }>
     if (!name) continue;
     const slug = slugify(name);
     map.set(r.id, { name, slug });
+    map.set(name, { name, slug });
+    map.set(slug, { name, slug });
   }
 
   _townMapCache = map;
@@ -317,6 +323,27 @@ export async function getMallBySlug(slug: string): Promise<Mall | undefined> {
 // ─────────────────────────────────────────
 // Brands
 // ─────────────────────────────────────────
+export function mapBrandRecord(r: AirtableRecord<AirtableBrandFields>): Brand | undefined {
+  const f = r.fields;
+  const name = normalizeText(f['Brand Name']);
+  const slug = normalizeText(f['Slug']);
+  if (!name || !slug) return undefined;
+
+  return {
+    id:           r.id,
+    name,
+    slug,
+    logo:         f['Logo']?.[0]?.thumbnails?.large?.url ?? f['Logo']?.[0]?.url,
+    description:  f['Description'],
+    websiteUrl:   f['Website URL'],
+    facebookUrl:  f['Facebook URL'],
+    instagramUrl: f['Instagram URL'],
+    tiktokUrl:    f['TikTok URL'],
+    featured:     f['Featured'] ?? false,
+    published:    f['Published'] ?? false,
+  } satisfies Brand;
+}
+
 async function _fetchBrands(): Promise<Brand[]> {
   const records = await fetchTable<AirtableBrandFields>(
     'Brands',
@@ -324,23 +351,8 @@ async function _fetchBrands(): Promise<Brand[]> {
   );
 
   return records
-    .filter(r => r.fields['Brand Name'] && r.fields['Slug'])
-    .map(r => {
-      const f = r.fields;
-      return {
-        id:           r.id,
-        name:         f['Brand Name'],
-        slug:         f['Slug'],
-        logo:         f['Logo']?.[0]?.thumbnails?.large?.url ?? f['Logo']?.[0]?.url,
-        description:  f['Description'],
-        websiteUrl:   f['Website URL'],
-        facebookUrl:  f['Facebook URL'],
-        instagramUrl: f['Instagram URL'],
-        tiktokUrl:    f['TikTok URL'],
-        featured:     f['Featured'] ?? false,
-        published:    f['Published'] ?? false,
-      } satisfies Brand;
-    });
+    .map(mapBrandRecord)
+    .filter((brand): brand is Brand => Boolean(brand));
 }
 
 export function getBrands(): Promise<Brand[]> {
@@ -348,29 +360,8 @@ export function getBrands(): Promise<Brand[]> {
 }
 
 export async function getBrandBySlug(slug: string): Promise<Brand | undefined> {
-  const records = await fetchTable<AirtableBrandFields>(
-    'Brands',
-    `AND({Slug} = "${slug}", {Published} = TRUE())`,
-  );
-
-  const brands = records.map(r => {
-    const f = r.fields;
-    return {
-      id:           r.id,
-      name:         f['Brand Name'],
-      slug:         f['Slug'],
-      logo:         f['Logo']?.[0]?.thumbnails?.large?.url ?? f['Logo']?.[0]?.url,
-      description:  f['Description'],
-      websiteUrl:   f['Website URL'],
-      facebookUrl:  f['Facebook URL'],
-      instagramUrl: f['Instagram URL'],
-      tiktokUrl:    f['TikTok URL'],
-      featured:     f['Featured'] ?? false,
-      published:    f['Published'] ?? false,
-    } satisfies Brand;
-  });
-
-  return brands[0];
+  const brands = await getBrands();
+  return brands.find(brand => brand.slug === slug);
 }
 
 // ─────────────────────────────────────────
@@ -556,6 +547,149 @@ export async function getOutletsByMrt(mrtSlug: string): Promise<Outlet[]> {
 export async function getOutletsByMall(mallSlug: string): Promise<Outlet[]> {
   const outlets = await getOutlets();
   return outlets.filter(o => o.mallSlug === mallSlug);
+}
+
+// ─────────────────────────────────────────
+// Coffee Shops
+// ─────────────────────────────────────────
+export function mapCoffeeShopRecord(
+  r: AirtableRecord<AirtableCoffeeShopFields>,
+  brandMap: Map<string, Brand>,
+  townMap: Map<string, NamedSlug>,
+  mallMap: Map<string, NamedSlug>,
+  mrtMap: Map<string, NamedSlug>,
+): CoffeeOutlet | undefined {
+  const f = r.fields;
+  if (!f['Outlet Name'] || !f['Slug'] || f['Published'] === false) return undefined;
+
+  const brandRef = f['Brand']?.[0];
+  const brand = brandRef ? brandMap.get(brandRef) : undefined;
+
+  const townRef = firstLinkedValue(f['Town']);
+  const townData = townRef ? townMap.get(townRef) : undefined;
+  const normalizedTown = normalizeText(f['Town']);
+  const unresolvedTownRecord = townRef ? isAirtableRecordId(townRef) : false;
+  const town = townData?.name ?? (
+    normalizedTown && !unresolvedTownRecord && !isAirtableRecordId(normalizedTown) ? normalizedTown : ''
+  );
+  const townSlug = townData?.slug ?? (town ? slugify(town) : '');
+
+  const mallRef = firstLinkedValue(f['Mall / Location']);
+  const mallData = mallRef ? mallMap.get(mallRef) : undefined;
+  const mall = mallData?.name ?? normalizeText(f['Mall / Location']);
+  const mallSlug = mallData?.slug ?? (mall ? slugify(mall) : undefined);
+
+  const mrtRef = firstLinkedValue(f['Nearest MRT']);
+  const mrtData = mrtRef ? mrtMap.get(mrtRef) : undefined;
+  const normalizedMrt = normalizeText(f['Nearest MRT']);
+  const unresolvedMrtRecord = mrtRef ? isAirtableRecordId(mrtRef) : false;
+  const nearestMrt = mrtData?.name ?? (
+    normalizedMrt && !unresolvedMrtRecord && !isAirtableRecordId(normalizedMrt) ? normalizedMrt : undefined
+  );
+  const mrtSlug = mrtData?.slug ?? (nearestMrt ? stationSlugFromName(nearestMrt) : undefined);
+
+  let deliveryLinks;
+  try {
+    deliveryLinks = f['Delivery Links'] ? JSON.parse(f['Delivery Links']) : undefined;
+  } catch {
+    deliveryLinks = undefined;
+  }
+
+  const galleryImages = f['Gallery Images URL']
+    ?.split(',')
+    .map(s => s.trim())
+    .filter(Boolean);
+  const image = f['Image URL']?.trim() || galleryImages?.[0] || undefined;
+  const halal = f['Halal'];
+
+  return {
+    id:               r.id,
+    type:             'coffee',
+    path:             `/coffee-shops/${pathSegment(f['Slug'])}/`,
+    name:             f['Outlet Name'],
+    slug:             f['Slug'],
+    brandId:          brand?.id ?? '',
+    brandName:        brand?.name ?? '',
+    brandSlug:        brand?.slug ?? '',
+    brandLogo:        brand?.logo,
+    town,
+    townSlug,
+    mall,
+    mallSlug,
+    category:         normalizeText(f['Category']),
+    streetName:       normalizeText(f['Street Name']),
+    postalCode:       normalizeText(f['Postal Code']),
+    address:          f['Address'],
+    nearestMrt,
+    mrtSlug,
+    openingHours:     f['Opening Hours'],
+    phone:            f['Phone'],
+    googleMapsUrl:    f['Google Maps URL'],
+    deliveryLinks,
+    websiteUrl:       f['Website URL'],
+    facebookUrl:      f['Facebook URL'],
+    instagramUrl:     f['Instagram URL'],
+    tiktokUrl:        f['TikTok URL'],
+    priceRange:       f['Price Range'],
+    halal,
+    halalFriendly:    Boolean(halal),
+    seatingAvailable: f['Seating Available'] ?? false,
+    image,
+    galleryImages,
+    featured:         f['Featured'] ?? false,
+    published:        f['Published'] ?? false,
+  } satisfies CoffeeOutlet;
+}
+
+async function _fetchCoffeeOutlets(): Promise<CoffeeOutlet[]> {
+  const [records, brands, townMap, mallMap, mrtMap] = await Promise.all([
+    fetchTable<AirtableCoffeeShopFields>('Coffee Shops', '{Published} = TRUE()'),
+    getBrands(),
+    getTownMap(),
+    getMallMap(),
+    getMrtMap(),
+  ]);
+
+  const brandMap = new Map(brands.map(brand => [brand.id, brand]));
+
+  return records
+    .map(record => mapCoffeeShopRecord(record, brandMap, townMap, mallMap, mrtMap))
+    .filter((outlet): outlet is CoffeeOutlet => Boolean(outlet))
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+export function getCoffeeOutlets(): Promise<CoffeeOutlet[]> {
+  return (_coffeeOutletsCache ??= _fetchCoffeeOutlets());
+}
+
+export async function getCoffeeOutletBySlug(slug: string): Promise<CoffeeOutlet | undefined> {
+  const [records, brands, townMap, mallMap, mrtMap] = await Promise.all([
+    fetchTable<AirtableCoffeeShopFields>('Coffee Shops', `AND({Slug} = "${slug}", {Published} = TRUE())`),
+    getBrands(),
+    getTownMap(),
+    getMallMap(),
+    getMrtMap(),
+  ]);
+
+  const brandMap = new Map(brands.map(brand => [brand.id, brand]));
+  const outlets = records
+    .map(record => mapCoffeeShopRecord(record, brandMap, townMap, mallMap, mrtMap))
+    .filter((outlet): outlet is CoffeeOutlet => Boolean(outlet));
+
+  return outlets[0];
+}
+
+export async function getAllVenueOutlets(): Promise<VenueOutlet[]> {
+  const [outlets, coffeeOutlets] = await Promise.all([getOutlets(), getCoffeeOutlets()]);
+  return [...outlets, ...coffeeOutlets];
+}
+
+export function getAllVenueTowns(outlets: VenueOutlet[], coffeeOutlets: VenueOutlet[] = [], towns: Town[] = []): Town[] {
+  return getTownsFromOutlets([...outlets, ...coffeeOutlets], towns);
+}
+
+export function getAllVenueStations(outlets: VenueOutlet[], coffeeOutlets: VenueOutlet[] = []): MrtStation[] {
+  return getStationsFromOutlets([...outlets, ...coffeeOutlets]);
 }
 
 // ─────────────────────────────────────────
