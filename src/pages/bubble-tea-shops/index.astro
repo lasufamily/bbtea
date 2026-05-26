@@ -1,0 +1,310 @@
+---
+import Layout from '../../components/Layout.astro';
+import ListingCard from '../../components/ListingCard.astro';
+import FilterBar from '../../components/FilterBar.astro';
+import SearchBox from '../../components/SearchBox.astro';
+import { getBrands, getOutlets, getCategories, getTowns } from '../../lib/airtable';
+import { getStationsFromOutlets } from '../../lib/stations';
+import { getTownsFromOutlets } from '../../lib/towns';
+import type { Outlet } from '../../lib/types';
+
+const [brands, allOutlets, categories, allTowns] = await Promise.all([
+  getBrands(),
+  getOutlets(),
+  getCategories(),
+  getTowns(),
+]);
+const mrtStations = getStationsFromOutlets(allOutlets);
+const towns = getTownsFromOutlets(allOutlets, allTowns);
+
+const url = Astro.url;
+const town = url.searchParams.get('town') ?? '';
+const brand = url.searchParams.get('brand') ?? '';
+const category = url.searchParams.get('category') ?? '';
+const mrt = url.searchParams.get('mrt') ?? '';
+const price = url.searchParams.get('price') ?? '';
+const halal = url.searchParams.get('halal') ?? '';
+const q = url.searchParams.get('q') ?? '';
+
+let outlets: Outlet[] = allOutlets;
+
+if (town) outlets = outlets.filter(o => o.townSlug === town);
+if (brand) outlets = outlets.filter(o => o.brandSlug === brand);
+if (category) outlets = outlets.filter(o => o.drinkCategorySlugs?.includes(category));
+if (mrt) outlets = outlets.filter(o => o.mrtSlug === mrt);
+if (price) outlets = outlets.filter(o => o.priceRange === price);
+if (halal === 'true') outlets = outlets.filter(o => o.halalFriendly);
+if (q) {
+  const ql = q.toLowerCase();
+  outlets = outlets.filter(o =>
+    o.name.toLowerCase().includes(ql) ||
+    o.brandName.toLowerCase().includes(ql) ||
+    o.town.toLowerCase().includes(ql) ||
+    o.mall?.toLowerCase().includes(ql) ||
+    o.nearestMrt?.toLowerCase().includes(ql) ||
+    o.popularDrinks?.some(d => d.toLowerCase().includes(ql))
+  );
+}
+
+const isFiltered = Boolean(town || brand || category || mrt || price || halal || q);
+const activeFilters: string[] = [];
+if (town) activeFilters.push(town.replace(/-/g, ' '));
+if (brand) activeFilters.push(brand.replace(/-/g, ' '));
+if (category) activeFilters.push(category.replace(/-/g, ' '));
+if (mrt) activeFilters.push(mrt.replace(/-/g, ' '));
+if (price) activeFilters.push(price);
+if (halal === 'true') activeFilters.push('halal');
+if (q) activeFilters.push(`"${q}"`);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Bubble tea shops in Singapore',
+  description: `Browse ${allOutlets.length} bubble tea shops in Singapore by town, brand, drink type, MRT station and more.`,
+  url: 'https://bbtea.sg/bubble-tea-shops/',
+};
+---
+
+<Layout
+  title={isFiltered ? `Bubble tea shops in Singapore — ${activeFilters.join(', ')} | BBTea.sg` : 'Bubble tea shops in Singapore | BBTea.sg'}
+  description={`Browse ${outlets.length} bubble tea shops in Singapore. Filter by town, brand, drink type, MRT station and more.`}
+  canonical="https://bbtea.sg/bubble-tea-shops/"
+  jsonLd={jsonLd}
+>
+
+  <section class="bg-[var(--color-cream-100)] border-b border-[var(--color-stone-200)] py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4" data-pagefind-body>
+      <nav class="text-sm text-[var(--color-stone-400)] flex items-center gap-1.5" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-[var(--color-stone-700)] transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-[var(--color-stone-700)] font-medium">Bubble tea shops</span>
+      </nav>
+      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
+        Singapore Boba Directory
+      </p>
+      <h1 class="text-3xl lg:text-4xl font-display font-bold text-[var(--color-stone-900)]">
+        <span id="directory-heading">{isFiltered ? `${outlets.length} Shops Found` : 'Bubble tea shops in Singapore'}</span>
+      </h1>
+      <p class="text-[var(--color-stone-600)] text-base max-w-2xl leading-relaxed">
+        Find bubble tea shops across Singapore, from neighbourhood kiosks to mall outlets near your next MRT stop.
+      </p>
+      {isFiltered && (
+        <p class="text-sm text-[var(--color-stone-600)]">
+          Filtered by: {activeFilters.map((f, i) => (
+            <><span class="font-medium capitalize">{f}</span>{i < activeFilters.length - 1 ? ', ' : ''}</>
+          ))}
+          &nbsp;·&nbsp;
+          <a href="/bubble-tea-shops/" class="text-[var(--color-forest-700)] hover:underline font-medium">Clear filters</a>
+        </p>
+      )}
+      <div class="max-w-xl">
+        <SearchBox placeholder="Search bubble tea shops..." id="dir-search" />
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="flex gap-8 items-start">
+      <div class="hidden lg:block w-64 xl:w-72 flex-shrink-0">
+        <FilterBar
+          brands={brands}
+          categories={categories}
+          towns={towns}
+          mrtStations={mrtStations}
+          idPrefix="desktop-filters"
+          selectedTown={town}
+          selectedBrand={brand}
+          selectedCategory={category}
+          selectedMrt={mrt}
+          selectedPrice={price}
+          selectedHalal={halal}
+        />
+      </div>
+
+      <div class="flex-1 min-w-0 space-y-6">
+        <details class="lg:hidden bg-white border border-[var(--color-stone-200)] rounded-lg overflow-hidden">
+          <summary class="px-5 py-4 font-semibold text-sm text-[var(--color-stone-700)] cursor-pointer flex items-center gap-2 list-none">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+            </svg>
+            Filters {isFiltered && `(${activeFilters.length} active)`}
+          </summary>
+          <div class="px-5 pb-5">
+            <FilterBar
+              brands={brands}
+              categories={categories}
+              towns={towns}
+              mrtStations={mrtStations}
+              idPrefix="mobile-filters"
+              selectedTown={town}
+              selectedBrand={brand}
+              selectedCategory={category}
+              selectedMrt={mrt}
+              selectedPrice={price}
+              selectedHalal={halal}
+            />
+          </div>
+        </details>
+
+        <div class="flex items-center justify-between">
+          <p class="text-sm text-[var(--color-stone-500)]">
+            Showing <strong id="directory-count" class="text-[var(--color-stone-800)]">{outlets.length}</strong>
+            <span id="directory-count-label">{outlets.length === 1 ? 'shop' : 'shops'}</span>
+          </p>
+        </div>
+
+        <div id="directory-results" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+          {outlets.map(outlet => (
+            <ListingCard outlet={outlet} />
+          ))}
+        </div>
+
+        <div id="directory-empty" class="text-center py-20 space-y-4" hidden>
+          <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">No Results</p>
+          <h2 class="text-xl font-display font-semibold text-[var(--color-stone-800)]">No shops found</h2>
+          <p class="text-[var(--color-stone-500)] max-w-sm mx-auto">
+            Try adjusting your filters or search term to discover more bubble tea shops.
+          </p>
+          <a
+            href="/bubble-tea-shops/"
+            class="inline-flex items-center gap-2 mt-2 px-6 py-3 rounded-lg bg-[var(--color-stone-900)] text-white text-sm font-semibold hover:bg-white hover:text-[var(--color-stone-900)] border border-[var(--color-stone-900)] transition-colors"
+          >
+            Clear all filters
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</Layout>
+
+<script>
+  type DirectoryFilters = {
+    town: string;
+    brand: string;
+    category: string;
+    mrt: string;
+    price: string;
+    halal: string;
+    q: string;
+  };
+
+  const filterKeys = ['town', 'brand', 'category', 'mrt', 'price', 'halal', 'q'] as const;
+
+  const getFiltersFromUrl = (): DirectoryFilters => {
+    const params = new URLSearchParams(window.location.search);
+    return {
+      town: params.get('town') ?? '',
+      brand: params.get('brand') ?? '',
+      category: params.get('category') ?? '',
+      mrt: params.get('mrt') ?? '',
+      price: params.get('price') ?? '',
+      halal: params.get('halal') === 'true' ? 'true' : '',
+      q: params.get('q')?.trim().toLowerCase() ?? '',
+    };
+  };
+
+  const getFiltersFromForm = (form: HTMLFormElement): DirectoryFilters => {
+    const data = new FormData(form);
+    return {
+      town: String(data.get('town') ?? ''),
+      brand: String(data.get('brand') ?? ''),
+      category: String(data.get('category') ?? ''),
+      mrt: String(data.get('mrt') ?? ''),
+      price: String(data.get('price') ?? ''),
+      halal: data.get('halal') === 'true' ? 'true' : '',
+      q: getFiltersFromUrl().q,
+    };
+  };
+
+  const syncForms = (filters: DirectoryFilters) => {
+    document.querySelectorAll<HTMLFormElement>('[data-filter-form]').forEach(form => {
+      form.querySelector<HTMLSelectElement>('select[name="town"]')!.value = filters.town;
+      form.querySelector<HTMLSelectElement>('select[name="brand"]')!.value = filters.brand;
+      form.querySelector<HTMLSelectElement>('select[name="category"]')!.value = filters.category;
+      form.querySelector<HTMLSelectElement>('select[name="mrt"]')!.value = filters.mrt;
+
+      form.querySelectorAll<HTMLInputElement>('input[name="price"]').forEach(input => {
+        input.checked = input.value === filters.price;
+        input.closest('label')?.classList.toggle('bg-[var(--color-stone-900)]', input.checked);
+        input.closest('label')?.classList.toggle('text-white', input.checked);
+        input.closest('label')?.classList.toggle('border-[var(--color-stone-900)]', input.checked);
+        input.closest('label')?.classList.toggle('border-[var(--color-stone-200)]', !input.checked);
+        input.closest('label')?.classList.toggle('text-[var(--color-stone-600)]', !input.checked);
+      });
+
+      const halal = form.querySelector<HTMLInputElement>('input[name="halal"]');
+      if (halal) halal.checked = filters.halal === 'true';
+    });
+  };
+
+  const updateUrl = (filters: DirectoryFilters) => {
+    const params = new URLSearchParams(window.location.search);
+    filterKeys.forEach(key => {
+      const value = filters[key];
+      if (value) params.set(key, value);
+      else params.delete(key);
+    });
+
+    const query = params.toString();
+    const nextUrl = query ? `/bubble-tea-shops/?${query}` : '/bubble-tea-shops/';
+    window.history.pushState(filters, '', nextUrl);
+  };
+
+  const matchesFilters = (card: HTMLElement, filters: DirectoryFilters) => {
+    if (filters.town && card.dataset.town !== filters.town) return false;
+    if (filters.brand && card.dataset.brand !== filters.brand) return false;
+    if (filters.category && !(card.dataset.category ?? '').split(' ').includes(filters.category)) return false;
+    if (filters.mrt && card.dataset.mrt !== filters.mrt) return false;
+    if (filters.price && card.dataset.price !== filters.price) return false;
+    if (filters.halal === 'true' && card.dataset.halal !== 'true') return false;
+    if (filters.q && !(card.dataset.search ?? '').includes(filters.q)) return false;
+    return true;
+  };
+
+  const applyFilters = (filters: DirectoryFilters, options: { updateHistory?: boolean } = {}) => {
+    syncForms(filters);
+
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-listing-card]'));
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      const visible = matchesFilters(card, filters);
+      card.hidden = !visible;
+      if (visible) visibleCount += 1;
+    });
+
+    const hasFilters = filterKeys.some(key => Boolean(filters[key]));
+    const heading = document.getElementById('directory-heading');
+    const count = document.getElementById('directory-count');
+    const countLabel = document.getElementById('directory-count-label');
+    const empty = document.getElementById('directory-empty');
+    const results = document.getElementById('directory-results');
+
+    if (heading) heading.textContent = hasFilters ? `${visibleCount} Shops Found` : 'Bubble tea shops in Singapore';
+    if (count) count.textContent = String(visibleCount);
+    if (countLabel) countLabel.textContent = visibleCount === 1 ? 'shop' : 'shops';
+    if (empty) empty.hidden = visibleCount > 0;
+    if (results) results.hidden = visibleCount === 0;
+    if (options.updateHistory) updateUrl(filters);
+  };
+
+  document.querySelectorAll<HTMLFormElement>('[data-filter-form]').forEach(form => {
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      applyFilters(getFiltersFromForm(form), { updateHistory: true });
+    });
+
+    form.querySelectorAll('select, input[name="price"], input[name="halal"]').forEach(control => {
+      control.addEventListener('change', () => {
+        applyFilters(getFiltersFromForm(form), { updateHistory: true });
+      });
+    });
+  });
+
+  window.addEventListener('popstate', () => {
+    applyFilters(getFiltersFromUrl());
+  });
+
+  applyFilters(getFiltersFromUrl());
+</script>
