@@ -8,12 +8,14 @@ import { getStationsFromOutlets } from '../../lib/stations';
 import { getTownsFromOutlets } from '../../lib/towns';
 import type { Outlet } from '../../lib/types';
 
-const [brands, allOutlets, categories, allTowns] = await Promise.all([
+const [allBrands, allOutlets, categories, allTowns] = await Promise.all([
   getBrands(),
   getOutlets(),
   getCategories(),
   getTowns(),
 ]);
+const bubbleTeaBrandSlugs = new Set(allOutlets.map(outlet => outlet.brandSlug).filter(Boolean));
+const brands = allBrands.filter(brand => bubbleTeaBrandSlugs.has(brand.slug));
 const mrtStations = getStationsFromOutlets(allOutlets);
 const towns = getTownsFromOutlets(allOutlets, allTowns);
 

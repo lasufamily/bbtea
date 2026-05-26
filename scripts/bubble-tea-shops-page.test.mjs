@@ -12,3 +12,10 @@ test('/bubble-tea-shops page exists with the required title prefix', async () =>
   );
   assert.match(source, /canonical="https:\/\/bbtea\.sg\/bubble-tea-shops\/"/);
 });
+
+test('/bubble-tea-shops brand filters only include brands with bubble tea outlets', async () => {
+  const source = await readFile(new URL('../src/pages/bubble-tea-shops/index.astro', import.meta.url), 'utf8');
+
+  assert.match(source, /bubbleTeaBrandSlugs = new Set\(allOutlets\.map\(outlet => outlet\.brandSlug\)\.filter\(Boolean\)\)/);
+  assert.match(source, /\.filter\(brand => bubbleTeaBrandSlugs\.has\(brand\.slug\)\)/);
+});
