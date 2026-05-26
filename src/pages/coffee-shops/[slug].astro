@@ -168,25 +168,6 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
           )}
         </header>
 
-        <section class="space-y-4">
-          <h2 class="text-lg font-display font-semibold text-[var(--color-stone-900)]">Coffee Outlet Details</h2>
-          <p class="text-[var(--color-stone-600)] leading-relaxed">
-            {outlet.name} is listed from Airtable as a {outlet.category?.toLowerCase() ?? 'coffee'} outlet in {outlet.town}. Use the address, MRT and mall links here to plan a coffee stop nearby.
-          </p>
-          <div class="flex flex-wrap gap-2">
-            {outlet.category && (
-              <span class="text-xs px-3 py-1.5 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-stone-200)] text-[var(--color-stone-700)] font-medium">
-                {outlet.category}
-              </span>
-            )}
-            {outlet.postalCode && (
-              <span class="text-xs px-3 py-1.5 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-stone-200)] text-[var(--color-stone-700)] font-medium">
-                Singapore {outlet.postalCode}
-              </span>
-            )}
-          </div>
-        </section>
-
         <!-- Gallery -->
         {outlet.galleryImages && outlet.galleryImages.length > 0 && (
           <section class="space-y-4">
