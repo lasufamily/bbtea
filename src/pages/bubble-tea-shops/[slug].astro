@@ -150,7 +150,7 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
           </p>
           {hasMenuPage && (
             <a
-              href={`/menu/${pathSegment(outlet.brandSlug)}/`}
+              href={`/menus/${pathSegment(outlet.brandSlug)}/`}
               class="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] transition-colors"
             >
               View {outlet.brandName} menu
@@ -167,7 +167,7 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
             <div class="flex flex-wrap items-center justify-between gap-3">
               <h2 class="text-lg font-display font-semibold text-[var(--color-stone-900)]">Drinks</h2>
               {hasMenuPage && (
-                <a href={`/menu/${pathSegment(outlet.brandSlug)}/`} class="text-sm font-semibold text-[var(--color-forest-700)] hover:underline">
+                <a href={`/menus/${pathSegment(outlet.brandSlug)}/`} class="text-sm font-semibold text-[var(--color-forest-700)] hover:underline">
                   Full menu
                 </a>
               )}
