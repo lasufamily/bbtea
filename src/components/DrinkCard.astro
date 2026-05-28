@@ -10,7 +10,16 @@ const { drink } = Astro.props;
 const priceParts = [
   typeof drink.priceM === 'number' ? `M $${drink.priceM.toFixed(2)}` : undefined,
   typeof drink.priceL === 'number' ? `L $${drink.priceL.toFixed(2)}` : undefined,
+  typeof drink.priceOneLitre === 'number' ? `1L $${drink.priceOneLitre.toFixed(2)}` : undefined,
 ].filter(Boolean);
+
+const detailText = priceParts.length > 0
+  ? priceParts.join(' · ')
+  : drink.caloriesM
+    ? `${drink.caloriesM} kcal`
+    : drink.calories
+      ? `${drink.calories} kcal`
+      : 'Menu details';
 ---
 
 <article
@@ -67,7 +76,7 @@ const priceParts = [
 
       <div class="flex items-center justify-between gap-3 pt-3 border-t border-[var(--color-stone-100)]">
         <span class="text-xs text-[var(--color-stone-500)]">
-          {priceParts.length > 0 ? priceParts.join(' · ') : drink.calories ?? 'Menu details'}
+          {detailText}
         </span>
         <span class="text-sm font-semibold text-[var(--color-forest-700)] flex items-center gap-1 group-hover:gap-1.5 transition-all">
           Details

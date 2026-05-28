@@ -26,9 +26,16 @@ const relatedDrinks = allDrinks
 const priceRows = [
   { label: 'Medium', value: drink.priceM },
   { label: 'Large', value: drink.priceL },
+  { label: '1 litre', value: drink.priceOneLitre },
 ].filter(row => typeof row.value === 'number');
 
 const brandNames = drink.brands.map(brand => brand.name).join(', ');
+const calorieRows = [
+  { label: 'Medium cup', value: drink.caloriesM },
+  { label: 'Large cup', value: drink.caloriesL },
+  { label: 'Per 100ml', value: drink.caloriesPer100ml },
+].filter(row => row.value);
+const descriptionCalories = drink.caloriesM ?? drink.caloriesL ?? drink.caloriesPer100ml ?? drink.calories;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -51,7 +58,7 @@ const jsonLd = {
 
 <Layout
   title={`${drink.name} in Singapore | BBTea.sg`}
-  description={`${drink.name}${brandNames ? ` from ${brandNames}` : ''}. ${drink.category ? `${drink.category}. ` : ''}${drink.calories ? `${drink.calories}. ` : ''}${drink.description ?? ''}`}
+  description={`${drink.name}${brandNames ? ` from ${brandNames}` : ''}. ${drink.category ? `${drink.category}. ` : ''}${descriptionCalories ? `${descriptionCalories} kcal. ` : ''}${drink.description ?? ''}`}
   image={drink.image}
   type="article"
   canonical={`https://bbtea.sg/drinks/${drink.slug}/`}
@@ -125,10 +132,30 @@ const jsonLd = {
                 </dd>
               </div>
             ))}
-            {drink.calories && (
+            {calorieRows.length === 0 && drink.calories && (
               <div class="rounded-lg border border-[var(--color-stone-200)] bg-white p-4">
                 <dt class="text-xs font-semibold uppercase tracking-wide text-[var(--color-stone-400)]">Calories</dt>
-                <dd class="mt-1 text-base font-semibold text-[var(--color-stone-900)]">{drink.calories}</dd>
+                <dd class="mt-1 text-base font-semibold text-[var(--color-stone-900)]">{drink.calories} kcal</dd>
+              </div>
+            )}
+            {calorieRows.map(row => (
+              <div class="rounded-lg border border-[var(--color-stone-200)] bg-white p-4">
+                <dt class="text-xs font-semibold uppercase tracking-wide text-[var(--color-stone-400)]">{row.label}</dt>
+                <dd class="mt-1 text-base font-semibold text-[var(--color-stone-900)]">{row.value} kcal</dd>
+              </div>
+            ))}
+            {drink.nutriGrade && (
+              <div class="rounded-lg border border-[var(--color-stone-200)] bg-white p-4">
+                <dt class="text-xs font-semibold uppercase tracking-wide text-[var(--color-stone-400)]">Nutri-Grade</dt>
+                <dd class="mt-1 text-base font-semibold text-[var(--color-stone-900)]">{drink.nutriGrade}</dd>
+              </div>
+            )}
+            {drink.healthierChoice && (
+              <div class="rounded-lg border border-[var(--color-stone-200)] bg-white p-4">
+                <dt class="text-xs font-semibold uppercase tracking-wide text-[var(--color-stone-400)]">Healthier Choice</dt>
+                <dd class="mt-1 text-base font-semibold text-[var(--color-stone-900)]">
+                  {drink.healthierChoiceType ?? 'Yes'}
+                </dd>
               </div>
             )}
           </dl>

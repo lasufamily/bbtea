@@ -85,7 +85,7 @@ const jsonLd = {
   '@type': 'Menu',
   name: `${brand.name} Menu`,
   description: `${brand.name} menu in Singapore with prices, calories, Nutri-Grade labels, and Healthier Choice details.`,
-  url: `https://bbtea.sg/menus/${brand.slug}/`,
+  url: `https://bbtea.sg/menu/${brand.slug}/`,
   hasMenuSection: groupedDrinks.map(group => ({
     '@type': 'MenuSection',
     name: group.category,
@@ -110,7 +110,7 @@ const jsonLd = {
   description={`Browse the ${brand.name} menu in Singapore. See drinks grouped by category with prices, calories, Nutri-Grade labels, and Healthier Choice details.`}
   image={brand.logo}
   type="article"
-  canonical={`https://bbtea.sg/menus/${brand.slug}/`}
+  canonical={`https://bbtea.sg/menu/${brand.slug}/`}
   jsonLd={jsonLd}
 >
 

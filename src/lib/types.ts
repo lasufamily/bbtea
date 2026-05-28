@@ -126,7 +126,14 @@ export interface Drink {
   description?: string;
   priceM?: number;
   priceL?: number;
+  priceOneLitre?: number;
   calories?: string;
+  caloriesPer100ml?: string;
+  caloriesM?: string;
+  caloriesL?: string;
+  nutriGrade?: string;
+  healthierChoice: boolean;
+  healthierChoiceType?: string;
   image?: string;
   published: boolean;
 }
@@ -277,7 +284,16 @@ export interface AirtableDrinkFields {
   'Description'?: string;
   'Price (M)'?: number;
   'Price (L)'?: number;
+  'Retail Price (M)'?: number;
+  'Retail Price (L)'?: number;
+  'Retail Price (1 litre)'?: number;
   'Calories (kcal)'?: string;
+  'Calories per 100ml (kcal)'?: string;
+  'Calories per M cup (kcal)'?: string;
+  'Calories per L cup (kcal)'?: string;
+  'Nutri-Grade'?: string;
+  'Healthier Choice'?: boolean;
+  'Healthier Choice Type'?: string;
   'Image'?: { url: string; thumbnails?: { large?: { url: string } } }[]; // multipleAttachments
   'Published'?: boolean;
 }
