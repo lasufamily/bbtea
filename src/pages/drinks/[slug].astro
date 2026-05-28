@@ -31,9 +31,9 @@ const priceRows = [
 
 const brandNames = drink.brands.map(brand => brand.name).join(', ');
 const calorieRows = [
-  { label: 'Medium cup', value: drink.caloriesM },
-  { label: 'Large cup', value: drink.caloriesL },
-  { label: 'Per 100ml', value: drink.caloriesPer100ml },
+  { label: 'Calories per M cup', value: drink.caloriesM },
+  { label: 'Calories per L cup', value: drink.caloriesL },
+  { label: 'Calories per 100ml', value: drink.caloriesPer100ml },
 ].filter(row => row.value);
 const descriptionCalories = drink.caloriesM ?? drink.caloriesL ?? drink.caloriesPer100ml ?? drink.calories;
 
@@ -99,9 +99,23 @@ const jsonLd = {
             <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
               {drink.category ?? 'Drink'}
             </p>
-            <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight text-[var(--color-stone-900)]">
-              {drink.name}
-            </h1>
+            <div class="flex items-start gap-3 sm:gap-4">
+              <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight text-[var(--color-stone-900)]">
+                {drink.name}
+              </h1>
+              {drink.healthierChoice && (
+                <img
+                  src="/healthier-choice-symbol.jpg"
+                  alt="Healthier Choice"
+                  title="Healthier Choice"
+                  class="mt-1 h-12 w-12 sm:h-14 sm:w-14 lg:h-16 lg:w-16 shrink-0 rounded-md object-contain"
+                  loading="eager"
+                  decoding="async"
+                  width="64"
+                  height="64"
+                />
+              )}
+            </div>
             {drink.description && (
               <p class="text-[var(--color-stone-600)] text-base leading-relaxed max-w-2xl">
                 {drink.description}
