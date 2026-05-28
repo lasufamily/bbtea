@@ -48,3 +48,11 @@ test('menu routes use the canonical /menus structure only', async () => {
     assert.doesNotMatch(source, /\/menu\//);
   }
 });
+
+test('singular /menu paths redirect to canonical /menus paths', async () => {
+  const redirects = await readFile(new URL('../public/_redirects', import.meta.url), 'utf8');
+
+  assert.match(redirects, /^\/menu\s+\/menus\/\s+301$/m);
+  assert.match(redirects, /^\/menu\/\s+\/menus\/\s+301$/m);
+  assert.match(redirects, /^\/menu\/\*\s+\/menus\/:splat\s+301$/m);
+});
