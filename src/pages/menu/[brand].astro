@@ -51,7 +51,7 @@ const groupedDrinks = Array.from(
   }))
   .sort((a, b) => a.category.localeCompare(b.category));
 
-const priceText = (drink: Drink) => {
+const retailPriceText = (drink: Drink) => {
   const prices = [
     typeof drink.priceM === 'number' ? `M $${drink.priceM.toFixed(2)}` : undefined,
     typeof drink.priceL === 'number' ? `L $${drink.priceL.toFixed(2)}` : undefined,
@@ -61,24 +61,8 @@ const priceText = (drink: Drink) => {
   return prices.length > 0 ? prices.join(' / ') : 'Price not listed';
 };
 
-const nutritionText = (drink: Drink) => {
-  const values = [
-    drink.caloriesM ? `M ${drink.caloriesM} kcal` : undefined,
-    drink.caloriesL ? `L ${drink.caloriesL} kcal` : undefined,
-    drink.caloriesPer100ml ? `${drink.caloriesPer100ml} kcal/100ml` : undefined,
-  ].filter(Boolean);
-
-  return values.length > 0 ? values.join(' / ') : drink.calories ? `${drink.calories} kcal` : 'Nutrition not listed';
-};
-
-const gradeText = (drink: Drink) => {
-  const labels = [
-    drink.nutriGrade ? `Nutri-Grade ${drink.nutriGrade}` : undefined,
-    drink.healthierChoice ? `Healthier Choice${drink.healthierChoiceType ? `: ${drink.healthierChoiceType}` : ''}` : undefined,
-  ].filter(Boolean);
-
-  return labels.length > 0 ? labels.join(' / ') : 'Not listed';
-};
+const caloriesText = (value: string | undefined) => value ? `${value} kcal` : 'Not listed';
+const healthierChoiceText = (drink: Drink) => drink.healthierChoice ? 'Yes' : 'No';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -162,7 +146,7 @@ const jsonLd = {
     </div>
   </section>
 
-  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
     {groupedDrinks.map(group => (
       <section class="space-y-4" data-pagefind-body>
         <header class="flex flex-wrap items-end justify-between gap-3 border-b border-[var(--color-stone-200)] pb-3">
@@ -175,17 +159,22 @@ const jsonLd = {
           </span>
         </header>
 
-        <div class="overflow-hidden rounded-lg border border-[var(--color-stone-200)] bg-white">
-          <div class="hidden lg:grid grid-cols-[minmax(0,1.45fr)_170px_220px_190px] gap-4 px-5 py-3 bg-[var(--color-cream-100)] border-b border-[var(--color-stone-200)] text-xs font-semibold tracking-widest uppercase text-[var(--color-stone-500)]">
-            <span>Drink</span>
-            <span>Price</span>
-            <span>Calories</span>
-            <span>Grade</span>
-          </div>
+        <div class="overflow-x-auto rounded-lg border border-[var(--color-stone-200)] bg-white">
+          <div class="lg:min-w-[1320px]">
+            <div class="hidden lg:grid grid-cols-[minmax(260px,1.4fr)_160px_150px_150px_150px_120px_150px_180px] gap-4 px-5 py-3 bg-[var(--color-cream-100)] border-b border-[var(--color-stone-200)] text-xs font-semibold tracking-widest uppercase text-[var(--color-stone-500)]">
+              <span>Drink</span>
+              <span>Retail Price</span>
+              <span>Calories per 100ml</span>
+              <span>Calories per M cup</span>
+              <span>Calories per L cup</span>
+              <span>Nutri-Grade</span>
+              <span>Healthier Choice</span>
+              <span>Healthier Choice Type</span>
+            </div>
 
-          <div class="divide-y divide-[var(--color-stone-100)]">
-            {group.drinks.map(drink => (
-              <article class="grid lg:grid-cols-[minmax(0,1.45fr)_170px_220px_190px] gap-3 lg:gap-4 px-5 py-4">
+            <div class="divide-y divide-[var(--color-stone-100)]">
+              {group.drinks.map(drink => (
+                <article class="grid lg:grid-cols-[minmax(260px,1.4fr)_160px_150px_150px_150px_120px_150px_180px] gap-3 lg:gap-4 px-5 py-4">
                 <div class="space-y-1">
                   <a href={`/drinks/${drink.slug}/`} class="font-display text-lg font-semibold text-[var(--color-stone-900)] hover:text-[var(--color-forest-700)] transition-colors">
                     {drink.name}
@@ -197,19 +186,36 @@ const jsonLd = {
                   )}
                 </div>
                 <div>
-                  <span class="lg:hidden block text-[11px] font-semibold uppercase tracking-widest text-[var(--color-stone-400)] mb-1">Price</span>
-                  <span class="text-sm font-semibold text-[var(--color-stone-800)]">{priceText(drink)}</span>
+                  <span class="lg:hidden block text-[11px] font-semibold uppercase tracking-widest text-[var(--color-stone-400)] mb-1">Retail Price</span>
+                  <span class="text-sm font-semibold text-[var(--color-stone-800)]">{retailPriceText(drink)}</span>
                 </div>
                 <div>
-                  <span class="lg:hidden block text-[11px] font-semibold uppercase tracking-widest text-[var(--color-stone-400)] mb-1">Calories</span>
-                  <span class="text-sm text-[var(--color-stone-600)]">{nutritionText(drink)}</span>
+                  <span class="lg:hidden block text-[11px] font-semibold uppercase tracking-widest text-[var(--color-stone-400)] mb-1">Calories per 100ml</span>
+                  <span class="text-sm text-[var(--color-stone-600)]">{caloriesText(drink.caloriesPer100ml)}</span>
                 </div>
                 <div>
-                  <span class="lg:hidden block text-[11px] font-semibold uppercase tracking-widest text-[var(--color-stone-400)] mb-1">Grade</span>
-                  <span class="text-sm text-[var(--color-stone-600)]">{gradeText(drink)}</span>
+                  <span class="lg:hidden block text-[11px] font-semibold uppercase tracking-widest text-[var(--color-stone-400)] mb-1">Calories per M cup</span>
+                  <span class="text-sm text-[var(--color-stone-600)]">{caloriesText(drink.caloriesM)}</span>
                 </div>
-              </article>
-            ))}
+                <div>
+                  <span class="lg:hidden block text-[11px] font-semibold uppercase tracking-widest text-[var(--color-stone-400)] mb-1">Calories per L cup</span>
+                  <span class="text-sm text-[var(--color-stone-600)]">{caloriesText(drink.caloriesL)}</span>
+                </div>
+                <div>
+                  <span class="lg:hidden block text-[11px] font-semibold uppercase tracking-widest text-[var(--color-stone-400)] mb-1">Nutri-Grade</span>
+                  <span class="text-sm text-[var(--color-stone-600)]">{drink.nutriGrade ?? 'Not listed'}</span>
+                </div>
+                <div>
+                  <span class="lg:hidden block text-[11px] font-semibold uppercase tracking-widest text-[var(--color-stone-400)] mb-1">Healthier Choice</span>
+                  <span class="text-sm text-[var(--color-stone-600)]">{healthierChoiceText(drink)}</span>
+                </div>
+                <div>
+                  <span class="lg:hidden block text-[11px] font-semibold uppercase tracking-widest text-[var(--color-stone-400)] mb-1">Healthier Choice Type</span>
+                  <span class="text-sm text-[var(--color-stone-600)]">{drink.healthierChoiceType ?? 'Not listed'}</span>
+                </div>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
