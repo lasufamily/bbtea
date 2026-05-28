@@ -158,24 +158,37 @@ const jsonLd = {
 
         <div class="rounded-lg border border-[var(--color-stone-200)] bg-white">
           <div>
-            <div class="hidden lg:grid grid-cols-[minmax(150px,1.35fr)_90px_82px_82px_82px_64px_74px_112px] gap-2 px-4 py-3 bg-[var(--color-cream-100)] border-b border-[var(--color-stone-200)] text-[10px] font-semibold tracking-widest uppercase text-[var(--color-stone-500)] leading-tight">
+            <div class="hidden lg:grid grid-cols-[minmax(180px,1.55fr)_90px_86px_86px_86px_68px_128px] gap-2 px-4 py-3 bg-[var(--color-cream-100)] border-b border-[var(--color-stone-200)] text-[10px] font-semibold tracking-widest uppercase text-[var(--color-stone-500)] leading-tight">
               <span>Drink</span>
               <span><span>Retail</span><span class="block">Price</span></span>
               <span><span>Calories</span><span class="block">per 100ml</span></span>
               <span><span>Calories</span><span class="block">per M cup</span></span>
               <span><span>Calories</span><span class="block">per L cup</span></span>
               <span>Nutri-Grade</span>
-              <span><span>Healthier</span><span class="block">Choice</span></span>
               <span><span>Healthier</span><span class="block">Choice Type</span></span>
             </div>
 
             <div class="divide-y divide-[var(--color-stone-100)]">
               {group.drinks.map(drink => (
-                <article class="grid lg:grid-cols-[minmax(150px,1.35fr)_90px_82px_82px_82px_64px_74px_112px] gap-3 lg:gap-2 px-5 lg:px-4 py-4">
+                <article class="grid lg:grid-cols-[minmax(180px,1.55fr)_90px_86px_86px_86px_68px_128px] gap-3 lg:gap-2 px-5 lg:px-4 py-4">
                 <div class="space-y-1">
-                  <a href={`/drinks/${drink.slug}/`} class="font-display text-lg lg:text-base font-semibold text-[var(--color-stone-900)] hover:text-[var(--color-forest-700)] transition-colors">
-                    {drink.name}
-                  </a>
+                  <div class="flex items-center gap-2">
+                    <a href={`/drinks/${drink.slug}/`} class="font-display text-lg lg:text-base font-semibold text-[var(--color-stone-900)] hover:text-[var(--color-forest-700)] transition-colors">
+                      {drink.name}
+                    </a>
+                    {drink.healthierChoice && (
+                      <img
+                        src="/healthier-choice-symbol.jpg"
+                        alt="Healthier Choice"
+                        title="Healthier Choice"
+                        class="h-6 w-auto flex-shrink-0 object-contain"
+                        width="24"
+                        height="24"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    )}
+                  </div>
                   {drink.description && (
                     <p class="text-sm text-[var(--color-stone-600)] leading-relaxed">
                       {drink.description}
@@ -207,16 +220,6 @@ const jsonLd = {
                 <div>
                   <span class="lg:hidden block text-[11px] font-semibold uppercase tracking-widest text-[var(--color-stone-400)] mb-1">Nutri-Grade</span>
                   <span class="text-sm lg:text-xs text-[var(--color-stone-600)]">{drink.nutriGrade ?? 'Not listed'}</span>
-                </div>
-                <div>
-                  <span class="lg:hidden block text-[11px] font-semibold uppercase tracking-widest text-[var(--color-stone-400)] mb-1">Healthier Choice</span>
-                  {drink.healthierChoice ? (
-                    <span class="inline-flex items-center rounded-full border border-[var(--color-stone-200)] bg-white px-1.5 py-1" title="Healthier Choice" aria-label="Healthier Choice">
-                      <img src="/healthier-choice-symbol.svg" alt="Healthier Choice" class="h-5 w-5 lg:h-4 lg:w-4" width="20" height="20" loading="lazy" decoding="async" />
-                    </span>
-                  ) : (
-                    <span class="text-sm lg:text-xs text-[var(--color-stone-500)]">No</span>
-                  )}
                 </div>
                 <div>
                   <span class="lg:hidden block text-[11px] font-semibold uppercase tracking-widest text-[var(--color-stone-400)] mb-1">Healthier Choice Type</span>

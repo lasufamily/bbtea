@@ -15,18 +15,21 @@ for (const pagePath of menuPages) {
     assert.match(source, />Calories per M cup</);
     assert.match(source, />Calories per L cup</);
     assert.match(source, />Nutri-Grade</);
-    assert.match(source, />Healthier Choice</);
     assert.match(source, />Healthier Choice Type</);
     assert.match(source, /<span>Calories<\/span>\s*<span class="block">per 100ml<\/span>/);
     assert.match(source, /<span>Calories<\/span>\s*<span class="block">per M cup<\/span>/);
     assert.match(source, /<span>Calories<\/span>\s*<span class="block">per L cup<\/span>/);
     assert.match(source, /retailPriceParts\(drink\)\.map/);
-    assert.match(source, /healthier-choice-symbol\.svg/);
+    assert.match(source, /drink\.healthierChoice &&/);
+    assert.match(source, /healthier-choice-symbol\.jpg/);
     assert.doesNotMatch(source, /overflow-x-auto/);
     assert.doesNotMatch(source, /min-w-\[/);
     assert.doesNotMatch(source, /healthierChoiceText/);
     assert.doesNotMatch(source, /prices\.join/);
     assert.doesNotMatch(source, /<span>Price<\/span>/);
+    assert.doesNotMatch(source, /<span><span>Healthier<\/span><span class="block">Choice<\/span><\/span>/);
+    assert.doesNotMatch(source, />Healthier Choice<\/span>/);
+    assert.doesNotMatch(source, /healthier-choice-symbol\.svg/);
     assert.doesNotMatch(source, />Grade</);
   });
 }
