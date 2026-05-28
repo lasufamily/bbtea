@@ -86,22 +86,21 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
         <span class="text-sm font-semibold tracking-wide uppercase text-[var(--color-stone-400)]">Coffee Shop</span>
       </div>
     )}
-    <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-stone-900)]/70 via-transparent to-transparent"></div>
-
-    <!-- Breadcrumb overlaid on image -->
-    <nav class="absolute top-6 left-4 sm:left-8 flex items-center gap-1.5 text-white/80 text-sm" aria-label="Breadcrumb">
-      <a href="/" class="hover:text-white transition-colors">Home</a>
-      <span>/</span>
-      <a href="/directory/" class="hover:text-white transition-colors">Directory</a>
-      <span>/</span>
-      <a href={`/towns/${outlet.townSlug}/`} class="hover:text-white transition-colors">{outlet.town}</a>
-      <span>/</span>
-      <span class="text-white font-medium truncate max-w-[140px]">{outlet.name}</span>
-    </nav>
   </div>
 
   <!-- Main content -->
   <article class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+    <!-- Breadcrumb below hero image -->
+    <nav class="mb-8 flex flex-wrap items-center gap-1.5 text-sm text-[var(--color-stone-400)]" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-[var(--color-stone-900)] transition-colors">Home</a>
+      <span>/</span>
+      <a href="/directory/" class="hover:text-[var(--color-stone-900)] transition-colors">Directory</a>
+      <span>/</span>
+      <a href={`/towns/${outlet.townSlug}/`} class="hover:text-[var(--color-stone-900)] transition-colors">{outlet.town}</a>
+      <span>/</span>
+      <span class="text-[var(--color-stone-700)] font-medium">{outlet.name}</span>
+    </nav>
+
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
 
       <!-- Left: main details -->
