@@ -159,7 +159,7 @@ if (q)           activeFilters.push(`"${q}"`);
           </p>
           <a
             href="/directory/"
-            class="inline-flex items-center gap-2 mt-2 px-6 py-3 rounded-lg bg-[var(--color-stone-900)] text-white text-sm font-semibold hover:bg-white hover:text-[var(--color-stone-900)] border border-[var(--color-stone-900)] transition-colors"
+            class="inline-flex items-center gap-2 mt-2 px-6 py-3 rounded-lg bg-[var(--color-forest-700)] text-white text-sm font-semibold hover:bg-white hover:text-[var(--color-forest-700)] border border-[var(--color-forest-700)] transition-colors"
           >
             Clear all filters
           </a>
@@ -218,9 +218,9 @@ if (q)           activeFilters.push(`"${q}"`);
 
       form.querySelectorAll<HTMLInputElement>('input[name="price"]').forEach(input => {
         input.checked = input.value === filters.price;
-        input.closest('label')?.classList.toggle('bg-[var(--color-stone-900)]', input.checked);
+        input.closest('label')?.classList.toggle('bg-[var(--color-forest-700)]', input.checked);
         input.closest('label')?.classList.toggle('text-white', input.checked);
-        input.closest('label')?.classList.toggle('border-[var(--color-stone-900)]', input.checked);
+        input.closest('label')?.classList.toggle('border-[var(--color-forest-700)]', input.checked);
         input.closest('label')?.classList.toggle('border-[var(--color-stone-200)]', !input.checked);
         input.closest('label')?.classList.toggle('text-[var(--color-stone-600)]', !input.checked);
       });

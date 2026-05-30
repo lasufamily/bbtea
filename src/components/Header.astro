@@ -40,7 +40,7 @@ const pathname = Astro.url.pathname;
               'text-sm font-medium tracking-wide link-underline transition-colors',
               pathname.startsWith(link.href.split('/').slice(0, 2).join('/'))
                 ? 'text-[var(--color-forest-700)]'
-                : 'text-[var(--color-stone-600)] hover:text-[var(--color-stone-900)]',
+                : 'text-[var(--color-stone-600)] hover:text-[var(--color-forest-700)]',
             ].join(' ')}
           >
             {link.label}
@@ -52,7 +52,7 @@ const pathname = Astro.url.pathname;
       <div class="flex items-center gap-3">
         <a
           href="/directory/"
-          class="hidden sm:inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-stone-900)] bg-[var(--color-stone-900)] text-white hover:bg-white hover:text-[var(--color-stone-900)] transition-colors"
+          class="hidden sm:inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg border border-[var(--color-forest-700)] bg-[var(--color-forest-700)] text-white hover:bg-white hover:text-[var(--color-forest-700)] transition-colors"
         >
           Explore All
         </a>
@@ -61,7 +61,7 @@ const pathname = Astro.url.pathname;
         <button
           id="mobile-menu-btn"
           type="button"
-          class="lg:hidden p-2 rounded-md text-[var(--color-stone-600)] hover:text-[var(--color-stone-900)] hover:bg-[var(--color-stone-100)] transition-colors"
+          class="lg:hidden p-2 rounded-md text-[var(--color-stone-600)] hover:text-[var(--color-forest-700)] hover:bg-[var(--color-stone-100)] transition-colors"
           aria-expanded="false"
           aria-controls="mobile-menu"
           aria-label="Toggle navigation menu"
@@ -90,7 +90,7 @@ const pathname = Astro.url.pathname;
       <div class="pt-3 mt-1 border-t border-[var(--color-stone-200)]">
         <a
           href="/directory/"
-          class="block w-full text-center px-4 py-3 rounded-lg text-sm font-medium bg-[var(--color-stone-900)] text-white hover:bg-white hover:text-[var(--color-stone-900)] border border-[var(--color-stone-900)] transition-colors"
+          class="block w-full text-center px-4 py-3 rounded-lg text-sm font-medium bg-[var(--color-forest-700)] text-white hover:bg-white hover:text-[var(--color-forest-700)] border border-[var(--color-forest-700)] transition-colors"
         >
           Explore All Shops
         </a>

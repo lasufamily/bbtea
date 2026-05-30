@@ -10,20 +10,20 @@
   --color-cream-100: #F8F8F6;
   --color-cream-200: #ECECE7;
 
-  --color-forest-700: #244537;
-  --color-forest-800: #183327;
-  --color-forest-900: #101F19;
+  --color-forest-700: #3079C8;
+  --color-forest-800: #2465A8;
+  --color-forest-900: #1F548C;
 
-  --color-boba-400:  #C87941;
-  --color-boba-500:  #A85E28;
-  --color-boba-600:  #8A4A1A;
+  --color-boba-400:  #5A9ADE;
+  --color-boba-500:  #2465A8;
+  --color-boba-600:  #1F548C;
 
   --color-taro-400:  #9B7BB8;
   --color-taro-500:  #7C5B9A;
   --color-taro-600:  #5E3F7A;
 
-  --color-blush-100: #FDF0EC;
-  --color-blush-200: #F9E0D6;
+  --color-blush-100: #EEF6FF;
+  --color-blush-200: #D8EAFE;
 
   --color-stone-100: #F4F4F2;
   --color-stone-200: #E4E4DF;
@@ -160,12 +160,12 @@
     margin-bottom: 1.25rem;
   }
   .blog-prose a {
-    color: #244537;
+    color: #3079C8;
     text-decoration: underline;
     text-underline-offset: 2px;
   }
   .blog-prose a:hover {
-    color: #A85E28;
+    color: #2465A8;
   }
   .blog-prose strong {
     font-weight: 600;
@@ -181,7 +181,7 @@
     margin-bottom: 0.4rem;
   }
   .blog-prose blockquote {
-    border-left: 3px solid #244537;
+    border-left: 3px solid #3079C8;
     background: #F8F8F6;
     padding: 1rem 1.25rem;
     margin: 1.5rem 0;
@@ -233,7 +233,7 @@
   .blog-prose em { font-style: italic; }
   .blog-prose code {
     background: #F4F4F2;
-    color: #A85E28;
+    color: #2465A8;
     padding: 0.1em 0.35em;
     border-radius: 4px;
     font-size: 0.875em;

@@ -137,7 +137,7 @@ const ids = {
       </span>
       <div class="flex gap-2">
         {(['$', '$$', '$$$'] as const).map(price => (
-          <label class={`flex-1 text-center cursor-pointer px-2 py-2 rounded-lg border text-sm font-semibold transition-colors ${selectedPrice === price ? 'bg-[var(--color-stone-900)] text-white border-[var(--color-stone-900)]' : 'border-[var(--color-stone-200)] text-[var(--color-stone-600)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)]'}`}>
+          <label class={`flex-1 text-center cursor-pointer px-2 py-2 rounded-lg border text-sm font-semibold transition-colors ${selectedPrice === price ? 'bg-[var(--color-forest-700)] text-white border-[var(--color-forest-700)]' : 'border-[var(--color-stone-200)] text-[var(--color-stone-600)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)]'}`}>
             <input type="radio" name="price" value={price} class="sr-only" checked={selectedPrice === price} />
             {price}
           </label>
@@ -163,7 +163,7 @@ const ids = {
     <!-- Apply -->
     <button
       type="submit"
-      class="w-full py-3 rounded-lg text-sm font-semibold bg-[var(--color-stone-900)] text-white hover:bg-white hover:text-[var(--color-stone-900)] border border-[var(--color-stone-900)] transition-colors mt-2"
+      class="w-full py-3 rounded-lg text-sm font-semibold bg-[var(--color-forest-700)] text-white hover:bg-white hover:text-[var(--color-forest-700)] border border-[var(--color-forest-700)] transition-colors mt-2"
     >
       Apply Filters
     </button>

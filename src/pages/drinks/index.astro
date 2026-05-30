@@ -31,7 +31,7 @@ const jsonLd = {
   <section class="bg-white border-b border-[var(--color-stone-200)] py-16">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4" data-pagefind-body>
       <nav class="text-sm text-[var(--color-stone-400)] flex items-center gap-1.5" aria-label="Breadcrumb">
-        <a href="/" class="hover:text-[var(--color-stone-900)] transition-colors">Home</a>
+        <a href="/" class="hover:text-[var(--color-forest-700)] transition-colors">Home</a>
         <span>/</span>
         <span class="text-[var(--color-stone-700)] font-medium">Drinks</span>
       </nav>
@@ -61,14 +61,14 @@ const jsonLd = {
     <div class="flex flex-wrap gap-2">
       <a
         href="/drinks/"
-        class={`text-sm px-4 py-2 rounded-lg border transition-colors ${!selectedCategory ? 'bg-[var(--color-stone-900)] text-white border-[var(--color-stone-900)]' : 'bg-white text-[var(--color-stone-600)] border-[var(--color-stone-200)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)]'}`}
+        class={`text-sm px-4 py-2 rounded-lg border transition-colors ${!selectedCategory ? 'bg-[var(--color-forest-700)] text-white border-[var(--color-forest-700)]' : 'bg-white text-[var(--color-stone-600)] border-[var(--color-stone-200)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)]'}`}
       >
         All Drinks
       </a>
       {categories.map(category => (
         <a
           href={`/drinks/?category=${category.slug}`}
-          class={`text-sm px-4 py-2 rounded-lg border transition-colors ${selectedCategory === category.slug ? 'bg-[var(--color-stone-900)] text-white border-[var(--color-stone-900)]' : 'bg-white text-[var(--color-stone-600)] border-[var(--color-stone-200)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)]'}`}
+          class={`text-sm px-4 py-2 rounded-lg border transition-colors ${selectedCategory === category.slug ? 'bg-[var(--color-forest-700)] text-white border-[var(--color-forest-700)]' : 'bg-white text-[var(--color-stone-600)] border-[var(--color-stone-200)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)]'}`}
         >
           {category.name}
         </a>
