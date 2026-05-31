@@ -3,38 +3,38 @@ import Layout from '../components/Layout.astro';
 import ListingCard from '../components/ListingCard.astro';
 import FilterBar from '../components/FilterBar.astro';
 import SearchBox from '../components/SearchBox.astro';
-import { getBrands, getOutlets, getCategories, getTowns } from '../lib/airtable';
+import { getAllVenueOutlets, getBrands, getMalls, getTowns } from '../lib/airtable';
 import { getStationsFromOutlets } from '../lib/stations';
 import { getTownsFromOutlets } from '../lib/towns';
-import type { Outlet } from '../lib/types';
+import type { Mall, VenueOutlet } from '../lib/types';
 
-const [brands, allOutlets, categories, allTowns] = await Promise.all([
+const [brands, allOutlets, allMalls, allTowns] = await Promise.all([
   getBrands(),
-  getOutlets(),
-  getCategories(),
+  getAllVenueOutlets(),
+  getMalls(),
   getTowns(),
 ]);
 const mrtStations = getStationsFromOutlets(allOutlets);
 const towns = getTownsFromOutlets(allOutlets, allTowns);
+const mallSlugs = new Set(allOutlets.map(outlet => outlet.mallSlug).filter(Boolean));
+const malls: Mall[] = allMalls.filter(mall => mallSlugs.has(mall.slug));
 
 // Read query params
 const url  = Astro.url;
-const town     = url.searchParams.get('town')     ?? '';
 const brand    = url.searchParams.get('brand')    ?? '';
-const category = url.searchParams.get('category') ?? '';
+const town     = url.searchParams.get('town')     ?? '';
+const mall     = url.searchParams.get('mall')     ?? '';
 const mrt      = url.searchParams.get('mrt')      ?? '';
-const price    = url.searchParams.get('price')    ?? '';
 const halal    = url.searchParams.get('halal')    ?? '';
 const q        = url.searchParams.get('q')        ?? '';
 
 // Apply filters
-let outlets: Outlet[] = allOutlets;
+let outlets: VenueOutlet[] = allOutlets;
 
-if (town)     outlets = outlets.filter(o => o.townSlug     === town);
 if (brand)    outlets = outlets.filter(o => o.brandSlug    === brand);
-if (category) outlets = outlets.filter(o => o.drinkCategorySlugs?.includes(category));
+if (town)     outlets = outlets.filter(o => o.townSlug     === town);
+if (mall)     outlets = outlets.filter(o => o.mallSlug     === mall);
 if (mrt)      outlets = outlets.filter(o => o.mrtSlug      === mrt);
-if (price)    outlets = outlets.filter(o => o.priceRange   === price);
 if (halal === 'true') outlets = outlets.filter(o => o.halalFriendly);
 if (q) {
   const ql = q.toLowerCase();
@@ -44,24 +44,24 @@ if (q) {
     o.town.toLowerCase().includes(ql) ||
     o.mall?.toLowerCase().includes(ql) ||
     o.nearestMrt?.toLowerCase().includes(ql) ||
-    o.popularDrinks?.some(d => d.toLowerCase().includes(ql))
+    ('popularDrinks' in o && o.popularDrinks?.some(d => d.toLowerCase().includes(ql))) ||
+    ('category' in o && o.category?.toLowerCase().includes(ql))
   );
 }
 
-const isFiltered = !!(town || brand || category || mrt || price || halal || q);
+const isFiltered = !!(brand || town || mall || mrt || halal || q);
 const activeFilters: string[] = [];
-if (town)        activeFilters.push(town.replace(/-/g,' '));
 if (brand)       activeFilters.push(brand.replace(/-/g,' '));
-if (category)    activeFilters.push(category.replace(/-/g,' '));
+if (town)        activeFilters.push(town.replace(/-/g,' '));
+if (mall)        activeFilters.push(mall.replace(/-/g,' '));
 if (mrt)         activeFilters.push(mrt.replace(/-/g,' '));
-if (price)       activeFilters.push(price);
 if (halal==='true') activeFilters.push('halal');
 if (q)           activeFilters.push(`"${q}"`);
 ---
 
 <Layout
-  title={isFiltered ? `Bubble Tea Shops — ${activeFilters.join(', ')} | BBTea.sg` : 'Browse All Bubble Tea Shops in Singapore | BBTea.sg'}
-  description={`Browse ${outlets.length} bubble tea shops in Singapore. Filter by town, brand, drink type, MRT station and more.`}
+  title={isFiltered ? `Singapore shops — ${activeFilters.join(', ')} | BBTea.sg` : 'Browse All Bubble Tea and Coffee Shops in Singapore | BBTea.sg'}
+  description={`Browse ${outlets.length} bubble tea and coffee shops in Singapore. Filter by brand, town, mall, MRT station and halal-friendly options.`}
 >
 
   <!-- Page header -->
@@ -96,15 +96,14 @@ if (q)           activeFilters.push(`"${q}"`);
       <div class="hidden lg:block w-64 xl:w-72 flex-shrink-0">
         <FilterBar
           brands={brands}
-          categories={categories}
           towns={towns}
+          malls={malls}
           mrtStations={mrtStations}
           idPrefix="desktop-filters"
-          selectedTown={town}
           selectedBrand={brand}
-          selectedCategory={category}
+          selectedTown={town}
+          selectedMall={mall}
           selectedMrt={mrt}
-          selectedPrice={price}
           selectedHalal={halal}
         />
       </div>
@@ -123,15 +122,14 @@ if (q)           activeFilters.push(`"${q}"`);
           <div class="px-5 pb-5">
             <FilterBar
               brands={brands}
-              categories={categories}
               towns={towns}
+              malls={malls}
               mrtStations={mrtStations}
               idPrefix="mobile-filters"
-              selectedTown={town}
               selectedBrand={brand}
-              selectedCategory={category}
+              selectedTown={town}
+              selectedMall={mall}
               selectedMrt={mrt}
-              selectedPrice={price}
               selectedHalal={halal}
             />
           </div>
@@ -172,25 +170,23 @@ if (q)           activeFilters.push(`"${q}"`);
 
 <script>
   type DirectoryFilters = {
-    town: string;
     brand: string;
-    category: string;
+    town: string;
+    mall: string;
     mrt: string;
-    price: string;
     halal: string;
     q: string;
   };
 
-  const filterKeys = ['town', 'brand', 'category', 'mrt', 'price', 'halal', 'q'] as const;
+  const filterKeys = ['brand', 'town', 'mall', 'mrt', 'halal', 'q'] as const;
 
   const getFiltersFromUrl = (): DirectoryFilters => {
     const params = new URLSearchParams(window.location.search);
     return {
-      town: params.get('town') ?? '',
       brand: params.get('brand') ?? '',
-      category: params.get('category') ?? '',
+      town: params.get('town') ?? '',
+      mall: params.get('mall') ?? '',
       mrt: params.get('mrt') ?? '',
-      price: params.get('price') ?? '',
       halal: params.get('halal') === 'true' ? 'true' : '',
       q: params.get('q')?.trim().toLowerCase() ?? '',
     };
@@ -199,11 +195,10 @@ if (q)           activeFilters.push(`"${q}"`);
   const getFiltersFromForm = (form: HTMLFormElement): DirectoryFilters => {
     const data = new FormData(form);
     return {
-      town: String(data.get('town') ?? ''),
       brand: String(data.get('brand') ?? ''),
-      category: String(data.get('category') ?? ''),
+      town: String(data.get('town') ?? ''),
+      mall: String(data.get('mall') ?? ''),
       mrt: String(data.get('mrt') ?? ''),
-      price: String(data.get('price') ?? ''),
       halal: data.get('halal') === 'true' ? 'true' : '',
       q: getFiltersFromUrl().q,
     };
@@ -211,19 +206,10 @@ if (q)           activeFilters.push(`"${q}"`);
 
   const syncForms = (filters: DirectoryFilters) => {
     document.querySelectorAll<HTMLFormElement>('[data-filter-form]').forEach(form => {
-      form.querySelector<HTMLSelectElement>('select[name="town"]')!.value = filters.town;
       form.querySelector<HTMLSelectElement>('select[name="brand"]')!.value = filters.brand;
-      form.querySelector<HTMLSelectElement>('select[name="category"]')!.value = filters.category;
+      form.querySelector<HTMLSelectElement>('select[name="town"]')!.value = filters.town;
+      form.querySelector<HTMLSelectElement>('select[name="mall"]')!.value = filters.mall;
       form.querySelector<HTMLSelectElement>('select[name="mrt"]')!.value = filters.mrt;
-
-      form.querySelectorAll<HTMLInputElement>('input[name="price"]').forEach(input => {
-        input.checked = input.value === filters.price;
-        input.closest('label')?.classList.toggle('bg-[var(--color-forest-700)]', input.checked);
-        input.closest('label')?.classList.toggle('text-white', input.checked);
-        input.closest('label')?.classList.toggle('border-[var(--color-forest-700)]', input.checked);
-        input.closest('label')?.classList.toggle('border-[var(--color-stone-200)]', !input.checked);
-        input.closest('label')?.classList.toggle('text-[var(--color-stone-600)]', !input.checked);
-      });
 
       const halal = form.querySelector<HTMLInputElement>('input[name="halal"]');
       if (halal) halal.checked = filters.halal === 'true';
@@ -231,11 +217,10 @@ if (q)           activeFilters.push(`"${q}"`);
   };
 
   const updateUrl = (filters: DirectoryFilters) => {
-    const params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams();
     filterKeys.forEach(key => {
       const value = filters[key];
       if (value) params.set(key, value);
-      else params.delete(key);
     });
 
     const query = params.toString();
@@ -244,11 +229,10 @@ if (q)           activeFilters.push(`"${q}"`);
   };
 
   const matchesFilters = (card: HTMLElement, filters: DirectoryFilters) => {
-    if (filters.town && card.dataset.town !== filters.town) return false;
     if (filters.brand && card.dataset.brand !== filters.brand) return false;
-    if (filters.category && !(card.dataset.category ?? '').split(' ').includes(filters.category)) return false;
+    if (filters.town && card.dataset.town !== filters.town) return false;
+    if (filters.mall && card.dataset.mall !== filters.mall) return false;
     if (filters.mrt && card.dataset.mrt !== filters.mrt) return false;
-    if (filters.price && card.dataset.price !== filters.price) return false;
     if (filters.halal === 'true' && card.dataset.halal !== 'true') return false;
     if (filters.q && !(card.dataset.search ?? '').includes(filters.q)) return false;
     return true;
@@ -287,7 +271,7 @@ if (q)           activeFilters.push(`"${q}"`);
       applyFilters(getFiltersFromForm(form), { updateHistory: true });
     });
 
-    form.querySelectorAll('select, input[name="price"], input[name="halal"]').forEach(control => {
+    form.querySelectorAll('select, input[name="halal"]').forEach(control => {
       control.addEventListener('change', () => {
         applyFilters(getFiltersFromForm(form), { updateHistory: true });
       });
