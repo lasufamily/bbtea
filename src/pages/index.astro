@@ -5,39 +5,41 @@ import ListingCard from '../components/ListingCard.astro';
 import BrandCard from '../components/BrandCard.astro';
 import TownCard from '../components/TownCard.astro';
 import DrinkCard from '../components/DrinkCard.astro';
-import { getBrands, getOutlets, getDrinks, getTowns } from '../lib/airtable';
-import { getTownsFromOutlets } from '../lib/towns';
+import { getAllVenueTowns, getBrands, getCoffeeOutlets, getOutlets, getDrinks, getTowns } from '../lib/airtable';
 
-const [brands, outlets, drinks, allTowns] = await Promise.all([
+const [brands, outlets, coffeeOutlets, drinks, allTowns] = await Promise.all([
   getBrands(),
   getOutlets(),
+  getCoffeeOutlets(),
   getDrinks(),
   getTowns(),
 ]);
-const towns = getTownsFromOutlets(outlets, allTowns);
+const allVenueOutlets = [...outlets, ...coffeeOutlets];
+const towns = getAllVenueTowns(outlets, coffeeOutlets, allTowns);
+const venueBrandSlugs = new Set(allVenueOutlets.map(outlet => outlet.brandSlug).filter(Boolean));
 
-const featuredBrands   = brands.filter(b => b.featured).slice(0, 5);
-const featuredOutlets  = outlets.filter(o => o.featured).slice(0, 6);
+const featuredBrands   = brands.filter(b => b.featured && venueBrandSlugs.has(b.slug)).slice(0, 5);
+const featuredOutlets  = allVenueOutlets.filter(o => o.featured).slice(0, 6);
 const featuredTowns    = towns.slice(0, 8);
 const featuredDrinks   = drinks.slice(0, 4);
 
 // Outlet count per brand
 const brandOutletCount = (brandSlug: string) =>
-  outlets.filter(o => o.brandSlug === brandSlug).length;
+  allVenueOutlets.filter(o => o.brandSlug === brandSlug).length;
 
 // Outlet count per town
 const townOutletCount = (townSlug: string) =>
-  outlets.filter(o => o.townSlug === townSlug).length;
+  allVenueOutlets.filter(o => o.townSlug === townSlug).length;
 
-const totalOutlets = outlets.length;
-const totalBrands  = brands.length;
+const totalOutlets = allVenueOutlets.length;
+const totalBrands  = brands.filter(brand => venueBrandSlugs.has(brand.slug)).length;
 const totalTowns   = towns.length;
 const totalDrinks  = drinks.length;
 
 const heroSuggestions = [
   featuredDrinks[0]?.name,
   featuredTowns[0]?.name,
-  ...(outlets.some(outlet => outlet.halalFriendly) ? ['Halal'] : []),
+  ...(allVenueOutlets.some(outlet => outlet.halalFriendly) ? ['Halal'] : []),
   featuredTowns[1]?.name,
   featuredBrands[0]?.name ?? brands[0]?.name,
 ].filter((tag): tag is string => Boolean(tag));

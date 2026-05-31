@@ -15,3 +15,11 @@ test('main navigation only includes Directory, Bubble Tea, Coffee, and Menus', a
   assert.match(navLinksSource, /href: '\/menus\/',\s+label: 'Menus'/);
   assert.doesNotMatch(navLinksSource, /Towns|Malls|Drinks|Brands|Blog|Search/);
 });
+
+test('header CTA links to the submit review page', async () => {
+  const source = await readFile(new URL('../src/components/Header.astro', import.meta.url), 'utf8');
+
+  assert.match(source, /href="\/submit-a-review\/"/);
+  assert.match(source, />\s*Submit a Review\s*</);
+  assert.doesNotMatch(source, />\s*Explore All(?: Shops)?\s*</);
+});
