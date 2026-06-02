@@ -7,8 +7,8 @@
  */
 
 import type {
-  Brand, Outlet, CoffeeOutlet, VenueOutlet, Drink, DrinkCategory, Mall, Town, MrtStation,
-  AirtableBrandFields, AirtableOutletFields, AirtableCoffeeShopFields, AirtableDrinkFields, AirtableTownFields, AirtableMrtStationFields, AirtableMallFields,
+  Brand, Outlet, CoffeeOutlet, VenueOutlet, Drink, DrinkCategory, Mall, Town, MrtStation, Review, ReviewPhoto,
+  AirtableBrandFields, AirtableOutletFields, AirtableCoffeeShopFields, AirtableDrinkFields, AirtableTownFields, AirtableMrtStationFields, AirtableMallFields, AirtableAttachment, AirtableReviewFields,
   AirtableRecord, AirtableResponse,
 } from './types';
 import { getTownsFromOutlets } from './towns.ts';
@@ -113,6 +113,7 @@ let _outletsCache:    Promise<Outlet[]>        | null = null;
 let _coffeeOutletsCache: Promise<CoffeeOutlet[]> | null = null;
 let _mallsCache:      Promise<Mall[]>          | null = null;
 let _townsCache:      Promise<import('./types').Town[]> | null = null;
+let _reviewsCache:    Promise<Review[]>        | null = null;
 
 type NamedSlug = { name: string; slug: string; line?: string };
 
@@ -136,6 +137,19 @@ function stationSlugFromName(name: string): string {
     .trim();
 
   return `${slugify(baseName || name)}-mrt`;
+}
+
+function attachmentToPhoto(label: ReviewPhoto['label'], attachment: AirtableAttachment | undefined): ReviewPhoto | undefined {
+  if (!attachment?.url) return undefined;
+
+  const large = attachment.thumbnails?.large;
+  return {
+    label,
+    url: large?.url ?? attachment.url,
+    filename: attachment.filename,
+    width: large?.width ?? attachment.width,
+    height: large?.height ?? attachment.height,
+  };
 }
 
 // ─────────────────────────────────────────
@@ -690,6 +704,75 @@ export function getAllVenueTowns(outlets: VenueOutlet[], coffeeOutlets: VenueOut
 
 export function getAllVenueStations(outlets: VenueOutlet[], coffeeOutlets: VenueOutlet[] = []): MrtStation[] {
   return getStationsFromOutlets([...outlets, ...coffeeOutlets]);
+}
+
+// ─────────────────────────────────────────
+// Reviews
+// ─────────────────────────────────────────
+export function mapReviewRecord(r: AirtableRecord<AirtableReviewFields>): Review | undefined {
+  const f = r.fields;
+  const slug = normalizeText(f['Slug']);
+  const drinkName = normalizeText(f['Drink Name']);
+  const brand = normalizeText(f['Brand']);
+  const outletLocation = normalizeText(f['Outlet Location']);
+
+  if (!slug || !drinkName || !brand || !outletLocation) return undefined;
+
+  const photos = [
+    attachmentToPhoto('Cup', f['Photo of Cup']?.[0]),
+    attachmentToPhoto('Shop', f['Photo of Shop']?.[0]),
+    attachmentToPhoto('Receipt', f['Photo of Receipt']?.[0]),
+  ].filter((photo): photo is ReviewPhoto => Boolean(photo));
+
+  return {
+    id: r.id,
+    slug,
+    drinkName,
+    brand,
+    outletLocation,
+    size: normalizeText(f['Size']),
+    sugarLevel: normalizeText(f['Sugar Level']),
+    toppingName: normalizeText(f['Topping Name']),
+    price: f['Price'],
+    promoUsed: normalizeText(f['Promo Used']),
+    dateOfPurchase: normalizeText(f['Date of Purchase']),
+    waitBeforeOrderMinutes: f['Wait time before making order (minutes)'],
+    waitToCollectionMinutes: f['Wait time from order to collection (minutes)'],
+    teaCoffeeStrength: normalizeText(f['Tea/Coffee Strength']),
+    milkBalance: normalizeText(f['Milk Balance']),
+    sweetness: normalizeText(f['Sweetness']),
+    authenticity: normalizeText(f['Aunthenticity']),
+    toppingTexture: normalizeText(f['Topping Texture']),
+    staffFriendliness: normalizeText(f['Staff Friendliness']),
+    bestThing: normalizeText(f['The best thing about my purchase']),
+    areasForImprovement: normalizeText(f['Areas for Improvement']),
+    reviewerName: normalizeText(f['Reviewer Name']),
+    reviewerEmail: normalizeText(f['Reviewer Email']),
+    photos,
+    createdTime: r.createdTime,
+  } satisfies Review;
+}
+
+async function _fetchReviews(): Promise<Review[]> {
+  const records = await fetchTable<AirtableReviewFields>('Reviews');
+
+  return records
+    .map(mapReviewRecord)
+    .filter((review): review is Review => Boolean(review))
+    .sort((a, b) => {
+      const dateA = a.dateOfPurchase ?? a.createdTime;
+      const dateB = b.dateOfPurchase ?? b.createdTime;
+      return dateB.localeCompare(dateA);
+    });
+}
+
+export function getReviews(): Promise<Review[]> {
+  return (_reviewsCache ??= _fetchReviews());
+}
+
+export async function getReviewBySlug(slug: string): Promise<Review | undefined> {
+  const reviews = await getReviews();
+  return reviews.find(review => review.slug === slug);
 }
 
 // ─────────────────────────────────────────

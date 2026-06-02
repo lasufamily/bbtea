@@ -195,6 +195,42 @@ export interface MrtStation {
   line?: string;
 }
 
+export interface ReviewPhoto {
+  label: 'Cup' | 'Shop' | 'Receipt';
+  url: string;
+  filename?: string;
+  width?: number;
+  height?: number;
+}
+
+export interface Review {
+  id: string;
+  slug: string;
+  drinkName: string;
+  brand: string;
+  outletLocation: string;
+  size?: string;
+  sugarLevel?: string;
+  toppingName?: string;
+  price?: number;
+  promoUsed?: string;
+  dateOfPurchase?: string;
+  waitBeforeOrderMinutes?: number;
+  waitToCollectionMinutes?: number;
+  teaCoffeeStrength?: string;
+  milkBalance?: string;
+  sweetness?: string;
+  authenticity?: string;
+  toppingTexture?: string;
+  staffFriendliness?: string;
+  bestThing?: string;
+  areasForImprovement?: string;
+  reviewerName?: string;
+  reviewerEmail?: string;
+  photos: ReviewPhoto[];
+  createdTime: string;
+}
+
 // ─────────────────────────────────────────
 // Airtable raw record shape
 // ─────────────────────────────────────────
@@ -357,4 +393,44 @@ export interface AirtableMallFields {
   'Image'?: { url: string; thumbnails?: { large?: { url: string } } }[];
   'Image URL'?: string;
   'Published'?: boolean;
+}
+
+export interface AirtableAttachment {
+  id: string;
+  url: string;
+  filename?: string;
+  width?: number;
+  height?: number;
+  type?: string;
+  thumbnails?: {
+    large?: { url: string; width?: number; height?: number };
+  };
+}
+
+export interface AirtableReviewFields {
+  'Drink Name'?: string;
+  'Brand'?: string;
+  'Outlet Location'?: string;
+  'Slug'?: string;
+  'Size'?: string;
+  'Sugar Level'?: string;
+  'Topping Name'?: string;
+  'Price'?: number;
+  'Promo Used'?: string;
+  'Date of Purchase'?: string;
+  'Wait time before making order (minutes)'?: number;
+  'Wait time from order to collection (minutes)'?: number;
+  'Tea/Coffee Strength'?: string;
+  'Milk Balance'?: string;
+  'Sweetness'?: string;
+  'Aunthenticity'?: string;
+  'Topping Texture'?: string;
+  'Staff Friendliness'?: string;
+  'The best thing about my purchase'?: string;
+  'Areas for Improvement'?: string;
+  'Reviewer Name'?: string;
+  'Reviewer Email'?: string;
+  'Photo of Cup'?: AirtableAttachment[];
+  'Photo of Shop'?: AirtableAttachment[];
+  'Photo of Receipt'?: AirtableAttachment[];
 }

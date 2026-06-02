@@ -1,0 +1,127 @@
+---
+import Layout from '../../components/Layout.astro';
+import { getReviews } from '../../lib/airtable';
+import { pathSegment } from '../../lib/url';
+
+const reviews = await getReviews();
+
+function formatDate(date?: string): string {
+  if (!date) return 'Recent visit';
+  return new Date(date).toLocaleDateString('en-SG', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+
+function formatPrice(price?: number): string | undefined {
+  if (typeof price !== 'number') return undefined;
+  return new Intl.NumberFormat('en-SG', {
+    style: 'currency',
+    currency: 'SGD',
+  }).format(price);
+}
+---
+
+<Layout
+  title="Bubble Tea and Coffee Reviews in Singapore | BBTea.sg"
+  description="Read Singapore bubble tea and coffee reviews submitted by local drinkers, with cup, shop and receipt photos from each visit."
+  canonical="https://bbtea.sg/reviews/"
+>
+  <section class="bg-[var(--color-cream-100)] border-b border-[var(--color-stone-200)] py-14">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="text-sm text-[var(--color-stone-400)] mb-6 flex items-center gap-1.5" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-[var(--color-stone-700)] transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-[var(--color-stone-700)] font-medium">Reviews</span>
+      </nav>
+      <div class="max-w-3xl space-y-3">
+        <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">Reader Reviews</p>
+        <h1 class="text-3xl lg:text-5xl font-display font-bold text-[var(--color-stone-900)]">
+          Singapore drink reviews with real photos
+        </h1>
+        <p class="text-[var(--color-stone-600)] text-lg leading-relaxed">
+          Bubble tea and coffee notes from actual visits, including the cup, the shopfront and the receipt so you can see what was ordered and what it cost.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16" data-pagefind-body>
+    {reviews.length > 0 ? (
+      <ul class="grid gap-7 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        {reviews.map(review => {
+          const coverPhoto = review.photos.find(photo => photo.label === 'Cup') ?? review.photos[0];
+          const price = formatPrice(review.price);
+
+          return (
+            <li>
+              <a
+                href={`/reviews/${pathSegment(review.slug)}/`}
+                class="group block h-full overflow-hidden rounded-lg border border-[var(--color-stone-200)] bg-white transition-colors hover:border-[var(--color-forest-700)]"
+              >
+                <div class="aspect-[4/3] bg-[var(--color-cream-100)] overflow-hidden">
+                  {coverPhoto ? (
+                    <img
+                      src={coverPhoto.url}
+                      alt={`${review.drinkName} from ${review.brand}`}
+                      class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                      decoding="async"
+                      width={coverPhoto.width ?? 800}
+                      height={coverPhoto.height ?? 600}
+                    />
+                  ) : (
+                    <div class="w-full h-full flex items-center justify-center">
+                      <span class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">Review</span>
+                    </div>
+                  )}
+                </div>
+                <div class="p-5 space-y-3">
+                  <div class="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-forest-700)]">
+                    <span>{review.brand}</span>
+                    <span class="text-[var(--color-stone-300)]">/</span>
+                    <span>{review.outletLocation}</span>
+                  </div>
+                  <h2 class="text-xl font-display font-semibold leading-snug text-[var(--color-stone-900)] group-hover:text-[var(--color-forest-700)] transition-colors">
+                    {review.drinkName}
+                  </h2>
+                  <p class="text-sm text-[var(--color-stone-500)] line-clamp-3">
+                    {review.bestThing ?? `A local reader tried ${review.drinkName} from ${review.brand} and shared notes on taste, service and value.`}
+                  </p>
+                  <div class="flex flex-wrap gap-2 pt-1">
+                    {review.sugarLevel && (
+                      <span class="rounded-lg bg-[var(--color-cream-100)] px-2.5 py-1 text-xs font-medium text-[var(--color-stone-600)]">
+                        {review.sugarLevel} sugar
+                      </span>
+                    )}
+                    {review.size && (
+                      <span class="rounded-lg bg-[var(--color-cream-100)] px-2.5 py-1 text-xs font-medium text-[var(--color-stone-600)]">
+                        Size {review.size}
+                      </span>
+                    )}
+                    {price && (
+                      <span class="rounded-lg bg-[var(--color-cream-100)] px-2.5 py-1 text-xs font-medium text-[var(--color-stone-600)]">
+                        {price}
+                      </span>
+                    )}
+                  </div>
+                  <time class="block text-xs text-[var(--color-stone-400)]" datetime={review.dateOfPurchase ?? review.createdTime}>
+                    {formatDate(review.dateOfPurchase)}
+                  </time>
+                </div>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    ) : (
+      <div class="rounded-lg border border-[var(--color-stone-200)] bg-white p-8 text-center">
+        <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">No Reviews Yet</p>
+        <p class="mt-2 text-[var(--color-stone-500)]">
+          Reviews will appear here after their Airtable Slug field is filled in.
+        </p>
+      </div>
+    )}
+  </section>
+</Layout>
