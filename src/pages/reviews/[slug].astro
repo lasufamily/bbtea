@@ -1,6 +1,7 @@
 ---
 import Layout from '../../components/Layout.astro';
 import { getReviews } from '../../lib/airtable';
+import { splitArticleParagraphs } from '../../lib/reviews';
 import { pathSegment } from '../../lib/url';
 import type { Review } from '../../lib/types';
 
@@ -19,23 +20,17 @@ const cupPhoto = review.photos.find(photo => photo.label === 'Cup');
 const shopPhoto = review.photos.find(photo => photo.label === 'Shop');
 const receiptPhoto = review.photos.find(photo => photo.label === 'Receipt');
 const heroPhoto = cupPhoto ?? review.photos[0];
+const articleParagraphs = splitArticleParagraphs(review.article);
 const purchaseDate = review.dateOfPurchase
   ? new Date(review.dateOfPurchase).toLocaleDateString('en-SG', { year: 'numeric', month: 'long', day: 'numeric' })
   : 'a recent visit';
 const price = typeof review.price === 'number'
   ? new Intl.NumberFormat('en-SG', { style: 'currency', currency: 'SGD' }).format(review.price)
   : undefined;
-const queueText = typeof review.waitBeforeOrderMinutes === 'number'
-  ? `${review.waitBeforeOrderMinutes} min before ordering`
-  : undefined;
-const collectionText = typeof review.waitToCollectionMinutes === 'number'
-  ? `${review.waitToCollectionMinutes} min to collection`
-  : undefined;
-const waitFeeling = typeof review.waitToCollectionMinutes === 'number' && review.waitToCollectionMinutes <= 5
-  ? 'mercifully short'
-  : 'worth noting';
-const title = `${review.brand} ${review.drinkName} Review at ${review.outletLocation}`;
-const description = `Review of ${review.drinkName} from ${review.brand} at ${review.outletLocation}, with photos of the cup, shop and receipt from the visit.`;
+const reviewSubject = [review.brand, review.drinkName].filter(Boolean).join(' ') || 'Drink';
+const locationLabel = review.outletLocation ? ` at ${review.outletLocation}` : '';
+const title = `${reviewSubject} Review${locationLabel}`;
+const description = `${articleParagraphs[0] ?? `Read this Singapore drink review by ${review.reviewerName ?? 'a BBTea.sg reader'}.`}`.slice(0, 155);
 const byline = review.reviewerName ? `Reviewed by ${review.reviewerName}` : 'Reviewed by a BBTea.sg reader';
 
 const quickFacts = [
@@ -48,14 +43,6 @@ const quickFacts = [
   { label: 'Price', value: price },
   { label: 'Promo', value: review.promoUsed },
   { label: 'Date bought', value: purchaseDate },
-  { label: 'Queue', value: queueText },
-  { label: 'Collection', value: collectionText },
-  { label: 'Tea or coffee strength', value: review.teaCoffeeStrength },
-  { label: 'Milk balance', value: review.milkBalance },
-  { label: 'Sweetness', value: review.sweetness },
-  { label: 'Authenticity', value: review.authenticity },
-  { label: 'Topping texture', value: review.toppingTexture },
-  { label: 'Staff', value: review.staffFriendliness },
   { label: 'Reviewer', value: review.reviewerName },
 ].filter((item): item is { label: string; value: string } => Boolean(item.value));
 
@@ -65,14 +52,14 @@ const jsonLd = {
   name: title,
   itemReviewed: {
     '@type': 'Product',
-    name: `${review.brand} ${review.drinkName}`,
-    brand: review.brand,
+    name: reviewSubject,
+    ...(review.brand && { brand: review.brand }),
   },
   author: {
     '@type': 'Person',
     name: review.reviewerName ?? 'BBTea.sg reader',
   },
-  reviewBody: [review.bestThing, review.areasForImprovement].filter(Boolean).join(' '),
+  reviewBody: review.article,
   datePublished: review.dateOfPurchase ?? review.createdTime,
   image: review.photos.map(photo => photo.url),
   url: `https://bbtea.sg/reviews/${pathSegment(review.slug)}/`,
@@ -101,32 +88,17 @@ const jsonLd = {
         <div class="grid gap-9 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div class="space-y-5">
             <div class="flex flex-wrap items-center gap-2">
-              <span class="text-xs font-bold tracking-[0.16em] uppercase text-[var(--color-forest-700)]">{review.brand}</span>
+              {review.brand && (
+                <span class="text-xs font-bold tracking-[0.16em] uppercase text-[var(--color-forest-700)]">{review.brand}</span>
+              )}
               <span class="text-xs text-[var(--color-stone-400)]">{purchaseDate}</span>
             </div>
             <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight text-[var(--color-stone-900)]">
-              {review.drinkName} at {review.outletLocation}: a quick local read
+              {title}
             </h1>
             <p class="text-lg leading-relaxed text-[var(--color-stone-600)]">
-              This was a {review.size ? `${review.size} ` : ''}{review.drinkName} from {review.brand}, ordered at {review.outletLocation}. The useful bit is in the small details: {review.sugarLevel ? `${review.sugarLevel} sugar, ` : ''}{review.toppingName ? `${review.toppingName}, ` : ''}{price ? `${price}, ` : ''}and a wait that felt {waitFeeling}.
+              {articleParagraphs[0]}
             </p>
-            <div class="flex flex-wrap gap-2">
-              {review.sweetness && (
-                <span class="rounded-lg bg-white px-3 py-1.5 text-sm font-medium text-[var(--color-stone-700)] border border-[var(--color-stone-200)]">
-                  Sweetness: {review.sweetness}
-                </span>
-              )}
-              {review.teaCoffeeStrength && (
-                <span class="rounded-lg bg-white px-3 py-1.5 text-sm font-medium text-[var(--color-stone-700)] border border-[var(--color-stone-200)]">
-                  Strength: {review.teaCoffeeStrength}
-                </span>
-              )}
-              {review.staffFriendliness && (
-                <span class="rounded-lg bg-white px-3 py-1.5 text-sm font-medium text-[var(--color-stone-700)] border border-[var(--color-stone-200)]">
-                  Staff: {review.staffFriendliness}
-                </span>
-              )}
-            </div>
             <p class="text-sm text-[var(--color-stone-500)]">{byline}</p>
           </div>
 
@@ -134,7 +106,7 @@ const jsonLd = {
             {heroPhoto ? (
               <img
                 src={heroPhoto.url}
-                alt={`${review.drinkName} from ${review.brand}`}
+                alt={`${title} cup photo`}
                 class="aspect-[4/3] w-full object-cover"
                 fetchpriority="high"
                 decoding="async"
@@ -154,37 +126,13 @@ const jsonLd = {
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
       <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem]">
         <div class="blog-prose max-w-none">
-          <p>
-            On paper, this is a very familiar Singapore drink run: pop by the outlet, pick the sugar level, decide whether the topping is worth it, then watch the counter to see how long the cup takes. What makes this review useful is that the order is specific. {review.drinkName} from {review.brand}, bought at {review.outletLocation}{price ? ` for ${price}` : ''}{review.dateOfPurchase ? ` on ${purchaseDate}` : ''}. That gives the notes some weight.
-          </p>
-
-          <h2>How the drink came across</h2>
-          <p>
-            The drink was ordered{review.size ? ` in size ${review.size}` : ''}{review.sugarLevel ? ` with ${review.sugarLevel} sugar` : ''}{review.toppingName ? ` and ${review.toppingName}` : ''}. The submitted taste notes point to a cup where the tea or coffee strength landed as <strong>{review.teaCoffeeStrength ?? 'not specified'}</strong>, the milk balance was <strong>{review.milkBalance ?? 'not specified'}</strong>, and the sweetness was <strong>{review.sweetness ?? 'not specified'}</strong>. That combination matters more than the menu name. A milk tea can sound simple, but one extra-heavy pour of milk or one weak brew can change the whole cup.
-          </p>
-          <p>
-            For authenticity, the reviewer marked it as <strong>{review.authenticity ?? 'not specified'}</strong>. I read that as a useful hint for people who care whether a drink tastes brewed, mixed from powder, or somewhere in between. If you are choosing between nearby outlets, this is the sort of small note that saves a wasted cup.
-          </p>
-
-          <h2>Queue, service and the little things</h2>
-          <p>
-            Service moved at a practical pace. {typeof review.waitBeforeOrderMinutes === 'number' ? `The wait before ordering was about ${review.waitBeforeOrderMinutes} minute${review.waitBeforeOrderMinutes === 1 ? '' : 's'}. ` : ''}{typeof review.waitToCollectionMinutes === 'number' ? `After payment, collection took about ${review.waitToCollectionMinutes} minute${review.waitToCollectionMinutes === 1 ? '' : 's'}. ` : ''}{review.staffFriendliness ? `Staff friendliness came through as ${review.staffFriendliness.toLowerCase()}.` : 'Staff friendliness was not rated in this submission.'}
-          </p>
-          {review.bestThing && (
-            <blockquote>
-              <p>{review.bestThing}</p>
-            </blockquote>
-          )}
-          {review.areasForImprovement && (
-            <>
-              <h2>What could be better</h2>
-              <p>{review.areasForImprovement}</p>
-            </>
-          )}
+          {articleParagraphs.map(paragraph => (
+            <p class="whitespace-pre-line">{paragraph}</p>
+          ))}
 
           <h2>Photos from the visit</h2>
           <p>
-            The three submitted photos are included below: the cup, the shop and the receipt. They are not glamorous studio shots, which is exactly why they help. You get the real order, the real place and the real proof of purchase.
+            These are the photos submitted with the review: the cup, the shop and the receipt.
           </p>
 
           <div class="grid gap-4 sm:grid-cols-3">
@@ -192,7 +140,7 @@ const jsonLd = {
               <figure class="m-0">
                 <img
                   src={photo.url}
-                  alt={`${review.brand} ${review.drinkName} ${photo.label.toLowerCase()} photo`}
+                  alt={`${title} ${photo.label.toLowerCase()} photo`}
                   class="aspect-square w-full object-cover rounded-lg"
                   loading="lazy"
                   decoding="async"
@@ -203,11 +151,6 @@ const jsonLd = {
               </figure>
             ))}
           </div>
-
-          <h2>My quick take</h2>
-          <p>
-            This reads like a fuss-free order rather than a destination drink. The strongest point is the speed, especially if you are grabbing something between errands. The main caution is the balance: {review.milkBalance ? `with milk balance marked as "${review.milkBalance}", ` : ''}I would order this only if that profile sounds like your kind of cup. For a casual {review.brand} stop at {review.outletLocation}, the review gives enough to decide before joining the queue.
-          </p>
         </div>
 
         <aside class="space-y-5">

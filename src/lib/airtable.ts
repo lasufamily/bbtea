@@ -712,11 +712,9 @@ export function getAllVenueStations(outlets: VenueOutlet[], coffeeOutlets: Venue
 export function mapReviewRecord(r: AirtableRecord<AirtableReviewFields>): Review | undefined {
   const f = r.fields;
   const slug = normalizeText(f['Slug']);
-  const drinkName = normalizeText(f['Drink Name']);
-  const brand = normalizeText(f['Brand']);
-  const outletLocation = normalizeText(f['Outlet Location']);
+  const article = normalizeText(f['Article']);
 
-  if (!slug || !drinkName || !brand || !outletLocation) return undefined;
+  if (!slug || !article) return undefined;
 
   const photos = [
     attachmentToPhoto('Cup', f['Photo of Cup']?.[0]),
@@ -727,9 +725,10 @@ export function mapReviewRecord(r: AirtableRecord<AirtableReviewFields>): Review
   return {
     id: r.id,
     slug,
-    drinkName,
-    brand,
-    outletLocation,
+    article,
+    drinkName: normalizeText(f['Drink Name']),
+    brand: normalizeText(f['Brand']),
+    outletLocation: normalizeText(f['Outlet Location']),
     size: normalizeText(f['Size']),
     sugarLevel: normalizeText(f['Sugar Level']),
     toppingName: normalizeText(f['Topping Name']),

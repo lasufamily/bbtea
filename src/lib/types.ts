@@ -206,9 +206,10 @@ export interface ReviewPhoto {
 export interface Review {
   id: string;
   slug: string;
-  drinkName: string;
-  brand: string;
-  outletLocation: string;
+  article: string;
+  drinkName?: string;
+  brand?: string;
+  outletLocation?: string;
   size?: string;
   sugarLevel?: string;
   toppingName?: string;
@@ -412,6 +413,8 @@ export interface AirtableReviewFields {
   'Brand'?: string;
   'Outlet Location'?: string;
   'Slug'?: string;
+  'Article'?: string;
+  'Status'?: string;
   'Size'?: string;
   'Sugar Level'?: string;
   'Topping Name'?: string;
