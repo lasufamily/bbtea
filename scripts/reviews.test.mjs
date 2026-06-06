@@ -47,6 +47,28 @@ test('review records require both slug and article', () => {
   );
 });
 
+test('review photo URL fields convert Google Drive share links for image rendering', () => {
+  const review = mapReviewRecord({
+    ...baseReviewRecord,
+    fields: {
+      ...baseReviewRecord.fields,
+      'Photo of Cup': [{ id: 'cup', url: 'https://airtable.example/expired-cup.jpg', width: 1200, height: 1600 }],
+      'Photo of Cup URL': 'https://drive.google.com/file/d/1CwKi7mLdcm6afTYnF72SvPDsEJgO06XQ/edit',
+      'Photo of Shop URL': 'https://drive.google.com/open?id=1ShopFileIdForReview',
+      'Photo of Receipt URL': 'https://drive.google.com/thumbnail?id=1ReceiptFileIdForReview&sz=w800',
+    },
+  });
+
+  assert.deepEqual(
+    review?.photos.map(photo => [photo.label, photo.url]),
+    [
+      ['Cup', 'https://drive.google.com/thumbnail?id=1CwKi7mLdcm6afTYnF72SvPDsEJgO06XQ&sz=w1200'],
+      ['Shop', 'https://drive.google.com/thumbnail?id=1ShopFileIdForReview&sz=w1200'],
+      ['Receipt', 'https://drive.google.com/thumbnail?id=1ReceiptFileIdForReview&sz=w1200'],
+    ],
+  );
+});
+
 test('plain text review articles render as safe paragraphs', () => {
   assert.deepEqual(
     splitArticleParagraphs('First paragraph.\n\nSecond paragraph.\nThird line.'),

@@ -152,6 +152,36 @@ function attachmentToPhoto(label: ReviewPhoto['label'], attachment: AirtableAtta
   };
 }
 
+function googleDriveImageUrl(url: string): string {
+  const trimmedUrl = url.trim();
+
+  try {
+    const parsed = new URL(trimmedUrl);
+    const isGoogleDriveHost = parsed.hostname === 'drive.google.com' || parsed.hostname.endsWith('.drive.google.com');
+    if (!isGoogleDriveHost) return trimmedUrl;
+
+    const pathFileId = parsed.pathname.match(/\/file\/d\/([^/]+)/)?.[1];
+    const queryFileId = parsed.searchParams.get('id');
+    const fileId = pathFileId ?? queryFileId;
+
+    return fileId
+      ? `https://drive.google.com/thumbnail?id=${encodeURIComponent(fileId)}&sz=w1200`
+      : trimmedUrl;
+  } catch {
+    return trimmedUrl;
+  }
+}
+
+function urlToPhoto(label: ReviewPhoto['label'], url: string | undefined): ReviewPhoto | undefined {
+  const normalizedUrl = normalizeText(url);
+  if (!normalizedUrl) return undefined;
+
+  return {
+    label,
+    url: googleDriveImageUrl(normalizedUrl),
+  };
+}
+
 // ─────────────────────────────────────────
 // Towns (used to resolve linked-record IDs on outlets)
 // ─────────────────────────────────────────
@@ -717,9 +747,9 @@ export function mapReviewRecord(r: AirtableRecord<AirtableReviewFields>): Review
   if (!slug || !article) return undefined;
 
   const photos = [
-    attachmentToPhoto('Cup', f['Photo of Cup']?.[0]),
-    attachmentToPhoto('Shop', f['Photo of Shop']?.[0]),
-    attachmentToPhoto('Receipt', f['Photo of Receipt']?.[0]),
+    urlToPhoto('Cup', f['Photo of Cup URL']) ?? attachmentToPhoto('Cup', f['Photo of Cup']?.[0]),
+    urlToPhoto('Shop', f['Photo of Shop URL']) ?? attachmentToPhoto('Shop', f['Photo of Shop']?.[0]),
+    urlToPhoto('Receipt', f['Photo of Receipt URL']) ?? attachmentToPhoto('Receipt', f['Photo of Receipt']?.[0]),
   ].filter((photo): photo is ReviewPhoto => Boolean(photo));
 
   return {

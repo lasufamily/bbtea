@@ -436,4 +436,7 @@ export interface AirtableReviewFields {
   'Photo of Cup'?: AirtableAttachment[];
   'Photo of Shop'?: AirtableAttachment[];
   'Photo of Receipt'?: AirtableAttachment[];
+  'Photo of Cup URL'?: string;
+  'Photo of Shop URL'?: string;
+  'Photo of Receipt URL'?: string;
 }
