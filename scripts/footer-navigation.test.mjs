@@ -14,6 +14,7 @@ test('footer navigation uses the requested column names and links', async () => 
   assert.match(source, /href: '\/stations\/',\s+label: 'MRT Stations'/);
   assert.match(source, /href: '\/malls\/',\s+label: 'Malls'/);
   assert.match(source, /href: '\/halal\/',\s+label: 'Halal'/);
+  assert.match(source, /href: '\/halal\/',\s+label: 'Halal'\s+},\s+\{\s+href: '\/drinks\/',\s+label: 'Drinks'/);
 
   assert.match(source, /'Resources': \[/);
   assert.match(source, /href: '\/reviews\/',\s+label: 'Reviews'/);
@@ -30,7 +31,7 @@ test('footer popular brands are derived from listed outlet counts', async () => 
   assert.match(source, /getCoffeeOutlets/);
   assert.match(source, /brandCounts/);
   assert.match(source, /\.sort\(\(a, b\) => b\.count - a\.count \|\| a\.label\.localeCompare\(b\.label\)\)/);
-  assert.match(source, /\.slice\(0, 8\)/);
+  assert.match(source, /\.slice\(0, 10\)/);
   assert.match(source, /'Popular Brands': popularBrandLinks/);
 });
 

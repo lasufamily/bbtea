@@ -18,7 +18,7 @@ for (const outlet of [...outlets, ...coffeeOutlets]) {
 
 const popularBrandLinks = Array.from(brandCounts.values())
   .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label))
-  .slice(0, 8)
+  .slice(0, 10)
   .map(({ href, label }) => ({ href, label }));
 
 const footerLinks = {
@@ -37,6 +37,7 @@ const footerLinks = {
     { href: '/stations/',         label: 'MRT Stations' },
     { href: '/malls/',            label: 'Malls' },
     { href: '/halal/',            label: 'Halal' },
+    { href: '/drinks/',           label: 'Drinks' },
   ],
   'Resources': [
     { href: '/reviews/', label: 'Reviews' },
