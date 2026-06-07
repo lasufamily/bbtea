@@ -1,13 +1,25 @@
 ---
-import { getCategories, getOutlets, getTowns } from '../lib/airtable';
-import { getTownsFromOutlets } from '../lib/towns';
+import { getCoffeeOutlets, getOutlets } from '../lib/airtable';
 
 const year = new Date().getFullYear();
-const [outlets, allTowns, categories] = await Promise.all([getOutlets(), getTowns(), getCategories()]);
-const popularTownLinks = getTownsFromOutlets(outlets, allTowns).slice(0, 5).map(town => ({
-  href: `/towns/${town.slug}/`,
-  label: town.name,
-}));
+const [outlets, coffeeOutlets] = await Promise.all([getOutlets(), getCoffeeOutlets()]);
+const brandCounts = new Map<string, { href: string; label: string; count: number }>();
+
+for (const outlet of [...outlets, ...coffeeOutlets]) {
+  if (!outlet.brandSlug || !outlet.brandName) continue;
+
+  const current = brandCounts.get(outlet.brandSlug);
+  brandCounts.set(outlet.brandSlug, {
+    href: `/brands/${outlet.brandSlug}/`,
+    label: outlet.brandName,
+    count: (current?.count ?? 0) + 1,
+  });
+}
+
+const popularBrandLinks = Array.from(brandCounts.values())
+  .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label))
+  .slice(0, 8)
+  .map(({ href, label }) => ({ href, label }));
 
 const footerLinks = {
   'About': [
@@ -16,22 +28,23 @@ const footerLinks = {
     { href: '/advertise/',  label: 'Advertise' },
     { href: '/newsletter/', label: 'Newsletter' },
   ],
-  'Browse': [
-    { href: '/directory/',  label: 'All Shops' },
-    { href: '/towns/',      label: 'Towns' },
-    { href: '/menus/',      label: 'Menus' },
-    { href: '/drinks/',     label: 'Drinks' },
-    { href: '/brands/',     label: 'Brands' },
-    { href: '/stations/',   label: 'Near MRT' },
-    { href: '/halal/',      label: 'Halal' },
-    { href: '/malls/',      label: 'By Mall' },
-    { href: '/blog/',       label: 'Blog' },
+  'Directories': [
+    { href: '/directory/',        label: 'All Shops' },
+    { href: '/bubble-tea-shops/', label: 'Bubble Tea Shops' },
+    { href: '/coffee-shops/',     label: 'Coffee Shops' },
+    { href: '/towns/',            label: 'Singapore Towns' },
+    { href: '/brands/',           label: 'Brands' },
+    { href: '/stations/',         label: 'MRT Stations' },
+    { href: '/malls/',            label: 'Malls' },
+    { href: '/halal/',            label: 'Halal' },
   ],
-  'Popular Towns': popularTownLinks,
-  'Drink Categories': categories.slice(0, 5).map(category => ({
-    href: `/drinks/?category=${category.slug}`,
-    label: category.name,
-  })),
+  'Resources': [
+    { href: '/reviews/', label: 'Reviews' },
+    { href: '/menus/',   label: 'Menus' },
+    { href: '/faq/',     label: 'FAQ' },
+    { href: '/blog/',    label: 'Blog' },
+  ],
+  'Popular Brands': popularBrandLinks,
 };
 ---
 
