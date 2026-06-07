@@ -7,8 +7,8 @@
  */
 
 import type {
-  Brand, Outlet, CoffeeOutlet, VenueOutlet, Drink, DrinkCategory, Mall, Town, MrtStation, Review, ReviewPhoto,
-  AirtableBrandFields, AirtableOutletFields, AirtableCoffeeShopFields, AirtableDrinkFields, AirtableTownFields, AirtableMrtStationFields, AirtableMallFields, AirtableAttachment, AirtableReviewFields,
+  Brand, Outlet, CoffeeOutlet, VenueOutlet, Drink, DrinkCategory, Mall, Town, MrtStation, Review, ReviewPhoto, Faq,
+  AirtableBrandFields, AirtableOutletFields, AirtableCoffeeShopFields, AirtableDrinkFields, AirtableTownFields, AirtableMrtStationFields, AirtableMallFields, AirtableAttachment, AirtableReviewFields, AirtableFaqFields,
   AirtableRecord, AirtableResponse,
 } from './types';
 import { getTownsFromOutlets } from './towns.ts';
@@ -114,6 +114,7 @@ let _coffeeOutletsCache: Promise<CoffeeOutlet[]> | null = null;
 let _mallsCache:      Promise<Mall[]>          | null = null;
 let _townsCache:      Promise<import('./types').Town[]> | null = null;
 let _reviewsCache:    Promise<Review[]>        | null = null;
+let _faqsCache:       Promise<Faq[]>           | null = null;
 
 type NamedSlug = { name: string; slug: string; line?: string };
 
@@ -802,6 +803,50 @@ export function getReviews(): Promise<Review[]> {
 export async function getReviewBySlug(slug: string): Promise<Review | undefined> {
   const reviews = await getReviews();
   return reviews.find(review => review.slug === slug);
+}
+
+// ─────────────────────────────────────────
+// FAQs
+// ─────────────────────────────────────────
+export function mapFaqRecord(r: AirtableRecord<AirtableFaqFields>): Faq | undefined {
+  const f = r.fields;
+  const question =
+    normalizeText(f['Question']) ??
+    normalizeText(f['FAQ Question']) ??
+    normalizeText(f['Page Title and H1']) ??
+    normalizeText(f['Title']);
+  const answer =
+    normalizeText(f['Answer']) ??
+    normalizeText(f['FAQ Answer']) ??
+    normalizeText(f['Body']);
+
+  if (!question || !answer || f['Published'] === false) return undefined;
+
+  return {
+    id: r.id,
+    slug: normalizeText(f['Slug']) ?? slugify(question),
+    question,
+    answer,
+    published: f['Published'] ?? true,
+  } satisfies Faq;
+}
+
+async function _fetchFaqs(): Promise<Faq[]> {
+  const records = await fetchTable<AirtableFaqFields>('FAQ');
+
+  return records
+    .map(mapFaqRecord)
+    .filter((faq): faq is Faq => Boolean(faq))
+    .sort((a, b) => a.question.localeCompare(b.question));
+}
+
+export function getFaqs(): Promise<Faq[]> {
+  return (_faqsCache ??= _fetchFaqs());
+}
+
+export async function getFaqBySlug(slug: string): Promise<Faq | undefined> {
+  const faqs = await getFaqs();
+  return faqs.find(faq => faq.slug === slug);
 }
 
 // ─────────────────────────────────────────

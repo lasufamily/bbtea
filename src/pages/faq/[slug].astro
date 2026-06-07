@@ -1,0 +1,64 @@
+---
+import Layout from '../../components/Layout.astro';
+import { getFaqs } from '../../lib/airtable';
+import type { Faq } from '../../lib/types';
+
+export async function getStaticPaths() {
+  const faqs = await getFaqs();
+  return faqs.map(faq => ({
+    params: { slug: faq.slug },
+    props: { faq },
+  }));
+}
+
+interface Props {
+  faq: Faq;
+}
+
+const { faq } = Astro.props;
+const description = faq.answer.length > 155 ? `${faq.answer.slice(0, 152)}...` : faq.answer;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    },
+  ],
+};
+---
+
+<Layout
+  title={`${faq.question} | BBTea.sg FAQ`}
+  description={description}
+  canonical={`https://bbtea.sg/faq/${faq.slug}/`}
+  type="article"
+  jsonLd={jsonLd}
+>
+  <article class="bg-white border-b border-[var(--color-stone-200)] py-16" data-pagefind-body>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <nav class="text-sm text-[var(--color-stone-400)] flex items-center gap-1.5" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-[var(--color-forest-700)] transition-colors">Home</a>
+        <span>/</span>
+        <a href="/faq/" class="hover:text-[var(--color-forest-700)] transition-colors">FAQ</a>
+        <span>/</span>
+        <span class="text-[var(--color-stone-700)] font-medium">{faq.question}</span>
+      </nav>
+
+      <div class="space-y-6">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-bold leading-tight text-balance text-[var(--color-stone-900)]">
+          {faq.question}
+        </h1>
+        <div class="whitespace-pre-line text-base sm:text-lg text-[var(--color-stone-700)] leading-relaxed">
+          {faq.answer}
+        </div>
+      </div>
+    </div>
+  </article>
+</Layout>

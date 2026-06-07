@@ -1,50 +1,22 @@
 ---
 import Layout from '../components/Layout.astro';
+import { getFaqs } from '../lib/airtable';
+import { pathSegment } from '../lib/url';
 
-const faqs = [
-  {
-    question: 'What is BBTea.sg?',
-    answer: 'BBTea.sg is an independent Singapore directory for bubble tea shops, coffee shops, brands, menus, towns, MRT stations, malls, and halal-friendly listings.',
-  },
-  {
-    question: 'How do you choose which outlets to list?',
-    answer: 'We focus on publicly available outlet information from brand sites, store pages, maps, and editorial research. Listings are meant to be practical rather than ranked.',
-  },
-  {
-    question: 'Do you include coffee shops as well as bubble tea shops?',
-    answer: 'Yes. BBTea.sg started with bubble tea, but the directory also includes coffee shops and cafes so readers can browse Singapore drink spots in one place.',
-  },
-  {
-    question: 'Can a brand or outlet update its information?',
-    answer: 'Yes. Send corrections, new outlet details, menu updates, or removal requests through the contact page and we will review them.',
-  },
-  {
-    question: 'Are halal listings guaranteed?',
-    answer: 'Halal information can change, so we list the status available during research and encourage readers to confirm directly with the outlet before visiting.',
-  },
-  {
-    question: 'Can I advertise on BBTea.sg?',
-    answer: 'Yes. Brands, agencies, and local businesses can use the advertise page to enquire about sponsored placements and partnerships.',
-  },
-];
+const faqs = await getFaqs();
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map(({ question, answer }) => ({
-    '@type': 'Question',
-    name: question,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: answer,
-    },
-  })),
+  '@type': 'CollectionPage',
+  name: 'Frequently Asked Questions',
+  description: 'Frequently asked questions about BBTea.sg.',
+  url: 'https://bbtea.sg/faq/',
 };
 ---
 
 <Layout
   title="FAQ | BBTea.sg"
-  description="Frequently asked questions about BBTea.sg, including listings, outlet updates, halal information, advertising, and how the Singapore drink directory works."
+  description="Frequently asked questions about BBTea.sg."
   canonical="https://bbtea.sg/faq/"
   jsonLd={jsonLd}
 >
@@ -56,49 +28,30 @@ const jsonLd = {
         <span class="text-[var(--color-stone-700)] font-medium">FAQ</span>
       </nav>
 
-      <div class="space-y-5 max-w-3xl">
-        <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
-          Frequently Asked Questions
-        </p>
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-bold leading-tight text-balance">
-          Useful answers before your next drink run.
-        </h1>
-        <p class="text-base lg:text-lg text-[var(--color-stone-600)] leading-relaxed">
-          Quick notes on how BBTea.sg works, what we list, and how to send updates when something changes.
-        </p>
-      </div>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-bold leading-tight text-balance">
+        Frequently Asked Questions
+      </h1>
     </div>
   </section>
 
-  <section class="py-14 lg:py-16">
+  <section class="py-14 lg:py-16" data-pagefind-body>
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="divide-y divide-[var(--color-stone-200)] border-y border-[var(--color-stone-200)]">
-        {faqs.map(faq => (
-          <article class="py-7 grid gap-3 lg:grid-cols-[0.42fr_0.58fr] lg:gap-10">
-            <h2 class="text-lg font-display font-semibold text-[var(--color-stone-900)]">
-              {faq.question}
-            </h2>
-            <p class="text-sm sm:text-base text-[var(--color-stone-600)] leading-relaxed">
-              {faq.answer}
-            </p>
-          </article>
-        ))}
-      </div>
-
-      <div class="mt-12 grid sm:grid-cols-3 gap-4">
-        <a href="/directory/" class="rounded-lg border border-[var(--color-stone-200)] bg-white p-5 hover:border-[var(--color-forest-700)] transition-colors">
-          <span class="text-xs font-semibold tracking-[0.16em] uppercase text-[var(--color-forest-700)]">Browse</span>
-          <span class="mt-2 block text-base font-semibold text-[var(--color-stone-900)]">All shops</span>
-        </a>
-        <a href="/contact/" class="rounded-lg border border-[var(--color-stone-200)] bg-white p-5 hover:border-[var(--color-forest-700)] transition-colors">
-          <span class="text-xs font-semibold tracking-[0.16em] uppercase text-[var(--color-forest-700)]">Update</span>
-          <span class="mt-2 block text-base font-semibold text-[var(--color-stone-900)]">Send corrections</span>
-        </a>
-        <a href="/advertise/" class="rounded-lg border border-[var(--color-stone-200)] bg-white p-5 hover:border-[var(--color-forest-700)] transition-colors">
-          <span class="text-xs font-semibold tracking-[0.16em] uppercase text-[var(--color-forest-700)]">Partner</span>
-          <span class="mt-2 block text-base font-semibold text-[var(--color-stone-900)]">Advertise with us</span>
-        </a>
-      </div>
+      {faqs.length > 0 ? (
+        <ul class="divide-y divide-[var(--color-stone-200)] border-y border-[var(--color-stone-200)]">
+          {faqs.map(faq => (
+            <li>
+              <a
+                href={`/faq/${pathSegment(faq.slug)}/`}
+                class="block py-6 text-lg font-display font-semibold text-[var(--color-stone-900)] hover:text-[var(--color-forest-700)] transition-colors"
+              >
+                {faq.question}
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="text-base text-[var(--color-stone-600)]">No FAQ records found.</p>
+      )}
     </div>
   </section>
 </Layout>

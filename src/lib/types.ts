@@ -232,6 +232,14 @@ export interface Review {
   createdTime: string;
 }
 
+export interface Faq {
+  id: string;
+  slug: string;
+  question: string;
+  answer: string;
+  published: boolean;
+}
+
 // ─────────────────────────────────────────
 // Airtable raw record shape
 // ─────────────────────────────────────────
@@ -439,4 +447,16 @@ export interface AirtableReviewFields {
   'Photo of Cup URL'?: string;
   'Photo of Shop URL'?: string;
   'Photo of Receipt URL'?: string;
+}
+
+export interface AirtableFaqFields {
+  'Question'?: string;
+  'FAQ Question'?: string;
+  'Page Title and H1'?: string;
+  'Title'?: string;
+  'Answer'?: string;
+  'FAQ Answer'?: string;
+  'Body'?: string;
+  'Slug'?: string;
+  'Published'?: boolean;
 }
