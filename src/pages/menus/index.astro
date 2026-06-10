@@ -25,15 +25,15 @@ const categoryCount = new Set(drinks.map(drink => drink.categorySlug).filter(Boo
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'Bubble Tea Menus in Singapore',
-  description: `Browse bubble tea menus from ${menuBrands.length} brands in Singapore.`,
+  name: 'Bubble Tea and Coffee Menus in Singapore',
+  description: `Browse bubble tea and coffee menus from ${menuBrands.length} brands in Singapore.`,
   url: 'https://bbtea.sg/menus/',
 };
 ---
 
 <Layout
-  title="Bubble Tea Menus in Singapore | BBTea.sg"
-  description={`Browse bubble tea menus from ${menuBrands.length} Singapore brands with drink categories, prices, and calories.`}
+  title="Bubble Tea and Coffee Menus in Singapore | BBTea.sg"
+  description={`Browse bubble tea and coffee menus from ${menuBrands.length} Singapore brands with drink categories, prices, and calories.`}
   canonical="https://bbtea.sg/menus/"
   jsonLd={jsonLd}
 >
@@ -49,10 +49,10 @@ const jsonLd = {
         Brand Menus
       </p>
       <h1 class="text-3xl lg:text-5xl font-display font-bold text-[var(--color-stone-900)] leading-tight">
-        Bubble Tea Menus<br />in Singapore
+        Bubble Tea and Coffee Menus in Singapore
       </h1>
       <p class="text-[var(--color-stone-600)] text-base max-w-2xl leading-relaxed">
-        Compare bubble tea menus by category, price, and calories from popular brands across Singapore.
+        Compare bubble tea and coffee menus by category, price, and calories from popular brands across Singapore.
       </p>
       <div class="flex flex-wrap items-center gap-6 pt-2">
         <div class="text-sm">

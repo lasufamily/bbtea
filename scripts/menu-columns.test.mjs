@@ -52,6 +52,15 @@ test('menu routes use the canonical /menus structure only', async () => {
   }
 });
 
+test('/menus hub presents bubble tea and coffee menus', async () => {
+  const source = await readFile(new URL('../src/pages/menus/index.astro', import.meta.url), 'utf8');
+
+  assert.match(source, /Bubble Tea and Coffee Menus in Singapore/);
+  assert.match(source, /Compare bubble tea and coffee menus by category, price, and calories/);
+  assert.doesNotMatch(source, /name: 'Bubble Tea Menus in Singapore'/);
+  assert.doesNotMatch(source, /<h1[\s\S]*Bubble Tea Menus<br \/>in Singapore/);
+});
+
 test('singular /menu paths redirect to canonical /menus paths', async () => {
   const redirects = await readFile(new URL('../public/_redirects', import.meta.url), 'utf8');
 
