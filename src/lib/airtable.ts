@@ -533,14 +533,14 @@ async function buildOutlets(
         image,
         galleryImages,
         featured:           f['Featured'] ?? false,
-        published:          f['Published'] ?? false,
+        published:          true,
       } satisfies Outlet;
     });
 }
 
 async function _fetchOutlets(): Promise<Outlet[]> {
   const [records, brands, drinks, townMap, mallMap, mrtMap] = await Promise.all([
-    fetchTable<AirtableOutletFields>('Bubble Tea Shops', '{Published} = TRUE()'),
+    fetchTable<AirtableOutletFields>('Bubble Tea Shops'),
     getBrands(),
     getDrinks(),
     getTownMap(),
@@ -557,7 +557,7 @@ export function getOutlets(): Promise<Outlet[]> {
 
 export async function getOutletBySlug(slug: string): Promise<Outlet | undefined> {
   const [records, brands, drinks, townMap, mallMap, mrtMap] = await Promise.all([
-    fetchTable<AirtableOutletFields>('Bubble Tea Shops', `AND({Slug} = "${slug}", {Published} = TRUE())`),
+    fetchTable<AirtableOutletFields>('Bubble Tea Shops', `{Slug} = "${slug}"`),
     getBrands(),
     getDrinks(),
     getTownMap(),
@@ -605,7 +605,7 @@ export function mapCoffeeShopRecord(
   mrtMap: Map<string, NamedSlug>,
 ): CoffeeOutlet | undefined {
   const f = r.fields;
-  if (!f['Outlet Name'] || !f['Slug'] || f['Published'] === false) return undefined;
+  if (!f['Outlet Name'] || !f['Slug']) return undefined;
 
   const brandRef = f['Brand']?.[0];
   const brand = brandRef ? brandMap.get(brandRef) : undefined;
@@ -682,13 +682,13 @@ export function mapCoffeeShopRecord(
     image,
     galleryImages,
     featured:         f['Featured'] ?? false,
-    published:        f['Published'] ?? false,
+    published:        true,
   } satisfies CoffeeOutlet;
 }
 
 async function _fetchCoffeeOutlets(): Promise<CoffeeOutlet[]> {
   const [records, brands, townMap, mallMap, mrtMap] = await Promise.all([
-    fetchTable<AirtableCoffeeShopFields>('Coffee Shops', '{Published} = TRUE()'),
+    fetchTable<AirtableCoffeeShopFields>('Coffee Shops'),
     getBrands(),
     getTownMap(),
     getMallMap(),
@@ -709,7 +709,7 @@ export function getCoffeeOutlets(): Promise<CoffeeOutlet[]> {
 
 export async function getCoffeeOutletBySlug(slug: string): Promise<CoffeeOutlet | undefined> {
   const [records, brands, townMap, mallMap, mrtMap] = await Promise.all([
-    fetchTable<AirtableCoffeeShopFields>('Coffee Shops', `AND({Slug} = "${slug}", {Published} = TRUE())`),
+    fetchTable<AirtableCoffeeShopFields>('Coffee Shops', `{Slug} = "${slug}"`),
     getBrands(),
     getTownMap(),
     getMallMap(),

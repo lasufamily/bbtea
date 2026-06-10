@@ -7,6 +7,8 @@ const {
   getAllVenueStations,
 } = await import('../src/lib/airtable.ts');
 const { pathSegment } = await import('../src/lib/url.ts');
+const airtableSource = await import('node:fs/promises')
+  .then(fs => fs.readFile(new URL('../src/lib/airtable.ts', import.meta.url), 'utf8'));
 
 assert.equal(pathSegment('%-arabica'), '%25-arabica', 'URL paths should encode Airtable slugs with reserved characters');
 
@@ -98,7 +100,7 @@ assert.deepEqual(coffeeOutlet?.galleryImages, [
   'https://images.example/two.jpg',
 ]);
 
-assert.equal(
+assert.deepEqual(
   mapCoffeeShopRecord(
     {
       id: 'draft',
@@ -115,8 +117,50 @@ assert.equal(
     mallMap,
     mrtMap,
   ),
-  undefined,
-  'Unpublished coffee shops should not become static pages',
+  {
+    id: 'draft',
+    type: 'coffee',
+    path: '/coffee-shops/draft-coffee/',
+    name: 'Draft Coffee',
+    slug: 'draft-coffee',
+    brandId: '',
+    brandName: '',
+    brandSlug: '',
+    brandLogo: undefined,
+    town: '',
+    townSlug: '',
+    mall: undefined,
+    mallSlug: undefined,
+    category: undefined,
+    streetName: undefined,
+    postalCode: undefined,
+    address: 'Somewhere',
+    nearestMrt: undefined,
+    mrtSlug: undefined,
+    openingHours: undefined,
+    phone: undefined,
+    googleMapsUrl: undefined,
+    deliveryLinks: undefined,
+    websiteUrl: undefined,
+    facebookUrl: undefined,
+    instagramUrl: undefined,
+    tiktokUrl: undefined,
+    priceRange: undefined,
+    halal: undefined,
+    halalFriendly: false,
+    seatingAvailable: false,
+    image: undefined,
+    galleryImages: undefined,
+    featured: false,
+    published: true,
+  },
+  'Coffee shops should be published by default without relying on the Airtable Published field',
+);
+
+assert.doesNotMatch(
+  airtableSource,
+  /fetchTable<Airtable(?:Outlet|CoffeeShop)Fields>\('(?:Bubble Tea Shops|Coffee Shops)'[^)]*\{Published\}/s,
+  'Bubble Tea Shops and Coffee Shops fetches should not depend on a Published field',
 );
 
 const bubbleOutlet = {

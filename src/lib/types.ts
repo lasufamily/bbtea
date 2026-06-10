@@ -290,7 +290,6 @@ export interface AirtableOutletFields {
   'Image URL'?: string;         // url field
   'Gallery Images URL'?: string; // url field (comma-separated for multiple)
   'Featured'?: boolean;
-  'Published'?: boolean;
 }
 
 export interface AirtableCoffeeShopFields {
@@ -318,7 +317,6 @@ export interface AirtableCoffeeShopFields {
   'Image URL'?: string;
   'Gallery Images URL'?: string;
   'Featured'?: boolean;
-  'Published'?: boolean;
 }
 
 export interface AirtableDrinkFields {
