@@ -9,6 +9,7 @@ test('footer navigation uses the requested column names and links', async () => 
   assert.match(source, /href: '\/directory\/',\s+label: 'All Shops'/);
   assert.match(source, /href: '\/bubble-tea-shops\/',\s+label: 'Bubble Tea Shops'/);
   assert.match(source, /href: '\/coffee-shops\/',\s+label: 'Coffee Shops'/);
+  assert.match(source, /href: '\/juice-shops\/',\s+label: 'Juice Shops'/);
   assert.match(source, /href: '\/towns\/',\s+label: 'Singapore Towns'/);
   assert.match(source, /href: '\/brands\/',\s+label: 'Brands'/);
   assert.match(source, /href: '\/stations\/',\s+label: 'MRT Stations'/);
@@ -29,6 +30,7 @@ test('footer popular brands are derived from listed outlet counts', async () => 
   const source = await readFile(new URL('../src/components/Footer.astro', import.meta.url), 'utf8');
 
   assert.match(source, /getCoffeeOutlets/);
+  assert.match(source, /getJuiceOutlets/);
   assert.match(source, /brandCounts/);
   assert.match(source, /\.sort\(\(a, b\) => b\.count - a\.count \|\| a\.label\.localeCompare\(b\.label\)\)/);
   assert.match(source, /\.slice\(0, 10\)/);

@@ -1,28 +1,29 @@
 ---
 import Layout from '../../components/Layout.astro';
 import TownCard from '../../components/TownCard.astro';
-import { getCoffeeOutlets, getOutlets, getTowns, getAllVenueTowns } from '../../lib/airtable';
+import { getCoffeeOutlets, getJuiceOutlets, getOutlets, getTowns, getAllVenueTowns } from '../../lib/airtable';
 
-const [outlets, coffeeOutlets, allTowns] = await Promise.all([getOutlets(), getCoffeeOutlets(), getTowns()]);
-const towns = getAllVenueTowns(outlets, coffeeOutlets, allTowns);
+const [outlets, coffeeOutlets, juiceOutlets, allTowns] = await Promise.all([getOutlets(), getCoffeeOutlets(), getJuiceOutlets(), getTowns()]);
+const allVenueOutlets = [...outlets, ...coffeeOutlets, ...juiceOutlets];
+const towns = getAllVenueTowns(allVenueOutlets, [], allTowns);
 
 const townOutletCount = (townSlug: string) =>
-  outlets.filter(o => o.townSlug === townSlug).length + coffeeOutlets.filter(o => o.townSlug === townSlug).length;
+  allVenueOutlets.filter(o => o.townSlug === townSlug).length;
 
-const totalOutlets = outlets.length + coffeeOutlets.length;
+const totalOutlets = allVenueOutlets.length;
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'Bubble Tea and Coffee by Town — Singapore',
-  description: 'Browse bubble tea and coffee shops by neighbourhood across Singapore.',
+  name: 'Bubble Tea, Coffee and Juice by Town — Singapore',
+  description: 'Browse bubble tea, coffee and juice shops by neighbourhood across Singapore.',
   url: 'https://bbtea.sg/towns/',
 };
 ---
 
 <Layout
-  title="Bubble Tea and Coffee by Town in Singapore | BBTea.sg"
-  description={`Browse bubble tea and coffee shops across ${towns.length} neighbourhoods in Singapore.`}
+  title="Bubble Tea, Coffee and Juice by Town in Singapore | BBTea.sg"
+  description={`Browse bubble tea, coffee and juice shops across ${towns.length} neighbourhoods in Singapore.`}
   canonical="https://bbtea.sg/towns/"
   jsonLd={jsonLd}
 >
@@ -39,10 +40,10 @@ const jsonLd = {
         Browse by Location
       </p>
       <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight">
-        Bubble Tea and Coffee by Town
+        Bubble Tea, Coffee and Juice by Town
       </h1>
       <p class="text-[var(--color-stone-600)] text-base max-w-2xl leading-relaxed">
-        Find boba and coffee shops in your neighbourhood, from heartland favourites to Orchard corridor flagships.
+        Find boba, coffee and juice shops in your neighbourhood, from heartland favourites to Orchard corridor flagships.
       </p>
       <div class="flex flex-wrap items-center gap-6 pt-2">
         <div class="text-sm">

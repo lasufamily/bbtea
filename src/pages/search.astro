@@ -1,7 +1,7 @@
 ---
 import Layout from '../components/Layout.astro';
 import SearchBox from '../components/SearchBox.astro';
-import { getBrands, getDrinks, getMalls, getOutlets, getTowns } from '../lib/airtable';
+import { getAllVenueOutlets, getBrands, getDrinks, getMalls, getTowns } from '../lib/airtable';
 import { getStationsFromOutlets } from '../lib/stations';
 import { getTownsFromOutlets } from '../lib/towns';
 
@@ -11,7 +11,7 @@ const [brands, drinks, malls, outlets, allTowns] = await Promise.all([
   getBrands(),
   getDrinks(),
   getMalls(),
-  getOutlets(),
+  getAllVenueOutlets(),
   getTowns(),
 ]);
 
@@ -87,7 +87,7 @@ const suggestedSearches = [
 
 <Layout
   title={query ? `Search results for "${query}" | BBTea.sg` : 'Search | BBTea.sg'}
-  description="Search for bubble tea shops, brands, towns, MRT stations and drinks across Singapore."
+  description="Search for bubble tea, coffee and juice shops, brands, towns, MRT stations and drinks across Singapore."
   canonical="https://bbtea.sg/search/"
   noindex
 >
@@ -101,7 +101,7 @@ const suggestedSearches = [
       <h1 id="search-heading" class="text-3xl font-display font-bold text-[var(--color-stone-900)]">
         {query ? <>Results for <em class="not-italic text-[var(--color-forest-700)]">"{query}"</em></> : 'Find Your Perfect Boba'}
       </h1>
-      <SearchBox large placeholder="Search shops, brands, towns, drinks…" id="main-search" value={query} />
+      <SearchBox large placeholder="Search shops, brands, towns, drinks..." id="main-search" value={query} />
     </div>
   </section>
 

@@ -50,7 +50,7 @@ export interface Outlet {
   published: boolean;
 }
 
-export type VenueType = 'bubble-tea' | 'coffee';
+export type VenueType = 'bubble-tea' | 'coffee' | 'juice';
 
 export interface CoffeeOutlet {
   id: string;
@@ -90,7 +90,45 @@ export interface CoffeeOutlet {
   published: boolean;
 }
 
-export type VenueOutlet = Outlet | CoffeeOutlet;
+export interface JuiceOutlet {
+  id: string;
+  type: 'juice';
+  path: string;
+  name: string;
+  slug: string;
+  brandId: string;
+  brandName: string;
+  brandSlug: string;
+  brandLogo?: string;
+  town: string;
+  townSlug: string;
+  mall?: string;
+  mallSlug?: string;
+  category?: string;
+  streetName?: string;
+  postalCode?: string;
+  address: string;
+  nearestMrt?: string;
+  mrtSlug?: string;
+  openingHours?: string;
+  phone?: string;
+  googleMapsUrl?: string;
+  deliveryLinks?: DeliveryLink[];
+  websiteUrl?: string;
+  facebookUrl?: string;
+  instagramUrl?: string;
+  tiktokUrl?: string;
+  priceRange?: '$' | '$$' | '$$$';
+  halal?: HalalStatus;
+  halalFriendly: boolean;
+  seatingAvailable: boolean;
+  image?: string;
+  galleryImages?: string[];
+  featured: boolean;
+  published: boolean;
+}
+
+export type VenueOutlet = Outlet | CoffeeOutlet | JuiceOutlet;
 
 export type HalalStatus = 'Halal-certified' | 'Halal-friendly' | 'Muslim-owned';
 
@@ -317,6 +355,8 @@ export interface AirtableCoffeeShopFields {
   'Gallery Images URL'?: string;
   'Featured'?: boolean;
 }
+
+export interface AirtableJuiceShopFields extends AirtableCoffeeShopFields {}
 
 export interface AirtableDrinkFields {
   'Drink Name': string;

@@ -37,5 +37,5 @@ test('/directory defaults to all venue outlet types', async () => {
 
   assert.match(source, /getAllVenueOutlets/);
   assert.match(source, /let outlets: VenueOutlet\[\] = allOutlets/);
-  assert.match(source, /Browse All Bubble Tea and Coffee Shops in Singapore/);
+  assert.match(source, /Browse All Bubble Tea, Coffee and Juice Shops in Singapore/);
 });

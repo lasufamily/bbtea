@@ -7,8 +7,8 @@
  */
 
 import type {
-  Brand, Outlet, CoffeeOutlet, VenueOutlet, Drink, DrinkCategory, Mall, Town, MrtStation, Review, ReviewPhoto, Faq,
-  AirtableBrandFields, AirtableOutletFields, AirtableCoffeeShopFields, AirtableDrinkFields, AirtableTownFields, AirtableMrtStationFields, AirtableMallFields, AirtableAttachment, AirtableReviewFields, AirtableFaqFields,
+  Brand, Outlet, CoffeeOutlet, JuiceOutlet, VenueOutlet, Drink, DrinkCategory, Mall, Town, MrtStation, Review, ReviewPhoto, Faq,
+  AirtableBrandFields, AirtableOutletFields, AirtableCoffeeShopFields, AirtableJuiceShopFields, AirtableDrinkFields, AirtableTownFields, AirtableMrtStationFields, AirtableMallFields, AirtableAttachment, AirtableReviewFields, AirtableFaqFields,
   AirtableRecord, AirtableResponse,
 } from './types';
 import { getTownsFromOutlets } from './towns.ts';
@@ -111,6 +111,7 @@ let _drinksCache:     Promise<Drink[]>         | null = null;
 let _categoriesCache: Promise<DrinkCategory[]> | null = null;
 let _outletsCache:    Promise<Outlet[]>        | null = null;
 let _coffeeOutletsCache: Promise<CoffeeOutlet[]> | null = null;
+let _juiceOutletsCache: Promise<JuiceOutlet[]> | null = null;
 let _mallsCache:      Promise<Mall[]>          | null = null;
 let _townsCache:      Promise<import('./types').Town[]> | null = null;
 let _reviewsCache:    Promise<Review[]>        | null = null;
@@ -594,13 +595,15 @@ export async function getOutletsByMall(mallSlug: string): Promise<Outlet[]> {
 // ─────────────────────────────────────────
 // Coffee Shops
 // ─────────────────────────────────────────
-export function mapCoffeeShopRecord(
+function mapSpecialtyShopRecord<TType extends 'coffee' | 'juice'>(
   r: AirtableRecord<AirtableCoffeeShopFields>,
   brandMap: Map<string, Brand>,
   townMap: Map<string, NamedSlug>,
   mallMap: Map<string, NamedSlug>,
   mrtMap: Map<string, NamedSlug>,
-): CoffeeOutlet | undefined {
+  type: TType,
+  pathPrefix: 'coffee-shops' | 'juice-shops',
+): (TType extends 'coffee' ? CoffeeOutlet : JuiceOutlet) | undefined {
   const f = r.fields;
   if (!f['Outlet Name'] || !f['Slug']) return undefined;
 
@@ -646,8 +649,8 @@ export function mapCoffeeShopRecord(
 
   return {
     id:               r.id,
-    type:             'coffee',
-    path:             `/coffee-shops/${pathSegment(f['Slug'])}/`,
+    type,
+    path:             `/${pathPrefix}/${pathSegment(f['Slug'])}/`,
     name:             f['Outlet Name'],
     slug:             f['Slug'],
     brandId:          brand?.id ?? '',
@@ -680,7 +683,27 @@ export function mapCoffeeShopRecord(
     galleryImages,
     featured:         f['Featured'] ?? false,
     published:        true,
-  } satisfies CoffeeOutlet;
+  } as TType extends 'coffee' ? CoffeeOutlet : JuiceOutlet;
+}
+
+export function mapCoffeeShopRecord(
+  r: AirtableRecord<AirtableCoffeeShopFields>,
+  brandMap: Map<string, Brand>,
+  townMap: Map<string, NamedSlug>,
+  mallMap: Map<string, NamedSlug>,
+  mrtMap: Map<string, NamedSlug>,
+): CoffeeOutlet | undefined {
+  return mapSpecialtyShopRecord(r, brandMap, townMap, mallMap, mrtMap, 'coffee', 'coffee-shops');
+}
+
+export function mapJuiceShopRecord(
+  r: AirtableRecord<AirtableJuiceShopFields>,
+  brandMap: Map<string, Brand>,
+  townMap: Map<string, NamedSlug>,
+  mallMap: Map<string, NamedSlug>,
+  mrtMap: Map<string, NamedSlug>,
+): JuiceOutlet | undefined {
+  return mapSpecialtyShopRecord(r, brandMap, townMap, mallMap, mrtMap, 'juice', 'juice-shops');
 }
 
 async function _fetchCoffeeOutlets(): Promise<CoffeeOutlet[]> {
@@ -721,9 +744,50 @@ export async function getCoffeeOutletBySlug(slug: string): Promise<CoffeeOutlet 
   return outlets[0];
 }
 
+// ─────────────────────────────────────────
+// Juice Shops
+// ─────────────────────────────────────────
+async function _fetchJuiceOutlets(): Promise<JuiceOutlet[]> {
+  const [records, brands, townMap, mallMap, mrtMap] = await Promise.all([
+    fetchTable<AirtableJuiceShopFields>('Juice Shops'),
+    getBrands(),
+    getTownMap(),
+    getMallMap(),
+    getMrtMap(),
+  ]);
+
+  const brandMap = new Map(brands.map(brand => [brand.id, brand]));
+
+  return records
+    .map(record => mapJuiceShopRecord(record, brandMap, townMap, mallMap, mrtMap))
+    .filter((outlet): outlet is JuiceOutlet => Boolean(outlet))
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+export function getJuiceOutlets(): Promise<JuiceOutlet[]> {
+  return (_juiceOutletsCache ??= _fetchJuiceOutlets());
+}
+
+export async function getJuiceOutletBySlug(slug: string): Promise<JuiceOutlet | undefined> {
+  const [records, brands, townMap, mallMap, mrtMap] = await Promise.all([
+    fetchTable<AirtableJuiceShopFields>('Juice Shops', `{Slug} = "${slug}"`),
+    getBrands(),
+    getTownMap(),
+    getMallMap(),
+    getMrtMap(),
+  ]);
+
+  const brandMap = new Map(brands.map(brand => [brand.id, brand]));
+  const outlets = records
+    .map(record => mapJuiceShopRecord(record, brandMap, townMap, mallMap, mrtMap))
+    .filter((outlet): outlet is JuiceOutlet => Boolean(outlet));
+
+  return outlets[0];
+}
+
 export async function getAllVenueOutlets(): Promise<VenueOutlet[]> {
-  const [outlets, coffeeOutlets] = await Promise.all([getOutlets(), getCoffeeOutlets()]);
-  return [...outlets, ...coffeeOutlets];
+  const [outlets, coffeeOutlets, juiceOutlets] = await Promise.all([getOutlets(), getCoffeeOutlets(), getJuiceOutlets()]);
+  return [...outlets, ...coffeeOutlets, ...juiceOutlets];
 }
 
 export function getAllVenueTowns(outlets: VenueOutlet[], coffeeOutlets: VenueOutlet[] = [], towns: Town[] = []): Town[] {

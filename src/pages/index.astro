@@ -5,17 +5,18 @@ import ListingCard from '../components/ListingCard.astro';
 import BrandCard from '../components/BrandCard.astro';
 import TownCard from '../components/TownCard.astro';
 import DrinkCard from '../components/DrinkCard.astro';
-import { getAllVenueTowns, getBrands, getCoffeeOutlets, getOutlets, getDrinks, getTowns } from '../lib/airtable';
+import { getAllVenueTowns, getBrands, getCoffeeOutlets, getJuiceOutlets, getOutlets, getDrinks, getTowns } from '../lib/airtable';
 
-const [brands, outlets, coffeeOutlets, drinks, allTowns] = await Promise.all([
+const [brands, outlets, coffeeOutlets, juiceOutlets, drinks, allTowns] = await Promise.all([
   getBrands(),
   getOutlets(),
   getCoffeeOutlets(),
+  getJuiceOutlets(),
   getDrinks(),
   getTowns(),
 ]);
-const allVenueOutlets = [...outlets, ...coffeeOutlets];
-const towns = getAllVenueTowns(outlets, coffeeOutlets, allTowns);
+const allVenueOutlets = [...outlets, ...coffeeOutlets, ...juiceOutlets];
+const towns = getAllVenueTowns(allVenueOutlets, [], allTowns);
 const venueBrandSlugs = new Set(allVenueOutlets.map(outlet => outlet.brandSlug).filter(Boolean));
 
 const featuredBrands   = brands.filter(b => b.featured && venueBrandSlugs.has(b.slug)).slice(0, 5);
@@ -46,8 +47,8 @@ const heroSuggestions = [
 ---
 
 <Layout
-  title="BBTea - Singapore Bubble Tea Directory"
-  description="Discover the best bubble tea shops across Singapore. Browse by town, brand, or drink type and find your perfect boba."
+  title="BBTea - Singapore Drink Shop Directory"
+  description="Discover bubble tea, coffee and juice shops across Singapore. Browse by town, brand, MRT station, or drink type."
 >
 
   <!-- ═══════════════════════════════════
@@ -58,12 +59,12 @@ const heroSuggestions = [
       <div class="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 items-center">
         <div class="space-y-8">
           <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
-            Singapore Bubble Tea Directory
+            Singapore Drink Directory
           </p>
 
           <div class="space-y-5">
             <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-display font-semibold text-[var(--color-stone-900)] leading-[0.98] text-balance">
-              Find bubble tea shops across Singapore.
+              Find drink shops across Singapore.
             </h1>
             <p class="text-base lg:text-lg text-[var(--color-stone-600)] max-w-2xl leading-relaxed">
               A clean guide to {totalOutlets} outlets, {totalBrands} brands, {totalDrinks} drinks, and {totalTowns} neighbourhoods.
@@ -117,7 +118,7 @@ const heroSuggestions = [
           Featured Shops
         </h2>
         <p class="text-[var(--color-stone-600)] text-base max-w-lg">
-          Hand-picked bubble tea destinations worth a detour, wherever you are on the island.
+          Hand-picked bubble tea, coffee and juice destinations worth a detour, wherever you are on the island.
         </p>
       </div>
       <a
@@ -162,7 +163,7 @@ const heroSuggestions = [
             Explore by Town
           </h2>
           <p class="text-[var(--color-stone-600)] text-base max-w-lg">
-            Find boba near you — from heartland favourites to Orchard corridor flagship stores.
+            Find boba, coffee and juice near you — from heartland favourites to Orchard corridor flagship stores.
           </p>
         </div>
       </header>
@@ -219,7 +220,7 @@ const heroSuggestions = [
             Featured Brands
           </h2>
           <p class="text-[var(--color-stone-600)] text-base max-w-lg">
-            From Taiwan-born icons to Singapore originals — meet the brands shaping the boba scene here.
+            From Taiwan-born icons to Singapore originals — meet the brands shaping drink runs here.
           </p>
         </div>
       </header>

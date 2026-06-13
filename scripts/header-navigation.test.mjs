@@ -12,6 +12,7 @@ test('main navigation includes the core directory links and reviews', async () =
   assert.match(navLinksSource, /href: '\/directory\/',\s+label: 'Directory'/);
   assert.match(navLinksSource, /href: '\/bubble-tea-shops\/',\s+label: 'Bubble Tea'/);
   assert.match(navLinksSource, /href: '\/coffee-shops\/',\s+label: 'Coffee'/);
+  assert.match(navLinksSource, /href: '\/juice-shops\/',\s+label: 'Juice'/);
   assert.match(navLinksSource, /href: '\/menus\/',\s+label: 'Menus'/);
   assert.match(navLinksSource, /href: '\/reviews\/',\s+label: 'Reviews'/);
   assert.doesNotMatch(navLinksSource, /Towns|Malls|Drinks|Brands|Blog|Search/);

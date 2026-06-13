@@ -10,11 +10,15 @@ interface Props {
 const { outlet, featured = false } = Astro.props;
 const listingPath = 'path' in outlet ? outlet.path : `/bubble-tea-shops/${pathSegment(outlet.slug)}/`;
 const venueType = 'type' in outlet ? outlet.type : 'bubble-tea';
-const venueLabel = venueType === 'coffee' ? 'Coffee Shop' : 'Bubble Tea Shop';
-const primaryTags = venueType === 'coffee'
+const venueLabel = venueType === 'coffee'
+  ? 'Coffee Shop'
+  : venueType === 'juice'
+    ? 'Juice Shop'
+    : 'Bubble Tea Shop';
+const primaryTags = venueType === 'coffee' || venueType === 'juice'
   ? [outlet.category, outlet.seatingAvailable ? 'Seating' : undefined].filter(Boolean)
   : outlet.popularDrinks ?? [];
-const categoryData = venueType === 'coffee'
+const categoryData = venueType === 'coffee' || venueType === 'juice'
   ? outlet.category?.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') ?? ''
   : (outlet.drinkCategorySlugs ?? []).join(' ');
 

@@ -1,19 +1,20 @@
 ---
 import Layout from '../../components/Layout.astro';
 import ListingCard from '../../components/ListingCard.astro';
-import { getCoffeeOutlets, getOutlets, getAllVenueStations } from '../../lib/airtable';
+import { getCoffeeOutlets, getJuiceOutlets, getOutlets, getAllVenueStations } from '../../lib/airtable';
 import type { MrtStation } from '../../lib/types';
 
 export async function getStaticPaths() {
-  const [allOutlets, coffeeOutlets] = await Promise.all([getOutlets(), getCoffeeOutlets()]);
-  const stations = getAllVenueStations(allOutlets, coffeeOutlets);
+  const [allOutlets, coffeeOutlets, juiceOutlets] = await Promise.all([getOutlets(), getCoffeeOutlets(), getJuiceOutlets()]);
+  const stations = getAllVenueStations([...allOutlets, ...coffeeOutlets, ...juiceOutlets]);
 
   return stations.map(station => {
     const outlets = allOutlets.filter(o => o.mrtSlug === station.slug);
     const coffee = coffeeOutlets.filter(o => o.mrtSlug === station.slug);
+    const juice = juiceOutlets.filter(o => o.mrtSlug === station.slug);
     return {
       params: { slug: station.slug },
-      props:  { station, outlets, coffeeOutlets: coffee, stations },
+      props:  { station, outlets, coffeeOutlets: coffee, juiceOutlets: juice, stations },
     };
   });
 }
@@ -22,25 +23,26 @@ interface Props {
   station: MrtStation | undefined;
   outlets: Awaited<ReturnType<typeof getOutlets>>;
   coffeeOutlets: Awaited<ReturnType<typeof getCoffeeOutlets>>;
+  juiceOutlets: Awaited<ReturnType<typeof getJuiceOutlets>>;
   stations: MrtStation[];
 }
-const { station, outlets, coffeeOutlets, stations } = Astro.props;
+const { station, outlets, coffeeOutlets, juiceOutlets, stations } = Astro.props;
 const stationName = station?.name ?? Astro.params.slug.replace(/-mrt$/, '').replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
 const stationLabel = /\bMRT\b/i.test(stationName) ? stationName : `${stationName} MRT`;
-const venueCount = outlets.length + coffeeOutlets.length;
+const venueCount = outlets.length + coffeeOutlets.length + juiceOutlets.length;
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: `Bubble Tea and Coffee Shops Near ${stationLabel}`,
-  description: `Find ${outlets.length} bubble tea shops and ${coffeeOutlets.length} coffee shops near ${stationLabel} in Singapore.`,
+  name: `Bubble Tea, Coffee and Juice Shops Near ${stationLabel}`,
+  description: `Find ${outlets.length} bubble tea shops, ${coffeeOutlets.length} coffee shops and ${juiceOutlets.length} juice shops near ${stationLabel} in Singapore.`,
   url: `https://bbtea.sg/stations/${Astro.params.slug}/`,
 };
 ---
 
 <Layout
-  title={`Bubble Tea and Coffee Near ${stationLabel} | BBTea.sg`}
-  description={`Find ${outlets.length} bubble tea shops and ${coffeeOutlets.length} coffee shops near ${stationLabel} in Singapore.`}
+  title={`Bubble Tea, Coffee and Juice Near ${stationLabel} | BBTea.sg`}
+  description={`Find ${outlets.length} bubble tea shops, ${coffeeOutlets.length} coffee shops and ${juiceOutlets.length} juice shops near ${stationLabel} in Singapore.`}
   canonical={`https://bbtea.sg/stations/${Astro.params.slug}/`}
   jsonLd={jsonLd}
 >
@@ -61,11 +63,11 @@ const jsonLd = {
           Near MRT {station?.line ? `· ${station.line} Line` : ''}
         </p>
         <h1 class="mt-3 text-3xl lg:text-4xl font-display font-bold">
-          Bubble Tea and Coffee Near {stationLabel}
+          Bubble Tea, Coffee and Juice Near {stationLabel}
         </h1>
       </div>
       <p class="text-[var(--color-stone-600)] text-base max-w-xl">
-        {venueCount} {venueCount === 1 ? 'venue' : 'venues'} close to {stationLabel}, including bubble tea and coffee listings from Airtable.
+        {venueCount} {venueCount === 1 ? 'venue' : 'venues'} close to {stationLabel}, including bubble tea, coffee and juice listings from Airtable.
       </p>
     </div>
   </section>
@@ -87,6 +89,14 @@ const jsonLd = {
             <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)]">Coffee Shops</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
               {coffeeOutlets.map(outlet => <ListingCard outlet={outlet} />)}
+            </div>
+          </section>
+        )}
+        {juiceOutlets.length > 0 && (
+          <section class="space-y-5">
+            <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)]">Juice Shops</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+              {juiceOutlets.map(outlet => <ListingCard outlet={outlet} />)}
             </div>
           </section>
         )}

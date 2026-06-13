@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 const {
   mapBrandRecord,
   mapCoffeeShopRecord,
+  mapJuiceShopRecord,
   getAllVenueTowns,
   getAllVenueStations,
 } = await import('../src/lib/airtable.ts');
@@ -113,6 +114,45 @@ assert.deepEqual(coffeeOutlet?.galleryImages, [
   'https://images.example/one.jpg',
   'https://images.example/two.jpg',
 ]);
+
+const juiceBrand = mapBrandRecord({
+  id: 'brand_boost',
+  createdTime: '2026-06-14T00:00:00.000Z',
+  fields: {
+    'Brand Name': 'Boost Juice',
+    Slug: 'boost-juice',
+  },
+});
+
+const juiceOutlet = mapJuiceShopRecord(
+  {
+    id: 'juice_1',
+    createdTime: '2026-06-14T00:00:00.000Z',
+    fields: {
+      'Outlet Name': 'Boost Juice Waterway Point',
+      Slug: 'boost-juice-waterway-point',
+      Brand: ['brand_boost'],
+      Town: ['town_punggol'],
+      'Mall / Location': ['mall_waterway'],
+      Category: 'Juice',
+      Address: '83 Punggol Central, Waterway Point, Singapore 828761',
+      'Nearest MRT': ['mrt_punggol'],
+      'Opening Hours': 'Monday 10 AM to 10 PM',
+      'Price Range': '$$',
+      'Image URL': 'https://images.example/boost.jpg',
+    },
+  },
+  new Map([['brand_boost', juiceBrand]]),
+  townMap,
+  mallMap,
+  mrtMap,
+);
+
+assert.equal(juiceOutlet?.type, 'juice');
+assert.equal(juiceOutlet?.path, '/juice-shops/boost-juice-waterway-point/');
+assert.equal(juiceOutlet?.brandName, 'Boost Juice');
+assert.equal(juiceOutlet?.townSlug, 'punggol');
+assert.equal(juiceOutlet?.mallSlug, 'waterway-point');
 
 assert.deepEqual(
   mapCoffeeShopRecord(

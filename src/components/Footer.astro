@@ -1,11 +1,11 @@
 ---
-import { getCoffeeOutlets, getOutlets } from '../lib/airtable';
+import { getCoffeeOutlets, getJuiceOutlets, getOutlets } from '../lib/airtable';
 
 const year = new Date().getFullYear();
-const [outlets, coffeeOutlets] = await Promise.all([getOutlets(), getCoffeeOutlets()]);
+const [outlets, coffeeOutlets, juiceOutlets] = await Promise.all([getOutlets(), getCoffeeOutlets(), getJuiceOutlets()]);
 const brandCounts = new Map<string, { href: string; label: string; count: number }>();
 
-for (const outlet of [...outlets, ...coffeeOutlets]) {
+for (const outlet of [...outlets, ...coffeeOutlets, ...juiceOutlets]) {
   if (!outlet.brandSlug || !outlet.brandName) continue;
 
   const current = brandCounts.get(outlet.brandSlug);
@@ -32,6 +32,7 @@ const footerLinks = {
     { href: '/directory/',        label: 'All Shops' },
     { href: '/bubble-tea-shops/', label: 'Bubble Tea Shops' },
     { href: '/coffee-shops/',     label: 'Coffee Shops' },
+    { href: '/juice-shops/',      label: 'Juice Shops' },
     { href: '/towns/',            label: 'Singapore Towns' },
     { href: '/brands/',           label: 'Brands' },
     { href: '/stations/',         label: 'MRT Stations' },
@@ -68,7 +69,7 @@ const footerLinks = {
           />
         </a>
         <p class="text-sm text-[var(--color-stone-600)] leading-relaxed max-w-sm">
-          A practical guide to bubble tea shops across Singapore, from Orchard
+          A practical guide to bubble tea, coffee and juice shops across Singapore, from Orchard
           to Woodlands.
         </p>
         <div class="flex gap-4 pt-1">

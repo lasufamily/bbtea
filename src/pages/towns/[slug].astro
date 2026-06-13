@@ -1,20 +1,21 @@
 ---
 import Layout from '../../components/Layout.astro';
 import ListingCard from '../../components/ListingCard.astro';
-import { getCoffeeOutlets, getOutlets, getTowns, getAllVenueTowns } from '../../lib/airtable';
+import { getCoffeeOutlets, getJuiceOutlets, getOutlets, getTowns, getAllVenueTowns } from '../../lib/airtable';
 import { formatNumber, parseTownList } from '../../lib/townContent';
 import type { Town } from '../../lib/types';
 
 export async function getStaticPaths() {
-  const [allOutlets, coffeeOutlets, towns] = await Promise.all([getOutlets(), getCoffeeOutlets(), getTowns()]);
-  const activeTowns = getAllVenueTowns(allOutlets, coffeeOutlets, towns);
+  const [allOutlets, coffeeOutlets, juiceOutlets, towns] = await Promise.all([getOutlets(), getCoffeeOutlets(), getJuiceOutlets(), getTowns()]);
+  const activeTowns = getAllVenueTowns([...allOutlets, ...coffeeOutlets, ...juiceOutlets], [], towns);
 
   return activeTowns.map(town => {
     const outlets = allOutlets.filter(o => o.townSlug === town.slug);
     const coffee = coffeeOutlets.filter(o => o.townSlug === town.slug);
+    const juice = juiceOutlets.filter(o => o.townSlug === town.slug);
     return {
       params: { slug: town.slug },
-      props:  { town, outlets, coffeeOutlets: coffee, allTowns: activeTowns },
+      props:  { town, outlets, coffeeOutlets: coffee, juiceOutlets: juice, allTowns: activeTowns },
     };
   });
 }
@@ -23,13 +24,14 @@ interface Props {
   town: Town;
   outlets: Awaited<ReturnType<typeof getOutlets>>;
   coffeeOutlets: Awaited<ReturnType<typeof getCoffeeOutlets>>;
+  juiceOutlets: Awaited<ReturnType<typeof getJuiceOutlets>>;
   allTowns: Town[];
 }
-const { town, outlets, coffeeOutlets, allTowns } = Astro.props;
-const venueCount = outlets.length + coffeeOutlets.length;
+const { town, outlets, coffeeOutlets, juiceOutlets, allTowns } = Astro.props;
+const venueCount = outlets.length + coffeeOutlets.length + juiceOutlets.length;
 
 // Unique brands in this town
-const brandSet = [...new Set([...outlets, ...coffeeOutlets].map(o => o.brandName).filter(Boolean))];
+const brandSet = [...new Set([...outlets, ...coffeeOutlets, ...juiceOutlets].map(o => o.brandName).filter(Boolean))];
 const knownFor = town.knownFor ?? [];
 const mrtLines = town.mrtLines ?? [];
 const descriptionParagraphs = town.description?.split(/\n+/).map(p => p.trim()).filter(Boolean) ?? [];
@@ -89,8 +91,8 @@ const guideSections = [
 })).filter(section => section.groups.length > 0);
 
 const metaDescription = town.tagline
-  ? `${town.tagline} Find ${outlets.length} bubble tea shops and ${coffeeOutlets.length} coffee shops in ${town.name}, with local food, transport, parks and neighbourhood tips.`
-  : `Discover ${outlets.length} bubble tea shops and ${coffeeOutlets.length} coffee shops in ${town.name}, Singapore, plus local food, transport, parks and neighbourhood tips.`;
+  ? `${town.tagline} Find ${outlets.length} bubble tea shops, ${coffeeOutlets.length} coffee shops and ${juiceOutlets.length} juice shops in ${town.name}, with local food, transport, parks and neighbourhood tips.`
+  : `Discover ${outlets.length} bubble tea shops, ${coffeeOutlets.length} coffee shops and ${juiceOutlets.length} juice shops in ${town.name}, Singapore, plus local food, transport, parks and neighbourhood tips.`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -120,9 +122,9 @@ const jsonLd = {
     {
       '@type': 'ItemList',
       '@id': `https://bbtea.sg/towns/${town.slug}/#outlets`,
-      name: `Bubble tea and coffee shops in ${town.name}`,
+      name: `Bubble tea, coffee and juice shops in ${town.name}`,
       numberOfItems: venueCount,
-      itemListElement: [...outlets, ...coffeeOutlets].map((outlet, index) => ({
+      itemListElement: [...outlets, ...coffeeOutlets, ...juiceOutlets].map((outlet, index) => ({
         '@type': 'ListItem',
         position: index + 1,
         url: 'path' in outlet ? `https://bbtea.sg${outlet.path}` : `https://bbtea.sg/bubble-tea-shops/${outlet.slug}/`,
@@ -186,6 +188,10 @@ const jsonLd = {
             <div class="flex justify-between gap-4">
               <dt class="text-[var(--color-stone-500)]">Coffee shops</dt>
               <dd class="font-semibold text-[var(--color-stone-900)]">{coffeeOutlets.length}</dd>
+            </div>
+            <div class="flex justify-between gap-4">
+              <dt class="text-[var(--color-stone-500)]">Juice shops</dt>
+              <dd class="font-semibold text-[var(--color-stone-900)]">{juiceOutlets.length}</dd>
             </div>
             <div class="flex justify-between gap-4">
               <dt class="text-[var(--color-stone-500)]">Brands listed</dt>
@@ -253,6 +259,7 @@ const jsonLd = {
       <p class="text-[var(--color-stone-600)] leading-relaxed">
         This guide lists {outlets.length} {outlets.length === 1 ? 'bubble tea shop' : 'bubble tea shops'} across {brandSet.length} {brandSet.length === 1 ? 'brand' : 'brands'} in {town.name}, alongside the local food, transport and neighbourhood context that makes the area easier to explore.
         {coffeeOutlets.length > 0 && ` It also includes ${coffeeOutlets.length} ${coffeeOutlets.length === 1 ? 'coffee outlet' : 'coffee outlets'} from your Airtable Coffee Shops table.`}
+        {juiceOutlets.length > 0 && ` You will also find ${juiceOutlets.length} ${juiceOutlets.length === 1 ? 'juice outlet' : 'juice outlets'} from your Airtable Juice Shops table.`}
       </p>
       <div class="flex flex-wrap items-center gap-6 pt-2">
         <div class="text-sm">
@@ -315,6 +322,27 @@ const jsonLd = {
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {coffeeOutlets.map(outlet => <ListingCard outlet={outlet} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {juiceOutlets.length > 0 && (
+    <section class="bg-white border-y border-[var(--color-stone-200)] py-12 lg:py-14" data-pagefind-body>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <div class="max-w-3xl space-y-3">
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
+            Juice in {town.name}
+          </p>
+          <h2 class="text-2xl lg:text-3xl font-display font-semibold text-[var(--color-stone-900)]">
+            Juice outlets around {town.name}
+          </h2>
+          <p class="text-[var(--color-stone-600)] leading-relaxed">
+            These juice listings are pulled from your Airtable Juice Shops table and linked to the same town, mall and MRT records as the rest of the directory.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {juiceOutlets.map(outlet => <ListingCard outlet={outlet} />)}
         </div>
       </div>
     </section>
