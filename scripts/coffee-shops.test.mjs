@@ -28,6 +28,20 @@ assert.equal(coffeeBrand?.published, true);
 
 assert.equal(
   mapBrandRecord({
+    id: 'brand_hidden',
+    createdTime: '2026-05-25T00:00:00.000Z',
+    fields: {
+      'Brand Name': 'Hidden Coffee',
+      Slug: 'hidden-coffee',
+      Published: false,
+    },
+  })?.published,
+  true,
+  'Brands should be published by default without relying on the Airtable Published field',
+);
+
+assert.equal(
+  mapBrandRecord({
     id: 'brand_without_slug',
     createdTime: '2026-05-25T00:00:00.000Z',
     fields: {
@@ -161,6 +175,12 @@ assert.doesNotMatch(
   airtableSource,
   /fetchTable<Airtable(?:Outlet|CoffeeShop)Fields>\('(?:Bubble Tea Shops|Coffee Shops)'[^)]*\{Published\}/s,
   'Bubble Tea Shops and Coffee Shops fetches should not depend on a Published field',
+);
+
+assert.doesNotMatch(
+  airtableSource,
+  /fetchTable<AirtableBrandFields>\('Brands'[^)]*\{Published\}/s,
+  'Brands fetches should not depend on a Published field',
 );
 
 const bubbleOutlet = {

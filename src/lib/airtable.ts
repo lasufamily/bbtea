@@ -385,15 +385,12 @@ export function mapBrandRecord(r: AirtableRecord<AirtableBrandFields>): Brand | 
     instagramUrl: f['Instagram URL'],
     tiktokUrl:    f['TikTok URL'],
     featured:     f['Featured'] ?? false,
-    published:    f['Published'] ?? false,
+    published:    true,
   } satisfies Brand;
 }
 
 async function _fetchBrands(): Promise<Brand[]> {
-  const records = await fetchTable<AirtableBrandFields>(
-    'Brands',
-    '{Published} = TRUE()',
-  );
+  const records = await fetchTable<AirtableBrandFields>('Brands');
 
   return records
     .map(mapBrandRecord)

@@ -265,7 +265,6 @@ export interface AirtableBrandFields {
   'Instagram URL'?: string;
   'TikTok URL'?: string;
   'Featured'?: boolean;
-  'Published'?: boolean;
 }
 
 export interface AirtableOutletFields {
