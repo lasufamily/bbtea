@@ -17,8 +17,6 @@ interface Props { review: Review }
 const { review } = Astro.props;
 
 const cupPhoto = review.photos.find(photo => photo.label === 'Cup');
-const shopPhoto = review.photos.find(photo => photo.label === 'Shop');
-const receiptPhoto = review.photos.find(photo => photo.label === 'Receipt');
 const heroPhoto = cupPhoto ?? review.photos[0];
 const articleParagraphs = splitArticleParagraphs(review.article);
 const bodyParagraphs = articleParagraphs.slice(1);
@@ -167,17 +165,6 @@ const jsonLd = {
               ))}
             </dl>
           </div>
-
-          {(cupPhoto || shopPhoto || receiptPhoto) && (
-            <div class="rounded-lg border border-[var(--color-stone-200)] bg-[var(--color-cream-100)] p-5">
-              <h2 class="text-base font-display font-semibold text-[var(--color-stone-900)] mb-3">Photo Checklist</h2>
-              <ul class="space-y-2 text-sm text-[var(--color-stone-600)]">
-                <li>Cup photo: {cupPhoto ? 'Included' : 'Missing'}</li>
-                <li>Shop photo: {shopPhoto ? 'Included' : 'Missing'}</li>
-                <li>Receipt photo: {receiptPhoto ? 'Included' : 'Missing'}</li>
-              </ul>
-            </div>
-          )}
         </aside>
       </div>
     </div>
