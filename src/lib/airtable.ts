@@ -817,6 +817,7 @@ export function mapReviewRecord(r: AirtableRecord<AirtableReviewFields>): Review
   return {
     id: r.id,
     slug,
+    pageTitle: normalizeText(f['Page Title']),
     article,
     drinkName: normalizeText(f['Drink Name']),
     brand: normalizeText(f['Brand']),

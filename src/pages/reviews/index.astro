@@ -54,7 +54,8 @@ function formatPrice(price?: number): string | undefined {
         {reviews.map(review => {
           const coverPhoto = review.photos.find(photo => photo.label === 'Cup') ?? review.photos[0];
           const price = formatPrice(review.price);
-          const title = [review.brand, review.drinkName].filter(Boolean).join(' ') || 'Drink Review';
+          const fallbackTitle = [review.brand, review.drinkName].filter(Boolean).join(' ') || 'Drink Review';
+          const title = review.pageTitle ?? fallbackTitle;
           const meta = [review.brand, review.outletLocation].filter(Boolean);
           const excerpt = splitArticleParagraphs(review.article)[0];
 

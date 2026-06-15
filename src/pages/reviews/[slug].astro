@@ -21,6 +21,7 @@ const shopPhoto = review.photos.find(photo => photo.label === 'Shop');
 const receiptPhoto = review.photos.find(photo => photo.label === 'Receipt');
 const heroPhoto = cupPhoto ?? review.photos[0];
 const articleParagraphs = splitArticleParagraphs(review.article);
+const bodyParagraphs = articleParagraphs.slice(1);
 const purchaseDate = review.dateOfPurchase
   ? new Date(review.dateOfPurchase).toLocaleDateString('en-SG', { year: 'numeric', month: 'long', day: 'numeric' })
   : 'a recent visit';
@@ -29,7 +30,8 @@ const price = typeof review.price === 'number'
   : undefined;
 const reviewSubject = [review.brand, review.drinkName].filter(Boolean).join(' ') || 'Drink';
 const locationLabel = review.outletLocation ? ` at ${review.outletLocation}` : '';
-const title = `${reviewSubject} Review${locationLabel}`;
+const fallbackTitle = `${reviewSubject} Review${locationLabel}`;
+const title = review.pageTitle ?? fallbackTitle;
 const description = `${articleParagraphs[0] ?? `Read this Singapore drink review by ${review.reviewerName ?? 'a BBTea.sg reader'}.`}`.slice(0, 155);
 const byline = review.reviewerName ? `Reviewed by ${review.reviewerName}` : 'Reviewed by a BBTea.sg reader';
 
@@ -67,7 +69,7 @@ const jsonLd = {
 ---
 
 <Layout
-  title={`${title} | BBTea.sg`}
+  title={title}
   description={description}
   image={heroPhoto?.url}
   type="article"
@@ -126,7 +128,7 @@ const jsonLd = {
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
       <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem]">
         <div class="blog-prose max-w-none">
-          {articleParagraphs.map(paragraph => (
+          {bodyParagraphs.map(paragraph => (
             <p class="whitespace-pre-line">{paragraph}</p>
           ))}
 

@@ -244,6 +244,7 @@ export interface ReviewPhoto {
 export interface Review {
   id: string;
   slug: string;
+  pageTitle?: string;
   article: string;
   drinkName?: string;
   brand?: string;
@@ -454,6 +455,7 @@ export interface AirtableAttachment {
 }
 
 export interface AirtableReviewFields {
+  'Page Title'?: string;
   'Drink Name'?: string;
   'Brand'?: string;
   'Outlet Location'?: string;

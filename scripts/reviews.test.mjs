@@ -9,6 +9,7 @@ const baseReviewRecord = {
   createdTime: '2026-06-03T00:00:00.000Z',
   fields: {
     Slug: 'milk-tea-itea-admiralty-place',
+    'Page Title': 'iTea Milk Tea Review at Admiralty Place',
     Article: 'The cup was simple but satisfying.\n\nIt worked best as a quick neighbourhood drink.',
     'Reviewer Name': 'Abu Layl',
     'Photo of Cup': [{ id: 'cup', url: 'https://images.example/cup.jpg', width: 1200, height: 1600 }],
@@ -21,6 +22,7 @@ test('review records require both slug and article', () => {
   const review = mapReviewRecord(baseReviewRecord);
 
   assert.equal(review?.slug, 'milk-tea-itea-admiralty-place');
+  assert.equal(review?.pageTitle, 'iTea Milk Tea Review at Admiralty Place');
   assert.equal(review?.article, baseReviewRecord.fields.Article);
   assert.equal(review?.reviewerName, 'Abu Layl');
   assert.deepEqual(
