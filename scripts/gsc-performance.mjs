@@ -6,11 +6,24 @@ import path from 'node:path';
 import { spawn } from 'node:child_process';
 
 const ROOT = path.resolve(new URL('..', import.meta.url).pathname);
+const DEFAULT_ENV_FILE = path.join(ROOT, '.env');
+loadLocalEnvFile(DEFAULT_ENV_FILE);
 const DEFAULT_CLIENT_SECRET = path.join(ROOT, '.gsc', 'client_secret.json');
 const CLIENT_SECRET_FILE = process.env.GSC_CLIENT_SECRET_FILE || DEFAULT_CLIENT_SECRET;
 const TOKEN_FILE = process.env.GSC_TOKEN_FILE || path.join(ROOT, '.gsc', 'token.json');
 const SITE_URL = process.env.GSC_SITE_URL || 'https://bbtea.sg/';
 const SCOPES = ['https://www.googleapis.com/auth/webmasters.readonly'];
+const DEFAULT_AUTH_URI = 'https://accounts.google.com/o/oauth2/v2/auth';
+const DEFAULT_TOKEN_URI = 'https://oauth2.googleapis.com/token';
+
+function loadLocalEnvFile(file) {
+  if (typeof process.loadEnvFile !== 'function') return;
+  try {
+    process.loadEnvFile(file);
+  } catch (error) {
+    if (error?.code !== 'ENOENT') throw error;
+  }
+}
 
 function base64Url(buffer) {
   return buffer.toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
@@ -26,13 +39,38 @@ async function readJson(file) {
   return JSON.parse(await fs.readFile(file, 'utf8'));
 }
 
+export function getEnvClient() {
+  if (!process.env.GSC_CLIENT_ID || !process.env.GSC_CLIENT_SECRET) return null;
+  return {
+    client_id: process.env.GSC_CLIENT_ID,
+    client_secret: process.env.GSC_CLIENT_SECRET,
+    auth_uri: process.env.GSC_AUTH_URI || DEFAULT_AUTH_URI,
+    token_uri: process.env.GSC_TOKEN_URI || DEFAULT_TOKEN_URI,
+  };
+}
+
 async function loadClient() {
+  const envClient = getEnvClient();
+  if (envClient) return envClient;
   const json = await readJson(CLIENT_SECRET_FILE);
   const client = json.installed || json.web;
   if (!client?.client_id || !client?.client_secret || !client?.token_uri || !client?.auth_uri) {
     throw new Error(`Invalid Google OAuth client file: ${CLIENT_SECRET_FILE}`);
   }
   return client;
+}
+
+export function hasUsableAccessToken(token, now = Date.now()) {
+  return Boolean(token?.access_token && token?.expires_at && token.expires_at - now > 60_000);
+}
+
+export function getMissingClientMessage() {
+  return [
+    'Google Search Console re-auth is required, but no OAuth client credentials were found.',
+    `Expected file: ${CLIENT_SECRET_FILE}`,
+    'Set `GSC_CLIENT_SECRET_FILE=/absolute/path/to/client_secret.json`,',
+    'or set `GSC_CLIENT_ID` and `GSC_CLIENT_SECRET` in the environment before running the script.',
+  ].join(' ');
 }
 
 async function postForm(url, body) {
@@ -102,7 +140,7 @@ async function authenticate(client) {
   const verifier = base64Url(crypto.randomBytes(32));
   const challenge = base64Url(crypto.createHash('sha256').update(verifier).digest());
   const state = base64Url(crypto.randomBytes(16));
-  const authEndpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
+  const authEndpoint = client.auth_uri || DEFAULT_AUTH_URI;
   const authUrl = `${authEndpoint}?${new URLSearchParams({
     client_id: client.client_id,
     response_type: 'code',
@@ -132,14 +170,17 @@ async function getAccessToken(client) {
   try {
     token = await readJson(TOKEN_FILE);
   } catch {
+    if (!client) throw new Error(getMissingClientMessage());
     return (await authenticate(client)).access_token;
   }
-  if (token.access_token && token.expires_at && token.expires_at - Date.now() > 60_000) {
+  if (hasUsableAccessToken(token)) {
     return token.access_token;
   }
   if (!token.refresh_token) {
+    if (!client) throw new Error(getMissingClientMessage());
     return (await authenticate(client)).access_token;
   }
+  if (!client) throw new Error(getMissingClientMessage());
   const refreshed = await postForm(client.token_uri, {
     client_id: client.client_id,
     client_secret: client.client_secret,
@@ -211,7 +252,12 @@ async function queryPerformance(accessToken, siteUrl, dimensions = []) {
 }
 
 async function main() {
-  const client = await loadClient();
+  let client = null;
+  try {
+    client = await loadClient();
+  } catch (error) {
+    if (error?.code !== 'ENOENT') throw error;
+  }
   const accessToken = await getAccessToken(client);
   const sites = await gscFetch(accessToken, 'https://searchconsole.googleapis.com/webmasters/v3/sites');
   const siteEntry = pickSite(sites);
@@ -231,7 +277,11 @@ async function main() {
   printRows('Top Pages', pages.rows, 'page');
 }
 
-main().catch((error) => {
-  console.error(error.message);
-  process.exitCode = 1;
-});
+const shouldRun = process.argv[1] && path.resolve(process.argv[1]) === new URL(import.meta.url).pathname;
+
+if (shouldRun) {
+  main().catch((error) => {
+    console.error(error.message);
+    process.exitCode = 1;
+  });
+}
