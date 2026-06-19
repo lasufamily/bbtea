@@ -2,6 +2,7 @@
 import Layout from '../../components/Layout.astro';
 import ListingCard from '../../components/ListingCard.astro';
 import { getCoffeeOutlets, getJuiceOutlets, getMalls, getOutlets } from '../../lib/airtable';
+import { topBrandLinks, topStationLinks, topTownLinks } from '../../lib/internalLinks';
 import type { Mall } from '../../lib/types';
 
 export async function getStaticPaths() {
@@ -27,8 +28,11 @@ interface Props {
 }
 const { mall, outlets, coffeeOutlets, juiceOutlets, allMalls } = Astro.props;
 
-const brandSet = [...new Set([...outlets, ...coffeeOutlets, ...juiceOutlets].map(o => o.brandName).filter(Boolean))];
-const townSet = [...new Set([...outlets, ...coffeeOutlets, ...juiceOutlets].map(o => o.town).filter(Boolean))];
+const mallVenues = [...outlets, ...coffeeOutlets, ...juiceOutlets];
+const brandLinks = topBrandLinks(mallVenues, 10);
+const townLinks = topTownLinks(mallVenues, 6);
+const stationLinks = topStationLinks(mallVenues, 6);
+const brandSet = [...new Set(mallVenues.map(o => o.brandName).filter(Boolean))];
 const venueCount = outlets.length + coffeeOutlets.length + juiceOutlets.length;
 
 const jsonLd = {
@@ -87,18 +91,13 @@ const jsonLd = {
     </div>
   </section>
 
-  {(brandSet.length > 0 || townSet.length > 0) && (
+  {(brandLinks.length > 0 || townLinks.length > 0 || stationLinks.length > 0) && (
     <section class="bg-[var(--color-cream-100)] border-b border-[var(--color-stone-200)] py-4">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap gap-2">
-        {townSet.map(town => (
-          <span class="text-xs px-3 py-1.5 rounded-lg bg-white border border-[var(--color-stone-200)] text-[var(--color-stone-600)] font-medium">
-            {town}
-          </span>
-        ))}
-        {brandSet.map(brand => (
-          <span class="text-xs px-3 py-1.5 rounded-lg bg-white border border-[var(--color-stone-200)] text-[var(--color-stone-600)] font-medium">
-            {brand}
-          </span>
+        {[...townLinks, ...stationLinks, ...brandLinks].map(link => (
+          <a href={link.href} class="text-xs px-3 py-1.5 rounded-lg bg-white border border-[var(--color-stone-200)] text-[var(--color-stone-600)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors font-medium">
+            {link.label}
+          </a>
         ))}
       </div>
     </section>

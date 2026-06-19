@@ -2,6 +2,7 @@
 import Layout from '../../components/Layout.astro';
 import ListingCard from '../../components/ListingCard.astro';
 import { getCoffeeOutlets, getJuiceOutlets, getOutlets, getAllVenueStations } from '../../lib/airtable';
+import { topBrandLinks, topMallLinks, topTownLinks } from '../../lib/internalLinks';
 import type { MrtStation } from '../../lib/types';
 
 export async function getStaticPaths() {
@@ -30,6 +31,10 @@ const { station, outlets, coffeeOutlets, juiceOutlets, stations } = Astro.props;
 const stationName = station?.name ?? Astro.params.slug.replace(/-mrt$/, '').replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
 const stationLabel = /\bMRT\b/i.test(stationName) ? stationName : `${stationName} MRT`;
 const venueCount = outlets.length + coffeeOutlets.length + juiceOutlets.length;
+const stationVenues = [...outlets, ...coffeeOutlets, ...juiceOutlets];
+const townLinks = topTownLinks(stationVenues, 4);
+const mallLinks = topMallLinks(stationVenues, 6);
+const brandLinks = topBrandLinks(stationVenues, 6);
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -71,6 +76,49 @@ const jsonLd = {
       </p>
     </div>
   </section>
+
+  {(townLinks.length > 0 || mallLinks.length > 0 || brandLinks.length > 0) && (
+    <section class="bg-[var(--color-cream-100)] border-b border-[var(--color-stone-200)] py-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-5 lg:grid-cols-3">
+        {townLinks.length > 0 && (
+          <div class="space-y-3">
+            <h2 class="text-xs font-semibold tracking-[0.16em] uppercase text-[var(--color-stone-400)]">Area guides</h2>
+            <div class="flex flex-wrap gap-2">
+              {townLinks.map(link => (
+                <a href={link.href} class="text-xs px-3 py-1.5 rounded-lg bg-white border border-[var(--color-stone-200)] text-[var(--color-stone-600)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors font-medium">
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+        {mallLinks.length > 0 && (
+          <div class="space-y-3">
+            <h2 class="text-xs font-semibold tracking-[0.16em] uppercase text-[var(--color-stone-400)]">Nearby malls</h2>
+            <div class="flex flex-wrap gap-2">
+              {mallLinks.map(link => (
+                <a href={link.href} class="text-xs px-3 py-1.5 rounded-lg bg-white border border-[var(--color-stone-200)] text-[var(--color-stone-600)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors font-medium">
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+        {brandLinks.length > 0 && (
+          <div class="space-y-3">
+            <h2 class="text-xs font-semibold tracking-[0.16em] uppercase text-[var(--color-stone-400)]">Brands near this station</h2>
+            <div class="flex flex-wrap gap-2">
+              {brandLinks.map(link => (
+                <a href={link.href} class="text-xs px-3 py-1.5 rounded-lg bg-white border border-[var(--color-stone-200)] text-[var(--color-stone-600)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors font-medium">
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  )}
 
   <!-- Outlets -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

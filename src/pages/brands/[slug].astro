@@ -3,6 +3,7 @@ import Layout from '../../components/Layout.astro';
 import ListingCard from '../../components/ListingCard.astro';
 import DrinkCard from '../../components/DrinkCard.astro';
 import { getBrands, getCoffeeOutlets, getDrinksByBrand, getJuiceOutlets, getOutlets } from '../../lib/airtable';
+import { topMallLinks, topStationLinks, topTownLinks } from '../../lib/internalLinks';
 import { pathSegment } from '../../lib/url';
 import type { Brand } from '../../lib/types';
 
@@ -24,6 +25,10 @@ const coffeeOutlets = allCoffeeOutlets.filter(o => o.brandSlug === brand.slug);
 const allJuiceOutlets = await getJuiceOutlets();
 const juiceOutlets = allJuiceOutlets.filter(o => o.brandSlug === brand.slug);
 const drinks     = await getDrinksByBrand(brand.slug);
+const brandVenues = [...outlets, ...coffeeOutlets, ...juiceOutlets];
+const townLinks = topTownLinks(brandVenues, 8);
+const stationLinks = topStationLinks(brandVenues, 8);
+const mallLinks = topMallLinks(brandVenues, 8);
 const hasMenuPage = drinks.length > 0;
 const venueCount = outlets.length + coffeeOutlets.length + juiceOutlets.length;
 const primaryCategory = coffeeOutlets.length > 0 && outlets.length === 0 && juiceOutlets.length === 0
@@ -143,6 +148,49 @@ const jsonLd = {
       </div>
     </div>
   </section>
+
+  {(townLinks.length > 0 || stationLinks.length > 0 || mallLinks.length > 0) && (
+    <section class="bg-white border-b border-[var(--color-stone-200)] py-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-5 lg:grid-cols-3">
+        {townLinks.length > 0 && (
+          <div class="space-y-3">
+            <h2 class="text-xs font-semibold tracking-[0.16em] uppercase text-[var(--color-stone-400)]">{brand.name} by town</h2>
+            <div class="flex flex-wrap gap-2">
+              {townLinks.map(link => (
+                <a href={link.href} class="text-xs px-3 py-1.5 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-stone-200)] text-[var(--color-stone-600)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors font-medium">
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+        {stationLinks.length > 0 && (
+          <div class="space-y-3">
+            <h2 class="text-xs font-semibold tracking-[0.16em] uppercase text-[var(--color-stone-400)]">Near MRT</h2>
+            <div class="flex flex-wrap gap-2">
+              {stationLinks.map(link => (
+                <a href={link.href} class="text-xs px-3 py-1.5 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-stone-200)] text-[var(--color-stone-600)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors font-medium">
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+        {mallLinks.length > 0 && (
+          <div class="space-y-3">
+            <h2 class="text-xs font-semibold tracking-[0.16em] uppercase text-[var(--color-stone-400)]">Malls and locations</h2>
+            <div class="flex flex-wrap gap-2">
+              {mallLinks.map(link => (
+                <a href={link.href} class="text-xs px-3 py-1.5 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-stone-200)] text-[var(--color-stone-600)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors font-medium">
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  )}
 
   <!-- Outlets grid -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

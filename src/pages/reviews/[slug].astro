@@ -1,6 +1,7 @@
 ---
 import Layout from '../../components/Layout.astro';
-import { getReviews } from '../../lib/airtable';
+import { getBrands, getCoffeeOutlets, getDrinks, getJuiceOutlets, getOutlets, getReviews } from '../../lib/airtable';
+import { reviewEntityLinks } from '../../lib/internalLinks';
 import { splitArticleParagraphs } from '../../lib/reviews';
 import { pathSegment } from '../../lib/url';
 import type { Review } from '../../lib/types';
@@ -15,6 +16,13 @@ export async function getStaticPaths() {
 
 interface Props { review: Review }
 const { review } = Astro.props;
+const [brands, drinks, outlets, coffeeOutlets, juiceOutlets] = await Promise.all([
+  getBrands(),
+  getDrinks(),
+  getOutlets(),
+  getCoffeeOutlets(),
+  getJuiceOutlets(),
+]);
 
 const cupPhoto = review.photos.find(photo => photo.label === 'Cup');
 const heroPhoto = cupPhoto ?? review.photos[0];
@@ -45,6 +53,16 @@ const quickFacts = [
   { label: 'Date bought', value: purchaseDate },
   { label: 'Reviewer', value: review.reviewerName },
 ].filter((item): item is { label: string; value: string } => Boolean(item.value));
+const menuBrandSlugs = new Set(drinks.flatMap(drink => drink.brands.map(brand => brand.slug)));
+const entityLinks = reviewEntityLinks({
+  reviewBrand: review.brand,
+  reviewDrink: review.drinkName,
+  reviewOutlet: review.outletLocation,
+  brands,
+  drinks,
+  outlets: [...outlets, ...coffeeOutlets, ...juiceOutlets],
+  menuBrandSlugs,
+});
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -164,6 +182,18 @@ const jsonLd = {
                 </div>
               ))}
             </dl>
+            {entityLinks.length > 0 && (
+              <div class="mt-5 pt-5 border-t border-[var(--color-stone-200)] space-y-3">
+                <h3 class="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-stone-400)]">Related pages</h3>
+                <div class="flex flex-col gap-2">
+                  {entityLinks.map(link => (
+                    <a href={link.href} class="text-sm font-semibold text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] transition-colors">
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </aside>
       </div>

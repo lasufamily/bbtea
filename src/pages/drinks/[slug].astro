@@ -2,6 +2,7 @@
 import Layout from '../../components/Layout.astro';
 import DrinkCard from '../../components/DrinkCard.astro';
 import { getDrinks } from '../../lib/airtable';
+import { menuLinksForBrands } from '../../lib/internalLinks';
 import { pathSegment } from '../../lib/url';
 import type { Drink } from '../../lib/types';
 
@@ -22,6 +23,7 @@ const allDrinks = await getDrinks();
 const relatedDrinks = allDrinks
   .filter(item => item.slug !== drink.slug && item.categorySlug === drink.categorySlug)
   .slice(0, 4);
+const brandMenuLinks = menuLinksForBrands(drink.brands, 6);
 
 const priceRows = [
   { label: 'Medium', value: drink.priceM },
@@ -136,6 +138,22 @@ const jsonLd = {
               </a>
             ))}
           </div>
+
+          {brandMenuLinks.length > 0 && (
+            <div class="space-y-2">
+              <h2 class="text-xs font-semibold tracking-[0.16em] uppercase text-[var(--color-stone-400)]">Brand menus</h2>
+              <div class="flex flex-wrap gap-2">
+                {brandMenuLinks.map(link => (
+                  <a href={link.href} class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white text-sm font-semibold text-[var(--color-stone-700)] border border-[var(--color-stone-200)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors">
+                    {link.label}
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                    </svg>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
 
           <dl class="grid sm:grid-cols-3 gap-3">
             {priceRows.map(row => (

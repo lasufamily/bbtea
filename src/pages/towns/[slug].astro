@@ -2,6 +2,7 @@
 import Layout from '../../components/Layout.astro';
 import ListingCard from '../../components/ListingCard.astro';
 import { getCoffeeOutlets, getJuiceOutlets, getOutlets, getTowns, getAllVenueTowns } from '../../lib/airtable';
+import { topBrandLinks, topMallLinks, topStationLinks } from '../../lib/internalLinks';
 import { formatNumber, parseTownList } from '../../lib/townContent';
 import type { Town } from '../../lib/types';
 
@@ -29,9 +30,13 @@ interface Props {
 }
 const { town, outlets, coffeeOutlets, juiceOutlets, allTowns } = Astro.props;
 const venueCount = outlets.length + coffeeOutlets.length + juiceOutlets.length;
+const townVenues = [...outlets, ...coffeeOutlets, ...juiceOutlets];
 
 // Unique brands in this town
-const brandSet = [...new Set([...outlets, ...coffeeOutlets, ...juiceOutlets].map(o => o.brandName).filter(Boolean))];
+const brandLinks = topBrandLinks(townVenues, 10);
+const mallLinks = topMallLinks(townVenues, 8);
+const stationLinks = topStationLinks(townVenues, 8);
+const brandSet = [...new Set(townVenues.map(o => o.brandName).filter(Boolean))];
 const knownFor = town.knownFor ?? [];
 const mrtLines = town.mrtLines ?? [];
 const descriptionParagraphs = town.description?.split(/\n+/).map(p => p.trim()).filter(Boolean) ?? [];
@@ -275,14 +280,44 @@ const jsonLd = {
       </div>
     </div>
 
-    {brandSet.length > 0 && (
-      <div class="flex flex-wrap gap-2 mb-8">
-        <span class="text-xs font-semibold text-[var(--color-stone-400)] self-center mr-1">Brands:</span>
-        {brandSet.map(b => (
-          <span class="text-xs px-3 py-1.5 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-stone-200)] text-[var(--color-stone-600)] font-medium">
-            {b}
-          </span>
-        ))}
+    {(brandLinks.length > 0 || mallLinks.length > 0 || stationLinks.length > 0) && (
+      <div class="grid gap-5 lg:grid-cols-3 mb-8">
+        {brandLinks.length > 0 && (
+          <div class="space-y-3">
+            <h3 class="text-xs font-semibold tracking-[0.16em] uppercase text-[var(--color-stone-400)]">Popular brands</h3>
+            <div class="flex flex-wrap gap-2">
+              {brandLinks.map(link => (
+                <a href={link.href} class="text-xs px-3 py-1.5 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-stone-200)] text-[var(--color-stone-600)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors font-medium">
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+        {mallLinks.length > 0 && (
+          <div class="space-y-3">
+            <h3 class="text-xs font-semibold tracking-[0.16em] uppercase text-[var(--color-stone-400)]">Malls and locations</h3>
+            <div class="flex flex-wrap gap-2">
+              {mallLinks.map(link => (
+                <a href={link.href} class="text-xs px-3 py-1.5 rounded-lg bg-white border border-[var(--color-stone-200)] text-[var(--color-stone-600)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors font-medium">
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+        {stationLinks.length > 0 && (
+          <div class="space-y-3">
+            <h3 class="text-xs font-semibold tracking-[0.16em] uppercase text-[var(--color-stone-400)]">Nearby MRT</h3>
+            <div class="flex flex-wrap gap-2">
+              {stationLinks.map(link => (
+                <a href={link.href} class="text-xs px-3 py-1.5 rounded-lg bg-white border border-[var(--color-stone-200)] text-[var(--color-stone-600)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors font-medium">
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     )}
 
