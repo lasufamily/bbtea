@@ -2,8 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
+  canonicalizeInternalPath,
   classifyPageType,
   extractInternalLinks,
+  extractInternalUrlReferences,
   normalizeInternalPath,
   summarizeLinkGraph,
 } from './internal-link-audit.mjs';
@@ -28,6 +30,18 @@ test('normalizeInternalPath ignores external and non-crawlable links', () => {
   assert.equal(normalizeInternalPath('/search/?q=halal'), '/search/');
 });
 
+test('canonicalizeInternalPath reports slashless internal links', () => {
+  assert.deepEqual(
+    canonicalizeInternalPath('/brands/liho'),
+    {
+      href: '/brands/liho',
+      path: '/brands/liho',
+      canonicalPath: '/brands/liho/',
+      isCanonical: false,
+    },
+  );
+});
+
 test('extractInternalLinks separates chrome links from content links', () => {
   const html = `
     <header><a href="/directory/">Directory</a></header>
@@ -45,6 +59,18 @@ test('extractInternalLinks separates chrome links from content links', () => {
   assert.deepEqual(links.content, ['/brands/liho/', '/drinks/café-latte/']);
 });
 
+test('extractInternalLinks preserves raw non-canonical href details', () => {
+  const links = extractInternalLinks('<main><a href="/brands/liho">LiHO</a></main>');
+
+  assert.deepEqual(links.content, ['/brands/liho/']);
+  assert.deepEqual(links.contentDetails, [{
+    href: '/brands/liho',
+    path: '/brands/liho',
+    canonicalPath: '/brands/liho/',
+    isCanonical: false,
+  }]);
+});
+
 test('extractInternalLinks ignores script template strings', () => {
   const html = `
     <main><a href="/directory/">Directory</a></main>
@@ -56,7 +82,29 @@ test('extractInternalLinks ignores script template strings', () => {
   assert.deepEqual(extractInternalLinks(html), {
     content: ['/directory/'],
     chrome: [],
+    contentDetails: [{
+      href: '/directory/',
+      path: '/directory/',
+      canonicalPath: '/directory/',
+      isCanonical: true,
+    }],
+    chromeDetails: [],
   });
+});
+
+test('extractInternalUrlReferences finds non-canonical structured data URLs', () => {
+  const html = `
+    <script type="application/ld+json">
+      {"url":"https://bbtea.sg/brands/liho","sameAs":["https://example.com/liho"]}
+    </script>
+  `;
+
+  assert.deepEqual(extractInternalUrlReferences(html), [{
+    href: 'https://bbtea.sg/brands/liho',
+    path: '/brands/liho',
+    canonicalPath: '/brands/liho/',
+    isCanonical: false,
+  }]);
 });
 
 test('summarizeLinkGraph reports broken links and weak content inlinks', () => {
@@ -78,6 +126,40 @@ test('summarizeLinkGraph reports broken links and weak content inlinks', () => {
       ['/reviews/milk-tea/', 1],
     ],
   );
+});
+
+test('summarizeLinkGraph reports non-canonical links separately from broken links', () => {
+  const pages = new Map([
+    ['/', { html: '<main><a href="/brands/liho">LiHO</a></main>' }],
+    ['/brands/liho/', { html: '<main><a href="/">Home</a></main>' }],
+  ]);
+
+  const summary = summarizeLinkGraph(pages);
+
+  assert.deepEqual(summary.brokenLinks, []);
+  assert.deepEqual(summary.nonCanonicalLinks, [{
+    from: '/',
+    area: 'content',
+    href: '/brands/liho',
+    path: '/brands/liho',
+    canonicalPath: '/brands/liho/',
+  }]);
+});
+
+test('summarizeLinkGraph reports non-canonical URL references', () => {
+  const pages = new Map([
+    ['/', { html: '<script>{"url":"https://bbtea.sg/brands/liho"}</script>' }],
+    ['/brands/liho/', { html: '<main><a href="/">Home</a></main>' }],
+  ]);
+
+  const summary = summarizeLinkGraph(pages);
+
+  assert.deepEqual(summary.nonCanonicalUrlReferences, [{
+    from: '/',
+    href: 'https://bbtea.sg/brands/liho',
+    path: '/brands/liho',
+    canonicalPath: '/brands/liho/',
+  }]);
 });
 
 test('classifyPageType groups URLs by first path segment', () => {

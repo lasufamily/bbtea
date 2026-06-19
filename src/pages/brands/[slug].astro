@@ -49,7 +49,7 @@ const jsonLd = {
   '@type': 'Organization',
   name: brand.name,
   description: brand.description,
-  url: brand.websiteUrl ?? `https://bbtea.sg/brands/${pathSegment(brand.slug)}`,
+  url: brand.websiteUrl ?? `https://bbtea.sg/brands/${pathSegment(brand.slug)}/`,
   ...(brand.logo && { logo: brand.logo }),
   ...(brandLinks.length > 0 && { sameAs: brandLinks.map(link => link.url) }),
 };

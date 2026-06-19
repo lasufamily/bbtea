@@ -73,6 +73,10 @@ function decodePathname(pathname) {
 }
 
 export function normalizeInternalPath(rawHref, base = SITE) {
+  return canonicalizeInternalPath(rawHref, base)?.canonicalPath ?? null;
+}
+
+export function canonicalizeInternalPath(rawHref, base = SITE) {
   if (!rawHref) return null;
   const href = rawHref.trim();
   if (
@@ -94,27 +98,53 @@ export function normalizeInternalPath(rawHref, base = SITE) {
 
   let pathname = decodePathname(url.pathname);
   if (!pathname.startsWith('/')) pathname = `/${pathname}`;
-  if (!pathname.endsWith('/') && !path.extname(pathname)) pathname = `${pathname}/`;
-  return pathname;
+  const canonicalPath = !pathname.endsWith('/') && !path.extname(pathname)
+    ? `${pathname}/`
+    : pathname;
+
+  return {
+    href,
+    path: pathname,
+    canonicalPath,
+    isCanonical: pathname === canonicalPath,
+  };
 }
 
 export function extractInternalLinks(html) {
   const content = [];
   const chrome = [];
+  const contentDetails = [];
+  const chromeDetails = [];
   const chromeRanges = getChromeRanges(html);
   const ignoredRanges = getIgnoredRanges(html);
 
   for (const match of html.matchAll(/<a\s+[^>]*href=(["'])(.*?)\1/gis)) {
     if (isInRange(match.index ?? 0, ignoredRanges)) continue;
 
-    const normalized = normalizeInternalPath(match[2]);
-    if (!normalized) continue;
+    const link = canonicalizeInternalPath(match[2]);
+    if (!link) continue;
 
-    if (isInRange(match.index ?? 0, chromeRanges)) chrome.push(normalized);
-    else content.push(normalized);
+    if (isInRange(match.index ?? 0, chromeRanges)) {
+      chrome.push(link.canonicalPath);
+      chromeDetails.push(link);
+    } else {
+      content.push(link.canonicalPath);
+      contentDetails.push(link);
+    }
   }
 
-  return { content, chrome };
+  return { content, chrome, contentDetails, chromeDetails };
+}
+
+export function extractInternalUrlReferences(html) {
+  const references = [];
+
+  for (const match of html.matchAll(/https?:\/\/(?:www\.)?bbtea\.sg\/[^"'<>\s),}\]]*/gi)) {
+    const reference = canonicalizeInternalPath(match[0]);
+    if (reference) references.push(reference);
+  }
+
+  return references;
 }
 
 export function classifyPageType(url) {
@@ -131,11 +161,49 @@ export function summarizeLinkGraph(pages, options = {}) {
   const outbound = new Map();
   const brokenLinks = [];
   const brokenLinkKeys = new Set();
+  const nonCanonicalLinks = [];
+  const nonCanonicalLinkKeys = new Set();
+  const nonCanonicalUrlReferences = [];
+  const nonCanonicalUrlReferenceKeys = new Set();
 
   for (const [from, page] of pages) {
     const links = extractInternalLinks(page.html);
     const allLinks = [...links.content, ...links.chrome];
     outbound.set(from, allLinks);
+
+    for (const reference of extractInternalUrlReferences(page.html)) {
+      if (reference.isCanonical) continue;
+      const key = `${from}\u0000${reference.href}\u0000${reference.canonicalPath}`;
+      if (!nonCanonicalUrlReferenceKeys.has(key)) {
+        nonCanonicalUrlReferences.push({
+          from,
+          href: reference.href,
+          path: reference.path,
+          canonicalPath: reference.canonicalPath,
+        });
+        nonCanonicalUrlReferenceKeys.add(key);
+      }
+    }
+
+    for (const [area, details] of [
+      ['content', links.contentDetails],
+      ['chrome', links.chromeDetails],
+    ]) {
+      for (const link of details) {
+        if (link.isCanonical) continue;
+        const key = `${from}\u0000${area}\u0000${link.href}\u0000${link.canonicalPath}`;
+        if (!nonCanonicalLinkKeys.has(key)) {
+          nonCanonicalLinks.push({
+            from,
+            area,
+            href: link.href,
+            path: link.path,
+            canonicalPath: link.canonicalPath,
+          });
+          nonCanonicalLinkKeys.add(key);
+        }
+      }
+    }
 
     for (const to of allLinks) {
       if (existing.has(to)) inbound.get(to).add(from);
@@ -195,6 +263,17 @@ export function summarizeLinkGraph(pages, options = {}) {
   return {
     pageCount: existing.size,
     brokenLinks: brokenLinks.sort((a, b) => a.from.localeCompare(b.from) || a.to.localeCompare(b.to)),
+    nonCanonicalLinks: nonCanonicalLinks.sort((a, b) =>
+      a.from.localeCompare(b.from) ||
+      a.area.localeCompare(b.area) ||
+      a.canonicalPath.localeCompare(b.canonicalPath) ||
+      a.href.localeCompare(b.href)
+    ),
+    nonCanonicalUrlReferences: nonCanonicalUrlReferences.sort((a, b) =>
+      a.from.localeCompare(b.from) ||
+      a.canonicalPath.localeCompare(b.canonicalPath) ||
+      a.href.localeCompare(b.href)
+    ),
     weakPages,
     byType: [...byType.values()]
       .map(item => ({
@@ -242,6 +321,8 @@ function formatSummary(summary, { maxExamples = 25 } = {}) {
     'Internal link audit',
     `Pages scanned: ${summary.pageCount}`,
     `Broken internal links: ${summary.brokenLinks.length}`,
+    `Non-canonical internal links: ${summary.nonCanonicalLinks.length}`,
+    `Non-canonical URL references: ${summary.nonCanonicalUrlReferences.length}`,
     `Weak priority pages: ${summary.weakPages.length}`,
     '',
     'Page type summary:',
@@ -261,6 +342,28 @@ function formatSummary(summary, { maxExamples = 25 } = {}) {
     }
     if (summary.brokenLinks.length > maxExamples) {
       lines.push(`- ... ${summary.brokenLinks.length - maxExamples} more`);
+    }
+  }
+
+  lines.push('', 'Non-canonical internal links:');
+  if (summary.nonCanonicalLinks.length === 0) lines.push('- None.');
+  else {
+    for (const link of summary.nonCanonicalLinks.slice(0, maxExamples)) {
+      lines.push(`- ${link.from} (${link.area}) -> ${link.href} should be ${link.canonicalPath}`);
+    }
+    if (summary.nonCanonicalLinks.length > maxExamples) {
+      lines.push(`- ... ${summary.nonCanonicalLinks.length - maxExamples} more`);
+    }
+  }
+
+  lines.push('', 'Non-canonical URL references:');
+  if (summary.nonCanonicalUrlReferences.length === 0) lines.push('- None.');
+  else {
+    for (const reference of summary.nonCanonicalUrlReferences.slice(0, maxExamples)) {
+      lines.push(`- ${reference.from} -> ${reference.href} should be ${reference.canonicalPath}`);
+    }
+    if (summary.nonCanonicalUrlReferences.length > maxExamples) {
+      lines.push(`- ... ${summary.nonCanonicalUrlReferences.length - maxExamples} more`);
     }
   }
 
@@ -287,7 +390,14 @@ async function main() {
   const summary = summarizeLinkGraph(pages);
   console.log(formatSummary(summary, { maxExamples }));
 
-  if (failOnError && summary.brokenLinks.length > 0) {
+  if (
+    failOnError &&
+    (
+      summary.brokenLinks.length > 0 ||
+      summary.nonCanonicalLinks.length > 0 ||
+      summary.nonCanonicalUrlReferences.length > 0
+    )
+  ) {
     process.exitCode = 1;
   }
 }
