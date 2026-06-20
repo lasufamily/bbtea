@@ -9,7 +9,7 @@ const ROOT = path.resolve(__dirname, '..');
 const DIST = path.join(ROOT, 'dist');
 const DIST_BACKUP = path.join(ROOT, '.tmp-indexing-scan-dist');
 const SITE = 'https://bbtea.sg';
-const DEFAULT_GSC_EXPORT_DIR = path.resolve(ROOT, '..', '..', 'BBTea Admin', 'Page Indeximg Reports');
+export const DEFAULT_GSC_EXPORT_DIR = path.resolve(ROOT, '..', '..', 'BBTea Admin', 'Page Indexing Reports');
 const INTERNAL_BLOCKED_PATHS = [
   /^\/node_modules(?:\/|$)/,
   /^\/\.git(?:\/|$)/,

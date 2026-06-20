@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
+  DEFAULT_GSC_EXPORT_DIR,
   classifyGscUrl,
   formatSummary,
   inferFinalStatus,
@@ -118,4 +119,8 @@ test('summarizeGscReport counts classified GSC export buckets', () => {
       ['canonical-content-url', 1],
     ],
   );
+});
+
+test('DEFAULT_GSC_EXPORT_DIR points at the local Page Indexing Reports folder', () => {
+  assert.match(DEFAULT_GSC_EXPORT_DIR, /Page Indexing Reports$/);
 });
