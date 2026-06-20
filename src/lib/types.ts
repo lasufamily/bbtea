@@ -276,6 +276,7 @@ export interface Faq {
   slug: string;
   question: string;
   answer: string;
+  category?: string;
   published: boolean;
 }
 
@@ -496,6 +497,7 @@ export interface AirtableFaqFields {
   'Answer'?: string;
   'FAQ Answer'?: string;
   'Body'?: string;
+  'Category'?: string;
   'Slug'?: string;
   'Published'?: boolean;
 }

@@ -4,6 +4,35 @@ import { getFaqs } from '../lib/airtable';
 import { pathSegment } from '../lib/url';
 
 const faqs = await getFaqs();
+const FAQ_CATEGORY_ORDER = ['Bubble Tea', 'Coffee', 'Juice', 'Cafe', 'Kopitiam', 'Dessert', 'Other'];
+const KNOWN_FAQ_CATEGORIES = new Set(FAQ_CATEGORY_ORDER);
+const DISCOVERY_LINKS = [
+  { href: '/bubble-tea-shops/', label: 'Bubble tea shops' },
+  { href: '/coffee-shops/', label: 'Coffee shops' },
+  { href: '/drinks/', label: 'Drink guide' },
+  { href: '/brands/', label: 'Brands' },
+  { href: '/menus/', label: 'Brand menus' },
+  { href: '/towns/', label: 'Towns' },
+  { href: '/stations/', label: 'MRT stations' },
+];
+
+function categoryAnchor(category: string): string {
+  return category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+
+function faqCategory(category: string | undefined): string {
+  return category && KNOWN_FAQ_CATEGORIES.has(category) ? category : 'Other';
+}
+
+const groupedFaqSections = FAQ_CATEGORY_ORDER
+  .map(category => ({
+    category,
+    anchor: categoryAnchor(category),
+    faqs: faqs
+      .filter(faq => faqCategory(faq.category) === category)
+      .sort((a, b) => a.question.localeCompare(b.question)),
+  }))
+  .filter(section => section.faqs.length > 0);
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -20,7 +49,7 @@ const jsonLd = {
   canonical="https://bbtea.sg/faq/"
   jsonLd={jsonLd}
 >
-  <section class="bg-white border-b border-[var(--color-stone-200)] py-16">
+  <section class="bg-white border-b border-[var(--color-stone-200)] py-14 lg:py-16">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
       <nav class="text-sm text-[var(--color-stone-400)] flex items-center gap-1.5" aria-label="Breadcrumb">
         <a href="/" class="hover:text-[var(--color-forest-700)] transition-colors">Home</a>
@@ -28,27 +57,74 @@ const jsonLd = {
         <span class="text-[var(--color-stone-700)] font-medium">FAQ</span>
       </nav>
 
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-bold leading-tight text-balance">
-        Frequently Asked Questions
-      </h1>
+      <div class="max-w-3xl space-y-4">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-bold leading-tight text-balance">
+          FAQ
+        </h1>
+        <p class="text-base sm:text-lg text-[var(--color-stone-600)] leading-relaxed">
+          Find answers about bubble tea, coffee shops, juice, cafes, kopitiams, desserts, and using BBTea.sg.
+        </p>
+      </div>
     </div>
   </section>
 
-  <section class="py-14 lg:py-16" data-pagefind-body>
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      {faqs.length > 0 ? (
-        <ul class="divide-y divide-[var(--color-stone-200)] border-y border-[var(--color-stone-200)]">
-          {faqs.map(faq => (
-            <li>
+  <section class="py-12 lg:py-16" data-pagefind-body>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      {groupedFaqSections.length > 0 ? (
+        <>
+          <nav aria-label="FAQ topics" class="flex flex-wrap gap-2">
+            {groupedFaqSections.map(section => (
               <a
-                href={`/faq/${pathSegment(faq.slug)}/`}
-                class="block py-6 text-lg font-display font-semibold text-[var(--color-stone-900)] hover:text-[var(--color-forest-700)] transition-colors"
+                href={`#${section.anchor}`}
+                class="rounded-lg border border-[var(--color-stone-200)] bg-white px-3 py-2 text-sm font-semibold text-[var(--color-stone-700)] transition-colors hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)]"
               >
-                {faq.question}
+                {section.category}
               </a>
-            </li>
-          ))}
-        </ul>
+            ))}
+          </nav>
+
+          <div class="space-y-10">
+            {groupedFaqSections.map(section => (
+              <section id={section.anchor} class="scroll-mt-28">
+                <div class="mb-5 flex flex-col gap-2 border-b border-[var(--color-stone-200)] pb-4 sm:flex-row sm:items-end sm:justify-between">
+                  <h2 class="text-2xl font-display font-bold text-[var(--color-stone-900)]">{section.category}</h2>
+                  <p class="text-sm font-medium text-[var(--color-stone-400)]">
+                    {section.faqs.length} {section.faqs.length === 1 ? 'question' : 'questions'}
+                  </p>
+                </div>
+
+                <ul class="grid gap-3 sm:grid-cols-2">
+                  {section.faqs.map(faq => (
+                    <li>
+                      <a
+                        href={`/faq/${pathSegment(faq.slug)}/`}
+                        class="block h-full rounded-lg border border-[var(--color-stone-200)] bg-white p-4 text-base font-display font-semibold leading-snug text-[var(--color-stone-900)] transition-colors hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)]"
+                      >
+                        {faq.question}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+          </div>
+
+          <section class="rounded-lg border border-[var(--color-stone-200)] bg-[var(--color-cream-100)] p-5 sm:p-6">
+            <div class="space-y-4">
+              <h2 class="text-xl font-display font-bold text-[var(--color-stone-900)]">Explore related guides</h2>
+              <div class="flex flex-wrap gap-2">
+                {DISCOVERY_LINKS.map(link => (
+                  <a
+                    href={link.href}
+                    class="rounded-lg border border-[var(--color-stone-200)] bg-white px-3 py-2 text-sm font-semibold text-[var(--color-stone-700)] transition-colors hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)]"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </section>
+        </>
       ) : (
         <p class="text-base text-[var(--color-stone-600)]">No FAQ records found.</p>
       )}

@@ -9,12 +9,17 @@ test('FAQ pages are generated from Airtable records', async () => {
   const detailSource = await readFile(new URL('../src/pages/faq/[slug].astro', import.meta.url), 'utf8');
 
   assert.match(typesSource, /export interface Faq\s*{/);
+  assert.match(typesSource, /category\?: string/);
   assert.match(typesSource, /export interface AirtableFaqFields\s*{/);
+  assert.match(typesSource, /'Category'\?: string/);
   assert.match(airtableSource, /export function getFaqs\(\): Promise<Faq\[]>/);
   assert.match(airtableSource, /fetchTable<AirtableFaqFields>\('FAQ'/);
   assert.match(airtableSource, /mapFaqRecord/);
+  assert.match(airtableSource, /category: normalizeText\(f\['Category'\]\)/);
 
   assert.match(hubSource, /const faqs = await getFaqs\(\);/);
+  assert.match(hubSource, /FAQ_CATEGORY_ORDER/);
+  assert.match(hubSource, /groupedFaqSections/);
   assert.match(hubSource, /href=\{`\/faq\/\$\{pathSegment\(faq\.slug\)\}\/`\}/);
   assert.doesNotMatch(hubSource, /answer: 'What is BBTea\.sg\?'/);
   assert.doesNotMatch(hubSource, /faq\.answer/);

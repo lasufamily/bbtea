@@ -889,6 +889,7 @@ export function mapFaqRecord(r: AirtableRecord<AirtableFaqFields>): Faq | undefi
     slug: normalizeText(f['Slug']) ?? slugify(question),
     question,
     answer,
+    category: normalizeText(f['Category']),
     published: f['Published'] ?? true,
   } satisfies Faq;
 }
