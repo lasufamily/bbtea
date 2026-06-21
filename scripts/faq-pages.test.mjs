@@ -7,6 +7,7 @@ test('FAQ pages are generated from Airtable records', async () => {
   const typesSource = await readFile(new URL('../src/lib/types.ts', import.meta.url), 'utf8');
   const hubSource = await readFile(new URL('../src/pages/faq.astro', import.meta.url), 'utf8');
   const detailSource = await readFile(new URL('../src/pages/faq/[slug].astro', import.meta.url), 'utf8');
+  const internalLinksSource = await readFile(new URL('../src/lib/internalLinks.ts', import.meta.url), 'utf8');
 
   assert.match(typesSource, /export interface Faq\s*{/);
   assert.match(typesSource, /category\?: string/);
@@ -28,4 +29,10 @@ test('FAQ pages are generated from Airtable records', async () => {
   assert.match(detailSource, /const faqs = await getFaqs\(\);/);
   assert.match(detailSource, /<h1[^>]*>\s*\{faq\.question\}\s*<\/h1>/);
   assert.match(detailSource, /\{faq\.answer\}/);
+  assert.doesNotMatch(detailSource, /Browse the directory/);
+  assert.doesNotMatch(detailSource, /href: '\/directory\/'/);
+  assert.match(detailSource, /relatedFaqLinks\(allFaqs,\s*faq,\s*5\)/);
+  assert.match(internalLinksSource, /function faqRelevanceScore/);
+  assert.match(internalLinksSource, /\.filter\(faq => faq\.slug !== currentFaq\.slug\)/);
+  assert.match(internalLinksSource, /\.filter\(\(\{ score \}\) => score > 0\)/);
 });

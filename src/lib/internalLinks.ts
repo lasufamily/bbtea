@@ -21,6 +21,73 @@ function normalizeMatchText(value: string | undefined): string {
   return compactText(value).replace(/[^a-z0-9]+/g, ' ').trim();
 }
 
+const FAQ_STOP_WORDS = new Set([
+  'about',
+  'after',
+  'also',
+  'and',
+  'are',
+  'bad',
+  'bubble',
+  'can',
+  'does',
+  'drink',
+  'drinks',
+  'for',
+  'from',
+  'have',
+  'how',
+  'into',
+  'is',
+  'make',
+  'more',
+  'much',
+  'singapore',
+  'tea',
+  'that',
+  'the',
+  'their',
+  'there',
+  'they',
+  'thing',
+  'this',
+  'what',
+  'when',
+  'where',
+  'which',
+  'why',
+  'with',
+  'you',
+  'your',
+]);
+
+function faqKeywords(value: string | undefined): Set<string> {
+  return new Set(
+    normalizeMatchText(value)
+      .split(' ')
+      .filter(token => token.length > 2 && !FAQ_STOP_WORDS.has(token)),
+  );
+}
+
+function sharedKeywordCount(currentKeywords: Set<string>, candidateKeywords: Set<string>): number {
+  let count = 0;
+  for (const keyword of candidateKeywords) {
+    if (currentKeywords.has(keyword)) count += 1;
+  }
+  return count;
+}
+
+function faqRelevanceScore(currentFaq: Faq, candidateFaq: Faq): number {
+  const currentQuestionKeywords = faqKeywords(currentFaq.question);
+  const candidateQuestionKeywords = faqKeywords(candidateFaq.question);
+  const questionOverlap = sharedKeywordCount(currentQuestionKeywords, candidateQuestionKeywords);
+
+  if (questionOverlap === 0) return 0;
+
+  const sameCategory = currentFaq.category && currentFaq.category === candidateFaq.category ? 2 : 0;
+  return questionOverlap * 4 + sameCategory;
+}
+
 function rankedLinks(seeds: LinkSeed[], limit: number): InternalLink[] {
   const counts = new Map<string, InternalLink>();
 
@@ -95,12 +162,17 @@ export function menuLinksForBrands(brands: Pick<Brand, 'name' | 'slug'>[], limit
     }));
 }
 
-export function relatedFaqLinks(faqs: Faq[], currentSlug: string, limit = 6): InternalLink[] {
+export function relatedFaqLinks(faqs: Faq[], currentFaq: Faq, limit = 6): InternalLink[] {
   return faqs
-    .filter(faq => faq.slug !== currentSlug)
-    .sort((a, b) => a.question.localeCompare(b.question))
-    .slice(0, limit)
+    .filter(faq => faq.slug !== currentFaq.slug)
     .map(faq => ({
+      faq,
+      score: faqRelevanceScore(currentFaq, faq),
+    }))
+    .filter(({ score }) => score > 0)
+    .sort((a, b) => b.score - a.score || a.faq.question.localeCompare(b.faq.question))
+    .slice(0, limit)
+    .map(({ faq }) => ({
       href: `/faq/${pathSegment(faq.slug)}/`,
       label: faq.question,
     }));

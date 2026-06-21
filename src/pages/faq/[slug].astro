@@ -18,7 +18,7 @@ interface Props {
 
 const { faq } = Astro.props;
 const allFaqs = await getFaqs();
-const relatedLinks = relatedFaqLinks(allFaqs, faq.slug, 5);
+const relatedLinks = relatedFaqLinks(allFaqs, faq, 5);
 const description = faq.answer.length > 155 ? `${faq.answer.slice(0, 152)}...` : faq.answer;
 
 const jsonLd = {
@@ -63,24 +63,7 @@ const jsonLd = {
         </div>
       </div>
 
-      <div class="grid gap-6 sm:grid-cols-2 pt-6 border-t border-[var(--color-stone-200)]">
-        <section class="space-y-3">
-          <h2 class="text-sm font-display font-semibold text-[var(--color-stone-900)]">Browse the directory</h2>
-          <div class="flex flex-wrap gap-2">
-            {[
-              { href: '/directory/', label: 'All shops' },
-              { href: '/brands/', label: 'Brands' },
-              { href: '/towns/', label: 'Towns' },
-              { href: '/stations/', label: 'MRT stations' },
-              { href: '/drinks/', label: 'Drinks' },
-            ].map(link => (
-              <a href={link.href} class="text-xs px-3 py-1.5 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-stone-200)] text-[var(--color-stone-600)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors font-medium">
-                {link.label}
-              </a>
-            ))}
-          </div>
-        </section>
-
+      <div class="pt-6 border-t border-[var(--color-stone-200)]">
         {relatedLinks.length > 0 && (
           <section class="space-y-3">
             <h2 class="text-sm font-display font-semibold text-[var(--color-stone-900)]">Related questions</h2>
