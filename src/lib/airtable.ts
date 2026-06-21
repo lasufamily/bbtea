@@ -379,6 +379,7 @@ export function mapBrandRecord(r: AirtableRecord<AirtableBrandFields>): Brand | 
     id:           r.id,
     name,
     slug,
+    category:     normalizeText(f['Category']),
     logo:         f['Logo']?.[0]?.thumbnails?.large?.url ?? f['Logo']?.[0]?.url,
     description:  f['Description'],
     websiteUrl:   f['Website URL'],

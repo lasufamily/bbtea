@@ -11,7 +11,34 @@ const brandOutletCount = (brandSlug: string) =>
   juiceOutlets.filter(o => o.brandSlug === brandSlug).length;
 
 const featuredBrands = brands.filter(b => b.featured);
-const allBrandsSorted = [...brands].sort((a, b) => a.name.localeCompare(b.name));
+const categoryOrder = ['Bubble Tea', 'Coffee', 'Juice', 'More brands'];
+const categoryCopy = new Map([
+  ['Bubble Tea', 'Milk tea, fruit tea, matcha and boba chains with dedicated drink menus.'],
+  ['Coffee', 'Coffee-led brands and cafes for espresso, lattes and daily caffeine runs.'],
+  ['Juice', 'Juice bars, smoothie counters and fruit-forward refreshment brands.'],
+  ['More brands', 'Drink brands still worth browsing while their category details settle in.'],
+]);
+const brandsByCategory = Array.from(
+  brands.reduce((groups, brand) => {
+    const category = brand.category ?? 'More brands';
+    const group = groups.get(category) ?? [];
+    group.push(brand);
+    groups.set(category, group);
+    return groups;
+  }, new Map<string, typeof brands>()),
+  ([category, categoryBrands]) => ({
+    category,
+    description: categoryCopy.get(category) ?? `${category} brands listed on BBTea.sg.`,
+    brands: categoryBrands.sort((a, b) => a.name.localeCompare(b.name)),
+  }),
+).sort((a, b) => {
+  const aIndex = categoryOrder.indexOf(a.category);
+  const bIndex = categoryOrder.indexOf(b.category);
+  if (aIndex !== -1 || bIndex !== -1) {
+    return (aIndex === -1 ? Number.MAX_SAFE_INTEGER : aIndex) - (bIndex === -1 ? Number.MAX_SAFE_INTEGER : bIndex);
+  }
+  return a.category.localeCompare(b.category);
+});
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -84,18 +111,52 @@ const jsonLd = {
       </section>
     )}
 
-    <!-- All brands A–Z -->
-    <section class="space-y-6">
-      <header class="flex items-end justify-between gap-4">
-        <div class="space-y-1">
-          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">A–Z</p>
-          <h2 class="text-2xl font-display font-bold text-[var(--color-stone-900)]">All Brands</h2>
+    <!-- Category discovery -->
+    <section class="space-y-8">
+      <header class="grid gap-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+        <div class="space-y-2">
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">Browse by category</p>
+          <h2 class="text-2xl lg:text-3xl font-display font-bold text-[var(--color-stone-900)]">Find the right kind of drink brand</h2>
+          <p class="text-sm text-[var(--color-stone-600)] max-w-2xl leading-relaxed">
+            Brands are grouped by the Category field in Airtable, so bubble tea, coffee and juice names are easier to discover without scanning one long list.
+          </p>
         </div>
-        <span class="text-sm text-[var(--color-stone-400)]">{brands.length} brands</span>
+        <div class="flex flex-wrap gap-2 lg:justify-end">
+          {brandsByCategory.map(group => (
+            <a
+              href={`#${group.category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`}
+              class="text-sm px-3 py-2 rounded-lg border border-[var(--color-stone-200)] bg-white text-[var(--color-stone-600)] hover:border-[var(--color-forest-700)] hover:text-[var(--color-forest-700)] transition-colors font-medium"
+            >
+              {group.category}
+              <span class="text-[var(--color-stone-400)] ml-1">{group.brands.length}</span>
+            </a>
+          ))}
+        </div>
       </header>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-        {allBrandsSorted.map(brand => (
-          <BrandCard brand={brand} outletCount={brandOutletCount(brand.slug)} />
+
+      <div class="space-y-12">
+        {brandsByCategory.map(group => (
+          <section
+            id={group.category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}
+            class="scroll-mt-24"
+          >
+            <div class="grid gap-6 lg:grid-cols-[260px_minmax(0,1fr)] lg:items-start">
+              <header class="lg:sticky lg:top-24 space-y-3">
+                <div class="space-y-1">
+                  <p class="text-xs font-semibold tracking-[0.18em] uppercase text-[var(--color-forest-700)]">
+                    {group.brands.length} {group.brands.length === 1 ? 'brand' : 'brands'}
+                  </p>
+                  <h3 class="text-xl font-display font-bold text-[var(--color-stone-900)]">{group.category}</h3>
+                </div>
+                <p class="text-sm text-[var(--color-stone-600)] leading-relaxed">{group.description}</p>
+              </header>
+              <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+                {group.brands.map(brand => (
+                  <BrandCard brand={brand} outletCount={brandOutletCount(brand.slug)} />
+                ))}
+              </div>
+            </div>
+          </section>
         ))}
       </div>
     </section>

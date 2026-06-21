@@ -6,6 +6,7 @@ export interface Brand {
   id: string;
   name: string;
   slug: string;
+  category?: string;
   logo?: string;
   description?: string;
   websiteUrl?: string;
@@ -298,6 +299,7 @@ export interface AirtableResponse<T> {
 export interface AirtableBrandFields {
   'Brand Name': string;
   'Slug': string;
+  'Category'?: string;
   'Logo'?: { url: string; thumbnails?: { large?: { url: string } } }[];
   'Description'?: string;
   'Website URL'?: string;
