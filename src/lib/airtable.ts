@@ -495,10 +495,12 @@ async function buildOutlets(
       const galleryImages = f['Gallery Images URL']
         ?.split(',')
         .map(s => s.trim())
+        .map(googleDriveImageUrl)
         .filter(Boolean);
+      const imageUrl = f['Image URL']?.trim();
 
       // Main image: prefer Image URL, fall back to first gallery image
-      const image = f['Image URL']?.trim() || galleryImages?.[0] || undefined;
+      const image = imageUrl ? googleDriveImageUrl(imageUrl) : galleryImages?.[0] || undefined;
       const halal = f['Halal'];
 
       return {
@@ -644,8 +646,10 @@ function mapSpecialtyShopRecord<TType extends 'coffee' | 'juice'>(
   const galleryImages = f['Gallery Images URL']
     ?.split(',')
     .map(s => s.trim())
+    .map(googleDriveImageUrl)
     .filter(Boolean);
-  const image = f['Image URL']?.trim() || galleryImages?.[0] || undefined;
+  const imageUrl = f['Image URL']?.trim();
+  const image = imageUrl ? googleDriveImageUrl(imageUrl) : galleryImages?.[0] || undefined;
   const halal = f['Halal'];
 
   return {
