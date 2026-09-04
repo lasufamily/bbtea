@@ -1,0 +1,206 @@
+---
+import Layout from '../../../components/Layout.astro';
+import ProductCard from '../../../components/ProductCard.astro';
+import { getCompareProducts, getProducts } from '../../../lib/airtable';
+import type { Product } from '../../../lib/types';
+
+export async function getStaticPaths() {
+  const products = await getProducts();
+  return products.map(product => ({
+    params: {
+      category: product.categorySlug,
+      slug: product.slug,
+    },
+    props: { product },
+  }));
+}
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const compareProducts = await getCompareProducts(product);
+
+const priceText =
+  typeof product.priceSgd === 'number' ? `S$${product.priceSgd.toFixed(2)}` : undefined;
+
+const pageTitle = product.seoTitle
+  ? product.seoTitle
+  : `${product.name} | Shop | BBTea.sg`;
+
+const pageDescription =
+  product.metaDescription ??
+  product.shortDescription ??
+  product.description ??
+  `${product.name}${product.brandName ? ` by ${product.brandName}` : ''} — curated shop pick on BBTea.sg.`;
+
+const buyLabel = product.merchant ? `Buy on ${product.merchant}` : 'Buy now';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: product.name,
+  description: pageDescription,
+  category: product.category,
+  ...(product.image && { image: product.image }),
+  ...(product.brandName && { brand: { '@type': 'Brand', name: product.brandName } }),
+  ...(typeof product.priceSgd === 'number' && {
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'SGD',
+      price: product.priceSgd,
+      availability: 'https://schema.org/InStock',
+      ...(product.affiliateUrl
+        ? { url: product.affiliateUrl }
+        : {}),
+    },
+  }),
+};
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  image={product.image}
+  type="article"
+  canonical={`https://bbtea.sg/shop/${product.categorySlug}/${product.slug}/`}
+  jsonLd={jsonLd}
+>
+
+  <section class="bg-white border-b border-[var(--color-stone-200)]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-18">
+      <nav class="text-sm text-[var(--color-stone-400)] mb-8 flex flex-wrap items-center gap-1.5" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-[var(--color-forest-700)] transition-colors">Home</a>
+        <span>/</span>
+        <a href="/shop/" class="hover:text-[var(--color-forest-700)] transition-colors">Shop</a>
+        <span>/</span>
+        <a href={`/shop/${product.categorySlug}/`} class="hover:text-[var(--color-forest-700)] transition-colors">
+          {product.category}
+        </a>
+        <span>/</span>
+        <span class="text-[var(--color-stone-700)] font-medium">{product.name}</span>
+      </nav>
+
+      <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-14 items-start">
+        <div class="aspect-[4/3] rounded-lg overflow-hidden bg-[var(--color-cream-100)] border border-[var(--color-stone-200)]">
+          {product.image ? (
+            <img
+              src={product.image}
+              alt={product.name}
+              class="w-full h-full object-cover"
+              loading="eager"
+              decoding="async"
+              width="720"
+              height="540"
+            />
+          ) : (
+            <div class="w-full h-full flex items-center justify-center">
+              <span class="text-sm font-semibold tracking-wide uppercase text-[var(--color-stone-400)]">Product</span>
+            </div>
+          )}
+        </div>
+
+        <div class="space-y-6" data-pagefind-body>
+          <div class="space-y-3">
+            <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
+              {product.category}
+            </p>
+            <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight text-[var(--color-stone-900)]">
+              {product.name}
+            </h1>
+            {product.brandName && (
+              <p class="text-sm font-semibold text-[var(--color-stone-600)]">
+                {product.brandName}
+              </p>
+            )}
+            {product.shortDescription && (
+              <p class="text-[var(--color-stone-600)] text-base leading-relaxed max-w-2xl">
+                {product.shortDescription}
+              </p>
+            )}
+          </div>
+
+          <div class="flex flex-wrap items-center gap-4">
+            {priceText && (
+              <p class="text-2xl font-display font-bold text-[var(--color-stone-900)]">
+                {priceText}
+                {product.priceNote && (
+                  <span class="ml-2 text-sm font-medium text-[var(--color-stone-500)]">{product.priceNote}</span>
+                )}
+              </p>
+            )}
+            {typeof product.capacityMl === 'number' && (
+              <span class="text-sm px-3 py-1.5 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-stone-200)] text-[var(--color-stone-600)]">
+                {product.capacityMl}ml
+              </span>
+            )}
+          </div>
+
+          {product.affiliateUrl ? (
+            <a
+              href={product.affiliateUrl}
+              target="_blank"
+              rel="nofollow sponsored noopener noreferrer"
+              class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold bg-[var(--color-forest-700)] text-white border border-[var(--color-forest-700)] hover:bg-white hover:text-[var(--color-forest-700)] transition-colors"
+            >
+              {buyLabel}
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </a>
+          ) : (
+            <span
+              class="inline-flex items-center justify-center px-6 py-3 rounded-lg text-sm font-semibold bg-[var(--color-stone-100)] text-[var(--color-stone-400)] border border-[var(--color-stone-200)] cursor-not-allowed"
+              aria-disabled="true"
+            >
+              Link coming soon
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {(product.description || product.whyWeRecommend || product.bestFor || product.specs) && (
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-10">
+      {product.description && (
+        <div class="space-y-3" data-pagefind-body>
+          <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)]">Description</h2>
+          <p class="text-[var(--color-stone-600)] leading-relaxed whitespace-pre-line">{product.description}</p>
+        </div>
+      )}
+
+      {product.whyWeRecommend && (
+        <div class="space-y-3" data-pagefind-body>
+          <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)]">Why we recommend</h2>
+          <p class="text-[var(--color-stone-600)] leading-relaxed whitespace-pre-line">{product.whyWeRecommend}</p>
+        </div>
+      )}
+
+      {product.bestFor && (
+        <div class="space-y-3" data-pagefind-body>
+          <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)]">Best for</h2>
+          <p class="text-[var(--color-stone-600)] leading-relaxed whitespace-pre-line">{product.bestFor}</p>
+        </div>
+      )}
+
+      {product.specs && (
+        <div class="space-y-3" data-pagefind-body>
+          <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)]">Specs</h2>
+          <pre class="text-sm text-[var(--color-stone-600)] leading-relaxed whitespace-pre-wrap font-sans bg-[var(--color-cream-100)] border border-[var(--color-stone-200)] rounded-lg p-5">{product.specs}</pre>
+        </div>
+      )}
+    </section>
+  )}
+
+  {compareProducts.length > 0 && (
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 border-t border-[var(--color-stone-200)]">
+      <h2 class="text-2xl font-display font-semibold text-[var(--color-stone-900)] mb-6">Compare with</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        {compareProducts.map(item => <ProductCard product={item} />)}
+      </div>
+    </section>
+  )}
+
+</Layout>
