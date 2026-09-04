@@ -281,6 +281,34 @@ export interface Faq {
   published: boolean;
 }
 
+
+export interface Product {
+  id: string;
+  name: string;
+  slug: string;
+  category: string;
+  categorySlug: string;
+  brandName?: string;
+  shortDescription?: string;
+  description?: string;
+  whyWeRecommend?: string;
+  bestFor?: string;
+  pros?: string;
+  cons?: string;
+  specs?: string;
+  capacityMl?: number;
+  image?: string;
+  priceSgd?: number;
+  priceNote?: string;
+  merchant?: string;
+  affiliateUrl?: string;
+  seoTitle?: string;
+  metaDescription?: string;
+  featured: boolean;
+  published: boolean;
+  compareWithIds: string[];
+}
+
 // ─────────────────────────────────────────
 // Airtable raw record shape
 // ─────────────────────────────────────────
@@ -502,4 +530,39 @@ export interface AirtableFaqFields {
   'Category'?: string;
   'Slug'?: string;
   'Published'?: boolean;
+}
+
+export interface AirtableProductFields {
+  'Name': string;
+  'Slug': string;
+  'Category'?: string;
+  'Brand Name'?: string;
+  'Short description'?: string;
+  'Description'?: string;
+  'Why we recommend'?: string;
+  'Best for'?: string;
+  'Pros'?: string;
+  'Cons'?: string;
+  'Specs'?: string;
+  'Capacity (ml)'?: number;
+  'Images'?: AirtableAttachment[];
+  'Image URL'?: string;
+  'Gallery Image URLs'?: string;
+  'Price (SGD)'?: number;
+  'Price note'?: string;
+  'Merchant'?: string;
+  'Affiliate URL'?: string;
+  'Merchant product URL'?: string; // reference only — never use for Buy CTA
+  'Merchant shop ID'?: string;
+  'Merchant item ID'?: string;
+  'Affiliate network'?: string;
+  'In stock'?: boolean;
+  'Last price checked'?: string;
+  'SEO title'?: string;
+  'Meta description'?: string;
+  'Primary keyword'?: string;
+  'Related Brands'?: string[];
+  'Featured'?: boolean;
+  'Owner notes'?: string; // internal only — never publish
+  'Compare with'?: string[];
 }

@@ -1,0 +1,105 @@
+---
+import Layout from '../../components/Layout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { getProducts } from '../../lib/airtable';
+
+const products = await getProducts();
+
+const byCategory = new Map<string, { name: string; slug: string; products: typeof products }>();
+for (const product of products) {
+  const existing = byCategory.get(product.categorySlug);
+  if (existing) {
+    existing.products.push(product);
+  } else {
+    byCategory.set(product.categorySlug, {
+      name: product.category,
+      slug: product.categorySlug,
+      products: [product],
+    });
+  }
+}
+
+const categories = Array.from(byCategory.values()).sort((a, b) => a.name.localeCompare(b.name));
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Shop bubble tea gear in Singapore',
+  description: 'Browse thermos flasks, tumblers, water bottles, and more picks for bubble tea fans in Singapore.',
+  url: 'https://bbtea.sg/shop/',
+};
+---
+
+<Layout
+  title="Shop | Bubble Tea Gear in Singapore | BBTea.sg"
+  description="Browse curated bubble tea gear and drinkware in Singapore — water bottles, tumblers, thermos flasks, and more."
+  canonical="https://bbtea.sg/shop/"
+  jsonLd={jsonLd}
+>
+
+  <section class="bg-white border-b border-[var(--color-stone-200)] py-16">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4" data-pagefind-body>
+      <nav class="text-sm text-[var(--color-stone-400)] flex items-center gap-1.5" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-[var(--color-forest-700)] transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-[var(--color-stone-700)] font-medium">Shop</span>
+      </nav>
+      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
+        Curated picks
+      </p>
+      <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight">
+        Shop
+      </h1>
+      <p class="text-[var(--color-stone-600)] text-base max-w-2xl leading-relaxed">
+        Drinkware and gear we recommend for bubble tea runs and everyday carry in Singapore.
+      </p>
+      <div class="flex flex-wrap items-center gap-6 pt-2">
+        <div class="text-sm">
+          <span class="font-bold text-xl">{products.length}</span>
+          <span class="text-[var(--color-stone-400)] ml-1">{products.length === 1 ? 'product' : 'products'}</span>
+        </div>
+        <div class="text-sm">
+          <span class="font-bold text-xl">{categories.length}</span>
+          <span class="text-[var(--color-stone-400)] ml-1">{categories.length === 1 ? 'category' : 'categories'}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {categories.length > 0 ? (
+    categories.map(category => (
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-b border-[var(--color-stone-200)] last:border-b-0">
+        <div class="flex items-end justify-between gap-4 mb-6">
+          <div>
+            <h2 class="text-2xl font-display font-semibold text-[var(--color-stone-900)]">
+              {category.name}
+            </h2>
+            <p class="text-sm text-[var(--color-stone-500)] mt-1">
+              {category.products.length} {category.products.length === 1 ? 'product' : 'products'}
+            </p>
+          </div>
+          <a
+            href={`/shop/${category.slug}/`}
+            class="text-sm font-semibold text-[var(--color-forest-700)] hover:underline"
+          >
+            View all
+          </a>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {category.products.map(product => <ProductCard product={product} />)}
+        </div>
+      </section>
+    ))
+  ) : (
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div class="text-center space-y-4">
+        <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">Coming soon</p>
+        <h2 class="text-xl font-display font-semibold text-[var(--color-stone-800)]">No products yet</h2>
+        <p class="text-sm text-[var(--color-stone-600)] max-w-md mx-auto">
+          Shop pages are ready. Products with Name, Slug, and Category in Airtable appear here automatically.
+        </p>
+      </div>
+    </section>
+  )}
+
+</Layout>

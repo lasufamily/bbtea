@@ -7,8 +7,8 @@
  */
 
 import type {
-  Brand, Outlet, CoffeeOutlet, JuiceOutlet, VenueOutlet, Drink, DrinkCategory, Mall, Town, MrtStation, Review, ReviewPhoto, Faq,
-  AirtableBrandFields, AirtableOutletFields, AirtableCoffeeShopFields, AirtableJuiceShopFields, AirtableDrinkFields, AirtableTownFields, AirtableMrtStationFields, AirtableMallFields, AirtableAttachment, AirtableReviewFields, AirtableFaqFields,
+  Brand, Outlet, CoffeeOutlet, JuiceOutlet, VenueOutlet, Drink, DrinkCategory, Mall, Town, MrtStation, Review, ReviewPhoto, Faq, Product,
+  AirtableBrandFields, AirtableOutletFields, AirtableCoffeeShopFields, AirtableJuiceShopFields, AirtableDrinkFields, AirtableTownFields, AirtableMrtStationFields, AirtableMallFields, AirtableAttachment, AirtableReviewFields, AirtableFaqFields, AirtableProductFields,
   AirtableRecord, AirtableResponse,
 } from './types';
 import { getTownsFromOutlets } from './towns.ts';
@@ -116,6 +116,7 @@ let _mallsCache:      Promise<Mall[]>          | null = null;
 let _townsCache:      Promise<import('./types').Town[]> | null = null;
 let _reviewsCache:    Promise<Review[]>        | null = null;
 let _faqsCache:       Promise<Faq[]>           | null = null;
+let _productsCache:  Promise<Product[]>      | null = null;
 
 type NamedSlug = { name: string; slug: string; line?: string };
 
@@ -1023,4 +1024,88 @@ export function getCategories(): Promise<DrinkCategory[]> {
 export async function getCategoryBySlug(slug: string): Promise<DrinkCategory | undefined> {
   const categories = await getCategories();
   return categories.find(category => category.slug === slug);
+}
+
+// ─────────────────────────────────────────
+// Products (affiliate shop)
+// ─────────────────────────────────────────
+
+/** Slugify an Airtable Category choice for URL segments (e.g. "water bottles" → "water-bottles"). */
+export function categorySlug(category: string): string {
+  return slugify(category);
+}
+
+export function mapProductRecord(r: AirtableRecord<AirtableProductFields>): Product | undefined {
+  const f = r.fields;
+  const name = normalizeText(f['Name']);
+  const slug = normalizeText(f['Slug']);
+  const category = normalizeText(f['Category']);
+  if (!name || !slug || !category) return undefined;
+
+  // Status field removed — all Products rows with Name+Slug+Category are published
+  const imageFromAttachment = Array.isArray(f['Images']) ? f['Images'][0] : undefined;
+  const image =
+    normalizeText(f['Image URL']) ??
+    imageFromAttachment?.thumbnails?.large?.url ??
+    imageFromAttachment?.url;
+
+  return {
+    id: r.id,
+    name,
+    slug,
+    category,
+    categorySlug: categorySlug(category),
+    brandName: normalizeText(f['Brand Name']),
+    shortDescription: normalizeText(f['Short description']),
+    description: normalizeText(f['Description']),
+    whyWeRecommend: normalizeText(f['Why we recommend']),
+    bestFor: normalizeText(f['Best for']),
+    pros: normalizeText(f['Pros']),
+    cons: normalizeText(f['Cons']),
+    specs: normalizeText(f['Specs']),
+    capacityMl: typeof f['Capacity (ml)'] === 'number' ? f['Capacity (ml)'] : undefined,
+    image,
+    priceSgd: typeof f['Price (SGD)'] === 'number' ? f['Price (SGD)'] : undefined,
+    priceNote: normalizeText(f['Price note']),
+    merchant: normalizeText(f['Merchant']),
+    // Affiliate URL only for Buy — never fall back to Merchant product URL
+    affiliateUrl: normalizeText(f['Affiliate URL']),
+    seoTitle: normalizeText(f['SEO title']),
+    metaDescription: normalizeText(f['Meta description']),
+    featured: f['Featured'] ?? false,
+    published: true,
+    compareWithIds: Array.isArray(f['Compare with']) ? f['Compare with'] : [],
+  } satisfies Product;
+}
+
+async function _fetchProducts(): Promise<Product[]> {
+  const records = await fetchTable<AirtableProductFields>('Products');
+
+  return records
+    .map(mapProductRecord)
+    .filter((product): product is Product => Boolean(product))
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+export function getProducts(): Promise<Product[]> {
+  return (_productsCache ??= _fetchProducts());
+}
+
+export async function getProductBySlug(slug: string): Promise<Product | undefined> {
+  const products = await getProducts();
+  return products.find(product => product.slug === slug);
+}
+
+export async function getProductsByCategory(categorySlugValue: string): Promise<Product[]> {
+  const products = await getProducts();
+  return products.filter(product => product.categorySlug === categorySlugValue);
+}
+
+export async function getCompareProducts(product: Product): Promise<Product[]> {
+  if (!product.compareWithIds.length) return [];
+  const products = await getProducts();
+  const byId = new Map(products.map(p => [p.id, p]));
+  return product.compareWithIds
+    .map(id => byId.get(id))
+    .filter((p): p is Product => Boolean(p));
 }
