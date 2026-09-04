@@ -565,4 +565,5 @@ export interface AirtableProductFields {
   'Featured'?: boolean;
   'Owner notes'?: string; // internal only — never publish
   'Compare with'?: string[];
+  'Status'?: string; // draft | published
 }

@@ -1042,7 +1042,10 @@ export function mapProductRecord(r: AirtableRecord<AirtableProductFields>): Prod
   const category = normalizeText(f['Category']);
   if (!name || !slug || !category) return undefined;
 
-  // Status field removed — all Products rows with Name+Slug+Category are published
+  // Status singleSelect: draft | published (fldGHGCt89cvRSLuD). Only published go public.
+  const status = normalizeText(f['Status'])?.toLowerCase();
+  const published = status === 'published';
+
   const imageFromAttachment = Array.isArray(f['Images']) ? f['Images'][0] : undefined;
   const image =
     normalizeText(f['Image URL']) ??
@@ -1073,7 +1076,7 @@ export function mapProductRecord(r: AirtableRecord<AirtableProductFields>): Prod
     seoTitle: normalizeText(f['SEO title']),
     metaDescription: normalizeText(f['Meta description']),
     featured: f['Featured'] ?? false,
-    published: true,
+    published,
     compareWithIds: Array.isArray(f['Compare with']) ? f['Compare with'] : [],
   } satisfies Product;
 }
@@ -1084,6 +1087,7 @@ async function _fetchProducts(): Promise<Product[]> {
   return records
     .map(mapProductRecord)
     .filter((product): product is Product => Boolean(product))
+    .filter(product => product.published)
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
