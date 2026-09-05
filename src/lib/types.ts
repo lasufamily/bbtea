@@ -306,6 +306,7 @@ export interface Product {
   metaDescription?: string;
   featured: boolean;
   published: boolean;
+  inStock: boolean;
   compareWithIds: string[];
 }
 

@@ -1074,6 +1074,7 @@ export function mapProductRecord(r: AirtableRecord<AirtableProductFields>): Prod
     metaDescription: normalizeText(f['Meta description']),
     featured: f['Featured'] ?? false,
     published: true,
+    inStock: f['In stock'] === true,
     compareWithIds: Array.isArray(f['Compare with']) ? f['Compare with'] : [],
   } satisfies Product;
 }
