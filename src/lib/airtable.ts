@@ -13,7 +13,7 @@ import type {
 } from './types';
 import { getTownsFromOutlets } from './towns.ts';
 import { getStationsFromOutlets } from './stations.ts';
-import { pathSegment } from './url.ts';
+import { pathSegment, titleCaseWords } from './url.ts';
 
 // ─────────────────────────────────────────
 // Config
@@ -1053,7 +1053,7 @@ export function mapProductRecord(r: AirtableRecord<AirtableProductFields>): Prod
     id: r.id,
     name,
     slug,
-    category,
+    category: titleCaseWords(category),
     categorySlug: categorySlug(category),
     brandName: normalizeText(f['Brand Name']),
     shortDescription: normalizeText(f['Short description']),
