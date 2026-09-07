@@ -1035,19 +1035,71 @@ export function categorySlug(category: string): string {
   return slugify(category);
 }
 
+
+function parseMultilineUrls(value?: string): string[] {
+  if (!value) return [];
+  const seen = new Set<string>();
+  const urls: string[] = [];
+  for (const line of value.split(/\r?\n/)) {
+    const url = line.trim();
+    if (!url || seen.has(url)) continue;
+    seen.add(url);
+    urls.push(url);
+  }
+  return urls;
+}
+
+function discountPercentFromAirtable(value?: number): number | undefined {
+  if (typeof value !== 'number' || Number.isNaN(value)) return undefined;
+  // Airtable percent fields are usually 0-1 fractions
+  const pct = value <= 1 ? value * 100 : value;
+  return Math.round(pct);
+}
+
 export function mapProductRecord(r: AirtableRecord<AirtableProductFields>): Product | undefined {
   const f = r.fields;
   const name = normalizeText(f['Name']);
   const slug = normalizeText(f['Slug']);
-  const category = normalizeText(f['Category']);
+  const categoryRaw = f['Category'] as unknown;
+  const category =
+    typeof categoryRaw === 'string'
+      ? normalizeText(categoryRaw)
+      : categoryRaw && typeof categoryRaw === 'object' && 'name' in (categoryRaw as object)
+        ? normalizeText(String((categoryRaw as { name?: string }).name))
+        : undefined;
   if (!name || !slug || !category) return undefined;
 
-  // Status field removed — all Products rows with Name+Slug+Category are published
+  // Status field removed - all Products rows with Name+Slug+Category are published
   const imageFromAttachment = Array.isArray(f['Images']) ? f['Images'][0] : undefined;
-  const image =
+  const primaryImage =
     normalizeText(f['Image URL']) ??
+    normalizeText(f['Transparent image URL']) ??
     imageFromAttachment?.thumbnails?.large?.url ??
     imageFromAttachment?.url;
+
+  const galleryFromText = parseMultilineUrls(f['Gallery Image URLs']);
+  const galleryFromAttachments = Array.isArray(f['Images'])
+    ? f['Images']
+        .map(att => att.thumbnails?.large?.url ?? att.url)
+        .filter((url): url is string => Boolean(url))
+    : [];
+
+  const images: string[] = [];
+  const seenImages = new Set<string>();
+  for (const url of [primaryImage, ...galleryFromText, ...galleryFromAttachments]) {
+    if (!url || seenImages.has(url)) continue;
+    seenImages.add(url);
+    images.push(url);
+  }
+  const image = images[0];
+
+  const merchantRaw = f['Merchant'] as unknown;
+  const merchant =
+    typeof merchantRaw === 'string'
+      ? normalizeText(merchantRaw)
+      : merchantRaw && typeof merchantRaw === 'object' && 'name' in (merchantRaw as object)
+        ? normalizeText(String((merchantRaw as { name?: string }).name))
+        : undefined;
 
   return {
     id: r.id,
@@ -1065,16 +1117,30 @@ export function mapProductRecord(r: AirtableRecord<AirtableProductFields>): Prod
     specs: normalizeText(f['Specs']),
     capacityMl: typeof f['Capacity (ml)'] === 'number' ? f['Capacity (ml)'] : undefined,
     image,
+    images,
     priceSgd: typeof f['Price (SGD)'] === 'number' ? f['Price (SGD)'] : undefined,
+    wasPriceSgd: typeof f['Was price (SGD)'] === 'number' ? f['Was price (SGD)'] : undefined,
+    discountPercent: discountPercentFromAirtable(f['Discount %']),
     priceNote: normalizeText(f['Price note']),
-    merchant: normalizeText(f['Merchant']),
-    // Affiliate URL only for Buy — never fall back to Merchant product URL
+    merchant,
+    // Affiliate URL only for Buy - never fall back to Merchant product URL
     affiliateUrl: normalizeText(f['Affiliate URL']),
     seoTitle: normalizeText(f['SEO title']),
     metaDescription: normalizeText(f['Meta description']),
     featured: f['Featured'] ?? false,
     published: true,
     inStock: f['In stock'] === true,
+    officialShop: f['Official shop'] === true,
+    rating: typeof f['Rating'] === 'number' ? f['Rating'] : undefined,
+    ratingCount: typeof f['Rating count'] === 'number' ? f['Rating count'] : undefined,
+    ratingBreakdown: normalizeText(f['Rating breakdown']),
+    variants: normalizeText(f['Variants']),
+    stockSummary: normalizeText(f['Stock summary']),
+    categoryBreadcrumb: normalizeText(f['Category breadcrumb']),
+    likedCount: typeof f['Liked count'] === 'number' ? f['Liked count'] : undefined,
+    estimatedShippingDays:
+      typeof f['Estimated shipping days'] === 'number' ? f['Estimated shipping days'] : undefined,
+    shopRating: typeof f['Shop rating'] === 'number' ? f['Shop rating'] : undefined,
     compareWithIds: Array.isArray(f['Compare with']) ? f['Compare with'] : [],
   } satisfies Product;
 }

@@ -298,7 +298,10 @@ export interface Product {
   specs?: string;
   capacityMl?: number;
   image?: string;
+  images: string[];
   priceSgd?: number;
+  wasPriceSgd?: number;
+  discountPercent?: number;
   priceNote?: string;
   merchant?: string;
   affiliateUrl?: string;
@@ -307,6 +310,16 @@ export interface Product {
   featured: boolean;
   published: boolean;
   inStock: boolean;
+  officialShop: boolean;
+  rating?: number;
+  ratingCount?: number;
+  ratingBreakdown?: string;
+  variants?: string;
+  stockSummary?: string;
+  categoryBreadcrumb?: string;
+  likedCount?: number;
+  estimatedShippingDays?: number;
+  shopRating?: number;
   compareWithIds: string[];
 }
 
@@ -564,6 +577,19 @@ export interface AirtableProductFields {
   'Primary keyword'?: string;
   'Related Brands'?: string[];
   'Featured'?: boolean;
-  'Owner notes'?: string; // internal only — never publish
+  'Owner notes'?: string; // internal only - never publish
   'Compare with'?: string[];
+  'Stock summary'?: string;
+  'Rating count'?: number;
+  'Rating'?: number;
+  'Variants'?: string;
+  'Rating breakdown'?: string;
+  'Was price (SGD)'?: number;
+  'Discount %'?: number;
+  'Official shop'?: boolean;
+  'Category breadcrumb'?: string;
+  'Transparent image URL'?: string;
+  'Shop rating'?: number;
+  'Estimated shipping days'?: number;
+  'Liked count'?: number;
 }

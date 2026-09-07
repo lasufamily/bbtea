@@ -67,6 +67,9 @@ const href = `/shop/${product.categorySlug}/${product.slug}/`;
       <div class="flex items-center justify-between gap-3 pt-3 border-t border-[var(--color-stone-100)]">
         <span class="text-xs text-[var(--color-stone-500)]">
           {priceText}
+          {typeof product.rating === 'number' && (
+            <span class="ml-2">· {product.rating.toFixed(1)}</span>
+          )}
         </span>
         <span class="text-sm font-semibold text-[var(--color-forest-700)] flex items-center gap-1 group-hover:gap-1.5 transition-all">
           Details

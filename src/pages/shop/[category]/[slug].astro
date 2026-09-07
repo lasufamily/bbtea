@@ -24,6 +24,22 @@ const compareProducts = await getCompareProducts(product);
 
 const priceText =
   typeof product.priceSgd === 'number' ? `S$${product.priceSgd.toFixed(2)}` : undefined;
+const wasPriceText =
+  typeof product.wasPriceSgd === 'number' &&
+  typeof product.priceSgd === 'number' &&
+  product.wasPriceSgd > product.priceSgd
+    ? `S$${product.wasPriceSgd.toFixed(2)}`
+    : undefined;
+const discountLabel =
+  typeof product.discountPercent === 'number' && product.discountPercent > 0
+    ? `${product.discountPercent}% off`
+    : undefined;
+
+const gallery = product.images.length > 0
+  ? product.images
+  : product.image
+    ? [product.image]
+    : [];
 
 const pageTitle = product.seoTitle
   ? product.seoTitle
@@ -33,7 +49,7 @@ const pageDescription =
   product.metaDescription ??
   product.shortDescription ??
   product.description ??
-  `${product.name}${product.brandName ? ` by ${product.brandName}` : ''} — curated shop pick on BBTea.sg.`;
+  `${product.name}${product.brandName ? ` by ${product.brandName}` : ''}. Curated shop pick on BBTea.sg.`;
 
 const buyLabel = 'Buy';
 
@@ -43,8 +59,19 @@ const jsonLd = {
   name: product.name,
   description: pageDescription,
   category: product.category,
-  ...(product.image && { image: product.image }),
+  ...(gallery.length > 0 && { image: gallery.length === 1 ? gallery[0] : gallery }),
   ...(product.brandName && { brand: { '@type': 'Brand', name: product.brandName } }),
+  ...(typeof product.rating === 'number' &&
+    typeof product.ratingCount === 'number' &&
+    product.ratingCount > 0 && {
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: product.rating,
+        reviewCount: product.ratingCount,
+        bestRating: 5,
+        worstRating: 1,
+      },
+    }),
   ...(typeof product.priceSgd === 'number' && {
     offers: {
       '@type': 'Offer',
@@ -85,35 +112,72 @@ const jsonLd = {
       </nav>
 
       <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-14 items-start">
-        <div class="aspect-[4/3] rounded-lg overflow-hidden bg-[var(--color-cream-100)] border border-[var(--color-stone-200)]">
-          {product.image ? (
-            <img
-              src={product.image}
-              alt={product.name}
-              class="w-full h-full object-cover"
-              loading="eager"
-              decoding="async"
-              width="720"
-              height="540"
-            />
-          ) : (
-            <div class="w-full h-full flex items-center justify-center">
-              <span class="text-sm font-semibold tracking-wide uppercase text-[var(--color-stone-400)]">Product</span>
+        <div class="space-y-3">
+          <div class="aspect-[4/3] rounded-lg overflow-hidden bg-[var(--color-cream-100)] border border-[var(--color-stone-200)]">
+            {gallery[0] ? (
+              <img
+                src={gallery[0]}
+                alt={product.name}
+                class="w-full h-full object-cover"
+                loading="eager"
+                decoding="async"
+                width="720"
+                height="540"
+              />
+            ) : (
+              <div class="w-full h-full flex items-center justify-center">
+                <span class="text-sm font-semibold tracking-wide uppercase text-[var(--color-stone-400)]">Product</span>
+              </div>
+            )}
+          </div>
+          {gallery.length > 1 && (
+            <div class="grid grid-cols-4 sm:grid-cols-5 gap-2">
+              {gallery.slice(0, 8).map((src, i) => (
+                <div class="aspect-square rounded-md overflow-hidden border border-[var(--color-stone-200)] bg-[var(--color-cream-100)]">
+                  <img
+                    src={src}
+                    alt={`${product.name} photo ${i + 1}`}
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                    width="160"
+                    height="160"
+                  />
+                </div>
+              ))}
             </div>
           )}
         </div>
 
         <div class="space-y-6" data-pagefind-body>
           <div class="space-y-3">
-            <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
-              {product.category}
-            </p>
+            <div class="flex flex-wrap items-center gap-2">
+              <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
+                {product.category}
+              </p>
+              {product.officialShop && (
+                <span class="text-[11px] font-semibold px-2.5 py-1 rounded-md bg-[var(--color-forest-700)] text-white">
+                  Official shop
+                </span>
+              )}
+            </div>
             <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight text-[var(--color-stone-900)]">
               {product.name}
             </h1>
             {product.brandName && (
               <p class="text-sm font-semibold text-[var(--color-stone-600)]">
                 {product.brandName}
+              </p>
+            )}
+            {typeof product.rating === 'number' && (
+              <p class="text-sm text-[var(--color-stone-600)]">
+                <span class="font-semibold text-[var(--color-stone-900)]">{product.rating.toFixed(2)}</span>
+                <span class="text-[var(--color-stone-400)]"> / 5</span>
+                {typeof product.ratingCount === 'number' && product.ratingCount > 0 && (
+                  <span class="text-[var(--color-stone-500)]">
+                    {' '}({product.ratingCount.toLocaleString('en-SG')} ratings)
+                  </span>
+                )}
               </p>
             )}
             {product.shortDescription && (
@@ -123,7 +187,7 @@ const jsonLd = {
             )}
           </div>
 
-          <div class="flex flex-wrap items-center gap-4">
+          <div class="flex flex-wrap items-center gap-3">
             {priceText && (
               <p class="text-2xl font-display font-bold text-[var(--color-stone-900)]">
                 {priceText}
@@ -132,12 +196,34 @@ const jsonLd = {
                 )}
               </p>
             )}
+            {wasPriceText && (
+              <span class="text-base text-[var(--color-stone-400)] line-through">{wasPriceText}</span>
+            )}
+            {discountLabel && (
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-[var(--color-cream-100)] border border-[var(--color-stone-200)] text-[var(--color-forest-700)]">
+                {discountLabel}
+              </span>
+            )}
             {typeof product.capacityMl === 'number' && (
               <span class="text-sm px-3 py-1.5 rounded-lg bg-[var(--color-cream-100)] border border-[var(--color-stone-200)] text-[var(--color-stone-600)]">
                 {product.capacityMl}ml
               </span>
             )}
           </div>
+
+          {(typeof product.estimatedShippingDays === 'number' || typeof product.shopRating === 'number') && (
+            <p class="text-sm text-[var(--color-stone-500)]">
+              {typeof product.estimatedShippingDays === 'number' && (
+                <span>Ships in about {product.estimatedShippingDays} day{product.estimatedShippingDays === 1 ? '' : 's'}</span>
+              )}
+              {typeof product.estimatedShippingDays === 'number' && typeof product.shopRating === 'number' && (
+                <span class="mx-2 text-[var(--color-stone-300)]">·</span>
+              )}
+              {typeof product.shopRating === 'number' && (
+                <span>Shop rating {product.shopRating.toFixed(2)}</span>
+              )}
+            </p>
+          )}
 
           {product.affiliateUrl ? (
             <a
@@ -164,8 +250,25 @@ const jsonLd = {
     </div>
   </section>
 
-  {(product.description || product.whyWeRecommend || product.bestFor || product.specs) && (
+  {(product.variants || product.stockSummary || product.description || product.whyWeRecommend || product.bestFor || product.specs || product.ratingBreakdown) && (
     <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-10">
+      {product.variants && (
+        <div class="space-y-3" data-pagefind-body>
+          <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)]">Options</h2>
+          <p class="text-[var(--color-stone-600)] leading-relaxed whitespace-pre-line">{product.variants}</p>
+          {product.stockSummary && (
+            <pre class="text-sm text-[var(--color-stone-600)] leading-relaxed whitespace-pre-wrap font-sans bg-[var(--color-cream-100)] border border-[var(--color-stone-200)] rounded-lg p-5">{product.stockSummary}</pre>
+          )}
+        </div>
+      )}
+
+      {!product.variants && product.stockSummary && (
+        <div class="space-y-3" data-pagefind-body>
+          <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)]">Stock</h2>
+          <pre class="text-sm text-[var(--color-stone-600)] leading-relaxed whitespace-pre-wrap font-sans bg-[var(--color-cream-100)] border border-[var(--color-stone-200)] rounded-lg p-5">{product.stockSummary}</pre>
+        </div>
+      )}
+
       {product.description && (
         <div class="space-y-3" data-pagefind-body>
           <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)]">Description</h2>
@@ -191,6 +294,13 @@ const jsonLd = {
         <div class="space-y-3" data-pagefind-body>
           <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)]">Specs</h2>
           <pre class="text-sm text-[var(--color-stone-600)] leading-relaxed whitespace-pre-wrap font-sans bg-[var(--color-cream-100)] border border-[var(--color-stone-200)] rounded-lg p-5">{product.specs}</pre>
+        </div>
+      )}
+
+      {product.ratingBreakdown && (
+        <div class="space-y-3" data-pagefind-body>
+          <h2 class="text-xl font-display font-semibold text-[var(--color-stone-900)]">Ratings breakdown</h2>
+          <pre class="text-sm text-[var(--color-stone-600)] leading-relaxed whitespace-pre-wrap font-sans bg-[var(--color-cream-100)] border border-[var(--color-stone-200)] rounded-lg p-5">{product.ratingBreakdown}</pre>
         </div>
       )}
     </section>
