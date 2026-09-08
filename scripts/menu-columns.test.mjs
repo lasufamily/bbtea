@@ -16,6 +16,12 @@ for (const pagePath of menuPages) {
     assert.match(source, />Calories per L cup</);
     assert.match(source, />Nutri-Grade</);
     assert.match(source, />Healthier Choice Type</);
+    assert.match(source, />Shop Link</);
+    assert.match(source, /Search on Shopee/);
+    assert.match(source, /shopeeAffiliateUrl = 'https:\/\/s\.shopee\.sg\/9052JAMmWP'/);
+    assert.match(source, /href=\{shopeeAffiliateUrl\}/);
+    assert.match(source, /font-bold/);
+    assert.match(source, /text-orange-600/);
     assert.match(source, /<span>Calories<\/span>\s*<span class="block">per 100ml<\/span>/);
     assert.match(source, /<span>Calories<\/span>\s*<span class="block">per M cup<\/span>/);
     assert.match(source, /<span>Calories<\/span>\s*<span class="block">per L cup<\/span>/);

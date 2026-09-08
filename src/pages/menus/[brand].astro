@@ -60,6 +60,7 @@ const retailPriceParts = (drink: Drink) => (
 );
 
 const caloriesText = (value: string | undefined) => value ? `${value} kcal` : 'Not listed';
+const shopeeAffiliateUrl = 'https://s.shopee.sg/9052JAMmWP';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -158,7 +159,7 @@ const jsonLd = {
 
         <div class="rounded-lg border border-[var(--color-stone-200)] bg-white">
           <div>
-            <div class="hidden lg:grid grid-cols-[minmax(180px,1.55fr)_90px_86px_86px_86px_68px_128px] gap-2 px-4 py-3 bg-[var(--color-cream-100)] border-b border-[var(--color-stone-200)] text-[10px] font-semibold tracking-widest uppercase text-[var(--color-stone-500)] leading-tight">
+            <div class="hidden lg:grid grid-cols-[minmax(180px,1.55fr)_90px_86px_86px_86px_68px_128px_108px] gap-2 px-4 py-3 bg-[var(--color-cream-100)] border-b border-[var(--color-stone-200)] text-[10px] font-semibold tracking-widest uppercase text-[var(--color-stone-500)] leading-tight">
               <span>Drink</span>
               <span><span>Retail</span><span class="block">Price</span></span>
               <span><span>Calories</span><span class="block">per 100ml</span></span>
@@ -166,11 +167,12 @@ const jsonLd = {
               <span><span>Calories</span><span class="block">per L cup</span></span>
               <span>Nutri-Grade</span>
               <span><span>Healthier</span><span class="block">Choice Type</span></span>
+              <span>Shop Link</span>
             </div>
 
             <div class="divide-y divide-[var(--color-stone-100)]">
               {group.drinks.map(drink => (
-                <article class="grid lg:grid-cols-[minmax(180px,1.55fr)_90px_86px_86px_86px_68px_128px] gap-3 lg:gap-2 px-5 lg:px-4 py-4">
+                <article class="grid lg:grid-cols-[minmax(180px,1.55fr)_90px_86px_86px_86px_68px_128px_108px] gap-3 lg:gap-2 px-5 lg:px-4 py-4">
                 <div class="space-y-1">
                   <div class="flex items-center gap-2">
                     <a href={`/drinks/${drink.slug}/`} class="font-display text-lg lg:text-base font-semibold text-[var(--color-stone-900)] hover:text-[var(--color-forest-700)] transition-colors">
@@ -224,6 +226,17 @@ const jsonLd = {
                 <div>
                   <span class="lg:hidden block text-[11px] font-semibold uppercase tracking-widest text-[var(--color-stone-400)] mb-1">Healthier Choice Type</span>
                   <span class="text-sm lg:text-xs text-[var(--color-stone-600)] leading-tight">{drink.healthierChoiceType ?? 'Not listed'}</span>
+                </div>
+                <div>
+                  <span class="lg:hidden block text-[11px] font-semibold uppercase tracking-widest text-[var(--color-stone-400)] mb-1">Shop Link</span>
+                  <a
+                    href={shopeeAffiliateUrl}
+                    class="text-sm lg:text-xs font-bold text-orange-600 hover:text-orange-700 hover:underline"
+                    target="_blank"
+                    rel="nofollow sponsored noopener"
+                  >
+                    Search on Shopee
+                  </a>
                 </div>
                 </article>
               ))}
