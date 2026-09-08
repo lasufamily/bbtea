@@ -1,5 +1,6 @@
 ---
 import Layout from '../../components/Layout.astro';
+import StarRating from '../../components/StarRating.astro';
 import { getBrands, getCoffeeOutlets, getDrinks, getJuiceOutlets, getOutlets, getReviews } from '../../lib/airtable';
 import { reviewEntityLinks } from '../../lib/internalLinks';
 import { splitArticleParagraphs } from '../../lib/reviews';
@@ -64,22 +65,32 @@ const entityLinks = reviewEntityLinks({
   menuBrandSlugs,
 });
 
-const jsonLd = {
-  '@context': 'https://schema.org',
+const reviewSchema = {
   '@type': 'Review',
   name: title,
-  itemReviewed: {
-    '@type': 'Product',
-    name: reviewSubject,
-    ...(review.brand && { brand: review.brand }),
-  },
   author: {
     '@type': 'Person',
     name: review.reviewerName ?? 'BBTea.sg reader',
   },
   reviewBody: review.article,
   datePublished: review.dateOfPurchase ?? review.createdTime,
+  ...(typeof review.overallRating === 'number' && {
+    reviewRating: {
+      '@type': 'Rating',
+      ratingValue: review.overallRating,
+      bestRating: 5,
+      worstRating: 1,
+    },
+  }),
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: reviewSubject,
+  ...(review.brand && { brand: { '@type': 'Brand', name: review.brand } }),
   image: review.photos.map(photo => photo.url),
+  review: reviewSchema,
   url: `https://bbtea.sg/reviews/${pathSegment(review.slug)}/`,
 };
 ---
@@ -114,6 +125,12 @@ const jsonLd = {
             <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight text-[var(--color-stone-900)]">
               {title}
             </h1>
+            {typeof review.overallRating === 'number' && (
+              <StarRating
+                value={review.overallRating}
+                labelPrefix="Overall rating"
+              />
+            )}
             <p class="text-lg leading-relaxed text-[var(--color-stone-600)]">
               {articleParagraphs[0]}
             </p>

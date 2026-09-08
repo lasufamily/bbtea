@@ -45,6 +45,19 @@ function normalizeText(value: unknown): string | undefined {
   return String(value).trim() || undefined;
 }
 
+function normalizeRating(value: unknown): number | undefined {
+  if (typeof value !== 'number' || !Number.isFinite(value)) return undefined;
+  if (value < 1 || value > 5) return undefined;
+  return value;
+}
+
+function extractOverallRating(text: string): number | undefined {
+  const match = text.match(/\b([1-5](?:\.\d+)?)\s*(?:\/|out of)\s*5\b/i);
+  if (!match) return undefined;
+
+  return normalizeRating(Number(match[1]));
+}
+
 function slugify(value: string): string {
   return value
     .toLowerCase()
@@ -832,6 +845,7 @@ export function mapReviewRecord(r: AirtableRecord<AirtableReviewFields>): Review
     sugarLevel: normalizeText(f['Sugar Level']),
     toppingName: normalizeText(f['Topping Name']),
     price: f['Price'],
+    overallRating: normalizeRating(f['Overall Rating']) ?? normalizeRating(f['Rating']) ?? extractOverallRating(article),
     promoUsed: normalizeText(f['Promo Used']),
     dateOfPurchase: normalizeText(f['Date of Purchase']),
     waitBeforeOrderMinutes: f['Wait time before making order (minutes)'],

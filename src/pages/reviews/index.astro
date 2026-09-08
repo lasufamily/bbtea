@@ -1,5 +1,6 @@
 ---
 import Layout from '../../components/Layout.astro';
+import StarRating from '../../components/StarRating.astro';
 import { getReviews } from '../../lib/airtable';
 import { splitArticleParagraphs } from '../../lib/reviews';
 import { pathSegment } from '../../lib/url';
@@ -96,6 +97,12 @@ function formatPrice(price?: number): string | undefined {
                   <h2 class="text-xl font-display font-semibold leading-snug text-[var(--color-stone-900)] group-hover:text-[var(--color-forest-700)] transition-colors">
                     {title}
                   </h2>
+                  {typeof review.overallRating === 'number' && (
+                    <StarRating
+                      value={review.overallRating}
+                      labelPrefix="Overall rating"
+                    />
+                  )}
                   <p class="text-sm text-[var(--color-stone-500)] line-clamp-3">
                     {excerpt}
                   </p>

@@ -254,6 +254,7 @@ export interface Review {
   sugarLevel?: string;
   toppingName?: string;
   price?: number;
+  overallRating?: number;
   promoUsed?: string;
   dateOfPurchase?: string;
   waitBeforeOrderMinutes?: number;
@@ -511,6 +512,8 @@ export interface AirtableReviewFields {
   'Sugar Level'?: string;
   'Topping Name'?: string;
   'Price'?: number;
+  'Overall Rating'?: number;
+  'Rating'?: number;
   'Promo Used'?: string;
   'Date of Purchase'?: string;
   'Wait time before making order (minutes)'?: number;

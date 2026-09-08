@@ -12,6 +12,7 @@ const baseReviewRecord = {
     'Page Title': 'iTea Milk Tea Review at Admiralty Place',
     Article: 'The cup was simple but satisfying.\n\nIt worked best as a quick neighbourhood drink.',
     'Reviewer Name': 'Abu Layl',
+    'Overall Rating': 4.5,
     'Photo of Cup': [{ id: 'cup', url: 'https://images.example/cup.jpg', width: 1200, height: 1600 }],
     'Photo of Shop': [{ id: 'shop', url: 'https://images.example/shop.jpg', width: 1200, height: 1600 }],
     'Photo of Receipt': [{ id: 'receipt', url: 'https://images.example/receipt.jpg', width: 1200, height: 1600 }],
@@ -25,6 +26,7 @@ test('review records require both slug and article', () => {
   assert.equal(review?.pageTitle, 'iTea Milk Tea Review at Admiralty Place');
   assert.equal(review?.article, baseReviewRecord.fields.Article);
   assert.equal(review?.reviewerName, 'Abu Layl');
+  assert.equal(review?.overallRating, 4.5);
   assert.deepEqual(
     review?.photos.map(photo => photo.label),
     ['Cup', 'Shop', 'Receipt'],
@@ -47,6 +49,19 @@ test('review records require both slug and article', () => {
     undefined,
     'Reviews with an empty Slug field should not generate pages',
   );
+});
+
+test('review records infer overall rating from article text when no rating field exists', () => {
+  const review = mapReviewRecord({
+    ...baseReviewRecord,
+    fields: {
+      ...baseReviewRecord.fields,
+      'Overall Rating': undefined,
+      Article: 'The drink was balanced and worth ordering again.\n\nOverall, I would give this a 4 out of 5.',
+    },
+  });
+
+  assert.equal(review?.overallRating, 4);
 });
 
 test('review photo URL fields convert Google Drive share links for image rendering', () => {
