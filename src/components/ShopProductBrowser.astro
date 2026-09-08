@@ -1,0 +1,465 @@
+---
+import ProductCard from './ProductCard.astro';
+import { buildShopFilterOptions, filterAndSortProducts, parseShopFilters } from '../lib/shopFilters';
+import type { Product } from '../lib/types';
+
+interface Props {
+  products: Product[];
+  allProducts?: Product[];
+  showCategoryFilter?: boolean;
+  pagePath?: string;
+}
+
+const {
+  products,
+  allProducts = products,
+  showCategoryFilter = true,
+  pagePath = '/shop/',
+} = Astro.props;
+
+const options = buildShopFilterOptions(allProducts);
+const defaultFilters = parseShopFilters(new URLSearchParams());
+const sortedProducts = filterAndSortProducts(products, defaultFilters);
+const hasPriceBounds = typeof options.priceBounds.min === 'number' || typeof options.priceBounds.max === 'number';
+const hasCapacityBounds = typeof options.capacityBounds.min === 'number' || typeof options.capacityBounds.max === 'number';
+
+function searchText(product: Product): string {
+  return [
+    product.name,
+    product.category,
+    product.brandName,
+    product.shortDescription,
+    product.description,
+    product.bestFor,
+    product.merchant,
+    product.stockSummary,
+  ].filter(Boolean).join(' ').toLowerCase();
+}
+---
+
+<section
+  class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
+  data-shop-product-browser
+  data-base-path={pagePath}
+>
+  <button
+    type="button"
+    class="lg:hidden w-full mb-5 rounded-md bg-[var(--color-forest-700)] px-4 py-3 text-sm font-semibold text-white shadow-sm flex items-center justify-between active:scale-[0.99] transition"
+    data-mobile-filter-toggle
+    aria-controls="shop-filter-drawer"
+    aria-expanded="false"
+  >
+    <span class="flex items-center gap-2">
+      <svg class="h-4 w-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h18M6 12h12M10 19h4" />
+      </svg>
+      Filter & sort
+    </span>
+    <svg class="h-4 w-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />
+    </svg>
+  </button>
+
+  <div
+    class="fixed inset-0 z-40 hidden bg-black/30 lg:hidden"
+    data-mobile-filter-overlay
+    hidden
+  ></div>
+
+  <div class="lg:grid lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start lg:gap-8">
+    <aside
+      id="shop-filter-drawer"
+      class="fixed inset-y-0 left-0 z-50 w-[min(22rem,calc(100vw-2rem))] -translate-x-full overflow-y-auto bg-white shadow-xl transition-transform duration-200 lg:sticky lg:top-24 lg:z-auto lg:block lg:w-auto lg:translate-x-0 lg:overflow-visible lg:bg-transparent lg:shadow-none"
+      data-shop-filter-sidebar
+      data-mobile-filter-drawer
+      aria-label="Shop filters and sorting"
+    >
+      <form
+        class="min-h-full border-r border-[var(--color-stone-200)] p-5 lg:min-h-0 lg:rounded-lg lg:border lg:bg-white"
+        data-shop-filter-form
+        method="get"
+        action={pagePath}
+        novalidate
+      >
+        <div class="flex items-center justify-between gap-3 pb-4 mb-5 border-b border-[var(--color-stone-100)]">
+          <div>
+            <h2 class="text-base font-display font-semibold text-[var(--color-stone-900)]">Filter & sort</h2>
+            <p class="text-sm text-[var(--color-stone-500)] mt-1">
+              <span class="font-semibold text-[var(--color-stone-900)]" data-product-count>{sortedProducts.length}</span>
+              <span data-product-count-label>{sortedProducts.length === 1 ? 'product' : 'products'}</span>
+            </p>
+          </div>
+          <button type="button" class="lg:hidden text-sm font-semibold text-[var(--color-forest-700)]" data-mobile-filter-close>
+            Close
+          </button>
+        </div>
+
+        <div class="space-y-5">
+          <div>
+            <label for="shop-q" class="block text-xs font-semibold tracking-wide uppercase text-[var(--color-stone-500)] mb-2">Search</label>
+            <input
+              id="shop-q"
+              name="q"
+              type="search"
+              placeholder="Product, brand, merchant"
+              class="w-full rounded-md border border-[var(--color-stone-200)] px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-forest-700)]"
+            />
+          </div>
+
+          <div>
+            <label for="shop-sort" class="block text-xs font-semibold tracking-wide uppercase text-[var(--color-stone-500)] mb-2">Sort</label>
+            <select id="shop-sort" name="sort" class="w-full rounded-md border border-[var(--color-stone-200)] px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-forest-700)]">
+              <option value="featured">Featured first</option>
+              <option value="name-asc">Name A-Z</option>
+              <option value="name-desc">Name Z-A</option>
+              <option value="price-asc">Price low to high</option>
+              <option value="price-desc">Price high to low</option>
+              <option value="rating-desc">Highest rated</option>
+              <option value="capacity-asc">Capacity small to large</option>
+              <option value="capacity-desc">Capacity large to small</option>
+            </select>
+          </div>
+
+          {showCategoryFilter && (
+            <div>
+              <label for="shop-category" class="block text-xs font-semibold tracking-wide uppercase text-[var(--color-stone-500)] mb-2">Category</label>
+              <select id="shop-category" name="category" class="w-full rounded-md border border-[var(--color-stone-200)] px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-forest-700)]">
+                <option value="">All categories</option>
+                {options.categories.map(option => (
+                  <option value={option.value}>{option.label} ({option.count})</option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          <div>
+            <label for="shop-brand" class="block text-xs font-semibold tracking-wide uppercase text-[var(--color-stone-500)] mb-2">Brand</label>
+            <select id="shop-brand" name="brand" class="w-full rounded-md border border-[var(--color-stone-200)] px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-forest-700)]">
+              <option value="">All brands</option>
+              {options.brands.map(option => (
+                <option value={option.value}>{option.label} ({option.count})</option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label for="shop-merchant" class="block text-xs font-semibold tracking-wide uppercase text-[var(--color-stone-500)] mb-2">Merchant</label>
+            <select id="shop-merchant" name="merchant" class="w-full rounded-md border border-[var(--color-stone-200)] px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-forest-700)]">
+              <option value="">All merchants</option>
+              {options.merchants.map(option => (
+                <option value={option.value}>{option.label} ({option.count})</option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label for="shop-stock" class="block text-xs font-semibold tracking-wide uppercase text-[var(--color-stone-500)] mb-2">Stock</label>
+            <select id="shop-stock" name="stock" class="w-full rounded-md border border-[var(--color-stone-200)] px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-forest-700)]">
+              <option value="all">Any stock status</option>
+              <option value="in-stock">In stock</option>
+              <option value="out-of-stock">Out of stock</option>
+            </select>
+          </div>
+
+          <label class="flex items-center gap-2 text-sm font-medium text-[var(--color-stone-700)]">
+            <input name="official" type="checkbox" value="true" class="h-4 w-4 rounded border-[var(--color-stone-300)] text-[var(--color-forest-700)] focus:ring-[var(--color-forest-700)]" />
+            Official shop only
+          </label>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label for="shop-min-price" class="block text-xs font-semibold tracking-wide uppercase text-[var(--color-stone-500)] mb-2">Min Price</label>
+              <input id="shop-min-price" name="minPrice" type="number" min="0" step="0.01" placeholder={hasPriceBounds ? `${options.priceBounds.min}` : 'Min'} class="w-full rounded-md border border-[var(--color-stone-200)] px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-forest-700)]" />
+            </div>
+            <div>
+              <label for="shop-max-price" class="block text-xs font-semibold tracking-wide uppercase text-[var(--color-stone-500)] mb-2">Max Price</label>
+              <input id="shop-max-price" name="maxPrice" type="number" min="0" step="0.01" placeholder={hasPriceBounds ? `${options.priceBounds.max}` : 'Max'} class="w-full rounded-md border border-[var(--color-stone-200)] px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-forest-700)]" />
+            </div>
+            <div>
+              <label for="shop-min-capacity" class="block text-xs font-semibold tracking-wide uppercase text-[var(--color-stone-500)] mb-2">Min Ml</label>
+              <input id="shop-min-capacity" name="minCapacity" type="number" min="0" step="1" placeholder={hasCapacityBounds ? `${options.capacityBounds.min}` : 'Min'} class="w-full rounded-md border border-[var(--color-stone-200)] px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-forest-700)]" />
+            </div>
+            <div>
+              <label for="shop-max-capacity" class="block text-xs font-semibold tracking-wide uppercase text-[var(--color-stone-500)] mb-2">Max Ml</label>
+              <input id="shop-max-capacity" name="maxCapacity" type="number" min="0" step="1" placeholder={hasCapacityBounds ? `${options.capacityBounds.max}` : 'Max'} class="w-full rounded-md border border-[var(--color-stone-200)] px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-forest-700)]" />
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-[var(--color-stone-100)]">
+            <a href={pagePath} class="text-sm font-semibold text-[var(--color-forest-700)] hover:underline" data-clear-shop-filters>
+              Clear filters
+            </a>
+            <button type="button" class="lg:hidden rounded-md bg-[var(--color-forest-700)] px-4 py-2 text-sm font-semibold text-white" data-mobile-filter-close>
+              Apply
+            </button>
+          </div>
+        </div>
+      </form>
+    </aside>
+
+    <div class="min-w-0">
+      {sortedProducts.length > 0 && (
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5" data-product-list>
+          {sortedProducts.map((product, index) => (
+            <div
+              data-product-item
+              data-category={product.categorySlug}
+              data-brand={product.brandName ?? ''}
+              data-merchant={product.merchant ?? ''}
+              data-stock={product.inStock ? 'in-stock' : 'out-of-stock'}
+              data-official={String(product.officialShop)}
+              data-price={product.priceSgd}
+              data-capacity={product.capacityMl}
+              data-rating={product.rating}
+              data-featured={String(product.featured)}
+              data-name={product.name}
+              data-search={searchText(product)}
+              style={`order: ${index};`}
+            >
+              <ProductCard product={product} />
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div class={`${sortedProducts.length > 0 ? 'hidden ' : ''}text-center py-20 space-y-4`} data-empty-state>
+        <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">No Results</p>
+        <h2 class="text-xl font-display font-semibold text-[var(--color-stone-800)]">
+          {sortedProducts.length > 0 ? 'No products match these filters' : 'No products yet'}
+        </h2>
+        <p class="text-sm text-[var(--color-stone-600)] max-w-md mx-auto">
+          {sortedProducts.length > 0
+            ? 'Try a broader search, remove a price or capacity limit, or clear the filters.'
+            : 'Shop pages are ready. Products with Name, Slug, and Category in Airtable appear here automatically.'}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  type ShopFilters = {
+    category: string;
+    brand: string;
+    merchant: string;
+    stock: 'all' | 'in-stock' | 'out-of-stock';
+    official: boolean;
+    minPrice: string;
+    maxPrice: string;
+    minCapacity: string;
+    maxCapacity: string;
+    q: string;
+    sort: string;
+  };
+
+  const filterKeys = ['category', 'brand', 'merchant', 'stock', 'official', 'minPrice', 'maxPrice', 'minCapacity', 'maxCapacity', 'q', 'sort'] as const;
+  const defaultFilters: ShopFilters = {
+    category: '',
+    brand: '',
+    merchant: '',
+    stock: 'all',
+    official: false,
+    minPrice: '',
+    maxPrice: '',
+    minCapacity: '',
+    maxCapacity: '',
+    q: '',
+    sort: 'featured',
+  };
+
+  const numberValue = (value: string | undefined): number | undefined => {
+    if (!value) return undefined;
+    const parsed = Number(value);
+    return Number.isFinite(parsed) && parsed >= 0 ? parsed : undefined;
+  };
+
+  const compareText = (a: HTMLElement, b: HTMLElement) => (a.dataset.name ?? '').localeCompare(b.dataset.name ?? '');
+
+  const compareNumber = (key: 'price' | 'rating' | 'capacity', direction: 'asc' | 'desc') => (
+    a: HTMLElement,
+    b: HTMLElement,
+  ) => {
+    const aValue = numberValue(a.dataset[key]);
+    const bValue = numberValue(b.dataset[key]);
+
+    if (typeof aValue !== 'number' && typeof bValue !== 'number') return compareText(a, b);
+    if (typeof aValue !== 'number') return 1;
+    if (typeof bValue !== 'number') return -1;
+
+    return direction === 'asc'
+      ? aValue - bValue || compareText(a, b)
+      : bValue - aValue || compareText(a, b);
+  };
+
+  const compareItems = (sort: string) => {
+    switch (sort) {
+      case 'name-asc':
+        return compareText;
+      case 'name-desc':
+        return (a: HTMLElement, b: HTMLElement) => compareText(b, a);
+      case 'price-asc':
+        return compareNumber('price', 'asc');
+      case 'price-desc':
+        return compareNumber('price', 'desc');
+      case 'rating-desc':
+        return compareNumber('rating', 'desc');
+      case 'capacity-asc':
+        return compareNumber('capacity', 'asc');
+      case 'capacity-desc':
+        return compareNumber('capacity', 'desc');
+      case 'featured':
+      default:
+        return (a: HTMLElement, b: HTMLElement) => Number(b.dataset.featured === 'true') - Number(a.dataset.featured === 'true') || compareText(a, b);
+    }
+  };
+
+  const browser = document.querySelector<HTMLElement>('[data-shop-product-browser]');
+  if (browser) {
+    const form = browser.querySelector<HTMLFormElement>('[data-shop-filter-form]');
+    const items = Array.from(browser.querySelectorAll<HTMLElement>('[data-product-item]'));
+    const count = browser.querySelector<HTMLElement>('[data-product-count]');
+    const countLabel = browser.querySelector<HTMLElement>('[data-product-count-label]');
+    const emptyStates = Array.from(browser.querySelectorAll<HTMLElement>('[data-empty-state]'));
+    const mobileToggle = browser.querySelector<HTMLButtonElement>('[data-mobile-filter-toggle]');
+    const mobileDrawer = browser.querySelector<HTMLElement>('[data-mobile-filter-drawer]');
+    const mobileOverlay = browser.querySelector<HTMLElement>('[data-mobile-filter-overlay]');
+    const mobileClosers = Array.from(browser.querySelectorAll<HTMLButtonElement>('[data-mobile-filter-close]'));
+    const basePath = browser.dataset.basePath ?? window.location.pathname;
+
+    const formControl = (name: keyof ShopFilters) => form?.elements.namedItem(name) as HTMLInputElement | HTMLSelectElement | RadioNodeList | null;
+    const hasCategoryControl = Boolean(formControl('category'));
+    let lastFocusedElement: HTMLElement | null = null;
+
+    const setDrawerOpen = (open: boolean) => {
+      mobileToggle?.setAttribute('aria-expanded', String(open));
+      mobileDrawer?.classList.toggle('-translate-x-full', !open);
+      mobileOverlay?.classList.toggle('hidden', !open);
+      if (mobileOverlay) mobileOverlay.hidden = !open;
+      document.documentElement.classList.toggle('overflow-hidden', open);
+
+      if (open) {
+        lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+        mobileDrawer?.querySelector<HTMLElement>('input, select, button, a')?.focus();
+      } else {
+        lastFocusedElement?.focus();
+      }
+    };
+
+    const readFilters = (): ShopFilters => ({
+      category: (formControl('category') as HTMLSelectElement | null)?.value ?? '',
+      brand: (formControl('brand') as HTMLSelectElement | null)?.value ?? '',
+      merchant: (formControl('merchant') as HTMLSelectElement | null)?.value ?? '',
+      stock: ((formControl('stock') as HTMLSelectElement | null)?.value as ShopFilters['stock']) || 'all',
+      official: Boolean((formControl('official') as HTMLInputElement | null)?.checked),
+      minPrice: (formControl('minPrice') as HTMLInputElement | null)?.value ?? '',
+      maxPrice: (formControl('maxPrice') as HTMLInputElement | null)?.value ?? '',
+      minCapacity: (formControl('minCapacity') as HTMLInputElement | null)?.value ?? '',
+      maxCapacity: (formControl('maxCapacity') as HTMLInputElement | null)?.value ?? '',
+      q: ((formControl('q') as HTMLInputElement | null)?.value ?? '').trim(),
+      sort: (formControl('sort') as HTMLSelectElement | null)?.value || 'featured',
+    });
+
+    const syncForm = (filters: ShopFilters) => {
+      filterKeys.forEach(key => {
+        const control = formControl(key);
+        if (!control) return;
+        if (key === 'official') {
+          (control as HTMLInputElement).checked = filters.official;
+        } else {
+          (control as HTMLInputElement | HTMLSelectElement).value = String(filters[key]);
+        }
+      });
+    };
+
+    const filtersFromUrl = (): ShopFilters => {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        category: hasCategoryControl ? params.get('category') ?? '' : '',
+        brand: params.get('brand') ?? '',
+        merchant: params.get('merchant') ?? '',
+        stock: params.get('stock') === 'in-stock' || params.get('stock') === 'out-of-stock' ? params.get('stock') as ShopFilters['stock'] : 'all',
+        official: params.get('official') === 'true',
+        minPrice: params.get('minPrice') ?? '',
+        maxPrice: params.get('maxPrice') ?? '',
+        minCapacity: params.get('minCapacity') ?? '',
+        maxCapacity: params.get('maxCapacity') ?? '',
+        q: params.get('q') ?? '',
+        sort: params.get('sort') ?? 'featured',
+      };
+    };
+
+    const writeUrl = (filters: ShopFilters) => {
+      const params = new URLSearchParams();
+      filterKeys.forEach(key => {
+        const value = filters[key];
+        if (key === 'stock' && value === 'all') return;
+        if (key === 'sort' && value === 'featured') return;
+        if (key === 'official' && value !== true) return;
+        if (value) params.set(key, String(value));
+      });
+
+      const query = params.toString();
+      window.history.pushState(filters, '', query ? `${basePath}?${query}` : basePath);
+    };
+
+    const matches = (item: HTMLElement, filters: ShopFilters) => {
+      const minPrice = numberValue(filters.minPrice);
+      const maxPrice = numberValue(filters.maxPrice);
+      const minCapacity = numberValue(filters.minCapacity);
+      const maxCapacity = numberValue(filters.maxCapacity);
+      const price = numberValue(item.dataset.price);
+      const capacity = numberValue(item.dataset.capacity);
+      const query = filters.q.toLowerCase();
+
+      if (filters.category && item.dataset.category !== filters.category) return false;
+      if (filters.brand && item.dataset.brand !== filters.brand) return false;
+      if (filters.merchant && item.dataset.merchant !== filters.merchant) return false;
+      if (filters.stock !== 'all' && item.dataset.stock !== filters.stock) return false;
+      if (filters.official && item.dataset.official !== 'true') return false;
+      if (typeof minPrice === 'number' && (typeof price !== 'number' || price < minPrice)) return false;
+      if (typeof maxPrice === 'number' && (typeof price !== 'number' || price > maxPrice)) return false;
+      if (typeof minCapacity === 'number' && (typeof capacity !== 'number' || capacity < minCapacity)) return false;
+      if (typeof maxCapacity === 'number' && (typeof capacity !== 'number' || capacity > maxCapacity)) return false;
+      if (query && !(item.dataset.search ?? '').includes(query)) return false;
+
+      return true;
+    };
+
+    const applyFilters = (filters: ShopFilters, options: { updateHistory?: boolean } = {}) => {
+      syncForm(filters);
+      const sortedItems = [...items].sort(compareItems(filters.sort));
+      let visibleCount = 0;
+
+      sortedItems.forEach((item, index) => {
+        const visible = matches(item, filters);
+        item.hidden = !visible;
+        item.style.order = String(index);
+        if (visible) visibleCount += 1;
+      });
+
+      if (count) count.textContent = String(visibleCount);
+      if (countLabel) countLabel.textContent = visibleCount === 1 ? 'product' : 'products';
+      emptyStates.forEach(state => {
+        state.classList.toggle('hidden', visibleCount > 0);
+      });
+
+      if (options.updateHistory) writeUrl(filters);
+    };
+
+    applyFilters(filtersFromUrl());
+
+    form?.addEventListener('input', () => applyFilters(readFilters(), { updateHistory: true }));
+    form?.addEventListener('change', () => applyFilters(readFilters(), { updateHistory: true }));
+    form?.addEventListener('submit', event => {
+      event.preventDefault();
+      applyFilters(readFilters(), { updateHistory: true });
+    });
+    mobileToggle?.addEventListener('click', () => setDrawerOpen(true));
+    mobileOverlay?.addEventListener('click', () => setDrawerOpen(false));
+    mobileClosers.forEach(button => button.addEventListener('click', () => setDrawerOpen(false)));
+    window.addEventListener('keydown', event => {
+      if (event.key === 'Escape') setDrawerOpen(false);
+    });
+    window.addEventListener('popstate', () => applyFilters(filtersFromUrl()));
+  }
+</script>

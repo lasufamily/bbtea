@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../components/Layout.astro';
 import ProductCard from '../../../components/ProductCard.astro';
+import StarRating from '../../../components/StarRating.astro';
 import { getCompareProducts, getProducts } from '../../../lib/airtable';
 import type { Product } from '../../../lib/types';
 
@@ -111,7 +112,7 @@ const jsonLd = {
         <span class="text-[var(--color-stone-700)] font-medium">{product.name}</span>
       </nav>
 
-      <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-14 items-start">
+      <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-14 items-start" data-product-gallery>
         <div class="space-y-3">
           <div class="aspect-[4/3] rounded-lg overflow-hidden bg-[var(--color-cream-100)] border border-[var(--color-stone-200)]">
             {gallery[0] ? (
@@ -123,6 +124,7 @@ const jsonLd = {
                 decoding="async"
                 width="720"
                 height="540"
+                data-product-main-image
               />
             ) : (
               <div class="w-full h-full flex items-center justify-center">
@@ -133,7 +135,18 @@ const jsonLd = {
           {gallery.length > 1 && (
             <div class="grid grid-cols-4 sm:grid-cols-5 gap-2">
               {gallery.slice(0, 8).map((src, i) => (
-                <div class="aspect-square rounded-md overflow-hidden border border-[var(--color-stone-200)] bg-[var(--color-cream-100)]">
+                <button
+                  type="button"
+                  class:list={[
+                    'aspect-square rounded-md overflow-hidden border bg-[var(--color-cream-100)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-forest-700)] focus-visible:ring-offset-2',
+                    i === 0 ? 'border-[var(--color-forest-700)]' : 'border-[var(--color-stone-200)] hover:border-[var(--color-forest-700)]',
+                  ]}
+                  data-product-thumbnail
+                  data-gallery-src={src}
+                  data-gallery-alt={`${product.name} photo ${i + 1}`}
+                  aria-label={`Show ${product.name} photo ${i + 1}`}
+                  aria-current={i === 0 ? 'true' : undefined}
+                >
                   <img
                     src={src}
                     alt={`${product.name} photo ${i + 1}`}
@@ -143,7 +156,7 @@ const jsonLd = {
                     width="160"
                     height="160"
                   />
-                </div>
+                </button>
               ))}
             </div>
           )}
@@ -170,15 +183,12 @@ const jsonLd = {
               </p>
             )}
             {typeof product.rating === 'number' && (
-              <p class="text-sm text-[var(--color-stone-600)]">
-                <span class="font-semibold text-[var(--color-stone-900)]">{product.rating.toFixed(2)}</span>
-                <span class="text-[var(--color-stone-400)]"> / 5</span>
-                {typeof product.ratingCount === 'number' && product.ratingCount > 0 && (
-                  <span class="text-[var(--color-stone-500)]">
-                    {' '}({product.ratingCount.toLocaleString('en-SG')} ratings)
-                  </span>
-                )}
-              </p>
+              <StarRating
+                value={product.rating}
+                count={product.ratingCount}
+                precision={2}
+                labelPrefix="Product rating"
+              />
             )}
             {product.shortDescription && (
               <p class="text-[var(--color-stone-600)] text-base leading-relaxed max-w-2xl">
@@ -211,17 +221,9 @@ const jsonLd = {
             )}
           </div>
 
-          {(typeof product.estimatedShippingDays === 'number' || typeof product.shopRating === 'number') && (
+          {typeof product.estimatedShippingDays === 'number' && (
             <p class="text-sm text-[var(--color-stone-500)]">
-              {typeof product.estimatedShippingDays === 'number' && (
-                <span>Ships in about {product.estimatedShippingDays} day{product.estimatedShippingDays === 1 ? '' : 's'}</span>
-              )}
-              {typeof product.estimatedShippingDays === 'number' && typeof product.shopRating === 'number' && (
-                <span class="mx-2 text-[var(--color-stone-300)]">·</span>
-              )}
-              {typeof product.shopRating === 'number' && (
-                <span>Shop rating {product.shopRating.toFixed(2)}</span>
-              )}
+              Ships in about {product.estimatedShippingDays} day{product.estimatedShippingDays === 1 ? '' : 's'}
             </p>
           )}
 
@@ -316,3 +318,33 @@ const jsonLd = {
   )}
 
 </Layout>
+
+<script>
+  document.querySelectorAll('[data-product-gallery]').forEach((gallery) => {
+    const mainImage = gallery.querySelector('[data-product-main-image]');
+    const thumbnails = gallery.querySelectorAll('[data-product-thumbnail]');
+
+    if (!(mainImage instanceof HTMLImageElement)) return;
+
+    const setActiveThumbnail = (activeThumbnail) => {
+      thumbnails.forEach((thumbnail) => {
+        const isActive = thumbnail === activeThumbnail;
+        thumbnail.setAttribute('aria-current', String(isActive));
+        thumbnail.classList.toggle('border-[var(--color-forest-700)]', isActive);
+        thumbnail.classList.toggle('border-[var(--color-stone-200)]', !isActive);
+      });
+    };
+
+    thumbnails.forEach((thumbnail) => {
+      const updateMainImage = () => {
+        if (!(thumbnail instanceof HTMLElement) || !thumbnail.dataset.gallerySrc) return;
+        mainImage.src = thumbnail.dataset.gallerySrc;
+        mainImage.alt = thumbnail.dataset.galleryAlt ?? mainImage.alt;
+        setActiveThumbnail(thumbnail);
+      };
+
+      thumbnail.addEventListener('mouseenter', updateMainImage);
+      thumbnail.addEventListener('click', updateMainImage);
+    });
+  });
+</script>

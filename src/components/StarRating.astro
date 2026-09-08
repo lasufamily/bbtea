@@ -1,0 +1,50 @@
+---
+interface Props {
+  value: number;
+  count?: number;
+  precision?: number;
+  labelPrefix?: string;
+  compact?: boolean;
+}
+
+const {
+  value,
+  count,
+  precision = 1,
+  labelPrefix = 'Rating',
+  compact = false,
+} = Astro.props;
+
+const displayValue = value.toFixed(precision);
+const filledStars = Math.max(0, Math.min(5, Math.round(value)));
+const label = `${labelPrefix} ${displayValue} out of 5${typeof count === 'number' && count > 0 ? ` from ${count.toLocaleString('en-SG')} ratings` : ''}`;
+---
+
+<span
+  class:list={[
+    'inline-flex items-center text-[var(--color-stone-600)]',
+    compact ? 'gap-1 text-xs' : 'gap-2 text-sm',
+  ]}
+  data-star-rating
+  aria-label={label}
+>
+  <span class="inline-flex items-center gap-0.5 text-yellow-400" aria-hidden="true">
+    {Array.from({ length: 5 }, (_, index) => (
+      <svg
+        class:list={[
+          compact ? 'h-3.5 w-3.5' : 'h-4 w-4',
+          index < filledStars ? 'fill-current' : 'fill-none text-[var(--color-stone-300)]',
+        ]}
+        viewBox="0 0 20 20"
+        stroke="currentColor"
+        stroke-width="1.5"
+      >
+        <path d="M10 1.8l2.5 5.1 5.6.8-4 4 1 5.5-5-2.6-5 2.6 1-5.5-4-4 5.6-.8L10 1.8z" />
+      </svg>
+    ))}
+  </span>
+  <span class="font-semibold text-[var(--color-stone-900)]">{displayValue}</span>
+  {typeof count === 'number' && count > 0 && !compact && (
+    <span class="text-[var(--color-stone-500)]">({count.toLocaleString('en-SG')} ratings)</span>
+  )}
+</span>
