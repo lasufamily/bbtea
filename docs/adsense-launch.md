@@ -18,4 +18,4 @@ Review rights to each reused photo and mark before reuse. The site now supplies 
 
 ## Verification
 
-Run `npm test`, `npm run build:verify` and `node scripts/internal-link-audit.mjs --fail-on-error`. Inspect built HTML and browser requests for trackers, unrequested form loads, health claims, malformed links and utility-page indexing. Verify retired shop URLs return 404 in production after deployment. Check actual production HTML; a commit or successful build is not proof of publication.
+Run `npm test`, `npm run build:verify` and `node scripts/internal-link-audit.mjs --fail-on-error`. Inspect built HTML and browser requests for trackers, unrequested form loads, health claims, malformed links and utility-page indexing. Verify retired shop URLs return 410 in production after deployment. Retired health FAQ paths are listed in src/lib/retiredPages.js; remove a path from that list only after evidence review. public/_routes.json limits the edge handler to those retired URLs. Check actual production HTML; a commit or successful build is not proof of publication.

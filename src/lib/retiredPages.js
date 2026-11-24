@@ -1,0 +1,28 @@
+// Retired URLs with stale copies observed after deployment. Remove a FAQ entry only after evidence review.
+export const retiredFaqPaths = new Set([
+  "/faq/are-bubble-tea-healthy",
+  "/faq/are-bubble-tea-pearls-bad-for-you",
+  "/faq/can-bubble-tea-kill-you",
+  "/faq/can-coffee-cause-anxiety",
+  "/faq/can-coffee-cause-kidney-stones",
+  "/faq/can-coffee-help-you-lose-weight",
+  "/faq/can-coffee-stunt-your-growth",
+  "/faq/does-coffee-dehydrate-you",
+  "/faq/does-coffee-make-you-poop",
+  "/faq/does-coffee-raise-blood-pressure",
+  "/faq/how-much-bubble-tea-calories",
+  "/faq/is-coffee-a-diuretic",
+  "/faq/is-coffee-bad-for-you",
+  "/faq/is-coffee-better-than-energy-drinks",
+  "/faq/is-coffee-better-than-tea",
+  "/faq/is-it-safe-to-drink-coffee-while-pregnant",
+  "/faq/what-bubble-tea-is-safe-for-pregnancy",
+  "/faq/what-is-the-healthiest-coffee-creamer",
+  "/faq/when-is-the-best-time-to-drink-bubble-tea",
+  "/faq/which-bubble-tea-is-healthy",
+  "/faq/which-coffee-is-the-healthiest",
+  "/faq/why-bubble-tea-is-bad-for-you",
+  "/faq/why-bubble-tea-is-unhealthy",
+  "/faq/why-does-coffee-make-you-sleepy",
+  "/faq/will-bubble-tea-make-me-fat"
+]);
