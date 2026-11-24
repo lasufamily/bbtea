@@ -1,0 +1,14 @@
+---
+import { getBrands } from '../lib/airtable';
+interface Props { name: string; brandSlug?: string; nearestMrt?: string; mall?: string; }
+const { name, brandSlug, nearestMrt, mall } = Astro.props;
+const brand = (await getBrands()).find(item => item.slug === brandSlug);
+---
+<section class="max-w-7xl mx-auto px-4 sm:px-6 py-10 space-y-4 border-t border-[var(--color-stone-200)]" data-pagefind-body>
+  <h2 class="text-xl font-display font-semibold">Planning a visit to {name}</h2>
+  {mall && <p>The directory lists this outlet at {mall}. Check the address and unit number above before travelling.</p>}
+  {nearestMrt && <p>The recorded nearby station is {nearestMrt}. Use the map link to check the route and entrance; this listing does not verify walking distance or step-free access.</p>}
+  <p>Opening hours and menus can change. A directory entry is not a record of a visit, a review or confirmation that an outlet is open today. Check with the shop for current hours, prices and dietary requirements.</p>
+  {brand?.websiteUrl && <p><a class="underline" href={brand.websiteUrl} target="_blank" rel="noopener noreferrer">Check {brand.name}'s website</a></p>}
+  <p class="text-sm"><a href="/contact/" class="underline">Report an incorrect address, closure or other correction</a>. Include this page's URL and a source so the change can be checked. Read <a href="/about/#editorial-standards" class="underline">how the directory works</a>.</p>
+</section>

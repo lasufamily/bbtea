@@ -1,0 +1,61 @@
+---
+interface Props {
+  provider: 'fillout' | 'beehiiv';
+  formId: string;
+  label: string;
+}
+const { provider, formId, label } = Astro.props;
+---
+<div class="rounded-lg border border-[var(--color-stone-200)] bg-white p-5 space-y-4" data-external-form data-provider={provider} data-form-id={formId} data-form-label={label}>
+  <p class="text-sm text-[var(--color-stone-600)]">
+    This form is provided by {provider === 'fillout' ? 'Fillout' : 'Beehiiv'}. Opening it connects your browser to that service.
+    Read our <a href="/privacy/" class="underline">privacy policy</a> before sending personal information.
+  </p>
+  <button type="button" class="px-5 py-3 rounded-lg bg-[var(--color-forest-700)] text-white font-semibold" data-open-form>{label}</button>
+  <p class="text-sm text-[var(--color-stone-600)]" aria-live="polite" data-form-status></p>
+  <div data-form-container></div>
+  <noscript><p>JavaScript is needed to open the form. You can email <a href="mailto:hello@bbtea.sg" class="underline">hello@bbtea.sg</a> instead.</p></noscript>
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-external-form]').forEach(root => {
+    const button = root.querySelector<HTMLButtonElement>('[data-open-form]');
+    const container = root.querySelector<HTMLElement>('[data-form-container]');
+    const status = root.querySelector<HTMLElement>('[data-form-status]');
+    button?.addEventListener('click', () => {
+      if (!container || !status) return;
+      button.disabled = true;
+      status.textContent = 'Opening form…';
+      const observer = new MutationObserver(() => {
+        const frame = container.querySelector('iframe');
+        if (frame) {
+          frame.title = root.dataset.formLabel || 'External form';
+          observer.disconnect();
+        }
+      });
+      observer.observe(container, { childList: true, subtree: true });
+      const script = document.createElement('script');
+      script.async = true;
+      if (root.dataset.provider === 'fillout') {
+        container.dataset.filloutId = root.dataset.formId;
+        container.dataset.filloutEmbedType = 'standard';
+        container.setAttribute('data-fillout-dynamic-resize', '');
+        container.style.minHeight = '600px';
+        script.src = 'https://server.fillout.com/embed/v1/';
+      } else {
+        script.dataset.beehiivForm = root.dataset.formId;
+        script.src = 'https://subscribe-forms.beehiiv.com/v3/loader.js';
+      }
+      script.onload = () => {
+        button.hidden = true;
+        status.textContent = 'Form opened below. You can also email hello@bbtea.sg.';
+      };
+      script.onerror = () => {
+        status.textContent = 'The form could not load. Try again or email hello@bbtea.sg.';
+        button.disabled = false;
+        observer.disconnect();
+        script.remove();
+      };
+      container.append(script);
+    });
+  });
+</script>

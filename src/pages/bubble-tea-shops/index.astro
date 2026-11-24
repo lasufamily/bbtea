@@ -26,7 +26,6 @@ const brand = url.searchParams.get('brand') ?? '';
 const town = url.searchParams.get('town') ?? '';
 const mall = url.searchParams.get('mall') ?? '';
 const mrt = url.searchParams.get('mrt') ?? '';
-const halal = url.searchParams.get('halal') ?? '';
 const q = url.searchParams.get('q') ?? '';
 
 let outlets: Outlet[] = allOutlets;
@@ -35,7 +34,6 @@ if (brand) outlets = outlets.filter(o => o.brandSlug === brand);
 if (town) outlets = outlets.filter(o => o.townSlug === town);
 if (mall) outlets = outlets.filter(o => o.mallSlug === mall);
 if (mrt) outlets = outlets.filter(o => o.mrtSlug === mrt);
-if (halal === 'true') outlets = outlets.filter(o => o.halalFriendly);
 if (q) {
   const ql = q.toLowerCase();
   outlets = outlets.filter(o =>
@@ -48,13 +46,12 @@ if (q) {
   );
 }
 
-const isFiltered = Boolean(brand || town || mall || mrt || halal || q);
+const isFiltered = Boolean(brand || town || mall || mrt || q);
 const activeFilters: string[] = [];
 if (brand) activeFilters.push(brand.replace(/-/g, ' '));
 if (town) activeFilters.push(town.replace(/-/g, ' '));
 if (mall) activeFilters.push(mall.replace(/-/g, ' '));
 if (mrt) activeFilters.push(mrt.replace(/-/g, ' '));
-if (halal === 'true') activeFilters.push('halal');
 if (q) activeFilters.push(`"${q}"`);
 
 const jsonLd = {
@@ -117,7 +114,6 @@ const jsonLd = {
           selectedTown={town}
           selectedMall={mall}
           selectedMrt={mrt}
-          selectedHalal={halal}
         />
       </div>
 
@@ -140,7 +136,6 @@ const jsonLd = {
               selectedTown={town}
               selectedMall={mall}
               selectedMrt={mrt}
-              selectedHalal={halal}
             />
           </div>
         </details>
@@ -183,11 +178,10 @@ const jsonLd = {
     town: string;
     mall: string;
     mrt: string;
-    halal: string;
     q: string;
   };
 
-  const filterKeys = ['brand', 'town', 'mall', 'mrt', 'halal', 'q'] as const;
+  const filterKeys = ['brand', 'town', 'mall', 'mrt', 'q'] as const;
 
   const getFiltersFromUrl = (): DirectoryFilters => {
     const params = new URLSearchParams(window.location.search);
@@ -196,7 +190,6 @@ const jsonLd = {
       town: params.get('town') ?? '',
       mall: params.get('mall') ?? '',
       mrt: params.get('mrt') ?? '',
-      halal: params.get('halal') === 'true' ? 'true' : '',
       q: params.get('q')?.trim().toLowerCase() ?? '',
     };
   };
@@ -208,7 +201,6 @@ const jsonLd = {
       town: String(data.get('town') ?? ''),
       mall: String(data.get('mall') ?? ''),
       mrt: String(data.get('mrt') ?? ''),
-      halal: data.get('halal') === 'true' ? 'true' : '',
       q: getFiltersFromUrl().q,
     };
   };
@@ -220,8 +212,6 @@ const jsonLd = {
       form.querySelector<HTMLSelectElement>('select[name="mall"]')!.value = filters.mall;
       form.querySelector<HTMLSelectElement>('select[name="mrt"]')!.value = filters.mrt;
 
-      const halal = form.querySelector<HTMLInputElement>('input[name="halal"]');
-      if (halal) halal.checked = filters.halal === 'true';
     });
   };
 
@@ -242,7 +232,6 @@ const jsonLd = {
     if (filters.town && card.dataset.town !== filters.town) return false;
     if (filters.mall && card.dataset.mall !== filters.mall) return false;
     if (filters.mrt && card.dataset.mrt !== filters.mrt) return false;
-    if (filters.halal === 'true' && card.dataset.halal !== 'true') return false;
     if (filters.q && !(card.dataset.search ?? '').includes(filters.q)) return false;
     return true;
   };
@@ -280,7 +269,7 @@ const jsonLd = {
       applyFilters(getFiltersFromForm(form), { updateHistory: true });
     });
 
-    form.querySelectorAll('select, input[name="halal"]').forEach(control => {
+    form.querySelectorAll('select').forEach(control => {
       control.addEventListener('change', () => {
         applyFilters(getFiltersFromForm(form), { updateHistory: true });
       });

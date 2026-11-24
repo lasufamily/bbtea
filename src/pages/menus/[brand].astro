@@ -59,13 +59,13 @@ const retailPriceParts = (drink: Drink) => (
   ].filter((price): price is string => Boolean(price))
 );
 
-const caloriesText = (value: string | undefined) => value ? `${value} kcal` : 'Not listed';
+
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Menu',
   name: `${brand.name} Menu`,
-  description: `${brand.name} menu in Singapore with prices, calories, Nutri-Grade labels, and Healthier Choice details.`,
+  description: `${brand.name} menu in Singapore with listed sizes and prices.`,
   url: `https://bbtea.sg/menus/${brand.slug}/`,
   hasMenuSection: groupedDrinks.map(group => ({
     '@type': 'MenuSection',
@@ -87,8 +87,8 @@ const jsonLd = {
 ---
 
 <Layout
-  title={`${brand.name} Menu Singapore | Prices & Calories | BBTea.sg`}
-  description={`Browse the ${brand.name} menu in Singapore. See drinks grouped by category with prices, calories, Nutri-Grade labels, and Healthier Choice details.`}
+  title={`${brand.name} Menu Singapore | Sizes & Prices | BBTea.sg`}
+  description={`Browse the ${brand.name} menu in Singapore. See drinks grouped by category with listed sizes and prices.`}
   image={brand.logo}
   type="article"
   canonical={`https://bbtea.sg/menus/${brand.slug}/`}
@@ -125,7 +125,7 @@ const jsonLd = {
             {brand.name} Menu
           </h1>
           <p class="text-[var(--color-stone-600)] text-base leading-relaxed max-w-2xl">
-            Browse {brand.name} drinks by category with listed prices, calories, Nutri-Grade labels, and Healthier Choice details.
+            Browse {brand.name} drinks by category with listed sizes and prices.
           </p>
           <div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-1">
             <span class="text-sm text-[var(--color-stone-500)]">
@@ -144,6 +144,7 @@ const jsonLd = {
   </section>
 
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
+    <aside class="rounded-lg bg-[var(--color-cream-100)] p-5 space-y-3"><h2 class="font-semibold">Before you order</h2><p>Prices are recorded directory information, not a live quote. Outlet menus, availability, sizes and customisation may differ. Check the current menu with the brand. Nutrition and certification labels are withheld where supporting evidence is not recorded.</p>{brand.websiteUrl && <a href={brand.websiteUrl} class="underline" target="_blank" rel="noopener noreferrer">Check {brand.name}'s website</a>}<p><a href="/contact/" class="underline">Report a menu correction</a></p></aside>
     {groupedDrinks.map(group => (
       <section class="space-y-4" data-pagefind-body>
         <header class="flex flex-wrap items-end justify-between gap-3 border-b border-[var(--color-stone-200)] pb-3">
@@ -156,79 +157,11 @@ const jsonLd = {
           </span>
         </header>
 
-        <div class="rounded-lg border border-[var(--color-stone-200)] bg-white">
-          <div>
-            <div class="hidden lg:grid grid-cols-[minmax(180px,1.55fr)_90px_86px_86px_86px_68px_128px] gap-2 px-4 py-3 bg-[var(--color-cream-100)] border-b border-[var(--color-stone-200)] text-[10px] font-semibold tracking-widest uppercase text-[var(--color-stone-500)] leading-tight">
-              <span>Drink</span>
-              <span><span>Retail</span><span class="block">Price</span></span>
-              <span><span>Calories</span><span class="block">per 100ml</span></span>
-              <span><span>Calories</span><span class="block">per M cup</span></span>
-              <span><span>Calories</span><span class="block">per L cup</span></span>
-              <span>Nutri-Grade</span>
-              <span><span>Healthier</span><span class="block">Choice Type</span></span>
-            </div>
-
-            <div class="divide-y divide-[var(--color-stone-100)]">
-              {group.drinks.map(drink => (
-                <article class="grid lg:grid-cols-[minmax(180px,1.55fr)_90px_86px_86px_86px_68px_128px] gap-3 lg:gap-2 px-5 lg:px-4 py-4">
-                <div class="space-y-1">
-                  <div class="flex items-center gap-2">
-                    <a href={`/drinks/${drink.slug}/`} class="font-display text-lg lg:text-base font-semibold text-[var(--color-stone-900)] hover:text-[var(--color-forest-700)] transition-colors">
-                      {drink.name}
-                    </a>
-                    {drink.healthierChoice && (
-                      <img
-                        src="/healthier-choice-symbol.jpg"
-                        alt="Healthier Choice"
-                        title="Healthier Choice"
-                        class="h-6 w-auto flex-shrink-0 object-contain"
-                        width="24"
-                        height="24"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    )}
-                  </div>
-                  {drink.description && (
-                    <p class="text-sm text-[var(--color-stone-600)] leading-relaxed">
-                      {drink.description}
-                    </p>
-                  )}
-                </div>
-                <div>
-                  <span class="lg:hidden block text-[11px] font-semibold uppercase tracking-widest text-[var(--color-stone-400)] mb-1">Retail Price</span>
-                  <span class="space-y-0.5 text-sm lg:text-xs font-semibold text-[var(--color-stone-800)] leading-tight">
-                    {retailPriceParts(drink).length > 0 ? (
-                      retailPriceParts(drink).map(price => <span class="block">{price}</span>)
-                    ) : (
-                      <span>Price not listed</span>
-                    )}
-                  </span>
-                </div>
-                <div>
-                  <span class="lg:hidden block text-[11px] font-semibold uppercase tracking-widest text-[var(--color-stone-400)] mb-1">Calories per 100ml</span>
-                  <span class="text-sm lg:text-xs text-[var(--color-stone-600)]">{caloriesText(drink.caloriesPer100ml)}</span>
-                </div>
-                <div>
-                  <span class="lg:hidden block text-[11px] font-semibold uppercase tracking-widest text-[var(--color-stone-400)] mb-1">Calories per M cup</span>
-                  <span class="text-sm lg:text-xs text-[var(--color-stone-600)]">{caloriesText(drink.caloriesM)}</span>
-                </div>
-                <div>
-                  <span class="lg:hidden block text-[11px] font-semibold uppercase tracking-widest text-[var(--color-stone-400)] mb-1">Calories per L cup</span>
-                  <span class="text-sm lg:text-xs text-[var(--color-stone-600)]">{caloriesText(drink.caloriesL)}</span>
-                </div>
-                <div>
-                  <span class="lg:hidden block text-[11px] font-semibold uppercase tracking-widest text-[var(--color-stone-400)] mb-1">Nutri-Grade</span>
-                  <span class="text-sm lg:text-xs text-[var(--color-stone-600)]">{drink.nutriGrade ?? 'Not listed'}</span>
-                </div>
-                <div>
-                  <span class="lg:hidden block text-[11px] font-semibold uppercase tracking-widest text-[var(--color-stone-400)] mb-1">Healthier Choice Type</span>
-                  <span class="text-sm lg:text-xs text-[var(--color-stone-600)] leading-tight">{drink.healthierChoiceType ?? 'Not listed'}</span>
-                </div>
-                </article>
-              ))}
-            </div>
-          </div>
+        <div class="overflow-x-auto rounded-lg border border-[var(--color-stone-200)]">
+          <table class="w-full text-left text-sm"><caption class="sr-only">{brand.name}: {group.category} sizes and listed prices</caption>
+            <thead class="bg-[var(--color-cream-100)]"><tr><th scope="col" class="p-4">Drink</th><th scope="col" class="p-4">Listed prices (SGD)</th></tr></thead>
+            <tbody>{group.drinks.map(drink => <tr class="border-t border-[var(--color-stone-200)] align-top"><th scope="row" class="p-4 font-normal"><a href={`/drinks/${drink.slug}/`} class="font-semibold underline">{drink.name}</a>{drink.description && <p class="mt-2 text-[var(--color-stone-600)]">{drink.description}</p>}</th><td class="p-4 whitespace-nowrap">{retailPriceParts(drink).length > 0 ? retailPriceParts(drink).map(price => <span class="block">{price}</span>) : 'Price not recorded'}</td></tr>)}</tbody>
+          </table>
         </div>
       </section>
     ))}

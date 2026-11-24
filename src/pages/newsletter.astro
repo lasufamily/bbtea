@@ -1,5 +1,6 @@
 ---
 import Layout from '../components/Layout.astro';
+import ExternalForm from '../components/ExternalForm.astro';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -44,24 +45,13 @@ const jsonLd = {
         </div>
 
         <div class="newsletter-embed w-full max-w-[520px] mx-auto lg:mx-0 lg:justify-self-end">
-          <script
-            async
-            src="https://subscribe-forms.beehiiv.com/v3/loader.js"
-            data-beehiiv-form="6b439e95-a5a6-44d1-aeae-53687c44dfe7"
-            is:inline
-          ></script>
+          <ExternalForm provider="beehiiv" formId="6b439e95-a5a6-44d1-aeae-53687c44dfe7" label="Open newsletter signup" />
         </div>
       </div>
     </div>
   </section>
 
-  <script
-    slot="body-end"
-    type="text/javascript"
-    async
-    src="https://subscribe-forms.beehiiv.com/attribution.js"
-    is:inline
-  ></script>
+
 
 </Layout>
 

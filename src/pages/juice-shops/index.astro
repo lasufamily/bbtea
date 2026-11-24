@@ -28,7 +28,6 @@ const brand = url.searchParams.get('brand') ?? '';
 const town = url.searchParams.get('town') ?? '';
 const mall = url.searchParams.get('mall') ?? '';
 const mrt = url.searchParams.get('mrt') ?? '';
-const halal = url.searchParams.get('halal') ?? '';
 const q = url.searchParams.get('q') ?? '';
 
 let outlets: JuiceOutlet[] = allOutlets;
@@ -37,7 +36,6 @@ if (brand) outlets = outlets.filter(o => o.brandSlug === brand);
 if (town) outlets = outlets.filter(o => o.townSlug === town);
 if (mall) outlets = outlets.filter(o => o.mallSlug === mall);
 if (mrt) outlets = outlets.filter(o => o.mrtSlug === mrt);
-if (halal === 'true') outlets = outlets.filter(o => o.halalFriendly);
 if (q) {
   const ql = q.toLowerCase();
   outlets = outlets.filter(o =>
@@ -50,13 +48,12 @@ if (q) {
   );
 }
 
-const isFiltered = Boolean(brand || town || mall || mrt || halal || q);
+const isFiltered = Boolean(brand || town || mall || mrt || q);
 const activeFilters: string[] = [];
 if (brand) activeFilters.push(brand.replace(/-/g, ' '));
 if (town) activeFilters.push(town.replace(/-/g, ' '));
 if (mall) activeFilters.push(mall.replace(/-/g, ' '));
 if (mrt) activeFilters.push(mrt.replace(/-/g, ' '));
-if (halal === 'true') activeFilters.push('halal');
 if (q) activeFilters.push(`"${q}"`);
 
 const ids = {
@@ -66,7 +63,6 @@ const ids = {
     town: 'desktop-juice-town',
     mall: 'desktop-juice-mall',
     mrt: 'desktop-juice-mrt',
-    halal: 'desktop-juice-halal',
   },
   mobile: {
     form: 'mobile-juice-filters-form',
@@ -74,7 +70,6 @@ const ids = {
     town: 'mobile-juice-town',
     mall: 'mobile-juice-mall',
     mrt: 'mobile-juice-mrt',
-    halal: 'mobile-juice-halal',
   },
 };
 
@@ -89,7 +84,7 @@ const jsonLd = {
 
 <Layout
   title={isFiltered ? `Juice shops in Singapore — ${activeFilters.join(', ')} | BBTea.sg` : 'Juice shops in Singapore | BBTea.sg'}
-  description={`Browse ${outlets.length} juice shops in Singapore. Filter by brand, town, mall, MRT station and halal-friendly options.`}
+  description={`Browse ${outlets.length} juice shops in Singapore. Filter by brand, town, mall, MRT station.`}
   canonical="https://bbtea.sg/juice-shops/"
   jsonLd={jsonLd}
 >
@@ -162,10 +157,7 @@ const jsonLd = {
                 {mrtStations.map(option => <option value={option.slug} selected={mrt === option.slug}>{option.name}</option>)}
               </select>
             </div>
-            <div class="flex items-center justify-between">
-              <label for={ids.desktop.halal} class="text-sm font-medium text-[var(--color-stone-700)] cursor-pointer">Halal</label>
-              <input type="checkbox" id={ids.desktop.halal} name="halal" value="true" checked={halal === 'true'} class="w-4 h-4 rounded accent-[var(--color-forest-700)] cursor-pointer" />
-            </div>
+              <p class="text-sm"><a href="/halal/" class="underline">How to check halal certification</a></p>
             <button type="submit" class="w-full py-3 rounded-lg text-sm font-semibold bg-[var(--color-forest-700)] text-white hover:bg-white hover:text-[var(--color-forest-700)] border border-[var(--color-forest-700)] transition-colors mt-2">
               Apply Filters
             </button>
@@ -211,10 +203,7 @@ const jsonLd = {
                   {mrtStations.map(option => <option value={option.slug} selected={mrt === option.slug}>{option.name}</option>)}
                 </select>
               </div>
-              <div class="flex items-center justify-between">
-                <label for={ids.mobile.halal} class="text-sm font-medium text-[var(--color-stone-700)] cursor-pointer">Halal</label>
-                <input type="checkbox" id={ids.mobile.halal} name="halal" value="true" checked={halal === 'true'} class="w-4 h-4 rounded accent-[var(--color-forest-700)] cursor-pointer" />
-              </div>
+              <p class="text-sm"><a href="/halal/" class="underline">How to check halal certification</a></p>
               <button type="submit" class="w-full py-3 rounded-lg text-sm font-semibold bg-[var(--color-forest-700)] text-white border border-[var(--color-forest-700)]">
                 Apply Filters
               </button>
@@ -257,11 +246,10 @@ const jsonLd = {
     town: string;
     mall: string;
     mrt: string;
-    halal: string;
     q: string;
   };
 
-  const filterKeys = ['brand', 'town', 'mall', 'mrt', 'halal', 'q'] as const;
+  const filterKeys = ['brand', 'town', 'mall', 'mrt', 'q'] as const;
 
   const getFiltersFromUrl = (): DirectoryFilters => {
     const params = new URLSearchParams(window.location.search);
@@ -270,7 +258,6 @@ const jsonLd = {
       town: params.get('town') ?? '',
       mall: params.get('mall') ?? '',
       mrt: params.get('mrt') ?? '',
-      halal: params.get('halal') === 'true' ? 'true' : '',
       q: params.get('q')?.trim().toLowerCase() ?? '',
     };
   };
@@ -282,7 +269,6 @@ const jsonLd = {
       town: String(data.get('town') ?? ''),
       mall: String(data.get('mall') ?? ''),
       mrt: String(data.get('mrt') ?? ''),
-      halal: data.get('halal') === 'true' ? 'true' : '',
       q: getFiltersFromUrl().q,
     };
   };
@@ -294,8 +280,6 @@ const jsonLd = {
       form.querySelector<HTMLSelectElement>('select[name="mall"]')!.value = filters.mall;
       form.querySelector<HTMLSelectElement>('select[name="mrt"]')!.value = filters.mrt;
 
-      const halal = form.querySelector<HTMLInputElement>('input[name="halal"]');
-      if (halal) halal.checked = filters.halal === 'true';
     });
   };
 
@@ -316,7 +300,6 @@ const jsonLd = {
     if (filters.town && card.dataset.town !== filters.town) return false;
     if (filters.mall && card.dataset.mall !== filters.mall) return false;
     if (filters.mrt && card.dataset.mrt !== filters.mrt) return false;
-    if (filters.halal === 'true' && card.dataset.halal !== 'true') return false;
     if (filters.q && !(card.dataset.search ?? '').includes(filters.q)) return false;
     return true;
   };
@@ -354,7 +337,7 @@ const jsonLd = {
       applyFilters(getFiltersFromForm(form), { updateHistory: true });
     });
 
-    form.querySelectorAll('select, input[name="halal"]').forEach(control => {
+    form.querySelectorAll('select').forEach(control => {
       control.addEventListener('change', () => {
         applyFilters(getFiltersFromForm(form), { updateHistory: true });
       });

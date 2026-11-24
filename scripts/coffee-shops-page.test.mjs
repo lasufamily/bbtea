@@ -21,8 +21,8 @@ test('/coffee-shops uses the requested filter set in order', async () => {
     .map(match => (match[1] ?? match[2]).trim())
     .filter(label => ['Brand', 'Town', 'Mall', 'Nearest MRT', 'Halal'].includes(label));
 
-  assert.deepEqual(labels, ['Brand', 'Town', 'Mall', 'Nearest MRT', 'Halal']);
+  assert.deepEqual(labels, ['Brand', 'Town', 'Mall', 'Nearest MRT']);
   assert.doesNotMatch(source, /Coffee Type|Price Range/);
   assert.match(source, /name="mall"/);
-  assert.match(source, /name="halal"/);
+  assert.doesNotMatch(source, /name="halal"/);
 });

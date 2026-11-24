@@ -14,6 +14,7 @@ import type {
 import { getTownsFromOutlets } from './towns.ts';
 import { getStationsFromOutlets } from './stations.ts';
 import { pathSegment } from './url.ts';
+import { cleanDrinkDescription } from './editorial.ts';
 
 // ─────────────────────────────────────────
 // Config
@@ -394,7 +395,7 @@ export function mapBrandRecord(r: AirtableRecord<AirtableBrandFields>): Brand | 
     slug,
     category:     normalizeText(f['Category']),
     logo:         f['Logo']?.[0]?.thumbnails?.large?.url ?? f['Logo']?.[0]?.url,
-    description:  f['Description'],
+    description: undefined, // Unsourced brand histories are not republished.
     websiteUrl:   f['Website URL'],
     facebookUrl:  f['Facebook URL'],
     instagramUrl: f['Instagram URL'],
@@ -514,7 +515,7 @@ async function buildOutlets(
 
       // Main image: prefer Image URL, fall back to first gallery image
       const image = imageUrl ? googleDriveImageUrl(imageUrl) : galleryImages?.[0] || undefined;
-      const halal = f['Halal'];
+      const halal = undefined; // No dated certificate evidence is stored for this record.
 
       return {
         id:                 r.id,
@@ -542,7 +543,7 @@ async function buildOutlets(
         drinkCategorySlugs: Array.from(drinkCategoryMap.keys()),
         priceRange:         f['Price Range'],
         halal,
-        halalFriendly:      Boolean(halal ?? f['Halal-Friendly']),
+        halalFriendly:      false,
         seatingAvailable:   f['Seating Available'] ?? false,
         image,
         galleryImages,
@@ -663,7 +664,7 @@ function mapSpecialtyShopRecord<TType extends 'coffee' | 'juice'>(
     .filter(Boolean);
   const imageUrl = f['Image URL']?.trim();
   const image = imageUrl ? googleDriveImageUrl(imageUrl) : galleryImages?.[0] || undefined;
-  const halal = f['Halal'];
+  const halal = undefined; // No dated certificate evidence is stored for this record.
 
   return {
     id:               r.id,
@@ -695,7 +696,7 @@ function mapSpecialtyShopRecord<TType extends 'coffee' | 'juice'>(
     tiktokUrl:        f['TikTok URL'],
     priceRange:       f['Price Range'],
     halal,
-    halalFriendly:    Boolean(halal),
+    halalFriendly:    false,
     seatingAvailable: f['Seating Available'] ?? false,
     image,
     galleryImages,
@@ -902,6 +903,8 @@ export function mapFaqRecord(r: AirtableRecord<AirtableFaqFields>): Faq | undefi
     normalizeText(f['Body']);
 
   if (!question || !answer || f['Published'] === false) return undefined;
+  // These topics need attributable evidence and editorial review, which the current records lack.
+  if (/pregnan|blood pressure|lose weight|weight loss|diuretic|dehydrat|stunt.{0,20}growth|\bpoop\b|\bhealth(?:y|ier)?\b|\bkcal\b|calori|nutri[ -]?grade|diabet|cancer|heart disease/i.test(`${question} ${answer}`)) return undefined;
 
   return {
     id: r.id,
@@ -955,17 +958,12 @@ function mapDrink(r: AirtableRecord<AirtableDrinkFields>, brandMap: Map<string, 
         slug: brand.slug,
         logo: brand.logo,
       })),
-    description: normalizeText(f['Description']),
+    description: cleanDrinkDescription(normalizeText(f['Description'])),
     priceM:      f['Retail Price (M)'] ?? f['Price (M)'],
     priceL:      f['Retail Price (L)'] ?? f['Price (L)'],
     priceOneLitre: f['Retail Price (1 litre)'],
-    calories:    normalizeText(f['Calories (kcal)']) ?? normalizeText(f['Calories per M cup (kcal)']),
-    caloriesPer100ml: normalizeText(f['Calories per 100ml (kcal)']),
-    caloriesM:   normalizeText(f['Calories per M cup (kcal)']),
-    caloriesL:   normalizeText(f['Calories per L cup (kcal)']),
-    nutriGrade:  normalizeText(f['Nutri-Grade']),
-    healthierChoice: f['Healthier Choice'] ?? false,
-    healthierChoiceType: normalizeText(f['Healthier Choice Type']),
+    // Source records are retained; public claims require dated evidence first.
+    healthierChoice: false,
     image,
     published:   f['Published'] ?? true,
   } satisfies Drink;

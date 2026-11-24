@@ -23,7 +23,7 @@ const jsonLd = {
 
 <Layout
   title={selectedCategoryName ? `${selectedCategoryName} Drinks in Singapore | BBTea.sg` : 'Bubble Tea Drinks in Singapore | BBTea.sg'}
-  description={`Browse ${drinks.length} bubble tea drinks with prices, calories, categories, and brands in Singapore.`}
+  description={`Browse ${drinks.length} bubble tea drinks with listed prices, categories and brands in Singapore.`}
   canonical="https://bbtea.sg/drinks/"
   jsonLd={jsonLd}
 >
@@ -42,7 +42,7 @@ const jsonLd = {
         {selectedCategoryName ?? 'Bubble Tea Drinks'}
       </h1>
       <p class="text-[var(--color-stone-600)] text-base max-w-2xl leading-relaxed">
-        Compare individual drinks by brand, category, price, and calories. Shared drink names can belong to multiple brands on the same record.
+        Compare individual drinks by brand, category and listed price. Open a drink page for its listed sizes, menu links and brand outlets.
       </p>
       <div class="flex flex-wrap items-center gap-6 pt-2">
         <div class="text-sm">

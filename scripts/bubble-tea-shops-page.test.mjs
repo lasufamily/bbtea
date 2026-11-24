@@ -27,7 +27,7 @@ test('/directory and /bubble-tea-shops use the requested filter set in order', a
     .map(match => (match[1] ?? match[2]).trim())
     .filter(label => ['Brand', 'Town', 'Mall', 'Nearest MRT', 'Halal'].includes(label));
 
-  assert.deepEqual(labels, ['Brand', 'Town', 'Mall', 'Nearest MRT', 'Halal']);
+  assert.deepEqual(labels, ['Brand', 'Town', 'Mall', 'Nearest MRT']);
   assert.doesNotMatch(filterBar, /Drink Category|Price Range/);
   assert.match(filterBar, /name="mall"/);
 });

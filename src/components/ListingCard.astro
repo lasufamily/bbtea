@@ -136,8 +136,8 @@ const searchText = [
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
         </svg>
         <span>
-          <a href={`/towns/${outlet.townSlug}/`} class="font-medium text-[var(--color-stone-700)] hover:text-[var(--color-forest-700)] transition-colors">
-            {outlet.town}
+          <a href={outlet.townSlug ? `/towns/${outlet.townSlug}/` : '/towns/'} class="font-medium text-[var(--color-stone-700)] hover:text-[var(--color-forest-700)] transition-colors">
+            {outlet.town || 'Browse towns'}
           </a>
           {outlet.mall && (
             <>

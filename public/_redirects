@@ -96,8 +96,3 @@ https://www.bbtea.sg/*  https://bbtea.sg/:splat  301
 /malls/kranji/  /malls/kranji-mrt/  301
 /near-mrt/*  /stations/:splat  301
 /shops/*  /bubble-tea-shops/:splat  301
-
-# Retired product shop
-/shop  /  301
-/shop/  /  301
-/shop/*  /  301

@@ -7,31 +7,14 @@ const menuPages = [
 ];
 
 for (const pagePath of menuPages) {
-  test(`${pagePath} exposes split menu data columns`, async () => {
+  test(`${pagePath} provides accessible prices without unsupported claims or affiliate links`, async () => {
     const source = await readFile(new URL(pagePath, import.meta.url), 'utf8');
-
-    assert.doesNotMatch(source, /Shop Link|Search on Shopee|shopeeAffiliateUrl|s\.shopee\.sg|rel="[^"]*sponsored/);
-    assert.match(source, />Retail Price</);
-    assert.match(source, />Calories per 100ml</);
-    assert.match(source, />Calories per M cup</);
-    assert.match(source, />Calories per L cup</);
-    assert.match(source, />Nutri-Grade</);
-    assert.match(source, />Healthier Choice Type</);
-    assert.match(source, /<span>Calories<\/span>\s*<span class="block">per 100ml<\/span>/);
-    assert.match(source, /<span>Calories<\/span>\s*<span class="block">per M cup<\/span>/);
-    assert.match(source, /<span>Calories<\/span>\s*<span class="block">per L cup<\/span>/);
+    assert.doesNotMatch(source, /Shop Link|Search on Shopee|shopeeAffiliateUrl|s\.shopee\.sg|drink\.(calories|nutriGrade|healthierChoice)/);
+    assert.match(source, /<table/);
+    assert.match(source, /scope="col"/);
+    assert.match(source, /scope="row"/);
     assert.match(source, /retailPriceParts\(drink\)\.map/);
-    assert.match(source, /drink\.healthierChoice &&/);
-    assert.match(source, /healthier-choice-symbol\.jpg/);
-    assert.doesNotMatch(source, /overflow-x-auto/);
-    assert.doesNotMatch(source, /min-w-\[/);
-    assert.doesNotMatch(source, /healthierChoiceText/);
-    assert.doesNotMatch(source, /prices\.join/);
-    assert.doesNotMatch(source, /<span>Price<\/span>/);
-    assert.doesNotMatch(source, /<span><span>Healthier<\/span><span class="block">Choice<\/span><\/span>/);
-    assert.doesNotMatch(source, />Healthier Choice<\/span>/);
-    assert.doesNotMatch(source, /healthier-choice-symbol\.svg/);
-    assert.doesNotMatch(source, />Grade</);
+    assert.match(source, /Report a menu correction/);
   });
 }
 
@@ -57,7 +40,7 @@ test('/menus hub presents bubble tea and coffee menus', async () => {
   const source = await readFile(new URL('../src/pages/menus/index.astro', import.meta.url), 'utf8');
 
   assert.match(source, /Bubble Tea and Coffee Menus in Singapore/);
-  assert.match(source, /Compare bubble tea and coffee menus by category, price, and calories/);
+  assert.match(source, /Compare bubble tea and coffee menus by category and listed price/);
   assert.doesNotMatch(source, /name: 'Bubble Tea Menus in Singapore'/);
   assert.doesNotMatch(source, /<h1[\s\S]*Bubble Tea Menus<br \/>in Singapore/);
 });
@@ -71,11 +54,8 @@ test('singular /menu paths redirect to canonical /menus paths', async () => {
 });
 
 
-test('retired shop hub and all subpages redirect to the homepage', async () => {
+test('retired shop pages return normal not-found responses rather than homepage redirects', async () => {
   const redirects = await readFile(new URL('../public/_redirects', import.meta.url), 'utf8');
-  for (const path of ['/shop', '/shop/', '/shop/*']) {
-    const rule = redirects.split('\n').find(line => line.trim().split(/\s+/)[0] === path);
-    assert.deepEqual(rule?.trim().split(/\s+/), [path, '/', '301']);
-  }
+  assert.doesNotMatch(redirects, /^\/shop(?:\s|\/)/m);
   await assert.rejects(access(new URL('../src/pages/shop/index.astro', import.meta.url)), { code: 'ENOENT' });
 });
