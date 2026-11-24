@@ -7,13 +7,13 @@
  */
 
 import type {
-  Brand, Outlet, CoffeeOutlet, JuiceOutlet, VenueOutlet, Drink, DrinkCategory, Mall, Town, MrtStation, Review, ReviewPhoto, Faq, Product,
-  AirtableBrandFields, AirtableOutletFields, AirtableCoffeeShopFields, AirtableJuiceShopFields, AirtableDrinkFields, AirtableTownFields, AirtableMrtStationFields, AirtableMallFields, AirtableAttachment, AirtableReviewFields, AirtableFaqFields, AirtableProductFields,
+  Brand, Outlet, CoffeeOutlet, JuiceOutlet, VenueOutlet, Drink, DrinkCategory, Mall, Town, MrtStation, Review, ReviewPhoto, Faq,
+  AirtableBrandFields, AirtableOutletFields, AirtableCoffeeShopFields, AirtableJuiceShopFields, AirtableDrinkFields, AirtableTownFields, AirtableMrtStationFields, AirtableMallFields, AirtableAttachment, AirtableReviewFields, AirtableFaqFields,
   AirtableRecord, AirtableResponse,
 } from './types';
 import { getTownsFromOutlets } from './towns.ts';
 import { getStationsFromOutlets } from './stations.ts';
-import { pathSegment, titleCaseWords } from './url.ts';
+import { pathSegment } from './url.ts';
 
 // ─────────────────────────────────────────
 // Config
@@ -129,7 +129,6 @@ let _mallsCache:      Promise<Mall[]>          | null = null;
 let _townsCache:      Promise<import('./types').Town[]> | null = null;
 let _reviewsCache:    Promise<Review[]>        | null = null;
 let _faqsCache:       Promise<Faq[]>           | null = null;
-let _productsCache:  Promise<Product[]>      | null = null;
 
 type NamedSlug = { name: string; slug: string; line?: string };
 
@@ -1038,155 +1037,4 @@ export function getCategories(): Promise<DrinkCategory[]> {
 export async function getCategoryBySlug(slug: string): Promise<DrinkCategory | undefined> {
   const categories = await getCategories();
   return categories.find(category => category.slug === slug);
-}
-
-// ─────────────────────────────────────────
-// Products (affiliate shop)
-// ─────────────────────────────────────────
-
-/** Slugify an Airtable Category choice for URL segments (e.g. "water bottles" → "water-bottles"). */
-export function categorySlug(category: string): string {
-  return slugify(category);
-}
-
-
-function parseMultilineUrls(value?: string): string[] {
-  if (!value) return [];
-  const seen = new Set<string>();
-  const urls: string[] = [];
-  for (const line of value.split(/\r?\n/)) {
-    const url = line.trim();
-    if (!url || seen.has(url)) continue;
-    seen.add(url);
-    urls.push(url);
-  }
-  return urls;
-}
-
-function discountPercentFromAirtable(value?: number): number | undefined {
-  if (typeof value !== 'number' || Number.isNaN(value)) return undefined;
-  // Airtable percent fields are usually 0-1 fractions
-  const pct = value <= 1 ? value * 100 : value;
-  return Math.round(pct);
-}
-
-export function mapProductRecord(r: AirtableRecord<AirtableProductFields>): Product | undefined {
-  const f = r.fields;
-  const name = normalizeText(f['Name']);
-  const slug = normalizeText(f['Slug']);
-  const categoryRaw = f['Category'] as unknown;
-  const category =
-    typeof categoryRaw === 'string'
-      ? normalizeText(categoryRaw)
-      : categoryRaw && typeof categoryRaw === 'object' && 'name' in (categoryRaw as object)
-        ? normalizeText(String((categoryRaw as { name?: string }).name))
-        : undefined;
-  if (!name || !slug || !category) return undefined;
-
-  // Status field removed - all Products rows with Name+Slug+Category are published
-  const imageFromAttachment = Array.isArray(f['Images']) ? f['Images'][0] : undefined;
-  const primaryImage =
-    normalizeText(f['Image URL']) ??
-    normalizeText(f['Transparent image URL']) ??
-    imageFromAttachment?.thumbnails?.large?.url ??
-    imageFromAttachment?.url;
-
-  const galleryFromText = parseMultilineUrls(f['Gallery Image URLs']);
-  const galleryFromAttachments = Array.isArray(f['Images'])
-    ? f['Images']
-        .map(att => att.thumbnails?.large?.url ?? att.url)
-        .filter((url): url is string => Boolean(url))
-    : [];
-
-  const images: string[] = [];
-  const seenImages = new Set<string>();
-  for (const url of [primaryImage, ...galleryFromText, ...galleryFromAttachments]) {
-    if (!url || seenImages.has(url)) continue;
-    seenImages.add(url);
-    images.push(url);
-  }
-  const image = images[0];
-
-  const merchantRaw = f['Merchant'] as unknown;
-  const merchant =
-    typeof merchantRaw === 'string'
-      ? normalizeText(merchantRaw)
-      : merchantRaw && typeof merchantRaw === 'object' && 'name' in (merchantRaw as object)
-        ? normalizeText(String((merchantRaw as { name?: string }).name))
-        : undefined;
-
-  return {
-    id: r.id,
-    name,
-    slug,
-    category: titleCaseWords(category),
-    categorySlug: categorySlug(category),
-    brandName: normalizeText(f['Brand Name']),
-    shortDescription: normalizeText(f['Short description']),
-    description: normalizeText(f['Description']),
-    whyWeRecommend: normalizeText(f['Why we recommend']),
-    bestFor: normalizeText(f['Best for']),
-    pros: normalizeText(f['Pros']),
-    cons: normalizeText(f['Cons']),
-    specs: normalizeText(f['Specs']),
-    capacityMl: typeof f['Capacity (ml)'] === 'number' ? f['Capacity (ml)'] : undefined,
-    image,
-    images,
-    priceSgd: typeof f['Price (SGD)'] === 'number' ? f['Price (SGD)'] : undefined,
-    wasPriceSgd: typeof f['Was price (SGD)'] === 'number' ? f['Was price (SGD)'] : undefined,
-    discountPercent: discountPercentFromAirtable(f['Discount %']),
-    priceNote: normalizeText(f['Price note']),
-    merchant,
-    // Affiliate URL only for Buy - never fall back to Merchant product URL
-    affiliateUrl: normalizeText(f['Affiliate URL']),
-    seoTitle: normalizeText(f['SEO title']),
-    metaDescription: normalizeText(f['Meta description']),
-    featured: f['Featured'] ?? false,
-    published: true,
-    inStock: f['In stock'] === true,
-    officialShop: f['Official shop'] === true,
-    rating: typeof f['Rating'] === 'number' ? f['Rating'] : undefined,
-    ratingCount: typeof f['Rating count'] === 'number' ? f['Rating count'] : undefined,
-    ratingBreakdown: normalizeText(f['Rating breakdown']),
-    variants: normalizeText(f['Variants']),
-    stockSummary: normalizeText(f['Stock summary']),
-    categoryBreadcrumb: normalizeText(f['Category breadcrumb']),
-    likedCount: typeof f['Liked count'] === 'number' ? f['Liked count'] : undefined,
-    estimatedShippingDays:
-      typeof f['Estimated shipping days'] === 'number' ? f['Estimated shipping days'] : undefined,
-    shopRating: typeof f['Shop rating'] === 'number' ? f['Shop rating'] : undefined,
-    compareWithIds: Array.isArray(f['Compare with']) ? f['Compare with'] : [],
-  } satisfies Product;
-}
-
-async function _fetchProducts(): Promise<Product[]> {
-  const records = await fetchTable<AirtableProductFields>('Products');
-
-  return records
-    .map(mapProductRecord)
-    .filter((product): product is Product => Boolean(product))
-    .sort((a, b) => a.name.localeCompare(b.name));
-}
-
-export function getProducts(): Promise<Product[]> {
-  return (_productsCache ??= _fetchProducts());
-}
-
-export async function getProductBySlug(slug: string): Promise<Product | undefined> {
-  const products = await getProducts();
-  return products.find(product => product.slug === slug);
-}
-
-export async function getProductsByCategory(categorySlugValue: string): Promise<Product[]> {
-  const products = await getProducts();
-  return products.filter(product => product.categorySlug === categorySlugValue);
-}
-
-export async function getCompareProducts(product: Product): Promise<Product[]> {
-  if (!product.compareWithIds.length) return [];
-  const products = await getProducts();
-  const byId = new Map(products.map(p => [p.id, p]));
-  return product.compareWithIds
-    .map(id => byId.get(id))
-    .filter((p): p is Product => Boolean(p));
 }

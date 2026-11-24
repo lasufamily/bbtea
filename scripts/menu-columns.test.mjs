@@ -10,18 +10,13 @@ for (const pagePath of menuPages) {
   test(`${pagePath} exposes split menu data columns`, async () => {
     const source = await readFile(new URL(pagePath, import.meta.url), 'utf8');
 
+    assert.doesNotMatch(source, /Shop Link|Search on Shopee|shopeeAffiliateUrl|s\.shopee\.sg|rel="[^"]*sponsored/);
     assert.match(source, />Retail Price</);
     assert.match(source, />Calories per 100ml</);
     assert.match(source, />Calories per M cup</);
     assert.match(source, />Calories per L cup</);
     assert.match(source, />Nutri-Grade</);
     assert.match(source, />Healthier Choice Type</);
-    assert.match(source, />Shop Link</);
-    assert.match(source, /Search on Shopee/);
-    assert.match(source, /shopeeAffiliateUrl = 'https:\/\/s\.shopee\.sg\/9052JAMmWP'/);
-    assert.match(source, /href=\{shopeeAffiliateUrl\}/);
-    assert.match(source, /font-bold/);
-    assert.match(source, /text-orange-600/);
     assert.match(source, /<span>Calories<\/span>\s*<span class="block">per 100ml<\/span>/);
     assert.match(source, /<span>Calories<\/span>\s*<span class="block">per M cup<\/span>/);
     assert.match(source, /<span>Calories<\/span>\s*<span class="block">per L cup<\/span>/);
@@ -73,4 +68,14 @@ test('singular /menu paths redirect to canonical /menus paths', async () => {
   assert.match(redirects, /^\/menu\s+\/menus\/\s+301$/m);
   assert.match(redirects, /^\/menu\/\s+\/menus\/\s+301$/m);
   assert.match(redirects, /^\/menu\/\*\s+\/menus\/:splat\s+301$/m);
+});
+
+
+test('retired shop hub and all subpages redirect to the homepage', async () => {
+  const redirects = await readFile(new URL('../public/_redirects', import.meta.url), 'utf8');
+  for (const path of ['/shop', '/shop/', '/shop/*']) {
+    const rule = redirects.split('\n').find(line => line.trim().split(/\s+/)[0] === path);
+    assert.deepEqual(rule?.trim().split(/\s+/), [path, '/', '301']);
+  }
+  await assert.rejects(access(new URL('../src/pages/shop/index.astro', import.meta.url)), { code: 'ENOENT' });
 });

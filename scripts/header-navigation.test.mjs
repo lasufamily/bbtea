@@ -6,6 +6,7 @@ test('main navigation includes the core directory links and reviews', async () =
   const source = await readFile(new URL('../src/components/Header.astro', import.meta.url), 'utf8');
   const navLinksMatch = source.match(/const navLinks = \[([\s\S]*?)\];/);
 
+  assert.doesNotMatch(source, /href: '\/shop\/'/);
   assert.ok(navLinksMatch, 'Header should define navLinks');
   const navLinksSource = navLinksMatch[1];
 

@@ -6,6 +6,7 @@ test('footer navigation uses the requested column names and links', async () => 
   const source = await readFile(new URL('../src/components/Footer.astro', import.meta.url), 'utf8');
 
   assert.match(source, /'Directories': \[/);
+  assert.doesNotMatch(source, /href: '\/shop\/'/);
   assert.match(source, /href: '\/directory\/',\s+label: 'All Shops'/);
   assert.match(source, /href: '\/bubble-tea-shops\/',\s+label: 'Bubble Tea Shops'/);
   assert.match(source, /href: '\/coffee-shops\/',\s+label: 'Coffee Shops'/);
