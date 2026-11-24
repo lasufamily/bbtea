@@ -3,7 +3,7 @@
 Implemented from the updated audit. AdSense publisher ID, ads.txt and certified consent activation are deferred by the owner (“skip this for now”). The work does not claim Google approval.
 
 - Removed the GTM loader and its noscript iframe, which had loaded Google Analytics and Meta. Removed Beehiiv's separate attribution loader.
-- Forms now load only after the visitor opens them; form query-parameter inheritance was removed. Review submission keeps normal site navigation, disclosure and publication guidance.
+- Forms now load only after the visitor opens them; form answer inheritance from URL parameters was removed. The privacy policy notes that providers may still receive the parent page URL. Review submission keeps normal site navigation, disclosure and publication guidance.
 - Rewrote Privacy to match browsing, hosting, optional form and newsletter flows; added provider links, rights and honest advertising status. Added editorial/correction/copyright information to About.
 - Withheld nutrition fields, certification badges, unsourced brand histories and health FAQs while preserving the Airtable records. Removed nutrition sentences from drink descriptions before they reach cards or metadata.
 - Replaced generic town content, unsourced context and internal wording with a practical directory, accessible counts table and location navigation. Drink pages now offer accessible prices, brand links and outlet discovery. Outlet pages have contextual visit/correction information.
