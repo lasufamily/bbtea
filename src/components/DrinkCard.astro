@@ -13,7 +13,13 @@ const priceParts = [
   typeof drink.priceOneLitre === 'number' ? `1L $${drink.priceOneLitre.toFixed(2)}` : undefined,
 ].filter(Boolean);
 
-const detailText = priceParts.length > 0 ? priceParts.join(' · ') : 'See menu details';
+const detailText = priceParts.length > 0
+  ? priceParts.join(' · ')
+  : drink.caloriesM
+    ? `${drink.caloriesM} kcal (M)`
+    : drink.calories
+      ? `${drink.calories} kcal`
+      : 'See menu details';
 ---
 
 <article

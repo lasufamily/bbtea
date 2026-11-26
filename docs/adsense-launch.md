@@ -12,7 +12,9 @@ Before advertising is enabled:
 
 ## Restoring withheld claims
 
-Airtable records are unchanged. Nutrition fields, certification flags and unsourced brand histories are not published by the mapper; nutrition sentences are removed from drink descriptions. Health/nutrition FAQs are withheld by topic pending review. To restore any of these, add an attributable source, exact record/outlet or serving applicability, a real check date, and editorial approval. Do not use the build/deploy date as the date a fact was verified. Statistical calculations or research must follow the project's academic-research-suite workflow.
+Owner correction, 27 November 2026: restore existing drink calories, Nutri-Grade, Healthier Choice badges and Healthier Choice Type. The 24 November blanket suppression was not the owner's intent. The mapper now preserves these recorded fields and menu/detail pages display them, with missing values marked "Not listed" and serving/customisation context. This restores existing information without recalculating or claiming fresh verification of the values. Airtable records are unchanged.
+
+Unsourced brand histories, outlet halal claims, health/nutrition FAQs and nutrition sentences embedded in free-text drink descriptions remain withheld. Any new or revised nutrition claims should record an attributable source, serving applicability and actual check date. Do not use the build/deploy date as the date a fact was verified. Statistical calculations or research must follow the project's academic-research-suite workflow.
 
 Review rights to each reused photo and mark before reuse. The site now supplies a corrections/copyright contact, but a contact notice does not establish a licence. No new claims of image licensing were made.
 

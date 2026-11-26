@@ -7,9 +7,17 @@ const menuPages = [
 ];
 
 for (const pagePath of menuPages) {
-  test(`${pagePath} provides accessible prices without unsupported claims or affiliate links`, async () => {
+  test(`${pagePath} provides accessible prices and nutrition without affiliate links`, async () => {
     const source = await readFile(new URL(pagePath, import.meta.url), 'utf8');
-    assert.doesNotMatch(source, /Shop Link|Search on Shopee|shopeeAffiliateUrl|s\.shopee\.sg|drink\.(calories|nutriGrade|healthierChoice)/);
+    assert.doesNotMatch(source, /Shop Link|Search on Shopee|shopeeAffiliateUrl|s\.shopee\.sg/);
+    for (const label of ['Calories per 100ml', 'Calories per M cup', 'Calories per L cup', 'Nutri-Grade', 'Healthier Choice Type']) {
+      assert.ok(source.includes(label), `Missing ${label}`);
+    }
+    for (const field of ['caloriesPer100ml', 'caloriesM', 'caloriesL', 'nutriGrade', 'healthierChoiceType']) {
+      assert.ok(source.includes(`drink.${field}`), `Missing ${field} value`);
+    }
+    assert.match(source, /drink\.healthierChoice &&/);
+    assert.match(source, /alt="Healthier Choice"/);
     assert.match(source, /<table/);
     assert.match(source, /scope="col"/);
     assert.match(source, /scope="row"/);

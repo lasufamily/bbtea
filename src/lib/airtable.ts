@@ -937,7 +937,7 @@ export async function getFaqBySlug(slug: string): Promise<Faq | undefined> {
 // ─────────────────────────────────────────
 // Drinks
 // ─────────────────────────────────────────
-function mapDrink(r: AirtableRecord<AirtableDrinkFields>, brandMap: Map<string, Brand>): Drink {
+export function mapDrink(r: AirtableRecord<AirtableDrinkFields>, brandMap: Map<string, Brand>): Drink {
   const f = r.fields;
   const imageAttachment = Array.isArray(f['Image']) ? f['Image'][0] : undefined;
   const image = imageAttachment?.thumbnails?.large?.url ?? imageAttachment?.url;
@@ -962,8 +962,13 @@ function mapDrink(r: AirtableRecord<AirtableDrinkFields>, brandMap: Map<string, 
     priceM:      f['Retail Price (M)'] ?? f['Price (M)'],
     priceL:      f['Retail Price (L)'] ?? f['Price (L)'],
     priceOneLitre: f['Retail Price (1 litre)'],
-    // Source records are retained; public claims require dated evidence first.
-    healthierChoice: false,
+    calories:    normalizeText(f['Calories (kcal)']) ?? normalizeText(f['Calories per M cup (kcal)']),
+    caloriesPer100ml: normalizeText(f['Calories per 100ml (kcal)']),
+    caloriesM:   normalizeText(f['Calories per M cup (kcal)']),
+    caloriesL:   normalizeText(f['Calories per L cup (kcal)']),
+    nutriGrade:  normalizeText(f['Nutri-Grade']),
+    healthierChoice: f['Healthier Choice'] ?? false,
+    healthierChoiceType: normalizeText(f['Healthier Choice Type']),
     image,
     published:   f['Published'] ?? true,
   } satisfies Drink;

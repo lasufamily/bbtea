@@ -33,11 +33,20 @@ const priceRows = [
 ].filter(row => typeof row.value === 'number');
 
 const brandNames = drink.brands.map(brand => brand.name).join(', ');
+const nutritionRows = [
+  { label: 'Calories per 100ml', value: drink.caloriesPer100ml ? `${drink.caloriesPer100ml} kcal` : undefined },
+  { label: 'Calories per M cup', value: drink.caloriesM ? `${drink.caloriesM} kcal` : undefined },
+  { label: 'Calories per L cup', value: drink.caloriesL ? `${drink.caloriesL} kcal` : undefined },
+  ...(!drink.caloriesM && !drink.caloriesL && !drink.caloriesPer100ml && drink.calories
+    ? [{ label: 'Calories (serving not specified)', value: `${drink.calories} kcal` }] : []),
+  { label: 'Nutri-Grade', value: drink.nutriGrade },
+  { label: 'Healthier Choice Type', value: drink.healthierChoiceType },
+];
 const [brands, outlets, coffeeOutlets, juiceOutlets] = await Promise.all([getBrands(), getOutlets(), getCoffeeOutlets(), getJuiceOutlets()]);
 const brandSlugs = new Set(drink.brands.map(brand => brand.slug));
 const stockists = [...outlets, ...coffeeOutlets, ...juiceOutlets].filter(outlet => brandSlugs.has(outlet.brandSlug)).slice(0, 8);
 const sourceBrands = brands.filter(brand => brandSlugs.has(brand.slug) && brand.websiteUrl);
-const description = `${drink.name}${brandNames ? ` from ${brandNames}` : ''}. Compare listed sizes and prices, browse the brand menu and find its outlets in Singapore.`;
+const description = `${drink.name}${brandNames ? ` from ${brandNames}` : ''}. See prices, calories and nutrition labels where listed, and find brand outlets in Singapore.`;
 const jsonLd = {
   '@context': 'https://schema.org', '@type': 'MenuItem',
   name: drink.name, description: drink.description ?? description,
@@ -93,7 +102,7 @@ const jsonLd = {
               <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight text-[var(--color-stone-900)]">
                 {drink.name}
               </h1>
-
+              {drink.healthierChoice && <img src="/healthier-choice-symbol.jpg" alt="Healthier Choice" class="mt-1 h-12 w-12 shrink-0 object-contain" width="48" height="48" loading="eager" decoding="async" />}
             </div>
             {drink.description && (
               <p class="text-[var(--color-stone-600)] text-base leading-relaxed max-w-2xl">
@@ -136,7 +145,12 @@ const jsonLd = {
             {priceRows.map(row => <tr><th scope="row" class="p-3 border-b">{row.label}</th><td class="p-3 border-b">${row.value?.toFixed(2)}</td></tr>)}
           </tbody></table>
           {priceRows.length === 0 && <p>Prices are not recorded for this drink. Check the brand's current menu.</p>}
-          <p class="text-sm text-[var(--color-stone-600)]">Listed prices are a guide, not a live quote. Availability, size and customisation can vary by outlet. Confirm your order and price with the shop. Nutrition and certification labels are not shown without supporting evidence.</p>
+          <table class="w-full text-sm text-left">
+            <caption class="text-left font-semibold mb-3">Nutrition and labels</caption>
+            <thead><tr><th scope="col" class="p-3 border-b">Details</th><th scope="col" class="p-3 border-b">Listed value</th></tr></thead>
+            <tbody>{nutritionRows.map(row => <tr><th scope="row" class="p-3 border-b">{row.label}</th><td class="p-3 border-b">{row.value ?? 'Not listed'}</td></tr>)}</tbody>
+          </table>
+          <p class="text-sm text-[var(--color-stone-600)]">Confirm current prices and availability with the shop. Calories and nutrition labels apply to the listed serving; size, sugar level and toppings can change the values.</p>
           {sourceBrands.length > 0 && <div class="space-y-2"><h2 class="font-semibold">Check with the brand</h2><ul>{sourceBrands.map(brand => <li><a href={brand.websiteUrl} class="underline" target="_blank" rel="noopener noreferrer">{brand.name} website</a></li>)}</ul></div>}
           <a href="/contact/" class="underline text-sm">Report a menu correction</a>
         </div>
