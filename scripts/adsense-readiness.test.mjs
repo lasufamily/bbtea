@@ -3,9 +3,10 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 const read = p => readFile(new URL(`../${p}`, import.meta.url), 'utf8');
 
-test('ordinary browsing does not start the removed analytics tags', async () => {
+test('ordinary browsing loads the BBTea GTM container without the other site container', async () => {
   const layout = await read('src/components/Layout.astro');
-  assert.doesNotMatch(layout, /googletagmanager|GTM-PR9B796P|fbevents/);
+  assert.match(layout, /<script is:inline async src="https:\/\/www\.googletagmanager\.com\/gtm\.js\?id=GTM-PR9B796P"><\/script>/);
+  assert.doesNotMatch(layout, /GTM-PLZ33XC8|fbevents/);
   const newsletter = await read('src/pages/newsletter.astro');
   assert.doesNotMatch(newsletter, /attribution\.js/);
 });
