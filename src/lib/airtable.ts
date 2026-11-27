@@ -515,7 +515,7 @@ async function buildOutlets(
 
       // Main image: prefer Image URL, fall back to first gallery image
       const image = imageUrl ? googleDriveImageUrl(imageUrl) : galleryImages?.[0] || undefined;
-      const halal = undefined; // No dated certificate evidence is stored for this record.
+      const halal = f['Halal'];
 
       return {
         id:                 r.id,
@@ -543,7 +543,7 @@ async function buildOutlets(
         drinkCategorySlugs: Array.from(drinkCategoryMap.keys()),
         priceRange:         f['Price Range'],
         halal,
-        halalFriendly:      false,
+        halalFriendly:      Boolean(halal ?? f['Halal-Friendly']),
         seatingAvailable:   f['Seating Available'] ?? false,
         image,
         galleryImages,

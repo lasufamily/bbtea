@@ -11,6 +11,7 @@ interface Props {
   selectedBrand?: string;
   selectedMall?: string;
   selectedMrt?: string;
+  selectedHalal?: string;
 }
 
 const {
@@ -23,6 +24,7 @@ const {
   selectedBrand = '',
   selectedMall = '',
   selectedMrt = '',
+  selectedHalal = '',
 } = Astro.props;
 
 const ids = {
@@ -31,6 +33,7 @@ const ids = {
   brand: `${idPrefix}-brand`,
   mall: `${idPrefix}-mall`,
   mrt: `${idPrefix}-mrt`,
+  halal: `${idPrefix}-halal`,
 };
 ---
 
@@ -125,7 +128,20 @@ const ids = {
       </select>
     </div>
 
-    <p class="text-sm"><a href="/halal/" class="underline">How to check halal certification</a></p>
+    <!-- Halal -->
+    <div class="flex items-center justify-between">
+      <label for={ids.halal} class="text-sm font-medium text-[var(--color-stone-700)] cursor-pointer">
+        Halal
+      </label>
+      <input
+        type="checkbox"
+        id={ids.halal}
+        name="halal"
+        value="true"
+        checked={selectedHalal === 'true'}
+        class="w-4 h-4 rounded accent-[var(--color-forest-700)] cursor-pointer"
+      />
+    </div>
 
     <!-- Apply -->
     <button

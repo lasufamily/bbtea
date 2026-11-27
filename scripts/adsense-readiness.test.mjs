@@ -51,8 +51,8 @@ test('unsourced health answers stay unpublished while ordinary FAQs remain avail
   assert.ok(mapFaqRecord(record('What is bubble tea?')));
 });
 
-test('withheld certification data cannot be used as a negative halal filter', async () => {
-  for (const file of ['src/components/FilterBar.astro', 'src/pages/directory.astro', 'src/pages/bubble-tea-shops/index.astro', 'src/pages/coffee-shops/index.astro', 'src/pages/juice-shops/index.astro']) {
+test('category pages do not offer a negative halal filter', async () => {
+  for (const file of ['src/pages/bubble-tea-shops/index.astro', 'src/pages/coffee-shops/index.astro', 'src/pages/juice-shops/index.astro']) {
     const source = await read(file);
     assert.doesNotMatch(source, /name="halal"|filters\.halal|searchParams.get\('halal'\)/);
   }

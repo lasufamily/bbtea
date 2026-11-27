@@ -20,14 +20,14 @@ test('/bubble-tea-shops brand filters only include brands with bubble tea outlet
   assert.match(source, /\.filter\(brand => bubbleTeaBrandSlugs\.has\(brand\.slug\)\)/);
 });
 
-test('/directory and /bubble-tea-shops use the requested filter set in order', async () => {
+test('/directory includes the restored halal filter after the location filters', async () => {
   const filterBar = await readFile(new URL('../src/components/FilterBar.astro', import.meta.url), 'utf8');
 
   const labels = [...filterBar.matchAll(/<label[^>]*>\s*([^<]+)\s*<\/label>|<span[^>]*>\s*([^<]+)\s*<\/span>/g)]
     .map(match => (match[1] ?? match[2]).trim())
     .filter(label => ['Brand', 'Town', 'Mall', 'Nearest MRT', 'Halal'].includes(label));
 
-  assert.deepEqual(labels, ['Brand', 'Town', 'Mall', 'Nearest MRT']);
+  assert.deepEqual(labels, ['Brand', 'Town', 'Mall', 'Nearest MRT', 'Halal']);
   assert.doesNotMatch(filterBar, /Drink Category|Price Range/);
   assert.match(filterBar, /name="mall"/);
 });
