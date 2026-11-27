@@ -1,0 +1,1052 @@
+{
+  "project": "BBTea.sg",
+  "checkedAt": "2026-11-27",
+  "brandId": "recPwhXB89SMOcMpC",
+  "sources": {
+    "menu": "https://drive.google.com/file/d/1jR9Vpr_ESC6oX60_FKCrbLinIxbrUuGK/view",
+    "nutrition": "https://drive.google.com/file/d/1EvkCOmlwp-J7bVDlMTpZd_cc2K21Kl-U/view",
+    "nutritionDocumentDate": "2026-06-12",
+    "officialMenuPage": "https://mrcoconut.sg/menu/",
+    "officialNutritionLinkPage": "https://mrcoconut.sg/faq/"
+  },
+  "method": "Published energy is per 100ml. Estimated medium cups use 480–500ml; large cups use 680–700ml. Where published sweetener or flesh variants differ, retain the full published energy range for each size. Multiply the minimum by the minimum cup volume/100, and maximum by maximum volume/100; round to nearest whole kcal and label estimated. These are arithmetic ranges from source assumptions, not measured servings or confidence intervals. No extrapolation to other sugar levels or toppings. Hot serving volumes, recipes without published energy, and inconsistent milk tea/Hojicha energy are withheld. Nutri-Grade is transcribed from the current official menu, independent of Healthier Choice certification. No certification claim added.",
+  "statisticsValidation": "ARS validate, ANALYZED. Descriptive deterministic arithmetic only, no sample size, hypothesis tests or confidence intervals apply. Uncertainty is the source's serving-volume and preparation range; actual portions and recipe changes may differ. All 11 fallacy classes reviewed: no group-to-individual, subgroup reversal, selected-sample correlation, adjusted model, diagnostic rate, pre/post effect, survival inference, significance selection, analytic significance search, causation or reverse-causation claim. Reproducibility: source table pages and inputs retained per entry.",
+  "records": [
+    {
+      "name": "Signature Coconut Shake",
+      "category": "Fresh Coconut Signature Shake",
+      "priceM": 5.3,
+      "priceL": 6.3,
+      "energyM": [
+        49.9,
+        53
+      ],
+      "energyL": [
+        47.6,
+        50.6
+      ],
+      "grade": "C",
+      "description": "A blended coconut drink with coconut ice cream and coconut flesh.",
+      "page": 4,
+      "slug": "signature-coconut-shake",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Signature Coconut Shake",
+        "fldg31a9rKincFfv8": "Fresh Coconut Signature Shake",
+        "fld6cJn7bkETDWUKy": "signature-coconut-shake",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A blended coconut drink with coconut ice cream and coconut flesh.",
+        "fldEgGhc5iNKHLiMM": 5.3,
+        "fld4G6dmdKvtN7p5p": "C",
+        "fld6NIafSQQyYJAkP": 6.3,
+        "fldN4zstqWe07gjSe": "M: 49.9–53; L: 47.6–50.6",
+        "fldLrw0evtwSf4IyM": "240–265 (estimated)",
+        "fldJR3stkFoVh1ATp": "324–354 (estimated)"
+      }
+    },
+    {
+      "name": "Coconut Oreo Shake",
+      "category": "Fresh Coconut Signature Shake",
+      "priceM": 5.7,
+      "priceL": 6.7,
+      "energyM": [
+        66.4,
+        70.4
+      ],
+      "energyL": [
+        66,
+        69.9
+      ],
+      "grade": "C",
+      "description": "A coconut shake with Oreo cookies.",
+      "page": 4,
+      "slug": "coconut-oreo-shake",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Oreo Shake",
+        "fldg31a9rKincFfv8": "Fresh Coconut Signature Shake",
+        "fld6cJn7bkETDWUKy": "coconut-oreo-shake",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A coconut shake with Oreo cookies.",
+        "fldEgGhc5iNKHLiMM": 5.7,
+        "fld4G6dmdKvtN7p5p": "C",
+        "fld6NIafSQQyYJAkP": 6.7,
+        "fldN4zstqWe07gjSe": "M: 66.4–70.4; L: 66–69.9",
+        "fldLrw0evtwSf4IyM": "319–352 (estimated)",
+        "fldJR3stkFoVh1ATp": "449–489 (estimated)"
+      }
+    },
+    {
+      "name": "Coconut Strawberry Shake",
+      "category": "Fresh Coconut Signature Shake",
+      "priceM": 6.2,
+      "priceL": 7.2,
+      "energyM": [
+        57.9,
+        59.1
+      ],
+      "energyL": [
+        55.4,
+        57
+      ],
+      "grade": "C",
+      "description": "A strawberry-flavoured coconut shake.",
+      "page": 4,
+      "slug": "coconut-strawberry-shake",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Strawberry Shake",
+        "fldg31a9rKincFfv8": "Fresh Coconut Signature Shake",
+        "fld6cJn7bkETDWUKy": "coconut-strawberry-shake",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A strawberry-flavoured coconut shake.",
+        "fldEgGhc5iNKHLiMM": 6.2,
+        "fld4G6dmdKvtN7p5p": "C",
+        "fld6NIafSQQyYJAkP": 7.2,
+        "fldN4zstqWe07gjSe": "M: 57.9–59.1; L: 55.4–57",
+        "fldLrw0evtwSf4IyM": "278–296 (estimated)",
+        "fldJR3stkFoVh1ATp": "377–399 (estimated)"
+      }
+    },
+    {
+      "name": "Coconut Mango Shake",
+      "category": "Fresh Coconut Signature Shake",
+      "priceM": 6.2,
+      "priceL": 7.2,
+      "energyM": [
+        57.5,
+        58.7
+      ],
+      "energyL": [
+        54.9,
+        56.5
+      ],
+      "grade": "C",
+      "description": "A mango-flavoured coconut shake.",
+      "page": 4,
+      "slug": "coconut-mango-shake",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Mango Shake",
+        "fldg31a9rKincFfv8": "Fresh Coconut Signature Shake",
+        "fld6cJn7bkETDWUKy": "coconut-mango-shake",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A mango-flavoured coconut shake.",
+        "fldEgGhc5iNKHLiMM": 6.2,
+        "fld4G6dmdKvtN7p5p": "C",
+        "fld6NIafSQQyYJAkP": 7.2,
+        "fldN4zstqWe07gjSe": "M: 57.5–58.7; L: 54.9–56.5",
+        "fldLrw0evtwSf4IyM": "276–294 (estimated)",
+        "fldJR3stkFoVh1ATp": "373–396 (estimated)"
+      }
+    },
+    {
+      "name": "Coconut Soursop Shake",
+      "category": "Fresh Coconut Signature Shake",
+      "priceM": 6.2,
+      "priceL": 7.2,
+      "energyM": [
+        62.6,
+        63.9
+      ],
+      "energyL": [
+        60.4,
+        62.2
+      ],
+      "grade": "C",
+      "description": "A soursop-flavoured coconut shake.",
+      "page": 5,
+      "slug": "coconut-soursop-shake",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Soursop Shake",
+        "fldg31a9rKincFfv8": "Fresh Coconut Signature Shake",
+        "fld6cJn7bkETDWUKy": "coconut-soursop-shake",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A soursop-flavoured coconut shake.",
+        "fldEgGhc5iNKHLiMM": 6.2,
+        "fld4G6dmdKvtN7p5p": "C",
+        "fld6NIafSQQyYJAkP": 7.2,
+        "fldN4zstqWe07gjSe": "M: 62.6–63.9; L: 60.4–62.2",
+        "fldLrw0evtwSf4IyM": "300–320 (estimated)",
+        "fldJR3stkFoVh1ATp": "411–435 (estimated)"
+      }
+    },
+    {
+      "name": "Coconut Avocado Shake",
+      "category": "Fresh Coconut Signature Shake",
+      "priceM": 6.4,
+      "priceL": 7.4,
+      "energyM": [
+        61.9,
+        63.2
+      ],
+      "energyL": [
+        59.7,
+        61.4
+      ],
+      "grade": "C",
+      "description": "A coconut shake with avocado.",
+      "page": 5,
+      "slug": "coconut-avocado-shake",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Avocado Shake",
+        "fldg31a9rKincFfv8": "Fresh Coconut Signature Shake",
+        "fld6cJn7bkETDWUKy": "coconut-avocado-shake",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A coconut shake with avocado.",
+        "fldEgGhc5iNKHLiMM": 6.4,
+        "fld4G6dmdKvtN7p5p": "C",
+        "fld6NIafSQQyYJAkP": 7.4,
+        "fldN4zstqWe07gjSe": "M: 61.9–63.2; L: 59.7–61.4",
+        "fldLrw0evtwSf4IyM": "297–316 (estimated)",
+        "fldJR3stkFoVh1ATp": "406–430 (estimated)"
+      }
+    },
+    {
+      "name": "Coconut Cappuccino Shake",
+      "category": "Fresh Coconut Signature Shake",
+      "priceM": 6.8,
+      "priceL": 7.8,
+      "energyM": [
+        76.8,
+        78.3
+      ],
+      "energyL": [
+        72.9,
+        75.1
+      ],
+      "grade": "C",
+      "description": "A cappuccino-flavoured coconut shake.",
+      "page": 5,
+      "slug": "coconut-cappuccino-shake",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Cappuccino Shake",
+        "fldg31a9rKincFfv8": "Fresh Coconut Signature Shake",
+        "fld6cJn7bkETDWUKy": "coconut-cappuccino-shake",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A cappuccino-flavoured coconut shake.",
+        "fldEgGhc5iNKHLiMM": 6.8,
+        "fld4G6dmdKvtN7p5p": "C",
+        "fld6NIafSQQyYJAkP": 7.8,
+        "fldN4zstqWe07gjSe": "M: 76.8–78.3; L: 72.9–75.1",
+        "fldLrw0evtwSf4IyM": "369–392 (estimated)",
+        "fldJR3stkFoVh1ATp": "496–526 (estimated)"
+      }
+    },
+    {
+      "name": "Coconut Taro Shake",
+      "category": "Fresh Coconut Signature Shake",
+      "priceM": 6.4,
+      "priceL": 7.4,
+      "energyM": [
+        56.5,
+        59.6
+      ],
+      "energyL": [
+        54.4,
+        57.4
+      ],
+      "grade": "C",
+      "description": "A taro-flavoured coconut shake.",
+      "page": 5,
+      "slug": "coconut-taro-shake",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Taro Shake",
+        "fldg31a9rKincFfv8": "Fresh Coconut Signature Shake",
+        "fld6cJn7bkETDWUKy": "coconut-taro-shake",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A taro-flavoured coconut shake.",
+        "fldEgGhc5iNKHLiMM": 6.4,
+        "fld4G6dmdKvtN7p5p": "C",
+        "fld6NIafSQQyYJAkP": 7.4,
+        "fldN4zstqWe07gjSe": "M: 56.5–59.6; L: 54.4–57.4",
+        "fldLrw0evtwSf4IyM": "271–298 (estimated)",
+        "fldJR3stkFoVh1ATp": "370–402 (estimated)"
+      }
+    },
+    {
+      "name": "Coconut Avocado Shake with Gula Melaka Sago",
+      "category": "Fresh Coconut Signature Shake",
+      "priceM": 7,
+      "priceL": 8,
+      "energyM": null,
+      "energyL": null,
+      "grade": "C",
+      "description": "A coconut avocado shake with gula melaka sago.",
+      "slug": "coconut-avocado-shake-with-gula-melaka-sago",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Avocado Shake with Gula Melaka Sago",
+        "fldg31a9rKincFfv8": "Fresh Coconut Signature Shake",
+        "fld6cJn7bkETDWUKy": "coconut-avocado-shake-with-gula-melaka-sago",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A coconut avocado shake with gula melaka sago.",
+        "fldEgGhc5iNKHLiMM": 7,
+        "fld4G6dmdKvtN7p5p": "C",
+        "fld6NIafSQQyYJAkP": 8
+      }
+    },
+    {
+      "name": "Signature Coconut Shake Lite",
+      "category": "Fresh Coconut Signature Shake (Lite Series)",
+      "priceM": 5.3,
+      "priceL": 6.3,
+      "energyM": 39.9,
+      "energyL": 40.9,
+      "grade": "B",
+      "description": "The Lite version of Mr Coconut's signature coconut shake.",
+      "page": 3,
+      "slug": "signature-coconut-shake-lite",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Signature Coconut Shake Lite",
+        "fldg31a9rKincFfv8": "Fresh Coconut Signature Shake (Lite Series)",
+        "fld6cJn7bkETDWUKy": "signature-coconut-shake-lite",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "The Lite version of Mr Coconut's signature coconut shake.",
+        "fldEgGhc5iNKHLiMM": 5.3,
+        "fld4G6dmdKvtN7p5p": "B",
+        "fld6NIafSQQyYJAkP": 6.3,
+        "fldN4zstqWe07gjSe": "M: 39.9; L: 40.9",
+        "fldLrw0evtwSf4IyM": "192–200 (estimated)",
+        "fldJR3stkFoVh1ATp": "278–286 (estimated)"
+      }
+    },
+    {
+      "name": "Coconut Oreo Shake Lite",
+      "category": "Fresh Coconut Signature Shake (Lite Series)",
+      "priceM": 5.7,
+      "priceL": 6.7,
+      "energyM": 48.4,
+      "energyL": 49.1,
+      "grade": "B",
+      "description": "The Lite coconut shake with Oreo cookies.",
+      "page": 3,
+      "slug": "coconut-oreo-shake-lite",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Oreo Shake Lite",
+        "fldg31a9rKincFfv8": "Fresh Coconut Signature Shake (Lite Series)",
+        "fld6cJn7bkETDWUKy": "coconut-oreo-shake-lite",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "The Lite coconut shake with Oreo cookies.",
+        "fldEgGhc5iNKHLiMM": 5.7,
+        "fld4G6dmdKvtN7p5p": "B",
+        "fld6NIafSQQyYJAkP": 6.7,
+        "fldN4zstqWe07gjSe": "M: 48.4; L: 49.1",
+        "fldLrw0evtwSf4IyM": "232–242 (estimated)",
+        "fldJR3stkFoVh1ATp": "334–344 (estimated)"
+      }
+    },
+    {
+      "name": "Coconut Taro Shake Lite",
+      "category": "Fresh Coconut Signature Shake (Lite Series)",
+      "priceM": 6.4,
+      "priceL": 7.4,
+      "energyM": 39.3,
+      "energyL": 38,
+      "grade": "B",
+      "description": "The Lite coconut shake with taro flavour.",
+      "page": 3,
+      "slug": "coconut-taro-shake-lite",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Taro Shake Lite",
+        "fldg31a9rKincFfv8": "Fresh Coconut Signature Shake (Lite Series)",
+        "fld6cJn7bkETDWUKy": "coconut-taro-shake-lite",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "The Lite coconut shake with taro flavour.",
+        "fldEgGhc5iNKHLiMM": 6.4,
+        "fld4G6dmdKvtN7p5p": "B",
+        "fld6NIafSQQyYJAkP": 7.4,
+        "fldN4zstqWe07gjSe": "M: 39.3; L: 38",
+        "fldLrw0evtwSf4IyM": "189–197 (estimated)",
+        "fldJR3stkFoVh1ATp": "258–266 (estimated)"
+      }
+    },
+    {
+      "name": "Coconut Avocado Shake Lite",
+      "category": "Fresh Coconut Signature Shake (Lite Series)",
+      "priceM": 6.4,
+      "priceL": 7.4,
+      "energyM": 40.6,
+      "energyL": 40.5,
+      "grade": "B",
+      "description": "The Lite coconut shake with avocado.",
+      "page": 3,
+      "slug": "coconut-avocado-shake-lite",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Avocado Shake Lite",
+        "fldg31a9rKincFfv8": "Fresh Coconut Signature Shake (Lite Series)",
+        "fld6cJn7bkETDWUKy": "coconut-avocado-shake-lite",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "The Lite coconut shake with avocado.",
+        "fldEgGhc5iNKHLiMM": 6.4,
+        "fld4G6dmdKvtN7p5p": "B",
+        "fld6NIafSQQyYJAkP": 7.4,
+        "fldN4zstqWe07gjSe": "M: 40.6; L: 40.5",
+        "fldLrw0evtwSf4IyM": "195–203 (estimated)",
+        "fldJR3stkFoVh1ATp": "275–284 (estimated)"
+      }
+    },
+    {
+      "name": "Coconut Avocado Shake Lite with Gula Melaka Sago",
+      "category": "Fresh Coconut Signature Shake (Lite Series)",
+      "priceM": 7,
+      "priceL": 8,
+      "energyM": null,
+      "energyL": null,
+      "grade": "B",
+      "description": "The Lite coconut avocado shake with gula melaka sago.",
+      "slug": "coconut-avocado-shake-lite-with-gula-melaka-sago",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Avocado Shake Lite with Gula Melaka Sago",
+        "fldg31a9rKincFfv8": "Fresh Coconut Signature Shake (Lite Series)",
+        "fld6cJn7bkETDWUKy": "coconut-avocado-shake-lite-with-gula-melaka-sago",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "The Lite coconut avocado shake with gula melaka sago.",
+        "fldEgGhc5iNKHLiMM": 7,
+        "fld4G6dmdKvtN7p5p": "B",
+        "fld6NIafSQQyYJAkP": 8
+      }
+    },
+    {
+      "name": "Signature Coconut Iced",
+      "category": "Fresh Coconut Signature (Iced)",
+      "priceM": 5.3,
+      "priceL": 6.3,
+      "energyM": 83.4,
+      "energyL": 79.6,
+      "grade": "C",
+      "description": "A non-blended version of the signature coconut drink, served over ice.",
+      "page": 6,
+      "slug": "signature-coconut-iced",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Signature Coconut Iced",
+        "fldg31a9rKincFfv8": "Fresh Coconut Signature (Iced)",
+        "fld6cJn7bkETDWUKy": "signature-coconut-iced",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A non-blended version of the signature coconut drink, served over ice.",
+        "fldEgGhc5iNKHLiMM": 5.3,
+        "fld4G6dmdKvtN7p5p": "C",
+        "fld6NIafSQQyYJAkP": 6.3,
+        "fldN4zstqWe07gjSe": "M: 83.4; L: 79.6",
+        "fldLrw0evtwSf4IyM": "400–417 (estimated)",
+        "fldJR3stkFoVh1ATp": "541–557 (estimated)"
+      }
+    },
+    {
+      "name": "Coconut Caffe Latte",
+      "category": "Coconut Caffe",
+      "priceM": 6.4,
+      "priceL": null,
+      "energyM": 72.7,
+      "energyL": null,
+      "grade": "C",
+      "description": "A coconut latte served iced.",
+      "page": 8,
+      "slug": "coconut-caffe-latte",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Caffe Latte",
+        "fldg31a9rKincFfv8": "Coconut Caffe",
+        "fld6cJn7bkETDWUKy": "coconut-caffe-latte",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A coconut latte served iced.",
+        "fldEgGhc5iNKHLiMM": 6.4,
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldN4zstqWe07gjSe": "72.7",
+        "fldLrw0evtwSf4IyM": "349–364 (estimated)"
+      }
+    },
+    {
+      "name": "Mocha Coconut Caffe Latte",
+      "category": "Coconut Caffe",
+      "priceM": 6.6,
+      "priceL": null,
+      "energyM": 96.9,
+      "energyL": null,
+      "grade": "C",
+      "description": "A mocha coconut latte served iced.",
+      "page": 8,
+      "slug": "mocha-coconut-caffe-latte",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Mocha Coconut Caffe Latte",
+        "fldg31a9rKincFfv8": "Coconut Caffe",
+        "fld6cJn7bkETDWUKy": "mocha-coconut-caffe-latte",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A mocha coconut latte served iced.",
+        "fldEgGhc5iNKHLiMM": 6.6,
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldN4zstqWe07gjSe": "96.9",
+        "fldLrw0evtwSf4IyM": "465–485 (estimated)"
+      }
+    },
+    {
+      "name": "Coconut Caffe Latte with Gula Melaka Sago",
+      "category": "Coconut Caffe",
+      "priceM": 6.6,
+      "priceL": null,
+      "energyM": 76.7,
+      "energyL": null,
+      "grade": "C",
+      "description": "A coconut latte with gula melaka sago.",
+      "page": 8,
+      "slug": "coconut-caffe-latte-with-gula-melaka-sago",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Caffe Latte with Gula Melaka Sago",
+        "fldg31a9rKincFfv8": "Coconut Caffe",
+        "fld6cJn7bkETDWUKy": "coconut-caffe-latte-with-gula-melaka-sago",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A coconut latte with gula melaka sago.",
+        "fldEgGhc5iNKHLiMM": 6.6,
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldN4zstqWe07gjSe": "76.7",
+        "fldLrw0evtwSf4IyM": "368–384 (estimated)"
+      }
+    },
+    {
+      "name": "Coconut Americano",
+      "category": "Coconut Caffe",
+      "priceM": 7.1,
+      "priceL": null,
+      "energyM": 58,
+      "energyL": null,
+      "grade": "B",
+      "description": "A coconut Americano served iced.",
+      "page": 8,
+      "slug": "coconut-americano",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Americano",
+        "fldg31a9rKincFfv8": "Coconut Caffe",
+        "fld6cJn7bkETDWUKy": "coconut-americano",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A coconut Americano served iced.",
+        "fldEgGhc5iNKHLiMM": 7.1,
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldN4zstqWe07gjSe": "58",
+        "fldLrw0evtwSf4IyM": "278–290 (estimated)"
+      }
+    },
+    {
+      "name": "Four Season Coconut Fresh Milk Tea",
+      "category": "Coconut Fresh Milk Tea",
+      "priceM": 4.9,
+      "priceL": null,
+      "energyM": null,
+      "energyL": null,
+      "grade": "C",
+      "description": "Four season tea with coconut fresh milk, served iced. Available at selected outlets.",
+      "page": 6,
+      "slug": "four-season-coconut-fresh-milk-tea",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Four Season Coconut Fresh Milk Tea",
+        "fldg31a9rKincFfv8": "Coconut Fresh Milk Tea",
+        "fld6cJn7bkETDWUKy": "four-season-coconut-fresh-milk-tea",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "Four season tea with coconut fresh milk, served iced. Available at selected outlets.",
+        "fldEgGhc5iNKHLiMM": 4.9,
+        "fld4G6dmdKvtN7p5p": "C"
+      },
+      "nutritionWithheld": "Official sheet p6 has energy inconsistent with the listed macronutrients and, for Jasmine/Four Season, sugar exceeding total carbohydrate; withheld pending clarification."
+    },
+    {
+      "name": "Jasmine Coconut Fresh Milk Tea",
+      "category": "Coconut Fresh Milk Tea",
+      "priceM": 4.9,
+      "priceL": null,
+      "energyM": null,
+      "energyL": null,
+      "grade": "C",
+      "description": "Jasmine tea with coconut fresh milk, served iced. Available at selected outlets.",
+      "page": 6,
+      "slug": "jasmine-coconut-fresh-milk-tea",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Jasmine Coconut Fresh Milk Tea",
+        "fldg31a9rKincFfv8": "Coconut Fresh Milk Tea",
+        "fld6cJn7bkETDWUKy": "jasmine-coconut-fresh-milk-tea",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "Jasmine tea with coconut fresh milk, served iced. Available at selected outlets.",
+        "fldEgGhc5iNKHLiMM": 4.9,
+        "fld4G6dmdKvtN7p5p": "C"
+      },
+      "nutritionWithheld": "Official sheet p6 has energy inconsistent with the listed macronutrients and, for Jasmine/Four Season, sugar exceeding total carbohydrate; withheld pending clarification."
+    },
+    {
+      "name": "Chrysanthemum Coconut Fresh Milk Tea",
+      "category": "Coconut Fresh Milk Tea",
+      "priceM": 5.5,
+      "priceL": null,
+      "energyM": null,
+      "energyL": null,
+      "grade": "C",
+      "description": "Chrysanthemum with coconut fresh milk, served iced. Available at selected outlets.",
+      "page": 6,
+      "slug": "chrysanthemum-coconut-fresh-milk-tea",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Chrysanthemum Coconut Fresh Milk Tea",
+        "fldg31a9rKincFfv8": "Coconut Fresh Milk Tea",
+        "fld6cJn7bkETDWUKy": "chrysanthemum-coconut-fresh-milk-tea",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "Chrysanthemum with coconut fresh milk, served iced. Available at selected outlets.",
+        "fldEgGhc5iNKHLiMM": 5.5,
+        "fld4G6dmdKvtN7p5p": "C"
+      },
+      "nutritionWithheld": "Official sheet p6 has energy inconsistent with the listed macronutrients and, for Jasmine/Four Season, sugar exceeding total carbohydrate; withheld pending clarification."
+    },
+    {
+      "name": "Coconut Fresh Juice",
+      "category": "Coconut Fresh Juice",
+      "priceM": 5.4,
+      "priceL": 6.4,
+      "energyM": [
+        26,
+        27
+      ],
+      "energyL": [
+        26,
+        26.9
+      ],
+      "grade": "B",
+      "description": "Coconut water, available with or without coconut flesh.",
+      "page": 7,
+      "slug": "coconut-fresh-juice",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Fresh Juice",
+        "fldg31a9rKincFfv8": "Coconut Fresh Juice",
+        "fld6cJn7bkETDWUKy": "coconut-fresh-juice",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "Coconut water, available with or without coconut flesh.",
+        "fldEgGhc5iNKHLiMM": 5.4,
+        "fld4G6dmdKvtN7p5p": "B",
+        "fld6NIafSQQyYJAkP": 6.4,
+        "fldN4zstqWe07gjSe": "M: 26–27; L: 26–26.9",
+        "fldLrw0evtwSf4IyM": "125–135 (estimated)",
+        "fldJR3stkFoVh1ATp": "177–188 (estimated)"
+      }
+    },
+    {
+      "name": "Peach Gum Coconut Juice",
+      "category": "Coconut Fresh Juice",
+      "priceM": 7.4,
+      "priceL": 8.4,
+      "energyM": null,
+      "energyL": null,
+      "grade": "B",
+      "description": "Coconut juice with peach gum.",
+      "slug": "peach-gum-coconut-juice",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Peach Gum Coconut Juice",
+        "fldg31a9rKincFfv8": "Coconut Fresh Juice",
+        "fld6cJn7bkETDWUKy": "peach-gum-coconut-juice",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "Coconut juice with peach gum.",
+        "fldEgGhc5iNKHLiMM": 7.4,
+        "fld4G6dmdKvtN7p5p": "B",
+        "fld6NIafSQQyYJAkP": 8.4
+      }
+    },
+    {
+      "name": "Coconut Fresh Milk",
+      "category": "Coconut Fresh Milk",
+      "priceM": 5.2,
+      "priceL": 6.2,
+      "energyM": null,
+      "energyL": null,
+      "grade": "C",
+      "description": "Coconut fresh milk served iced.",
+      "slug": "coconut-fresh-milk",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Fresh Milk",
+        "fldg31a9rKincFfv8": "Coconut Fresh Milk",
+        "fld6cJn7bkETDWUKy": "coconut-fresh-milk",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "Coconut fresh milk served iced.",
+        "fldEgGhc5iNKHLiMM": 5.2,
+        "fld4G6dmdKvtN7p5p": "C",
+        "fld6NIafSQQyYJAkP": 6.2
+      }
+    },
+    {
+      "name": "Coconut Hojicha Latte",
+      "category": "Coconut Hojicha",
+      "priceM": 6.8,
+      "priceL": 7.8,
+      "energyM": null,
+      "energyL": null,
+      "grade": "D",
+      "description": "A coconut hojicha latte.",
+      "nutritionWithheld": "Official sheet p9 contains energy figures inconsistent with the listed macronutrients; withheld pending brand clarification.",
+      "slug": "coconut-hojicha-latte",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Hojicha Latte",
+        "fldg31a9rKincFfv8": "Coconut Hojicha",
+        "fld6cJn7bkETDWUKy": "coconut-hojicha-latte",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A coconut hojicha latte.",
+        "fldEgGhc5iNKHLiMM": 6.8,
+        "fld4G6dmdKvtN7p5p": "D",
+        "fld6NIafSQQyYJAkP": 7.8
+      }
+    },
+    {
+      "name": "Coconut Strawberry Hojicha Latte",
+      "category": "Coconut Hojicha",
+      "priceM": 7.5,
+      "priceL": 8.5,
+      "energyM": null,
+      "energyL": null,
+      "grade": "D",
+      "description": "A coconut hojicha latte with strawberry flavour.",
+      "nutritionWithheld": "Official sheet p9 contains energy figures inconsistent with the listed macronutrients; withheld pending brand clarification.",
+      "slug": "coconut-strawberry-hojicha-latte",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Strawberry Hojicha Latte",
+        "fldg31a9rKincFfv8": "Coconut Hojicha",
+        "fld6cJn7bkETDWUKy": "coconut-strawberry-hojicha-latte",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A coconut hojicha latte with strawberry flavour.",
+        "fldEgGhc5iNKHLiMM": 7.5,
+        "fld4G6dmdKvtN7p5p": "D",
+        "fld6NIafSQQyYJAkP": 8.5
+      }
+    },
+    {
+      "name": "Coconut Mango Hojicha Latte",
+      "category": "Coconut Hojicha",
+      "priceM": 7.5,
+      "priceL": 8.5,
+      "energyM": null,
+      "energyL": null,
+      "grade": "D",
+      "description": "A coconut hojicha latte with mango flavour.",
+      "nutritionWithheld": "Official sheet p9 contains energy figures inconsistent with the listed macronutrients; withheld pending brand clarification.",
+      "slug": "coconut-mango-hojicha-latte",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Mango Hojicha Latte",
+        "fldg31a9rKincFfv8": "Coconut Hojicha",
+        "fld6cJn7bkETDWUKy": "coconut-mango-hojicha-latte",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A coconut hojicha latte with mango flavour.",
+        "fldEgGhc5iNKHLiMM": 7.5,
+        "fld4G6dmdKvtN7p5p": "D",
+        "fld6NIafSQQyYJAkP": 8.5
+      }
+    },
+    {
+      "name": "Coconut Avocado Hojicha Latte",
+      "category": "Coconut Hojicha",
+      "priceM": 7.9,
+      "priceL": 8.9,
+      "energyM": null,
+      "energyL": null,
+      "grade": "D",
+      "description": "A coconut hojicha latte with avocado.",
+      "nutritionWithheld": "Official sheet p9 contains energy figures inconsistent with the listed macronutrients; withheld pending brand clarification.",
+      "slug": "coconut-avocado-hojicha-latte",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Avocado Hojicha Latte",
+        "fldg31a9rKincFfv8": "Coconut Hojicha",
+        "fld6cJn7bkETDWUKy": "coconut-avocado-hojicha-latte",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A coconut hojicha latte with avocado.",
+        "fldEgGhc5iNKHLiMM": 7.9,
+        "fld4G6dmdKvtN7p5p": "D",
+        "fld6NIafSQQyYJAkP": 8.9
+      }
+    },
+    {
+      "name": "Coconut Hojicha Juice",
+      "category": "Coconut Hojicha",
+      "priceM": 8,
+      "priceL": 9,
+      "energyM": null,
+      "energyL": null,
+      "grade": "C",
+      "description": "A coconut juice drink with hojicha.",
+      "nutritionWithheld": "Official sheet p9 contains energy figures inconsistent with the listed macronutrients; withheld pending brand clarification.",
+      "slug": "coconut-hojicha-juice",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Hojicha Juice",
+        "fldg31a9rKincFfv8": "Coconut Hojicha",
+        "fld6cJn7bkETDWUKy": "coconut-hojicha-juice",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A coconut juice drink with hojicha.",
+        "fldEgGhc5iNKHLiMM": 8,
+        "fld4G6dmdKvtN7p5p": "C",
+        "fld6NIafSQQyYJAkP": 9
+      }
+    },
+    {
+      "name": "Coconut Oreo Hojicha Latte",
+      "category": "Coconut Hojicha",
+      "priceM": 7.3,
+      "priceL": 8.3,
+      "energyM": null,
+      "energyL": null,
+      "grade": "D",
+      "description": "A coconut hojicha latte with Oreo cookies.",
+      "nutritionWithheld": "Official sheet p9 contains energy figures inconsistent with the listed macronutrients; withheld pending brand clarification.",
+      "slug": "coconut-oreo-hojicha-latte",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Coconut Oreo Hojicha Latte",
+        "fldg31a9rKincFfv8": "Coconut Hojicha",
+        "fld6cJn7bkETDWUKy": "coconut-oreo-hojicha-latte",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A coconut hojicha latte with Oreo cookies.",
+        "fldEgGhc5iNKHLiMM": 7.3,
+        "fld4G6dmdKvtN7p5p": "D",
+        "fld6NIafSQQyYJAkP": 8.3
+      }
+    },
+    {
+      "name": "Hot Coconut Caffe Latte",
+      "category": "Coconut Caffe",
+      "priceM": 6.4,
+      "priceL": null,
+      "energyM": 72.7,
+      "energyL": null,
+      "grade": "C",
+      "description": "A coconut latte served hot.",
+      "hot": true,
+      "page": 8,
+      "slug": "hot-coconut-caffe-latte",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Hot Coconut Caffe Latte",
+        "fldg31a9rKincFfv8": "Coconut Caffe",
+        "fld6cJn7bkETDWUKy": "hot-coconut-caffe-latte",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A coconut latte served hot.",
+        "fldEgGhc5iNKHLiMM": 6.4,
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldN4zstqWe07gjSe": "72.7"
+      }
+    },
+    {
+      "name": "Hot Mocha Coconut Caffe Latte",
+      "category": "Coconut Caffe",
+      "priceM": 6.6,
+      "priceL": null,
+      "energyM": 96.9,
+      "energyL": null,
+      "grade": "C",
+      "description": "A mocha coconut latte served hot.",
+      "hot": true,
+      "page": 8,
+      "slug": "hot-mocha-coconut-caffe-latte",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Hot Mocha Coconut Caffe Latte",
+        "fldg31a9rKincFfv8": "Coconut Caffe",
+        "fld6cJn7bkETDWUKy": "hot-mocha-coconut-caffe-latte",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A mocha coconut latte served hot.",
+        "fldEgGhc5iNKHLiMM": 6.6,
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldN4zstqWe07gjSe": "96.9"
+      }
+    },
+    {
+      "name": "Hot Coconut Americano",
+      "category": "Coconut Caffe",
+      "priceM": 7.1,
+      "priceL": null,
+      "energyM": 58,
+      "energyL": null,
+      "grade": "B",
+      "description": "A coconut Americano served hot.",
+      "hot": true,
+      "page": 8,
+      "slug": "hot-coconut-americano",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Hot Coconut Americano",
+        "fldg31a9rKincFfv8": "Coconut Caffe",
+        "fld6cJn7bkETDWUKy": "hot-coconut-americano",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "A coconut Americano served hot.",
+        "fldEgGhc5iNKHLiMM": 7.1,
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldN4zstqWe07gjSe": "58"
+      }
+    },
+    {
+      "name": "Hot Four Season Coconut Fresh Milk Tea",
+      "category": "Coconut Fresh Milk Tea",
+      "priceM": 4.9,
+      "priceL": null,
+      "energyM": null,
+      "energyL": null,
+      "grade": "C",
+      "description": "Four season tea with coconut fresh milk, served hot. Available at selected outlets.",
+      "hot": true,
+      "page": null,
+      "slug": "hot-four-season-coconut-fresh-milk-tea",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Hot Four Season Coconut Fresh Milk Tea",
+        "fldg31a9rKincFfv8": "Coconut Fresh Milk Tea",
+        "fld6cJn7bkETDWUKy": "hot-four-season-coconut-fresh-milk-tea",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "Four season tea with coconut fresh milk, served hot. Available at selected outlets.",
+        "fldEgGhc5iNKHLiMM": 4.9,
+        "fld4G6dmdKvtN7p5p": "C"
+      }
+    },
+    {
+      "name": "Hot Jasmine Coconut Fresh Milk Tea",
+      "category": "Coconut Fresh Milk Tea",
+      "priceM": 4.9,
+      "priceL": null,
+      "energyM": null,
+      "energyL": null,
+      "grade": "C",
+      "description": "Jasmine tea with coconut fresh milk, served hot. Available at selected outlets.",
+      "hot": true,
+      "page": null,
+      "slug": "hot-jasmine-coconut-fresh-milk-tea",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Hot Jasmine Coconut Fresh Milk Tea",
+        "fldg31a9rKincFfv8": "Coconut Fresh Milk Tea",
+        "fld6cJn7bkETDWUKy": "hot-jasmine-coconut-fresh-milk-tea",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "Jasmine tea with coconut fresh milk, served hot. Available at selected outlets.",
+        "fldEgGhc5iNKHLiMM": 4.9,
+        "fld4G6dmdKvtN7p5p": "C"
+      }
+    },
+    {
+      "name": "Hot Chrysanthemum Coconut Fresh Milk Tea",
+      "category": "Coconut Fresh Milk Tea",
+      "priceM": 5.5,
+      "priceL": null,
+      "energyM": null,
+      "energyL": null,
+      "grade": "C",
+      "description": "Chrysanthemum with coconut fresh milk, served hot. Available at selected outlets.",
+      "hot": true,
+      "page": null,
+      "slug": "hot-chrysanthemum-coconut-fresh-milk-tea",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Hot Chrysanthemum Coconut Fresh Milk Tea",
+        "fldg31a9rKincFfv8": "Coconut Fresh Milk Tea",
+        "fld6cJn7bkETDWUKy": "hot-chrysanthemum-coconut-fresh-milk-tea",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "Chrysanthemum with coconut fresh milk, served hot. Available at selected outlets.",
+        "fldEgGhc5iNKHLiMM": 5.5,
+        "fld4G6dmdKvtN7p5p": "C"
+      }
+    },
+    {
+      "name": "Hot Coconut Fresh Juice",
+      "category": "Coconut Fresh Juice",
+      "priceM": 5.4,
+      "priceL": null,
+      "energyM": 26,
+      "energyL": null,
+      "grade": "B",
+      "description": "Coconut water served hot.",
+      "hot": true,
+      "page": 7,
+      "slug": "hot-coconut-fresh-juice",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Hot Coconut Fresh Juice",
+        "fldg31a9rKincFfv8": "Coconut Fresh Juice",
+        "fld6cJn7bkETDWUKy": "hot-coconut-fresh-juice",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "Coconut water served hot.",
+        "fldEgGhc5iNKHLiMM": 5.4,
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldN4zstqWe07gjSe": "26"
+      }
+    },
+    {
+      "name": "Hot Coconut Fresh Milk",
+      "category": "Coconut Fresh Milk",
+      "priceM": 5.2,
+      "priceL": null,
+      "energyM": null,
+      "energyL": null,
+      "grade": "C",
+      "description": "Coconut fresh milk served hot.",
+      "hot": true,
+      "page": null,
+      "slug": "hot-coconut-fresh-milk",
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Hot Coconut Fresh Milk",
+        "fldg31a9rKincFfv8": "Coconut Fresh Milk",
+        "fld6cJn7bkETDWUKy": "hot-coconut-fresh-milk",
+        "fldKQg2dBe7PPeP06": [
+          "recPwhXB89SMOcMpC"
+        ],
+        "fldwvgRLJpK7r7PNu": "Coconut fresh milk served hot.",
+        "fldEgGhc5iNKHLiMM": 5.2,
+        "fld4G6dmdKvtN7p5p": "C"
+      }
+    }
+  ]
+}

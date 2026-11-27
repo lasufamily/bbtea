@@ -1,0 +1,20 @@
+---
+interface Props {
+  show: boolean;
+}
+
+const { show } = Astro.props;
+---
+
+{show && (
+  <aside class="text-sm text-[var(--color-stone-600)] space-y-2" aria-label="Mr Coconut nutrition sources">
+    <p>Nutrition checked on 27 November 2026 against Mr Coconut's sheet dated 12 June 2026. Per-100ml figures marked M and L follow the brand's size-specific recipes.</p>
+    <p>Cup totals are estimates for 480–500ml medium drinks and 680–700ml large drinks. Where the sheet lists both standard and normal-sugar fructose recipes, the shake ranges cover both. Other sugar levels and extra toppings have not been calculated.</p>
+    <p>Fresh milk tea and Hojicha calories are not listed because the brand's figures need clarification. Cup totals are also unavailable for hot drinks and recipes without published energy values.</p>
+    <p>
+      <a href="https://mrcoconut.sg/menu/" class="underline" target="_blank" rel="noopener noreferrer">Mr Coconut's current menu</a>
+      <span aria-hidden="true"> · </span>
+      <a href="https://drive.google.com/file/d/1EvkCOmlwp-J7bVDlMTpZd_cc2K21Kl-U/view" class="underline" target="_blank" rel="noopener noreferrer">Official nutrition sheet</a>
+    </p>
+  </aside>
+)}

@@ -1,5 +1,6 @@
 ---
 import Layout from '../../components/Layout.astro';
+import MrCoconutNutritionNote from '../../components/MrCoconutNutritionNote.astro';
 import DrinkCard from '../../components/DrinkCard.astro';
 import ListingCard from '../../components/ListingCard.astro';
 import { getDrinks, getBrands, getOutlets, getCoffeeOutlets, getJuiceOutlets } from '../../lib/airtable';
@@ -27,7 +28,7 @@ const relatedDrinks = allDrinks
 const brandMenuLinks = menuLinksForBrands(drink.brands, 6);
 
 const priceRows = [
-  { label: 'Medium', value: drink.priceM },
+  { label: drink.brands.some(brand => brand.slug === 'mr-coconut') && drink.name.startsWith('Hot ') ? 'Hot' : 'Medium', value: drink.priceM },
   { label: 'Large', value: drink.priceL },
   { label: '1 litre', value: drink.priceOneLitre },
 ].filter(row => typeof row.value === 'number');
@@ -151,6 +152,7 @@ const jsonLd = {
             <tbody>{nutritionRows.map(row => <tr><th scope="row" class="p-3 border-b">{row.label}</th><td class="p-3 border-b">{row.value ?? 'Not listed'}</td></tr>)}</tbody>
           </table>
           <p class="text-sm text-[var(--color-stone-600)]">Confirm current prices and availability with the shop. Calories and nutrition labels apply to the listed serving; size, sugar level and toppings can change the values.</p>
+          <MrCoconutNutritionNote show={drink.brands.some(brand => brand.slug === 'mr-coconut')} />
           {sourceBrands.length > 0 && <div class="space-y-2"><h2 class="font-semibold">Check with the brand</h2><ul>{sourceBrands.map(brand => <li><a href={brand.websiteUrl} class="underline" target="_blank" rel="noopener noreferrer">{brand.name} website</a></li>)}</ul></div>}
           <a href="/contact/" class="underline text-sm">Report a menu correction</a>
         </div>
