@@ -1,0 +1,20 @@
+---
+interface Props {
+  show: boolean;
+}
+
+const { show } = Astro.props;
+---
+
+{show && (
+  <aside class="text-sm text-[var(--color-stone-600)] space-y-2" aria-label="Boost Juice menu sources">
+    <p>Calories follow Boost Juice's official 2026 Singapore nutrition sheet. Medium totals use 400ml cups; Original totals use 500ml cups. Both are calculated from the listed calories per 100ml.</p>
+    <p>Figures cover the standard recipes, including their listed boosters, with low fat milk where milk or soy is offered. Extra add-ons and substitutions change the values. Kids' cups are 230ml; their totals are not shown here.</p>
+    <p>The five Blends With Benefits drinks are listed from Boost's November launch; their calories were not published. Current prices were not available for any drink in the official sources checked on 27 November 2026. Nutri-Grade follows the official menu and launch artwork.</p>
+    <p>
+      <a href="https://www.boostjuicebars.com.sg/wellbeing/nutrition-facts/" class="underline" target="_blank" rel="noopener noreferrer">Boost's menu and nutrition sheet</a>
+      <span aria-hidden="true"> · </span>
+      <a href="https://www.boostjuicebars.com.sg/news/no-strings-only-benefits/" class="underline" target="_blank" rel="noopener noreferrer">Blends With Benefits drinks</a>
+    </p>
+  </aside>
+)}

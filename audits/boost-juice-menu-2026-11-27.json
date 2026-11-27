@@ -1,0 +1,618 @@
+{
+  "brand": "Boost Juice",
+  "brandId": "recwM0g0VqaADLigB",
+  "brandSlug": "boost",
+  "requestId": "65d9924d-f486-41e0-aaab-cd66ab4c9a31",
+  "checkedAt": "2026-11-27",
+  "importStatus": "verified: 28 drinks read back with exact fields and linked brand; globally unique slugs",
+  "sources": [
+    {
+      "url": "https://www.boostjuicebars.com.sg/wp-content/uploads/2026/09/SG-Menu-Flyer-2026_compressed.pdf",
+      "basis": "Official Singapore current linked flyer; pages 2\u20133 names, ingredients and Nutri-Grade; page 4 milk preparation; page 5 per100ml calories and volumes. Visually inspected image-only PDF."
+    },
+    {
+      "url": "https://www.boostjuicebars.com.sg/wellbeing/nutrition-facts/",
+      "basis": "Links to current 2026 flyer."
+    },
+    {
+      "url": "https://www.boostjuicebars.com.sg/news/no-strings-only-benefits/",
+      "date": "2026-11-04",
+      "basis": "Five current seasonal drinks available from 5 November. No published energy or prices."
+    },
+    {
+      "url": "https://www.boostjuicebars.com.sg/wp-content/uploads/2026/11/Blends-with-Benefits_Website_SG-1.jpg",
+      "basis": "Nutri-Grade B badges for all five seasonal drinks, visually inspected."
+    },
+    {
+      "url": "https://www.boostjuicebars.com.sg/news/inflation-called-we-hung-up/",
+      "date": "2026-09-08",
+      "basis": "Price reduction excludes Mandai, Jewel, Paragon and T2 Changi Airport; no numeric prices."
+    }
+  ],
+  "calculation": {
+    "per100ml": "Preserve official Calories (cal) values, food Calories in kcal. Do not derive from rounded kJ.",
+    "mediumMl": 400,
+    "originalMl": 500,
+    "formula": "Medium = official kcal per100ml \u00d7 4; Original = official kcal per100ml \u00d7 5; half-up whole kcal (products already integers).",
+    "mapping": "Existing M fields = Medium400ml; existing L fields = Original500ml. Website uses Original label for Boost only.",
+    "preparation": "Standard recipes with listed boosters; low fat milk where milk or soy is offered; no extra add-ons.",
+    "limitations": "Deterministic serving arithmetic, no sample size or inferential interval. Published rounded concentrations and fresh ingredient variation limit precision. No size-specific alternative concentration supplied."
+  },
+  "coverage": {
+    "coreDrinks": 23,
+    "seasonalDrinks": 5,
+    "categories": 7,
+    "unavailable": "Prices absent from current official public sources; retain blank rather than use older outlet photos or delivery prices. Five seasonal calorie fields blank: no official energy. No Healthier Choice certification inferred. Kids230ml acknowledged in source note, not mapped into M/L fields. Create-your-own recipes and boosters are customizations, not separate named beverages. October peach offer ended31October and is excluded."
+  },
+  "records": [
+    {
+      "name": "All Berry Bang",
+      "slug": "all-berry-bang",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 55,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "All Berry Bang",
+        "fldg31a9rKincFfv8": "Berries",
+        "fld6cJn7bkETDWUKy": "all-berry-bang",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Berries blended with apple juice, strawberry yoghurt and ice.",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldN4zstqWe07gjSe": "55",
+        "fldLrw0evtwSf4IyM": "220",
+        "fldJR3stkFoVh1ATp": "275"
+      },
+      "recordId": "recCRbYDyiBNeNP6r"
+    },
+    {
+      "name": "Strawberry Squeeze",
+      "slug": "strawberry-squeeze",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 56,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Strawberry Squeeze",
+        "fldg31a9rKincFfv8": "Berries",
+        "fld6cJn7bkETDWUKy": "strawberry-squeeze",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Strawberries and banana with apple juice, strawberry yoghurt and ice.",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldN4zstqWe07gjSe": "56",
+        "fldLrw0evtwSf4IyM": "224",
+        "fldJR3stkFoVh1ATp": "280"
+      },
+      "recordId": "recli09erhUjw1Rik"
+    },
+    {
+      "name": "Berry Blast",
+      "slug": "berry-blast",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 53,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Berry Blast",
+        "fldg31a9rKincFfv8": "Berries",
+        "fld6cJn7bkETDWUKy": "berry-blast",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Raspberries and blueberries with apple juice, low fat milk, vanilla yoghurt, sorbet and ice.",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldN4zstqWe07gjSe": "53",
+        "fldLrw0evtwSf4IyM": "212",
+        "fldJR3stkFoVh1ATp": "265"
+      },
+      "recordId": "recgSoQtM8iyRoYhf"
+    },
+    {
+      "name": "Superfruit Smoothie",
+      "slug": "superfruit-smoothie",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 63,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Superfruit Smoothie",
+        "fldg31a9rKincFfv8": "Berries",
+        "fld6cJn7bkETDWUKy": "superfruit-smoothie",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Berries, apple juice and yoghurt with superfruit and energiser boosters.",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldN4zstqWe07gjSe": "63",
+        "fldLrw0evtwSf4IyM": "252",
+        "fldJR3stkFoVh1ATp": "315"
+      },
+      "recordId": "recxogCbscTcQ0xnv"
+    },
+    {
+      "name": "Strawberry Melon Crush",
+      "slug": "strawberry-melon-crush",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 32,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Strawberry Melon Crush",
+        "fldg31a9rKincFfv8": "Berries",
+        "fld6cJn7bkETDWUKy": "strawberry-melon-crush",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Watermelon juice, strawberries, sorbet and ice.",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldN4zstqWe07gjSe": "32",
+        "fldLrw0evtwSf4IyM": "128",
+        "fldJR3stkFoVh1ATp": "160"
+      },
+      "recordId": "recjcpRfzfuTMlDNU"
+    },
+    {
+      "name": "Berry Crush",
+      "slug": "berry-crush",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 27,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Berry Crush",
+        "fldg31a9rKincFfv8": "Berries",
+        "fld6cJn7bkETDWUKy": "berry-crush",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Mixed berries, apple juice, sorbet and ice.",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldN4zstqWe07gjSe": "27",
+        "fldLrw0evtwSf4IyM": "108",
+        "fldJR3stkFoVh1ATp": "135"
+      },
+      "recordId": "recJRJBiHCjS3Hxkt"
+    },
+    {
+      "name": "Mango Magic",
+      "slug": "mango-magic",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 63,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Mango Magic",
+        "fldg31a9rKincFfv8": "Tropical",
+        "fld6cJn7bkETDWUKy": "mango-magic",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Mango and banana with mango nectar, vanilla yoghurt and ice.",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldN4zstqWe07gjSe": "63",
+        "fldLrw0evtwSf4IyM": "252",
+        "fldJR3stkFoVh1ATp": "315"
+      },
+      "recordId": "recyfpDWeVZNYgpcR"
+    },
+    {
+      "name": "Banana Buzz",
+      "slug": "banana-buzz",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 74,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Banana Buzz",
+        "fldg31a9rKincFfv8": "Tropical",
+        "fld6cJn7bkETDWUKy": "banana-buzz",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Banana and honey with low fat milk, vanilla yoghurt and ice.",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldN4zstqWe07gjSe": "74",
+        "fldLrw0evtwSf4IyM": "296",
+        "fldJR3stkFoVh1ATp": "370"
+      },
+      "recordId": "recDFl4oRhsKuPgUS"
+    },
+    {
+      "name": "Passion Mango",
+      "slug": "passion-mango",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 48,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Passion Mango",
+        "fldg31a9rKincFfv8": "Tropical",
+        "fld6cJn7bkETDWUKy": "passion-mango",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Mango and passionfruit with mango nectar, apple juice, vanilla yoghurt, sorbet and ice.",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldN4zstqWe07gjSe": "48",
+        "fldLrw0evtwSf4IyM": "192",
+        "fldJR3stkFoVh1ATp": "240"
+      },
+      "recordId": "recqiyvjBNGuqgF34"
+    },
+    {
+      "name": "Watermelon Lychee Crush",
+      "slug": "watermelon-lychee-crush",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 33,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Watermelon Lychee Crush",
+        "fldg31a9rKincFfv8": "Tropical",
+        "fld6cJn7bkETDWUKy": "watermelon-lychee-crush",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Watermelon juice and lychees with sorbet and ice.",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldN4zstqWe07gjSe": "33",
+        "fldLrw0evtwSf4IyM": "132",
+        "fldJR3stkFoVh1ATp": "165"
+      },
+      "recordId": "rec9v19okd0TarPru"
+    },
+    {
+      "name": "Mango Lychee Crush",
+      "slug": "mango-lychee-crush",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 28,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Mango Lychee Crush",
+        "fldg31a9rKincFfv8": "Tropical",
+        "fld6cJn7bkETDWUKy": "mango-lychee-crush",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Lychees, mango nectar and apple juice with sorbet and ice.",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldN4zstqWe07gjSe": "28",
+        "fldLrw0evtwSf4IyM": "112",
+        "fldJR3stkFoVh1ATp": "140"
+      },
+      "recordId": "recBCAnfxvByPhO2Y"
+    },
+    {
+      "name": "Green Tea Mango",
+      "slug": "green-tea-mango",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 52,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Green Tea Mango",
+        "fldg31a9rKincFfv8": "Tropical",
+        "fld6cJn7bkETDWUKy": "green-tea-mango",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Mango, mango nectar, vanilla yoghurt, sorbet and ice with immunity and green tea boosters.",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldN4zstqWe07gjSe": "52",
+        "fldLrw0evtwSf4IyM": "208",
+        "fldJR3stkFoVh1ATp": "260"
+      },
+      "recordId": "recElvf7s7fonnR1N"
+    },
+    {
+      "name": "Cookies & Cream",
+      "slug": "cookies-and-cream",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 77,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Cookies & Cream",
+        "fldg31a9rKincFfv8": "Choc",
+        "fld6cJn7bkETDWUKy": "cookies-and-cream",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Cookie crumbs, low fat milk, vanilla yoghurt, sorbet and ice.",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldN4zstqWe07gjSe": "77",
+        "fldLrw0evtwSf4IyM": "308",
+        "fldJR3stkFoVh1ATp": "385"
+      },
+      "recordId": "reccOQQ28QKKYfYhx"
+    },
+    {
+      "name": "King William Chocolate",
+      "slug": "king-william-chocolate",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 86,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "King William Chocolate",
+        "fldg31a9rKincFfv8": "Choc",
+        "fld6cJn7bkETDWUKy": "king-william-chocolate",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Banana and chocolate with low fat milk, vanilla yoghurt and ice.",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldN4zstqWe07gjSe": "86",
+        "fldLrw0evtwSf4IyM": "344",
+        "fldJR3stkFoVh1ATp": "430"
+      },
+      "recordId": "recphK8O7obApK0kM"
+    },
+    {
+      "name": "5 A Day Juice",
+      "slug": "5-a-day-juice",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 39,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "5 A Day Juice",
+        "fldg31a9rKincFfv8": "Juices",
+        "fld6cJn7bkETDWUKy": "5-a-day-juice",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Orange and apple juices with carrot, celery, beetroot, ice and a vita booster.",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldN4zstqWe07gjSe": "39",
+        "fldLrw0evtwSf4IyM": "156",
+        "fldJR3stkFoVh1ATp": "195"
+      },
+      "recordId": "recTYcwBa0lwVlGHi"
+    },
+    {
+      "name": "Lean & Green Juice",
+      "slug": "lean-and-green-juice",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 36,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Lean & Green Juice",
+        "fldg31a9rKincFfv8": "Juices",
+        "fld6cJn7bkETDWUKy": "lean-and-green-juice",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Apple, cucumber and celery juices with mint, ice and a wheatgrass booster.",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldN4zstqWe07gjSe": "36",
+        "fldLrw0evtwSf4IyM": "144",
+        "fldJR3stkFoVh1ATp": "180"
+      },
+      "recordId": "rectveu0brHj86d1k"
+    },
+    {
+      "name": "Vita C Detox Juice",
+      "slug": "vita-c-detox-juice",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 40,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Vita C Detox Juice",
+        "fldg31a9rKincFfv8": "Juices",
+        "fld6cJn7bkETDWUKy": "vita-c-detox-juice",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Orange and apple juices with carrot, ginger, ice and a vita booster.",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldN4zstqWe07gjSe": "40",
+        "fldLrw0evtwSf4IyM": "160",
+        "fldJR3stkFoVh1ATp": "200"
+      },
+      "recordId": "recTAEowJMEBMntvf"
+    },
+    {
+      "name": "Immunity Juice",
+      "slug": "immunity-juice",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 40,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Immunity Juice",
+        "fldg31a9rKincFfv8": "Juices",
+        "fld6cJn7bkETDWUKy": "immunity-juice",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Watermelon and orange juices with strawberries, ice and an immunity booster.",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldN4zstqWe07gjSe": "40",
+        "fldLrw0evtwSf4IyM": "160",
+        "fldJR3stkFoVh1ATp": "200"
+      },
+      "recordId": "recgQXqNB10ivH5Wg"
+    },
+    {
+      "name": "Protein Supreme",
+      "slug": "protein-supreme",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 82,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Protein Supreme",
+        "fldg31a9rKincFfv8": "Protein",
+        "fld6cJn7bkETDWUKy": "protein-supreme",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Banana, muesli, honey, coconut water and coconut milk with whey protein, chia seeds and boosters.",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldN4zstqWe07gjSe": "82",
+        "fldLrw0evtwSf4IyM": "328",
+        "fldJR3stkFoVh1ATp": "410"
+      },
+      "recordId": "recaIH2WZzPLCBO3G"
+    },
+    {
+      "name": "Gym Junkie",
+      "slug": "gym-junkie",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 74,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Gym Junkie",
+        "fldg31a9rKincFfv8": "Protein",
+        "fld6cJn7bkETDWUKy": "gym-junkie",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Strawberries and banana with low fat milk, vanilla yoghurt, whey protein and ice.",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldN4zstqWe07gjSe": "74",
+        "fldLrw0evtwSf4IyM": "296",
+        "fldJR3stkFoVh1ATp": "370"
+      },
+      "recordId": "rec6bqCN8p1U1vGkN"
+    },
+    {
+      "name": "Strawbrekkie Protein",
+      "slug": "strawbrekkie-protein",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 68,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Strawbrekkie Protein",
+        "fldg31a9rKincFfv8": "Protein",
+        "fld6cJn7bkETDWUKy": "strawbrekkie-protein",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Berries, banana, oats, apple juice and strawberry yoghurt with whey protein and an energiser booster.",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldN4zstqWe07gjSe": "68",
+        "fldLrw0evtwSf4IyM": "272",
+        "fldJR3stkFoVh1ATp": "340"
+      },
+      "recordId": "recphzqTEWkPfkMwG"
+    },
+    {
+      "name": "Red Royale Collagen",
+      "slug": "red-royale-collagen",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 37,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Red Royale Collagen",
+        "fldg31a9rKincFfv8": "Premium",
+        "fld6cJn7bkETDWUKy": "red-royale-collagen",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Mixed fruit, apple juice, beetroot and coconut water with superfruit and collagen boosters.",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldN4zstqWe07gjSe": "37",
+        "fldLrw0evtwSf4IyM": "148",
+        "fldJR3stkFoVh1ATp": "185"
+      },
+      "recordId": "rec35irgPvNOqSDqD"
+    },
+    {
+      "name": "Skinny Dip Collagen",
+      "slug": "skinny-dip-collagen",
+      "source": "2026 flyer pages 2\u20135",
+      "sourcePer100mlKcal": 57,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Skinny Dip Collagen",
+        "fldg31a9rKincFfv8": "Premium",
+        "fld6cJn7bkETDWUKy": "skinny-dip-collagen",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Berries, banana, apple juice and strawberry yoghurt with whey protein and collagen.",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldN4zstqWe07gjSe": "57",
+        "fldLrw0evtwSf4IyM": "228",
+        "fldJR3stkFoVh1ATp": "285"
+      },
+      "recordId": "recVZddcpq3wG3qtD"
+    },
+    {
+      "name": "All Nighter",
+      "slug": "all-nighter",
+      "source": "November 2026 announcement and product image",
+      "sourcePer100mlKcal": null,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "All Nighter",
+        "fldg31a9rKincFfv8": "Blends With Benefits",
+        "fld6cJn7bkETDWUKy": "all-nighter",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Mango, raspberries and passionfruit with orange juice, soy milk, yoghurt and a guarana energy booster.",
+        "fld4G6dmdKvtN7p5p": "B"
+      },
+      "recordId": "recbUUSCNPINd1vS5"
+    },
+    {
+      "name": "Green Flag",
+      "slug": "green-flag",
+      "source": "November 2026 announcement and product image",
+      "sourcePer100mlKcal": null,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Green Flag",
+        "fldg31a9rKincFfv8": "Blends With Benefits",
+        "fld6cJn7bkETDWUKy": "green-flag",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Banana, celery, cucumber, apple, lychee, pineapple and mint with added fibre.",
+        "fld4G6dmdKvtN7p5p": "B"
+      },
+      "recordId": "recTk5H7BZQfnumnY"
+    },
+    {
+      "name": "First Protein Date",
+      "slug": "first-protein-date",
+      "source": "November 2026 announcement and product image",
+      "sourcePer100mlKcal": null,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "First Protein Date",
+        "fldg31a9rKincFfv8": "Blends With Benefits",
+        "fld6cJn7bkETDWUKy": "first-protein-date",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Banana, blueberries, muesli, whey protein, chia seeds and chocolate blended with milk and yoghurt.",
+        "fld4G6dmdKvtN7p5p": "B"
+      },
+      "recordId": "recgpJ5Q7quyycEoW"
+    },
+    {
+      "name": "Blue My Mind",
+      "slug": "blue-my-mind",
+      "source": "November 2026 announcement and product image",
+      "sourcePer100mlKcal": null,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Blue My Mind",
+        "fldg31a9rKincFfv8": "Blends With Benefits",
+        "fld6cJn7bkETDWUKy": "blue-my-mind",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Blue spirulina, mango, pineapple juice and coconut water with yoghurt and a creatine booster.",
+        "fld4G6dmdKvtN7p5p": "B"
+      },
+      "recordId": "recl1AOGokYxejQDj"
+    },
+    {
+      "name": "After Glow",
+      "slug": "after-glow",
+      "source": "November 2026 announcement and product image",
+      "sourcePer100mlKcal": null,
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "After Glow",
+        "fldg31a9rKincFfv8": "Blends With Benefits",
+        "fld6cJn7bkETDWUKy": "after-glow",
+        "fldKQg2dBe7PPeP06": [
+          "recwM0g0VqaADLigB"
+        ],
+        "fldwvgRLJpK7r7PNu": "Dragon fruit and berries with coconut water, coconut milk, yoghurt, superfruit and collagen boosters.",
+        "fld4G6dmdKvtN7p5p": "B"
+      },
+      "recordId": "recQoLf523FX8X1US"
+    }
+  ],
+  "menuRecordId": "rectWrxqxVepMZtHa",
+  "brandUpdate": {
+    "before": {
+      "name": "Boost",
+      "websiteUrl": null
+    },
+    "after": {
+      "name": "Boost Juice",
+      "websiteUrl": "https://www.boostjuicebars.com.sg/"
+    },
+    "slugPreserved": "boost"
+  },
+  "review": {
+    "nutrition": "Independent visual review confirmed all23 concentrations,46 totals,28 grades and current seasonal items.",
+    "copy": "Humanizer final review: factual ingredient descriptions, explicit serving basis and missing-source note; no unsupported health claims or promotional copy."
+  },
+  "verification": {
+    "airtable": "28 records exact readback, linked existing Boost brand; no global slug collisions",
+    "sourceReview": "Independent visual review of23core energy values,46cup totals and28Nutri-Grade badges passed",
+    "copy": "Final Humanizer review completed after source-note clarification; factual ingredient summaries and source context",
+    "checks": "68 tests passed; build:verify passed; strict internal-link audit scanned4315pages, zero broken or noncanonical links/references",
+    "pages": "31 built pages verified:28drinks,menu,hub,brand; all69 populated calorie cells match official inputs and calculations",
+    "layout": "390px mobile and1440px desktop: no document overflow; all seven-column tables in focusable scroll regions"
+  }
+}

@@ -2,6 +2,7 @@
 import Layout from '../../components/Layout.astro';
 import MrCoconutNutritionNote from '../../components/MrCoconutNutritionNote.astro';
 import PlayMadeNutritionNote from '../../components/PlayMadeNutritionNote.astro';
+import BoostNutritionNote from '../../components/BoostNutritionNote.astro';
 import { getBrands, getDrinks, getDrinksByBrand } from '../../lib/airtable';
 import { pathSegment } from '../../lib/url';
 import type { Brand, Drink } from '../../lib/types';
@@ -32,6 +33,7 @@ type DrinkGroup = {
 
 const { brand } = Astro.props;
 const drinks = await getDrinksByBrand(brand.slug);
+const isBoost = brand.slug === 'boost';
 
 const groupedDrinks = Array.from(
   drinks.reduce((groups, drink) => {
@@ -56,7 +58,7 @@ const groupedDrinks = Array.from(
 const retailPriceParts = (drink: Drink) => (
   [
     typeof drink.priceM === 'number' ? `${brand.slug === 'mr-coconut' && drink.name.startsWith('Hot ') ? 'Hot' : 'M'} $${drink.priceM.toFixed(2)}` : undefined,
-    typeof drink.priceL === 'number' ? `L $${drink.priceL.toFixed(2)}` : undefined,
+    typeof drink.priceL === 'number' ? `${isBoost ? 'Original' : 'L'} $${drink.priceL.toFixed(2)}` : undefined,
     typeof drink.priceOneLitre === 'number' ? `1L $${drink.priceOneLitre.toFixed(2)}` : undefined,
   ].filter((price): price is string => Boolean(price))
 );
@@ -147,6 +149,7 @@ const jsonLd = {
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
     <MrCoconutNutritionNote show={brand.slug === 'mr-coconut'} />
     <PlayMadeNutritionNote show={brand.slug === 'playmade'} />
+    <BoostNutritionNote show={isBoost} />
     <aside class="rounded-lg bg-[var(--color-cream-100)] p-5 space-y-3"><h2 class="font-semibold">Before you order</h2><p>Check current prices and availability with the brand. Calories and nutrition labels apply to the listed serving; size, sugar level and toppings can change the values. Missing information is marked "Not listed".</p>{brand.websiteUrl && <a href={brand.websiteUrl} class="underline" target="_blank" rel="noopener noreferrer">Check {brand.name}'s website</a>}<p><a href="/contact/" class="underline">Report a menu correction</a></p></aside>
     {groupedDrinks.map(group => (
       <section class="space-y-4" data-pagefind-body>
@@ -166,8 +169,8 @@ const jsonLd = {
               <th scope="col" class="p-4">Drink</th>
               <th scope="col" class="p-4">Listed prices (SGD)</th>
               <th scope="col" class="p-4">Calories per 100ml</th>
-              <th scope="col" class="p-4">Calories per M cup</th>
-              <th scope="col" class="p-4">Calories per L cup</th>
+              <th scope="col" class="p-4">{isBoost ? 'Calories per Medium cup (400ml)' : 'Calories per M cup'}</th>
+              <th scope="col" class="p-4">{isBoost ? 'Calories per Original cup (500ml)' : 'Calories per L cup'}</th>
               <th scope="col" class="p-4">Nutri-Grade</th>
               <th scope="col" class="p-4">Healthier Choice Type</th>
             </tr></thead>
