@@ -1,5 +1,6 @@
 ---
 import Layout from '../../components/Layout.astro';
+import PreferredSource from '../../components/PreferredSource.astro';
 import MrCoconutNutritionNote from '../../components/MrCoconutNutritionNote.astro';
 import PlayMadeNutritionNote from '../../components/PlayMadeNutritionNote.astro';
 import BoostNutritionNote from '../../components/BoostNutritionNote.astro';
@@ -140,6 +141,9 @@ const jsonLd = {
             <a href={`/brands/${pathSegment(brand.slug)}/`} class="text-sm font-medium text-[var(--color-forest-700)] hover:underline">
               View brand profile
             </a>
+          </div>
+          <div class="pt-3">
+            <PreferredSource compact />
           </div>
         </div>
       </div>

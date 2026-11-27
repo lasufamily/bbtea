@@ -1,5 +1,6 @@
 ---
 import Layout from '../../components/Layout.astro';
+import PreferredSource from '../../components/PreferredSource.astro';
 import { getBrands, getDrinks } from '../../lib/airtable';
 import { pathSegment } from '../../lib/url';
 
@@ -67,6 +68,9 @@ const jsonLd = {
           <span class="font-bold text-xl text-[var(--color-stone-900)]">{categoryCount}</span>
           <span class="text-[var(--color-stone-400)] ml-1">{categoryCount === 1 ? 'category' : 'categories'}</span>
         </div>
+      </div>
+      <div class="pt-2">
+        <PreferredSource compact />
       </div>
     </div>
   </section>
