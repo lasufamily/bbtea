@@ -35,9 +35,6 @@ const jsonLd = {
         <span>/</span>
         <span class="text-[var(--color-stone-700)] font-medium">Drinks</span>
       </nav>
-      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
-        Menus Across Singapore
-      </p>
       <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight">
         {selectedCategoryName ?? 'Bubble Tea Drinks'}
       </h1>
@@ -83,7 +80,6 @@ const jsonLd = {
       </div>
     ) : (
       <div class="text-center py-20 space-y-4">
-        <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">No Results</p>
         <h2 class="text-xl font-display font-semibold text-[var(--color-stone-800)]">No drinks found</h2>
         <a href="/drinks/" class="text-[var(--color-forest-700)] font-medium hover:underline">Browse all drinks</a>
       </div>

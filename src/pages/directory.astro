@@ -64,9 +64,6 @@ if (q)           activeFilters.push(`"${q}"`);
   <!-- Page header -->
   <section class="bg-[var(--color-cream-100)] border-b border-[var(--color-stone-200)] py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
-        Singapore Boba Directory
-      </p>
       <h1 class="text-3xl lg:text-4xl font-display font-bold text-[var(--color-stone-900)]">
         <span id="directory-heading">{isFiltered ? `${outlets.length} Shops Found` : 'Browse All Shops'}</span>
       </h1>
@@ -145,7 +142,6 @@ if (q)           activeFilters.push(`"${q}"`);
         </div>
 
         <div id="directory-empty" class="text-center py-20 space-y-4" hidden>
-          <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">No Results</p>
           <h2 class="text-xl font-display font-semibold text-[var(--color-stone-800)]">No shops found</h2>
           <p class="text-[var(--color-stone-500)] max-w-sm mx-auto">
             Try adjusting your filters or search term to discover more bubble tea shops.

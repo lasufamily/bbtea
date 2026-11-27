@@ -95,9 +95,6 @@ const suggestedSearches = [
   <!-- Header -->
   <section class="bg-[var(--color-cream-100)] border-b border-[var(--color-stone-200)] py-12">
     <div class="max-w-2xl mx-auto px-4 sm:px-6 space-y-4">
-      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">
-        Search
-      </p>
       <h1 id="search-heading" class="text-3xl font-display font-bold text-[var(--color-stone-900)]">
         {query ? <>Results for <em class="not-italic text-[var(--color-forest-700)]">"{query}"</em></> : 'Find Your Perfect Boba'}
       </h1>
@@ -113,7 +110,6 @@ const suggestedSearches = [
     <div id="pagefind-search" class="space-y-6" aria-live="polite">
       {!query && (
         <div class="text-center py-16 space-y-4">
-          <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">Search</p>
           <p class="text-[var(--color-stone-500)] text-base">
             Type something above to search across all shops, brands, drinks, and towns.
           </p>

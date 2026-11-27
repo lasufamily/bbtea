@@ -108,10 +108,13 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
 
         <!-- Header -->
         <header class="space-y-3">
+          <h1 class="text-3xl lg:text-4xl font-display font-bold text-[var(--color-stone-900)]">
+            {outlet.name}
+          </h1>
           <div class="flex items-center gap-2 flex-wrap">
             <a
               href={`/brands/${pathSegment(outlet.brandSlug)}/`}
-              class="text-xs font-bold tracking-[0.15em] uppercase text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] transition-colors"
+              class="text-sm font-medium text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] transition-colors"
             >
               {outlet.brandName}
             </a>
@@ -126,9 +129,6 @@ const priceLabel: Record<string, string> = { '$': 'Budget', '$$': 'Mid-range', '
               </span>
             )}
           </div>
-          <h1 class="text-3xl lg:text-4xl font-display font-bold text-[var(--color-stone-900)]">
-            {outlet.name}
-          </h1>
           <p class="text-[var(--color-stone-500)] text-sm flex items-center gap-1.5">
             <svg class="w-4 h-4 text-[var(--color-stone-400)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>

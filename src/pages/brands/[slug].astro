@@ -90,7 +90,6 @@ const jsonLd = {
           </div>
         )}
         <div class="space-y-2 flex-1" data-pagefind-body>
-          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">Brand</p>
           <h1 class="text-3xl lg:text-4xl font-display font-bold text-[var(--color-stone-900)]">{brand.name}</h1>
           {brand.description && (
             <p class="text-[var(--color-stone-600)] text-base leading-relaxed max-w-2xl">{brand.description}</p>
@@ -229,7 +228,6 @@ const jsonLd = {
       </div>
     ) : (
       <div class="text-center py-20 space-y-4">
-        <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">No Results</p>
         <p class="text-[var(--color-stone-500)]">No {primaryCategory.toLowerCase()} outlets listed yet for {brand.name}.</p>
         <a href="/directory/" class="text-[var(--color-forest-700)] font-medium hover:underline">Browse all shops →</a>
       </div>

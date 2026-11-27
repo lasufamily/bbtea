@@ -89,6 +89,10 @@ const articleJsonLd = jsonLd ?? {
 
     <!-- Header -->
     <header class="mb-8">
+      <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-stone-900 leading-tight mb-4">
+        {title}
+      </h1>
+
       {tags.length > 0 && (
         <div class="flex flex-wrap gap-2 mb-4">
           {tags.map(tag => (
@@ -98,10 +102,6 @@ const articleJsonLd = jsonLd ?? {
           ))}
         </div>
       )}
-
-      <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-stone-900 leading-tight mb-4">
-        {title}
-      </h1>
 
       <p class="text-lg text-stone-600 mb-5 leading-relaxed">{description}</p>
 

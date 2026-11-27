@@ -117,15 +117,15 @@ const jsonLd = {
 
         <div class="grid gap-9 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div class="space-y-5">
-            <div class="flex flex-wrap items-center gap-2">
-              {review.brand && (
-                <span class="text-xs font-bold tracking-[0.16em] uppercase text-[var(--color-forest-700)]">{review.brand}</span>
-              )}
-              <span class="text-xs text-[var(--color-stone-400)]">{purchaseDate}</span>
-            </div>
             <h1 class="text-3xl lg:text-5xl font-display font-bold leading-tight text-[var(--color-stone-900)]">
               {title}
             </h1>
+            <div class="flex flex-wrap items-center gap-2">
+              {review.brand && (
+                <span class="text-sm font-medium text-[var(--color-forest-700)]">{review.brand}</span>
+              )}
+              <span class="text-xs text-[var(--color-stone-400)]">{purchaseDate}</span>
+            </div>
             {typeof review.overallRating === 'number' && (
               <StarRating
                 value={review.overallRating}

@@ -38,7 +38,6 @@ function formatPrice(price?: number): string | undefined {
         <span class="text-[var(--color-stone-700)] font-medium">Reviews</span>
       </nav>
       <div class="max-w-3xl space-y-3">
-        <p class="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-forest-700)]">Singapore Reviews</p>
         <h1 class="text-3xl lg:text-5xl font-display font-bold text-[var(--color-stone-900)]">
           Singapore bubble tea and coffee reviews
         </h1>
@@ -84,8 +83,11 @@ function formatPrice(price?: number): string | undefined {
                   )}
                 </div>
                 <div class="p-5 space-y-3">
+                  <h2 class="text-xl font-display font-semibold leading-snug text-[var(--color-stone-900)] group-hover:text-[var(--color-forest-700)] transition-colors">
+                    {title}
+                  </h2>
                   {meta.length > 0 && (
-                    <div class="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-forest-700)]">
+                    <div class="flex flex-wrap items-center gap-2 text-xs font-medium text-[var(--color-forest-700)]">
                       {meta.map((item, index) => (
                         <>
                           {index > 0 && <span class="text-[var(--color-stone-300)]">/</span>}
@@ -94,9 +96,6 @@ function formatPrice(price?: number): string | undefined {
                       ))}
                     </div>
                   )}
-                  <h2 class="text-xl font-display font-semibold leading-snug text-[var(--color-stone-900)] group-hover:text-[var(--color-forest-700)] transition-colors">
-                    {title}
-                  </h2>
                   {typeof review.overallRating === 'number' && (
                     <StarRating
                       value={review.overallRating}
@@ -134,7 +133,6 @@ function formatPrice(price?: number): string | undefined {
       </ul>
     ) : (
       <div class="rounded-lg border border-[var(--color-stone-200)] bg-white p-8 text-center">
-        <p class="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--color-stone-400)]">No Reviews Yet</p>
         <p class="mt-2 text-[var(--color-stone-500)]">
           New Singapore drink reviews will appear here soon.
         </p>

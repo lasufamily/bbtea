@@ -87,17 +87,24 @@ const searchText = [
   <!-- Card body -->
   <div class="p-5 space-y-3">
 
+    <!-- Outlet name -->
+    <h3 class="text-base font-display font-semibold text-[var(--color-stone-900)] leading-snug">
+      <a href={listingPath} class="hover:text-[var(--color-forest-700)] transition-colors">
+        {outlet.name}
+      </a>
+    </h3>
+
     <!-- Brand pill + badges -->
     <div class="flex items-center justify-between gap-2 flex-wrap">
       {outlet.brandSlug ? (
         <a
           href={`/brands/${pathSegment(outlet.brandSlug)}/`}
-          class="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] uppercase transition-colors"
+          class="inline-flex items-center gap-1.5 text-xs font-medium text-[var(--color-forest-700)] hover:text-[var(--color-forest-800)] transition-colors"
         >
           {outlet.brandName}
         </a>
       ) : (
-        <span class="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide text-[var(--color-forest-700)] uppercase">
+        <span class="inline-flex items-center gap-1.5 text-xs font-medium text-[var(--color-forest-700)]">
           {venueLabel}
         </span>
       )}
@@ -120,13 +127,6 @@ const searchText = [
         )}
       </div>
     </div>
-
-    <!-- Outlet name -->
-    <h3 class="text-base font-display font-semibold text-[var(--color-stone-900)] leading-snug">
-      <a href={listingPath} class="hover:text-[var(--color-forest-700)] transition-colors">
-        {outlet.name}
-      </a>
-    </h3>
 
     <!-- Location details -->
     <div class="space-y-1.5 text-sm text-[var(--color-stone-600)]">
