@@ -1,0 +1,4769 @@
+{
+  "project": "BBTea.sg",
+  "brand": "PlayMade",
+  "checkedAt": "2026-11-27",
+  "brandId": "recLbPCRvJWAEW86O",
+  "sources": {
+    "officialMenuPage": "https://www.playmade.com/store-menu",
+    "menuPage1": "https://static.wixstatic.com/media/b8185a_ebf51184571242bc8583d610efb29e6b~mv2.png",
+    "menuPage2": "https://static.wixstatic.com/media/b8185a_78593d6e38f7424286bfecd440fee327~mv2.png",
+    "officialNutritionLink": "https://www.playmade.com/menu",
+    "officialCalculator": "https://playmade-hq.vercel.app/nutrition"
+  },
+  "method": "Current regular-store menu, image filenames A3_Menu-normal_11nov. Calories are the official calculator at 25% sugar, regular ice, no toppings; whole-cup totals use official drink- and size-specific published values and round half up to whole kcal exactly as the public calculator. Per100ml = round(official medium cup kcal ×100 / official medium drink volume), matching the public calculator. Preserve each size recipe; do not assume standard 480ml/700ml. Nutri-Grade is transcribed from the current menu for iced100% sugar. Almond option prices add the menu-stated $0.30; grades use calculator100% for almond recipes. Hot option existence is noted on applicable drinks, without inventing separate hot nutrition/volumes or standalone prices. No Healthier Choice certification inferred.",
+  "scope": "Import every unique drink priced in the current regular-store menu, plus its seven explicitly priced almond substitutions. Exclude calculator-only seasonal/protein/LongJing drinks absent from the current menu, standalone toppings and Playground food. Duplicate menu listings are not duplicate records.",
+  "statisticsValidation": "ARS validate, ANALYZED: deterministic conversions and display rounding from published source inputs, not a sampling study. No confidence intervals or significance tests apply. All11 statistical fallacy classes reviewed; no subgroup trend, individual inference, selected-sample correlation, adjusted model, diagnostic rate, pre/post effect, survival inference, significance selection/model search, causal or reverse-causal claim. Serving and preparation applicability retained per record; source data may change.",
+  "records": [
+    {
+      "name": "Chrysanthemum Milk Tea",
+      "category": "Milk Tea",
+      "priceM": 4.2,
+      "priceL": 5.4,
+      "nutritionKey": "Chrysanthemum Milk Tea",
+      "menuGrade": "C",
+      "hotOption": true,
+      "description": null,
+      "slug": "chrysanthemum-milk-tea",
+      "nutritionSource": {
+        "displayName": "Chrysanthemum Milk Tea",
+        "servingMlM": 388,
+        "servingMlL": 546,
+        "level25M": {
+          "kcal": 158.9,
+          "grade": "C",
+          "sugar_g": 13,
+          "sugar_pct": 3
+        },
+        "level25L": {
+          "kcal": 248.9,
+          "grade": "C",
+          "sugar_g": 21.9,
+          "sugar_pct": 4
+        },
+        "level100M": {
+          "kcal": 193.4,
+          "grade": "C",
+          "sugar_g": 20.8,
+          "sugar_pct": 5
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Chrysanthemum Milk Tea",
+        "Slug": "chrysanthemum-milk-tea",
+        "Category": "Milk Tea",
+        "Retail Price (M)": 4.2,
+        "Retail Price (L)": 5.4,
+        "Calories per 100ml (kcal)": "41",
+        "Calories per M cup (kcal)": "159",
+        "Calories per L cup (kcal)": "249",
+        "Nutri-Grade": "C",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Chrysanthemum Milk Tea",
+        "fld6cJn7bkETDWUKy": "chrysanthemum-milk-tea",
+        "fldg31a9rKincFfv8": "Milk Tea",
+        "fldEgGhc5iNKHLiMM": 4.2,
+        "fld6NIafSQQyYJAkP": 5.4,
+        "fldN4zstqWe07gjSe": "41",
+        "fldLrw0evtwSf4IyM": "159",
+        "fldJR3stkFoVh1ATp": "249",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recsIIaQkGlaJGXJy"
+    },
+    {
+      "name": "Taiwan Milk Tea",
+      "category": "Milk Tea",
+      "priceM": 4.2,
+      "priceL": 5.4,
+      "nutritionKey": "Taiwan Milk Tea",
+      "menuGrade": "D",
+      "hotOption": true,
+      "description": null,
+      "slug": "taiwan-milk-tea",
+      "nutritionSource": {
+        "displayName": "Taiwan Milk Tea",
+        "servingMlM": 318,
+        "servingMlL": 571,
+        "level25M": {
+          "kcal": 241.4,
+          "grade": "D",
+          "sugar_g": 8.5,
+          "sugar_pct": 3
+        },
+        "level25L": {
+          "kcal": 370,
+          "grade": "D",
+          "sugar_g": 14.5,
+          "sugar_pct": 3
+        },
+        "level100M": {
+          "kcal": 275.9,
+          "grade": "D",
+          "sugar_g": 16.3,
+          "sugar_pct": 5
+        }
+      },
+      "gradeAt100": "D",
+      "fieldsByName": {
+        "Drink Name": "Taiwan Milk Tea",
+        "Slug": "taiwan-milk-tea",
+        "Category": "Milk Tea",
+        "Retail Price (M)": 4.2,
+        "Retail Price (L)": 5.4,
+        "Calories per 100ml (kcal)": "76",
+        "Calories per M cup (kcal)": "241",
+        "Calories per L cup (kcal)": "370",
+        "Nutri-Grade": "D",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Taiwan Milk Tea",
+        "fld6cJn7bkETDWUKy": "taiwan-milk-tea",
+        "fldg31a9rKincFfv8": "Milk Tea",
+        "fldEgGhc5iNKHLiMM": 4.2,
+        "fld6NIafSQQyYJAkP": 5.4,
+        "fldN4zstqWe07gjSe": "76",
+        "fldLrw0evtwSf4IyM": "241",
+        "fldJR3stkFoVh1ATp": "370",
+        "fld4G6dmdKvtN7p5p": "D",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recULBFBLDBLROp27"
+    },
+    {
+      "name": "Queen Jasmine Green Milk Tea",
+      "category": "Milk Tea",
+      "priceM": 4.2,
+      "priceL": 5.4,
+      "nutritionKey": "Queen Jasmine Green Milk Tea",
+      "menuGrade": "C",
+      "hotOption": true,
+      "description": null,
+      "slug": "queen-jasmine-green-milk-tea",
+      "nutritionSource": {
+        "displayName": "Queen Jasmine Green Milk Tea",
+        "servingMlM": 363,
+        "servingMlL": 521,
+        "level25M": {
+          "kcal": 186.6,
+          "fat_g": 10.4,
+          "grade": "C",
+          "carb_g": 22.1,
+          "sugar_g": 7.6,
+          "satfat_g": 9.5,
+          "protein_g": 0.7,
+          "sodium_mg": 26,
+          "sugar_pct": 2,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 260.3,
+          "fat_g": 13.8,
+          "grade": "C",
+          "carb_g": 32.1,
+          "sugar_g": 12.8,
+          "satfat_g": 12.7,
+          "protein_g": 0.9,
+          "sodium_mg": 34,
+          "sugar_pct": 2,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 221.1,
+          "fat_g": 10.4,
+          "grade": "C",
+          "carb_g": 29.9,
+          "sugar_g": 15.4,
+          "satfat_g": 9.5,
+          "protein_g": 0.7,
+          "sodium_mg": 26,
+          "sugar_pct": 4,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Queen Jasmine Green Milk Tea",
+        "Slug": "queen-jasmine-green-milk-tea",
+        "Category": "Milk Tea",
+        "Retail Price (M)": 4.2,
+        "Retail Price (L)": 5.4,
+        "Calories per 100ml (kcal)": "51",
+        "Calories per M cup (kcal)": "187",
+        "Calories per L cup (kcal)": "260",
+        "Nutri-Grade": "C",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Queen Jasmine Green Milk Tea",
+        "fld6cJn7bkETDWUKy": "queen-jasmine-green-milk-tea",
+        "fldg31a9rKincFfv8": "Milk Tea",
+        "fldEgGhc5iNKHLiMM": 4.2,
+        "fld6NIafSQQyYJAkP": 5.4,
+        "fldN4zstqWe07gjSe": "51",
+        "fldLrw0evtwSf4IyM": "187",
+        "fldJR3stkFoVh1ATp": "260",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recdPmjgrcdHMNShm"
+    },
+    {
+      "name": "Low-Fat Milk Tea",
+      "category": "Milk Tea",
+      "priceM": 4.2,
+      "priceL": 5.4,
+      "nutritionKey": "Low-Fat Milk Tea",
+      "menuGrade": "C",
+      "hotOption": true,
+      "description": null,
+      "slug": "low-fat-milk-tea",
+      "nutritionSource": {
+        "displayName": "Low-Fat Milk Tea",
+        "servingMlM": 363,
+        "servingMlL": 541,
+        "level25M": {
+          "kcal": 186.6,
+          "grade": "C",
+          "sugar_g": 7.6,
+          "sugar_pct": 2
+        },
+        "level25L": {
+          "kcal": 260.2,
+          "grade": "C",
+          "sugar_g": 12.8,
+          "sugar_pct": 2
+        },
+        "level100M": {
+          "kcal": 221.1,
+          "grade": "C",
+          "sugar_g": 15.4,
+          "sugar_pct": 4
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Low-Fat Milk Tea",
+        "Slug": "low-fat-milk-tea",
+        "Category": "Milk Tea",
+        "Retail Price (M)": 4.2,
+        "Retail Price (L)": 5.4,
+        "Calories per 100ml (kcal)": "51",
+        "Calories per M cup (kcal)": "187",
+        "Calories per L cup (kcal)": "260",
+        "Nutri-Grade": "C",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Low-Fat Milk Tea",
+        "fld6cJn7bkETDWUKy": "low-fat-milk-tea",
+        "fldg31a9rKincFfv8": "Milk Tea",
+        "fldEgGhc5iNKHLiMM": 4.2,
+        "fld6NIafSQQyYJAkP": 5.4,
+        "fldN4zstqWe07gjSe": "51",
+        "fldLrw0evtwSf4IyM": "187",
+        "fldJR3stkFoVh1ATp": "260",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "receNlMpqh7jrDT0S"
+    },
+    {
+      "name": "Dong Ding Oolong Milk Tea",
+      "category": "Milk Tea",
+      "priceM": 4.2,
+      "priceL": 5.4,
+      "nutritionKey": "Dong Ding Oolong Milk Tea",
+      "menuGrade": "C",
+      "hotOption": true,
+      "description": null,
+      "slug": "dong-ding-oolong-milk-tea",
+      "nutritionSource": {
+        "displayName": "Dong Ding Oolong Milk Tea",
+        "servingMlM": 363,
+        "servingMlL": 521,
+        "level25M": {
+          "kcal": 186.6,
+          "grade": "C",
+          "sugar_g": 7.6,
+          "sugar_pct": 2
+        },
+        "level25L": {
+          "kcal": 260.2,
+          "grade": "C",
+          "sugar_g": 12.8,
+          "sugar_pct": 2
+        },
+        "level100M": {
+          "kcal": 221.1,
+          "grade": "C",
+          "sugar_g": 15.4,
+          "sugar_pct": 4
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Dong Ding Oolong Milk Tea",
+        "Slug": "dong-ding-oolong-milk-tea",
+        "Category": "Milk Tea",
+        "Retail Price (M)": 4.2,
+        "Retail Price (L)": 5.4,
+        "Calories per 100ml (kcal)": "51",
+        "Calories per M cup (kcal)": "187",
+        "Calories per L cup (kcal)": "260",
+        "Nutri-Grade": "C",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Dong Ding Oolong Milk Tea",
+        "fld6cJn7bkETDWUKy": "dong-ding-oolong-milk-tea",
+        "fldg31a9rKincFfv8": "Milk Tea",
+        "fldEgGhc5iNKHLiMM": 4.2,
+        "fld6NIafSQQyYJAkP": 5.4,
+        "fldN4zstqWe07gjSe": "51",
+        "fldLrw0evtwSf4IyM": "187",
+        "fldJR3stkFoVh1ATp": "260",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recWJF3K7mp6i6UgK"
+    },
+    {
+      "name": "Osmanthus Oolong Milk Tea",
+      "category": "Milk Tea",
+      "priceM": 4.9,
+      "priceL": 5.9,
+      "nutritionKey": "Golden Osmanthus Oolong Milk Tea",
+      "menuGrade": "C",
+      "hotOption": true,
+      "description": null,
+      "slug": "osmanthus-oolong-milk-tea-playmade",
+      "nutritionSource": {
+        "displayName": "Golden Osmanthus Oolong Milk Tea",
+        "servingMlM": 363,
+        "servingMlL": 521,
+        "level25M": {
+          "kcal": 186.6,
+          "grade": "C",
+          "sugar_g": 7.6,
+          "sugar_pct": 2
+        },
+        "level25L": {
+          "kcal": 260.2,
+          "grade": "C",
+          "sugar_g": 12.8,
+          "sugar_pct": 2
+        },
+        "level100M": {
+          "kcal": 221.1,
+          "grade": "C",
+          "sugar_g": 15.4,
+          "sugar_pct": 4
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Osmanthus Oolong Milk Tea",
+        "Slug": "osmanthus-oolong-milk-tea-playmade",
+        "Category": "Milk Tea",
+        "Retail Price (M)": 4.9,
+        "Retail Price (L)": 5.9,
+        "Calories per 100ml (kcal)": "51",
+        "Calories per M cup (kcal)": "187",
+        "Calories per L cup (kcal)": "260",
+        "Nutri-Grade": "C",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Osmanthus Oolong Milk Tea",
+        "fld6cJn7bkETDWUKy": "osmanthus-oolong-milk-tea-playmade",
+        "fldg31a9rKincFfv8": "Milk Tea",
+        "fldEgGhc5iNKHLiMM": 4.9,
+        "fld6NIafSQQyYJAkP": 5.9,
+        "fldN4zstqWe07gjSe": "51",
+        "fldLrw0evtwSf4IyM": "187",
+        "fldJR3stkFoVh1ATp": "260",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recptH740vDbt9fls"
+    },
+    {
+      "name": "White Peach Oolong Milk Tea",
+      "category": "Milk Tea",
+      "priceM": 4.9,
+      "priceL": 5.9,
+      "nutritionKey": "White Peach Oolong Milk Tea",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "white-peach-oolong-milk-tea-playmade",
+      "nutritionSource": {
+        "displayName": "White Peach Oolong Milk Tea",
+        "servingMlM": 373,
+        "servingMlL": 571,
+        "level25M": {
+          "kcal": 186.6,
+          "fat_g": 10.4,
+          "grade": "C",
+          "carb_g": 22.1,
+          "sugar_g": 7.6,
+          "satfat_g": 9.5,
+          "protein_g": 0.7,
+          "sodium_mg": 26,
+          "sugar_pct": 2,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 260.3,
+          "fat_g": 13.8,
+          "grade": "C",
+          "carb_g": 32.1,
+          "sugar_g": 12.8,
+          "satfat_g": 12.7,
+          "protein_g": 0.9,
+          "sodium_mg": 34,
+          "sugar_pct": 2,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 221.1,
+          "fat_g": 10.4,
+          "grade": "C",
+          "carb_g": 29.9,
+          "sugar_g": 15.4,
+          "satfat_g": 9.5,
+          "protein_g": 0.7,
+          "sodium_mg": 26,
+          "sugar_pct": 4,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "White Peach Oolong Milk Tea",
+        "Slug": "white-peach-oolong-milk-tea-playmade",
+        "Category": "Milk Tea",
+        "Retail Price (M)": 4.9,
+        "Retail Price (L)": 5.9,
+        "Calories per 100ml (kcal)": "50",
+        "Calories per M cup (kcal)": "187",
+        "Calories per L cup (kcal)": "260",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "White Peach Oolong Milk Tea",
+        "fld6cJn7bkETDWUKy": "white-peach-oolong-milk-tea-playmade",
+        "fldg31a9rKincFfv8": "Milk Tea",
+        "fldEgGhc5iNKHLiMM": 4.9,
+        "fld6NIafSQQyYJAkP": 5.9,
+        "fldN4zstqWe07gjSe": "50",
+        "fldLrw0evtwSf4IyM": "187",
+        "fldJR3stkFoVh1ATp": "260",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "rec9li1s2ePijbidI"
+    },
+    {
+      "name": "Honey Amber Black Milk Tea",
+      "category": "Milk Tea",
+      "priceM": 5,
+      "priceL": 6,
+      "nutritionKey": "Honey Black/Green Milk Tea",
+      "menuGrade": "C",
+      "hotOption": true,
+      "description": null,
+      "slug": "honey-amber-black-milk-tea",
+      "nutritionSource": {
+        "displayName": "Honey Black/Green Milk Tea",
+        "servingMlM": 375,
+        "servingMlL": 561,
+        "level25M": {
+          "kcal": 263.6,
+          "fat_g": 10.4,
+          "grade": "C",
+          "carb_g": 41.9,
+          "sugar_g": 24.2,
+          "satfat_g": 9.5,
+          "protein_g": 0.7,
+          "sodium_mg": 27,
+          "sugar_pct": 6,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 351.4,
+          "fat_g": 13.8,
+          "grade": "C",
+          "carb_g": 55.8,
+          "sugar_g": 32.2,
+          "satfat_g": 12.7,
+          "protein_g": 0.9,
+          "sodium_mg": 35,
+          "sugar_pct": 6,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 263.6,
+          "fat_g": 10.4,
+          "grade": "C",
+          "carb_g": 41.9,
+          "sugar_g": 24.2,
+          "satfat_g": 9.5,
+          "protein_g": 0.7,
+          "sodium_mg": 27,
+          "sugar_pct": 6,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Honey Amber Black Milk Tea",
+        "Slug": "honey-amber-black-milk-tea",
+        "Category": "Milk Tea",
+        "Retail Price (M)": 5,
+        "Retail Price (L)": 6,
+        "Calories per 100ml (kcal)": "70",
+        "Calories per M cup (kcal)": "264",
+        "Calories per L cup (kcal)": "351",
+        "Nutri-Grade": "C",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Honey Amber Black Milk Tea",
+        "fld6cJn7bkETDWUKy": "honey-amber-black-milk-tea",
+        "fldg31a9rKincFfv8": "Milk Tea",
+        "fldEgGhc5iNKHLiMM": 5,
+        "fld6NIafSQQyYJAkP": 6,
+        "fldN4zstqWe07gjSe": "70",
+        "fldLrw0evtwSf4IyM": "264",
+        "fldJR3stkFoVh1ATp": "351",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recTN5Vr5XFo2pO9X"
+    },
+    {
+      "name": "Honey Queen Jasmine Green Milk Tea",
+      "category": "Milk Tea",
+      "priceM": 5,
+      "priceL": 6,
+      "nutritionKey": "Honey Queen Jasmine Green Milk Tea",
+      "menuGrade": "C",
+      "hotOption": true,
+      "description": null,
+      "slug": "honey-queen-jasmine-green-milk-tea",
+      "nutritionSource": {
+        "displayName": "Honey Queen Jasmine Green Milk Tea",
+        "servingMlM": 375,
+        "servingMlL": 540,
+        "level25M": {
+          "kcal": 263.6,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 41.9,
+          "sugar_g": 24.2,
+          "satfat_g": 9.5,
+          "protein_g": 0.7,
+          "sodium_mg": 27,
+          "sugar_pct": 6,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 351.4,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 55.8,
+          "sugar_g": 32.2,
+          "satfat_g": 12.7,
+          "protein_g": 0.9,
+          "sodium_mg": 35,
+          "sugar_pct": 6,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 263.6,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 41.9,
+          "sugar_g": 24.2,
+          "satfat_g": 9.5,
+          "protein_g": 0.7,
+          "sodium_mg": 27,
+          "sugar_pct": 6,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Honey Queen Jasmine Green Milk Tea",
+        "Slug": "honey-queen-jasmine-green-milk-tea",
+        "Category": "Milk Tea",
+        "Retail Price (M)": 5,
+        "Retail Price (L)": 6,
+        "Calories per 100ml (kcal)": "70",
+        "Calories per M cup (kcal)": "264",
+        "Calories per L cup (kcal)": "351",
+        "Nutri-Grade": "C",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Honey Queen Jasmine Green Milk Tea",
+        "fld6cJn7bkETDWUKy": "honey-queen-jasmine-green-milk-tea",
+        "fldg31a9rKincFfv8": "Milk Tea",
+        "fldEgGhc5iNKHLiMM": 5,
+        "fld6NIafSQQyYJAkP": 6,
+        "fldN4zstqWe07gjSe": "70",
+        "fldLrw0evtwSf4IyM": "264",
+        "fldJR3stkFoVh1ATp": "351",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recMvutB8Z72YW5S0"
+    },
+    {
+      "name": "Burnt Caramel Milk Tea",
+      "category": "Milk Tea",
+      "priceM": 5,
+      "priceL": 6.5,
+      "nutritionKey": "Burnt Caramel Milk Tea",
+      "menuGrade": "D",
+      "hotOption": true,
+      "description": null,
+      "slug": "burnt-caramel-milk-tea",
+      "nutritionSource": {
+        "displayName": "Burnt Caramel Milk Tea",
+        "servingMlM": 350,
+        "servingMlL": 641,
+        "level25M": {
+          "kcal": 336.4,
+          "fat_g": 13.8,
+          "grade": "D",
+          "carb_g": 51.3,
+          "sugar_g": 32,
+          "satfat_g": 12.7,
+          "protein_g": 0.9,
+          "sodium_mg": 34,
+          "sugar_pct": 9,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 493,
+          "fat_g": 20.8,
+          "grade": "D",
+          "carb_g": 74.2,
+          "sugar_g": 45.2,
+          "satfat_g": 19,
+          "protein_g": 1.3,
+          "sodium_mg": 51,
+          "sugar_pct": 9,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 336.4,
+          "fat_g": 13.8,
+          "grade": "D",
+          "carb_g": 51.3,
+          "sugar_g": 32,
+          "satfat_g": 12.7,
+          "protein_g": 0.9,
+          "sodium_mg": 34,
+          "sugar_pct": 9,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "D",
+      "fieldsByName": {
+        "Drink Name": "Burnt Caramel Milk Tea",
+        "Slug": "burnt-caramel-milk-tea",
+        "Category": "Milk Tea",
+        "Retail Price (M)": 5,
+        "Retail Price (L)": 6.5,
+        "Calories per 100ml (kcal)": "96",
+        "Calories per M cup (kcal)": "336",
+        "Calories per L cup (kcal)": "493",
+        "Nutri-Grade": "D",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Burnt Caramel Milk Tea",
+        "fld6cJn7bkETDWUKy": "burnt-caramel-milk-tea",
+        "fldg31a9rKincFfv8": "Milk Tea",
+        "fldEgGhc5iNKHLiMM": 5,
+        "fld6NIafSQQyYJAkP": 6.5,
+        "fldN4zstqWe07gjSe": "96",
+        "fldLrw0evtwSf4IyM": "336",
+        "fldJR3stkFoVh1ATp": "493",
+        "fld4G6dmdKvtN7p5p": "D",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "reciEvuhyxo49a7Hn"
+    },
+    {
+      "name": "Brown Sugar Milk Tea",
+      "category": "Milk Tea",
+      "priceM": 5,
+      "priceL": 6.5,
+      "nutritionKey": "Brown Sugar Milk Tea",
+      "menuGrade": "D",
+      "hotOption": true,
+      "description": null,
+      "slug": "brown-sugar-milk-tea-playmade",
+      "nutritionSource": {
+        "displayName": "Brown Sugar Milk Tea",
+        "servingMlM": 350,
+        "servingMlL": 641,
+        "level25M": {
+          "kcal": 330.9,
+          "fat_g": 13.8,
+          "grade": "D",
+          "carb_g": 52.3,
+          "sugar_g": 33,
+          "satfat_g": 12.7,
+          "protein_g": 0.9,
+          "sodium_mg": 34,
+          "sugar_pct": 9,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 485.3,
+          "fat_g": 20.8,
+          "grade": "D",
+          "carb_g": 75.6,
+          "sugar_g": 46.6,
+          "satfat_g": 19,
+          "protein_g": 1.3,
+          "sodium_mg": 51,
+          "sugar_pct": 9,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 330.9,
+          "fat_g": 13.8,
+          "grade": "D",
+          "carb_g": 52.3,
+          "sugar_g": 33,
+          "satfat_g": 12.7,
+          "protein_g": 0.9,
+          "sodium_mg": 34,
+          "sugar_pct": 9,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "D",
+      "fieldsByName": {
+        "Drink Name": "Brown Sugar Milk Tea",
+        "Slug": "brown-sugar-milk-tea-playmade",
+        "Category": "Milk Tea",
+        "Retail Price (M)": 5,
+        "Retail Price (L)": 6.5,
+        "Calories per 100ml (kcal)": "95",
+        "Calories per M cup (kcal)": "331",
+        "Calories per L cup (kcal)": "485",
+        "Nutri-Grade": "D",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Brown Sugar Milk Tea",
+        "fld6cJn7bkETDWUKy": "brown-sugar-milk-tea-playmade",
+        "fldg31a9rKincFfv8": "Milk Tea",
+        "fldEgGhc5iNKHLiMM": 5,
+        "fld6NIafSQQyYJAkP": 6.5,
+        "fldN4zstqWe07gjSe": "95",
+        "fldLrw0evtwSf4IyM": "331",
+        "fldJR3stkFoVh1ATp": "485",
+        "fld4G6dmdKvtN7p5p": "D",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recOlgUKh7QbhkVDx"
+    },
+    {
+      "name": "Amber Black Fresh Milk Tea",
+      "category": "Fresh Milk Tea",
+      "priceM": 5,
+      "priceL": 6,
+      "nutritionKey": "Amber Black Fresh Milk Tea",
+      "menuGrade": "B",
+      "hotOption": true,
+      "description": null,
+      "slug": "amber-black-fresh-milk-tea",
+      "nutritionSource": {
+        "displayName": "Amber Black Fresh Milk Tea",
+        "servingMlM": 298,
+        "servingMlL": 491,
+        "level25M": {
+          "kcal": 76.4,
+          "grade": "B",
+          "sugar_g": 4.9,
+          "sugar_pct": 2
+        },
+        "level25L": {
+          "kcal": 122.4,
+          "grade": "B",
+          "sugar_g": 9.3,
+          "sugar_pct": 2
+        },
+        "level100M": {
+          "kcal": 110.9,
+          "grade": "B",
+          "sugar_g": 12.8,
+          "sugar_pct": 4
+        }
+      },
+      "gradeAt100": "B",
+      "fieldsByName": {
+        "Drink Name": "Amber Black Fresh Milk Tea",
+        "Slug": "amber-black-fresh-milk-tea",
+        "Category": "Fresh Milk Tea",
+        "Retail Price (M)": 5,
+        "Retail Price (L)": 6,
+        "Calories per 100ml (kcal)": "26",
+        "Calories per M cup (kcal)": "76",
+        "Calories per L cup (kcal)": "122",
+        "Nutri-Grade": "B",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Amber Black Fresh Milk Tea",
+        "fld6cJn7bkETDWUKy": "amber-black-fresh-milk-tea",
+        "fldg31a9rKincFfv8": "Fresh Milk Tea",
+        "fldEgGhc5iNKHLiMM": 5,
+        "fld6NIafSQQyYJAkP": 6,
+        "fldN4zstqWe07gjSe": "26",
+        "fldLrw0evtwSf4IyM": "76",
+        "fldJR3stkFoVh1ATp": "122",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recVVI7vreNgWSOKJ"
+    },
+    {
+      "name": "Dong Ding Oolong Fresh Milk Tea",
+      "category": "Fresh Milk Tea",
+      "priceM": 5,
+      "priceL": 6,
+      "nutritionKey": "Dong Ding Oolong Fresh Milk Tea",
+      "menuGrade": "B",
+      "hotOption": true,
+      "description": null,
+      "slug": "dong-ding-oolong-fresh-milk-tea",
+      "nutritionSource": {
+        "displayName": "Dong Ding Oolong Fresh Milk Tea",
+        "servingMlM": 328,
+        "servingMlL": 491,
+        "level25M": {
+          "kcal": 76.4,
+          "fat_g": 3.1,
+          "grade": "B",
+          "carb_g": 8.7,
+          "sugar_g": 5,
+          "satfat_g": 2.1,
+          "protein_g": 2.8,
+          "sodium_mg": 38,
+          "sugar_pct": 2,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 122.4,
+          "fat_g": 4.7,
+          "grade": "B",
+          "carb_g": 14.7,
+          "sugar_g": 9.2,
+          "satfat_g": 3.1,
+          "protein_g": 4.2,
+          "sodium_mg": 56,
+          "sugar_pct": 2,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 110.9,
+          "fat_g": 3.1,
+          "grade": "B",
+          "carb_g": 16.5,
+          "sugar_g": 12.8,
+          "satfat_g": 2.1,
+          "protein_g": 2.8,
+          "sodium_mg": 38,
+          "sugar_pct": 4,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "B",
+      "fieldsByName": {
+        "Drink Name": "Dong Ding Oolong Fresh Milk Tea",
+        "Slug": "dong-ding-oolong-fresh-milk-tea",
+        "Category": "Fresh Milk Tea",
+        "Retail Price (M)": 5,
+        "Retail Price (L)": 6,
+        "Calories per 100ml (kcal)": "23",
+        "Calories per M cup (kcal)": "76",
+        "Calories per L cup (kcal)": "122",
+        "Nutri-Grade": "B",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Dong Ding Oolong Fresh Milk Tea",
+        "fld6cJn7bkETDWUKy": "dong-ding-oolong-fresh-milk-tea",
+        "fldg31a9rKincFfv8": "Fresh Milk Tea",
+        "fldEgGhc5iNKHLiMM": 5,
+        "fld6NIafSQQyYJAkP": 6,
+        "fldN4zstqWe07gjSe": "23",
+        "fldLrw0evtwSf4IyM": "76",
+        "fldJR3stkFoVh1ATp": "122",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "rectYhPHOKwyzAFxt"
+    },
+    {
+      "name": "Osmanthus Oolong Fresh Milk Tea",
+      "category": "Fresh Milk Tea",
+      "priceM": 5,
+      "priceL": 6,
+      "nutritionKey": "Osmanthus Oolong Fresh Milk Tea",
+      "menuGrade": "B",
+      "hotOption": true,
+      "description": null,
+      "slug": "osmanthus-oolong-fresh-milk-tea",
+      "nutritionSource": {
+        "displayName": "Osmanthus Oolong Fresh Milk Tea",
+        "servingMlM": 328,
+        "servingMlL": 491,
+        "level25M": {
+          "kcal": 76.4,
+          "fat_g": 3.1,
+          "grade": "B",
+          "carb_g": 8.7,
+          "sugar_g": 5,
+          "satfat_g": 2.1,
+          "protein_g": 2.8,
+          "sodium_mg": 38,
+          "sugar_pct": 2,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 122.4,
+          "fat_g": 4.7,
+          "grade": "B",
+          "carb_g": 14.7,
+          "sugar_g": 9.2,
+          "satfat_g": 3.1,
+          "protein_g": 4.2,
+          "sodium_mg": 56,
+          "sugar_pct": 2,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 110.9,
+          "fat_g": 3.1,
+          "grade": "B",
+          "carb_g": 16.5,
+          "sugar_g": 12.8,
+          "satfat_g": 2.1,
+          "protein_g": 2.8,
+          "sodium_mg": 38,
+          "sugar_pct": 4,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "B",
+      "fieldsByName": {
+        "Drink Name": "Osmanthus Oolong Fresh Milk Tea",
+        "Slug": "osmanthus-oolong-fresh-milk-tea",
+        "Category": "Fresh Milk Tea",
+        "Retail Price (M)": 5,
+        "Retail Price (L)": 6,
+        "Calories per 100ml (kcal)": "23",
+        "Calories per M cup (kcal)": "76",
+        "Calories per L cup (kcal)": "122",
+        "Nutri-Grade": "B",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Osmanthus Oolong Fresh Milk Tea",
+        "fld6cJn7bkETDWUKy": "osmanthus-oolong-fresh-milk-tea",
+        "fldg31a9rKincFfv8": "Fresh Milk Tea",
+        "fldEgGhc5iNKHLiMM": 5,
+        "fld6NIafSQQyYJAkP": 6,
+        "fldN4zstqWe07gjSe": "23",
+        "fldLrw0evtwSf4IyM": "76",
+        "fldJR3stkFoVh1ATp": "122",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recII7DscgjyiUJNz"
+    },
+    {
+      "name": "Chrysanthemum Fresh Milk Tea",
+      "category": "Fresh Milk Tea",
+      "priceM": 5,
+      "priceL": 6,
+      "nutritionKey": "Chrysanthemum Fresh Milk Tea",
+      "menuGrade": "B",
+      "hotOption": true,
+      "description": null,
+      "slug": "chrysanthemum-fresh-milk-tea",
+      "nutritionSource": {
+        "displayName": "Chrysanthemum Fresh Milk Tea",
+        "servingMlM": 368,
+        "servingMlL": 521,
+        "level25M": {
+          "kcal": 125.4,
+          "grade": "B",
+          "sugar_g": 10,
+          "sugar_pct": 3
+        },
+        "level25L": {
+          "kcal": 175.5,
+          "grade": "B",
+          "sugar_g": 16.8,
+          "sugar_pct": 3
+        },
+        "level100M": {
+          "kcal": 159.9,
+          "grade": "C",
+          "sugar_g": 17.8,
+          "sugar_pct": 5
+        }
+      },
+      "gradeAt100": "B",
+      "fieldsByName": {
+        "Drink Name": "Chrysanthemum Fresh Milk Tea",
+        "Slug": "chrysanthemum-fresh-milk-tea",
+        "Category": "Fresh Milk Tea",
+        "Retail Price (M)": 5,
+        "Retail Price (L)": 6,
+        "Calories per 100ml (kcal)": "34",
+        "Calories per M cup (kcal)": "125",
+        "Calories per L cup (kcal)": "176",
+        "Nutri-Grade": "B",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Chrysanthemum Fresh Milk Tea",
+        "fld6cJn7bkETDWUKy": "chrysanthemum-fresh-milk-tea",
+        "fldg31a9rKincFfv8": "Fresh Milk Tea",
+        "fldEgGhc5iNKHLiMM": 5,
+        "fld6NIafSQQyYJAkP": 6,
+        "fldN4zstqWe07gjSe": "34",
+        "fldLrw0evtwSf4IyM": "125",
+        "fldJR3stkFoVh1ATp": "176",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "rec3pKhGtDLzhHzP1"
+    },
+    {
+      "name": "Queen Jasmine Green Fresh Milk Tea",
+      "category": "Fresh Milk Tea",
+      "priceM": 5,
+      "priceL": 6,
+      "nutritionKey": "Queen Jasmine Fresh Milk Tea",
+      "menuGrade": "B",
+      "hotOption": true,
+      "description": null,
+      "slug": "queen-jasmine-green-fresh-milk-tea",
+      "nutritionSource": {
+        "displayName": "Queen Jasmine Fresh Milk Tea",
+        "servingMlM": 298,
+        "servingMlL": 491,
+        "level25M": {
+          "kcal": 76.4,
+          "grade": "B",
+          "sugar_g": 4.9,
+          "sugar_pct": 2
+        },
+        "level25L": {
+          "kcal": 122.4,
+          "grade": "B",
+          "sugar_g": 9.3,
+          "sugar_pct": 2
+        },
+        "level100M": {
+          "kcal": 110.9,
+          "grade": "B",
+          "sugar_g": 12.8,
+          "sugar_pct": 4
+        }
+      },
+      "gradeAt100": "B",
+      "fieldsByName": {
+        "Drink Name": "Queen Jasmine Green Fresh Milk Tea",
+        "Slug": "queen-jasmine-green-fresh-milk-tea",
+        "Category": "Fresh Milk Tea",
+        "Retail Price (M)": 5,
+        "Retail Price (L)": 6,
+        "Calories per 100ml (kcal)": "26",
+        "Calories per M cup (kcal)": "76",
+        "Calories per L cup (kcal)": "122",
+        "Nutri-Grade": "B",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Queen Jasmine Green Fresh Milk Tea",
+        "fld6cJn7bkETDWUKy": "queen-jasmine-green-fresh-milk-tea",
+        "fldg31a9rKincFfv8": "Fresh Milk Tea",
+        "fldEgGhc5iNKHLiMM": 5,
+        "fld6NIafSQQyYJAkP": 6,
+        "fldN4zstqWe07gjSe": "26",
+        "fldLrw0evtwSf4IyM": "76",
+        "fldJR3stkFoVh1ATp": "122",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "rectWsuoDfTvWIhFZ"
+    },
+    {
+      "name": "Matcha Latte",
+      "category": "Fresh Milk Tea",
+      "priceM": 5.7,
+      "priceL": 7,
+      "nutritionKey": "Matcha Fresh Milk",
+      "menuGrade": "C",
+      "hotOption": true,
+      "description": null,
+      "slug": "matcha-latte-playmade",
+      "nutritionSource": {
+        "displayName": "Matcha Fresh Milk",
+        "servingMlM": 365,
+        "servingMlL": 417,
+        "level25M": {
+          "kcal": 237.2,
+          "grade": "C",
+          "sugar_g": 25.2,
+          "sugar_pct": 7
+        },
+        "level25L": {
+          "kcal": 345.8,
+          "grade": "C",
+          "sugar_g": 36.3,
+          "sugar_pct": 9
+        },
+        "level100M": {
+          "kcal": 271.7,
+          "grade": "C",
+          "sugar_g": 33,
+          "sugar_pct": 9
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Matcha Latte",
+        "Slug": "matcha-latte-playmade",
+        "Category": "Fresh Milk Tea",
+        "Retail Price (M)": 5.7,
+        "Retail Price (L)": 7,
+        "Calories per 100ml (kcal)": "65",
+        "Calories per M cup (kcal)": "237",
+        "Calories per L cup (kcal)": "346",
+        "Nutri-Grade": "C",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Matcha Latte",
+        "fld6cJn7bkETDWUKy": "matcha-latte-playmade",
+        "fldg31a9rKincFfv8": "Fresh Milk Tea",
+        "fldEgGhc5iNKHLiMM": 5.7,
+        "fld6NIafSQQyYJAkP": 7,
+        "fldN4zstqWe07gjSe": "65",
+        "fldLrw0evtwSf4IyM": "237",
+        "fldJR3stkFoVh1ATp": "346",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recTLsZcTmyeEFTNo"
+    },
+    {
+      "name": "Burnt Caramel Fresh Milk Tea",
+      "category": "Fresh Milk Tea",
+      "priceM": 6,
+      "priceL": 7,
+      "nutritionKey": "Burnt Caramel Fresh Milk Tea",
+      "menuGrade": "C",
+      "hotOption": true,
+      "description": null,
+      "slug": "burnt-caramel-fresh-milk-tea",
+      "nutritionSource": {
+        "displayName": "Burnt Caramel Fresh Milk Tea",
+        "servingMlM": 400,
+        "servingMlL": 561,
+        "level25M": {
+          "kcal": 171.4,
+          "fat_g": 3.1,
+          "grade": "C",
+          "carb_g": 32.2,
+          "sugar_g": 28.5,
+          "satfat_g": 2.1,
+          "protein_g": 2.8,
+          "sodium_mg": 38,
+          "sugar_pct": 7,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 245.4,
+          "fat_g": 4.7,
+          "grade": "C",
+          "carb_g": 45.4,
+          "sugar_g": 39.9,
+          "satfat_g": 3.1,
+          "protein_g": 4.2,
+          "sodium_mg": 56,
+          "sugar_pct": 7,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 171.4,
+          "fat_g": 3.1,
+          "grade": "C",
+          "carb_g": 32.2,
+          "sugar_g": 28.5,
+          "satfat_g": 2.1,
+          "protein_g": 2.8,
+          "sodium_mg": 38,
+          "sugar_pct": 7,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Burnt Caramel Fresh Milk Tea",
+        "Slug": "burnt-caramel-fresh-milk-tea",
+        "Category": "Fresh Milk Tea",
+        "Retail Price (M)": 6,
+        "Retail Price (L)": 7,
+        "Calories per 100ml (kcal)": "43",
+        "Calories per M cup (kcal)": "171",
+        "Calories per L cup (kcal)": "245",
+        "Nutri-Grade": "C",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Burnt Caramel Fresh Milk Tea",
+        "fld6cJn7bkETDWUKy": "burnt-caramel-fresh-milk-tea",
+        "fldg31a9rKincFfv8": "Fresh Milk Tea",
+        "fldEgGhc5iNKHLiMM": 6,
+        "fld6NIafSQQyYJAkP": 7,
+        "fldN4zstqWe07gjSe": "43",
+        "fldLrw0evtwSf4IyM": "171",
+        "fldJR3stkFoVh1ATp": "245",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recpe5xi8yasoQ4NZ"
+    },
+    {
+      "name": "Pink Cactus Smoothie",
+      "category": "Fresh Milk Tea",
+      "priceM": 6,
+      "priceL": 7.2,
+      "nutritionKey": "Pink Cactus Smoothie",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "pink-cactus-smoothie",
+      "nutritionSource": {
+        "displayName": "Pink Cactus Smoothie",
+        "servingMlM": 520,
+        "servingMlL": 670,
+        "level25M": {
+          "kcal": 231.4,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 47.7,
+          "sugar_g": 41,
+          "satfat_g": 2.1,
+          "protein_g": 2.8,
+          "sodium_mg": 42,
+          "sugar_pct": 8,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 315.6,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 63.8,
+          "sugar_g": 54.5,
+          "satfat_g": 3.1,
+          "protein_g": 4.2,
+          "sodium_mg": 63,
+          "sugar_pct": 8,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 231.4,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 47.7,
+          "sugar_g": 41,
+          "satfat_g": 2.1,
+          "protein_g": 2.8,
+          "sodium_mg": 42,
+          "sugar_pct": 8,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Pink Cactus Smoothie",
+        "Slug": "pink-cactus-smoothie",
+        "Category": "Fresh Milk Tea",
+        "Retail Price (M)": 6,
+        "Retail Price (L)": 7.2,
+        "Calories per 100ml (kcal)": "45",
+        "Calories per M cup (kcal)": "231",
+        "Calories per L cup (kcal)": "316",
+        "Nutri-Grade": "C",
+        "Description": "The almond milk substitution is not available for this smoothie.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Pink Cactus Smoothie",
+        "fld6cJn7bkETDWUKy": "pink-cactus-smoothie",
+        "fldg31a9rKincFfv8": "Fresh Milk Tea",
+        "fldEgGhc5iNKHLiMM": 6,
+        "fld6NIafSQQyYJAkP": 7.2,
+        "fldN4zstqWe07gjSe": "45",
+        "fldLrw0evtwSf4IyM": "231",
+        "fldJR3stkFoVh1ATp": "316",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldwvgRLJpK7r7PNu": "The almond milk substitution is not available for this smoothie.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recY385AW3fQyqFDI"
+    },
+    {
+      "name": "Queen Jasmine Green Tea",
+      "category": "Brewed / Pure Tea",
+      "priceM": 3.3,
+      "priceL": 4.5,
+      "nutritionKey": "Queen Jasmine Green Tea",
+      "menuGrade": "B",
+      "hotOption": true,
+      "description": null,
+      "slug": "queen-jasmine-green-tea",
+      "nutritionSource": {
+        "displayName": "Queen Jasmine Green Tea",
+        "servingMlM": 368,
+        "servingMlL": 571,
+        "level25M": {
+          "kcal": 22,
+          "grade": "B",
+          "sugar_g": 4.9,
+          "sugar_pct": 1
+        },
+        "level25L": {
+          "kcal": 40.8,
+          "grade": "B",
+          "sugar_g": 9.3,
+          "sugar_pct": 2
+        },
+        "level100M": {
+          "kcal": 56.5,
+          "grade": "B",
+          "sugar_g": 12.8,
+          "sugar_pct": 3
+        }
+      },
+      "gradeAt100": "B",
+      "fieldsByName": {
+        "Drink Name": "Queen Jasmine Green Tea",
+        "Slug": "queen-jasmine-green-tea",
+        "Category": "Brewed / Pure Tea",
+        "Retail Price (M)": 3.3,
+        "Retail Price (L)": 4.5,
+        "Calories per 100ml (kcal)": "6",
+        "Calories per M cup (kcal)": "22",
+        "Calories per L cup (kcal)": "41",
+        "Nutri-Grade": "B",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Queen Jasmine Green Tea",
+        "fld6cJn7bkETDWUKy": "queen-jasmine-green-tea",
+        "fldg31a9rKincFfv8": "Brewed / Pure Tea",
+        "fldEgGhc5iNKHLiMM": 3.3,
+        "fld6NIafSQQyYJAkP": 4.5,
+        "fldN4zstqWe07gjSe": "6",
+        "fldLrw0evtwSf4IyM": "22",
+        "fldJR3stkFoVh1ATp": "41",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recxj0VNK9M4RMjc2"
+    },
+    {
+      "name": "Dong Ding Oolong Tea",
+      "category": "Brewed / Pure Tea",
+      "priceM": 4.2,
+      "priceL": 5.2,
+      "nutritionKey": "Dong Ding Oolong Tea",
+      "menuGrade": "B",
+      "hotOption": true,
+      "description": null,
+      "slug": "dong-ding-oolong-tea",
+      "nutritionSource": {
+        "displayName": "Dong Ding Oolong Tea",
+        "servingMlM": 368,
+        "servingMlL": 571,
+        "level25M": {
+          "kcal": 22,
+          "grade": "B",
+          "sugar_g": 4.9,
+          "sugar_pct": 1
+        },
+        "level25L": {
+          "kcal": 40.8,
+          "grade": "B",
+          "sugar_g": 9.3,
+          "sugar_pct": 2
+        },
+        "level100M": {
+          "kcal": 56.5,
+          "grade": "B",
+          "sugar_g": 12.8,
+          "sugar_pct": 3
+        }
+      },
+      "gradeAt100": "B",
+      "fieldsByName": {
+        "Drink Name": "Dong Ding Oolong Tea",
+        "Slug": "dong-ding-oolong-tea",
+        "Category": "Brewed / Pure Tea",
+        "Retail Price (M)": 4.2,
+        "Retail Price (L)": 5.2,
+        "Calories per 100ml (kcal)": "6",
+        "Calories per M cup (kcal)": "22",
+        "Calories per L cup (kcal)": "41",
+        "Nutri-Grade": "B",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Dong Ding Oolong Tea",
+        "fld6cJn7bkETDWUKy": "dong-ding-oolong-tea",
+        "fldg31a9rKincFfv8": "Brewed / Pure Tea",
+        "fldEgGhc5iNKHLiMM": 4.2,
+        "fld6NIafSQQyYJAkP": 5.2,
+        "fldN4zstqWe07gjSe": "6",
+        "fldLrw0evtwSf4IyM": "22",
+        "fldJR3stkFoVh1ATp": "41",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recapGmOgeU31rWX4"
+    },
+    {
+      "name": "Osmanthus Oolong Tea",
+      "category": "Brewed / Pure Tea",
+      "priceM": 4.5,
+      "priceL": 5.5,
+      "nutritionKey": "Golden Osmanthus Oolong Tea",
+      "menuGrade": "B",
+      "hotOption": true,
+      "description": null,
+      "slug": "osmanthus-oolong-tea-playmade",
+      "nutritionSource": {
+        "displayName": "Golden Osmanthus Oolong Tea",
+        "servingMlM": 368,
+        "servingMlL": 571,
+        "level25M": {
+          "kcal": 22,
+          "grade": "B",
+          "sugar_g": 4.9,
+          "sugar_pct": 1
+        },
+        "level25L": {
+          "kcal": 40.8,
+          "grade": "B",
+          "sugar_g": 9.3,
+          "sugar_pct": 2
+        },
+        "level100M": {
+          "kcal": 56.5,
+          "grade": "B",
+          "sugar_g": 12.8,
+          "sugar_pct": 3
+        }
+      },
+      "gradeAt100": "B",
+      "fieldsByName": {
+        "Drink Name": "Osmanthus Oolong Tea",
+        "Slug": "osmanthus-oolong-tea-playmade",
+        "Category": "Brewed / Pure Tea",
+        "Retail Price (M)": 4.5,
+        "Retail Price (L)": 5.5,
+        "Calories per 100ml (kcal)": "6",
+        "Calories per M cup (kcal)": "22",
+        "Calories per L cup (kcal)": "41",
+        "Nutri-Grade": "B",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Osmanthus Oolong Tea",
+        "fld6cJn7bkETDWUKy": "osmanthus-oolong-tea-playmade",
+        "fldg31a9rKincFfv8": "Brewed / Pure Tea",
+        "fldEgGhc5iNKHLiMM": 4.5,
+        "fld6NIafSQQyYJAkP": 5.5,
+        "fldN4zstqWe07gjSe": "6",
+        "fldLrw0evtwSf4IyM": "22",
+        "fldJR3stkFoVh1ATp": "41",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recy2qjUY4sPWmu2U"
+    },
+    {
+      "name": "White Peach Oolong Tea",
+      "category": "Brewed / Pure Tea",
+      "priceM": 4.5,
+      "priceL": 5.5,
+      "nutritionKey": "White Peach Oolong Tea",
+      "menuGrade": "B",
+      "hotOption": false,
+      "description": null,
+      "slug": "white-peach-oolong-tea",
+      "nutritionSource": {
+        "displayName": "White Peach Oolong Tea",
+        "servingMlM": 398,
+        "servingMlL": 571,
+        "level25M": {
+          "kcal": 22,
+          "fat_g": 0,
+          "grade": "B",
+          "carb_g": 5,
+          "sugar_g": 5,
+          "satfat_g": 0,
+          "protein_g": 0,
+          "sodium_mg": 0,
+          "sugar_pct": 1,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 40.8,
+          "fat_g": 0,
+          "grade": "B",
+          "carb_g": 9.2,
+          "sugar_g": 9.2,
+          "satfat_g": 0,
+          "protein_g": 0,
+          "sodium_mg": 0,
+          "sugar_pct": 2,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 56.5,
+          "fat_g": 0,
+          "grade": "B",
+          "carb_g": 12.8,
+          "sugar_g": 12.8,
+          "satfat_g": 0,
+          "protein_g": 0,
+          "sodium_mg": 0,
+          "sugar_pct": 3,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "B",
+      "fieldsByName": {
+        "Drink Name": "White Peach Oolong Tea",
+        "Slug": "white-peach-oolong-tea",
+        "Category": "Brewed / Pure Tea",
+        "Retail Price (M)": 4.5,
+        "Retail Price (L)": 5.5,
+        "Calories per 100ml (kcal)": "6",
+        "Calories per M cup (kcal)": "22",
+        "Calories per L cup (kcal)": "41",
+        "Nutri-Grade": "B",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "White Peach Oolong Tea",
+        "fld6cJn7bkETDWUKy": "white-peach-oolong-tea",
+        "fldg31a9rKincFfv8": "Brewed / Pure Tea",
+        "fldEgGhc5iNKHLiMM": 4.5,
+        "fld6NIafSQQyYJAkP": 5.5,
+        "fldN4zstqWe07gjSe": "6",
+        "fldLrw0evtwSf4IyM": "22",
+        "fldJR3stkFoVh1ATp": "41",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recCTl5BME6KAzEHC"
+    },
+    {
+      "name": "Honey Dong Ding Oolong Tea",
+      "category": "Brewed / Pure Tea",
+      "priceM": 4.8,
+      "priceL": 5.8,
+      "nutritionKey": "Honey Dong Ding Oolong Tea",
+      "menuGrade": "C",
+      "hotOption": true,
+      "description": null,
+      "slug": "honey-dong-ding-oolong-tea",
+      "nutritionSource": {
+        "displayName": "Honey Dong Ding Oolong Tea",
+        "servingMlM": 410,
+        "servingMlL": 590,
+        "level25M": {
+          "kcal": 99,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 24.7,
+          "sugar_g": 21.5,
+          "satfat_g": 0,
+          "protein_g": 0,
+          "sodium_mg": 1,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 132,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 33,
+          "sugar_g": 28.7,
+          "satfat_g": 0,
+          "protein_g": 0,
+          "sodium_mg": 1,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 99,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 24.7,
+          "sugar_g": 21.5,
+          "satfat_g": 0,
+          "protein_g": 0,
+          "sodium_mg": 1,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Honey Dong Ding Oolong Tea",
+        "Slug": "honey-dong-ding-oolong-tea",
+        "Category": "Brewed / Pure Tea",
+        "Retail Price (M)": 4.8,
+        "Retail Price (L)": 5.8,
+        "Calories per 100ml (kcal)": "24",
+        "Calories per M cup (kcal)": "99",
+        "Calories per L cup (kcal)": "132",
+        "Nutri-Grade": "C",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Honey Dong Ding Oolong Tea",
+        "fld6cJn7bkETDWUKy": "honey-dong-ding-oolong-tea",
+        "fldg31a9rKincFfv8": "Brewed / Pure Tea",
+        "fldEgGhc5iNKHLiMM": 4.8,
+        "fld6NIafSQQyYJAkP": 5.8,
+        "fldN4zstqWe07gjSe": "24",
+        "fldLrw0evtwSf4IyM": "99",
+        "fldJR3stkFoVh1ATp": "132",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recpx0baBBwgQgGci"
+    },
+    {
+      "name": "Honey Amber Black Tea",
+      "category": "Brewed / Pure Tea",
+      "priceM": 4.8,
+      "priceL": 5.8,
+      "nutritionKey": "Honey Amber Black Tea",
+      "menuGrade": "C",
+      "hotOption": true,
+      "description": null,
+      "slug": "honey-amber-black-tea",
+      "nutritionSource": {
+        "displayName": "Honey Amber Black Tea",
+        "servingMlM": 410,
+        "servingMlL": 590,
+        "level25M": {
+          "kcal": 99,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 24.7,
+          "sugar_g": 21.5,
+          "satfat_g": 0,
+          "protein_g": 0,
+          "sodium_mg": 1,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 132,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 33,
+          "sugar_g": 28.7,
+          "satfat_g": 0,
+          "protein_g": 0,
+          "sodium_mg": 1,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 99,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 24.7,
+          "sugar_g": 21.5,
+          "satfat_g": 0,
+          "protein_g": 0,
+          "sodium_mg": 1,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Honey Amber Black Tea",
+        "Slug": "honey-amber-black-tea",
+        "Category": "Brewed / Pure Tea",
+        "Retail Price (M)": 4.8,
+        "Retail Price (L)": 5.8,
+        "Calories per 100ml (kcal)": "24",
+        "Calories per M cup (kcal)": "99",
+        "Calories per L cup (kcal)": "132",
+        "Nutri-Grade": "C",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Honey Amber Black Tea",
+        "fld6cJn7bkETDWUKy": "honey-amber-black-tea",
+        "fldg31a9rKincFfv8": "Brewed / Pure Tea",
+        "fldEgGhc5iNKHLiMM": 4.8,
+        "fld6NIafSQQyYJAkP": 5.8,
+        "fldN4zstqWe07gjSe": "24",
+        "fldLrw0evtwSf4IyM": "99",
+        "fldJR3stkFoVh1ATp": "132",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recSRsuDDdTQbQVFe"
+    },
+    {
+      "name": "Honey Queen Jasmine Green Tea",
+      "category": "Brewed / Pure Tea",
+      "priceM": 4.8,
+      "priceL": 5.8,
+      "nutritionKey": "Honey Queen Jasmine Green Tea",
+      "menuGrade": "C",
+      "hotOption": true,
+      "description": null,
+      "slug": "honey-queen-jasmine-green-tea",
+      "nutritionSource": {
+        "displayName": "Honey Queen Jasmine Green Tea",
+        "servingMlM": 410,
+        "servingMlL": 590,
+        "level25M": {
+          "kcal": 99,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 24.7,
+          "sugar_g": 21.5,
+          "satfat_g": 0,
+          "protein_g": 0,
+          "sodium_mg": 1,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 132,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 33,
+          "sugar_g": 28.7,
+          "satfat_g": 0,
+          "protein_g": 0,
+          "sodium_mg": 1,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 99,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 24.7,
+          "sugar_g": 21.5,
+          "satfat_g": 0,
+          "protein_g": 0,
+          "sodium_mg": 1,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Honey Queen Jasmine Green Tea",
+        "Slug": "honey-queen-jasmine-green-tea",
+        "Category": "Brewed / Pure Tea",
+        "Retail Price (M)": 4.8,
+        "Retail Price (L)": 5.8,
+        "Calories per 100ml (kcal)": "24",
+        "Calories per M cup (kcal)": "99",
+        "Calories per L cup (kcal)": "132",
+        "Nutri-Grade": "C",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Honey Queen Jasmine Green Tea",
+        "fld6cJn7bkETDWUKy": "honey-queen-jasmine-green-tea",
+        "fldg31a9rKincFfv8": "Brewed / Pure Tea",
+        "fldEgGhc5iNKHLiMM": 4.8,
+        "fld6NIafSQQyYJAkP": 5.8,
+        "fldN4zstqWe07gjSe": "24",
+        "fldLrw0evtwSf4IyM": "99",
+        "fldJR3stkFoVh1ATp": "132",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recrUTAjhpHjN4ahv"
+    },
+    {
+      "name": "Yakult Chrysanthemum Tea",
+      "category": "Yakult Tea / Series",
+      "priceM": 5.2,
+      "priceL": 6.7,
+      "nutritionKey": "Yakult Chrysanthemum Tea",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "yakult-chrysanthemum-tea",
+      "nutritionSource": {
+        "displayName": "Yakult Chrysanthemum Tea",
+        "servingMlM": 438,
+        "servingMlL": 571,
+        "level25M": {
+          "kcal": 153.3,
+          "grade": "C",
+          "sugar_g": 30.7,
+          "sugar_pct": 7
+        },
+        "level25L": {
+          "kcal": 219.5,
+          "grade": "C",
+          "sugar_g": 44.4,
+          "sugar_pct": 8
+        },
+        "level100M": {
+          "kcal": 187.8,
+          "grade": "C",
+          "sugar_g": 38.5,
+          "sugar_pct": 9
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Yakult Chrysanthemum Tea",
+        "Slug": "yakult-chrysanthemum-tea",
+        "Category": "Yakult Tea / Series",
+        "Retail Price (M)": 5.2,
+        "Retail Price (L)": 6.7,
+        "Calories per 100ml (kcal)": "35",
+        "Calories per M cup (kcal)": "153",
+        "Calories per L cup (kcal)": "220",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Yakult Chrysanthemum Tea",
+        "fld6cJn7bkETDWUKy": "yakult-chrysanthemum-tea",
+        "fldg31a9rKincFfv8": "Yakult Tea / Series",
+        "fldEgGhc5iNKHLiMM": 5.2,
+        "fld6NIafSQQyYJAkP": 6.7,
+        "fldN4zstqWe07gjSe": "35",
+        "fldLrw0evtwSf4IyM": "153",
+        "fldJR3stkFoVh1ATp": "220",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recSB40RhC0FDPxgy"
+    },
+    {
+      "name": "Yakult Queen Jasmine Green Tea",
+      "category": "Yakult Tea / Series",
+      "priceM": 5.2,
+      "priceL": 6.7,
+      "nutritionKey": "Yakult Queen Jasmine Green Tea",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "yakult-queen-jasmine-green-tea",
+      "nutritionSource": {
+        "displayName": "Yakult Queen Jasmine Green Tea",
+        "servingMlM": 398,
+        "servingMlL": 571,
+        "level25M": {
+          "kcal": 131.5,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 27.5,
+          "sugar_g": 25.7,
+          "satfat_g": 0,
+          "protein_g": 2,
+          "sodium_mg": 29,
+          "sugar_pct": 7,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 186.8,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 39.2,
+          "sugar_g": 36.8,
+          "satfat_g": 0,
+          "protein_g": 2.6,
+          "sodium_mg": 38,
+          "sugar_pct": 7,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 166,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 35.3,
+          "sugar_g": 33.5,
+          "satfat_g": 0,
+          "protein_g": 2,
+          "sodium_mg": 29,
+          "sugar_pct": 8,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Yakult Queen Jasmine Green Tea",
+        "Slug": "yakult-queen-jasmine-green-tea",
+        "Category": "Yakult Tea / Series",
+        "Retail Price (M)": 5.2,
+        "Retail Price (L)": 6.7,
+        "Calories per 100ml (kcal)": "33",
+        "Calories per M cup (kcal)": "132",
+        "Calories per L cup (kcal)": "187",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Yakult Queen Jasmine Green Tea",
+        "fld6cJn7bkETDWUKy": "yakult-queen-jasmine-green-tea",
+        "fldg31a9rKincFfv8": "Yakult Tea / Series",
+        "fldEgGhc5iNKHLiMM": 5.2,
+        "fld6NIafSQQyYJAkP": 6.7,
+        "fldN4zstqWe07gjSe": "33",
+        "fldLrw0evtwSf4IyM": "132",
+        "fldJR3stkFoVh1ATp": "187",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recaL4MXIHDyZycnz"
+    },
+    {
+      "name": "Grape Yakult Amber Black Tea",
+      "category": "Yakult Tea / Series",
+      "priceM": 5.2,
+      "priceL": 6.7,
+      "nutritionKey": "Grape Yakult Amber Black Tea",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "grape-yakult-amber-black-tea",
+      "nutritionSource": {
+        "displayName": "Grape Yakult Amber Black Tea",
+        "servingMlM": 398,
+        "servingMlL": 571,
+        "level25M": {
+          "kcal": 131.5,
+          "fat_g": 0,
+          "grade": "C",
+          "carb_g": 27.5,
+          "sugar_g": 25.7,
+          "satfat_g": 0,
+          "protein_g": 2,
+          "sodium_mg": 29,
+          "sugar_pct": 7,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 186.8,
+          "fat_g": 0,
+          "grade": "C",
+          "carb_g": 39.2,
+          "sugar_g": 36.8,
+          "satfat_g": 0,
+          "protein_g": 2.6,
+          "sodium_mg": 38,
+          "sugar_pct": 7,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 166,
+          "fat_g": 0,
+          "grade": "C",
+          "carb_g": 35.3,
+          "sugar_g": 33.5,
+          "satfat_g": 0,
+          "protein_g": 2,
+          "sodium_mg": 29,
+          "sugar_pct": 8,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Grape Yakult Amber Black Tea",
+        "Slug": "grape-yakult-amber-black-tea",
+        "Category": "Yakult Tea / Series",
+        "Retail Price (M)": 5.2,
+        "Retail Price (L)": 6.7,
+        "Calories per 100ml (kcal)": "33",
+        "Calories per M cup (kcal)": "132",
+        "Calories per L cup (kcal)": "187",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Grape Yakult Amber Black Tea",
+        "fld6cJn7bkETDWUKy": "grape-yakult-amber-black-tea",
+        "fldg31a9rKincFfv8": "Yakult Tea / Series",
+        "fldEgGhc5iNKHLiMM": 5.2,
+        "fld6NIafSQQyYJAkP": 6.7,
+        "fldN4zstqWe07gjSe": "33",
+        "fldLrw0evtwSf4IyM": "132",
+        "fldJR3stkFoVh1ATp": "187",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "rec9N6Qll5dpv2lke"
+    },
+    {
+      "name": "Grape Yakult Queen Jasmine Green Tea",
+      "category": "Yakult Tea / Series",
+      "priceM": 5.2,
+      "priceL": 6.7,
+      "nutritionKey": "Grape Yakult Queen Jasmine Green Tea",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "grape-yakult-queen-jasmine-green-tea",
+      "nutritionSource": {
+        "displayName": "Grape Yakult Queen Jasmine Green Tea",
+        "servingMlM": 398,
+        "servingMlL": 571,
+        "level25M": {
+          "kcal": 131.5,
+          "fat_g": 0,
+          "grade": "C",
+          "carb_g": 27.5,
+          "sugar_g": 25.7,
+          "satfat_g": 0,
+          "protein_g": 2,
+          "sodium_mg": 29,
+          "sugar_pct": 7,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 186.8,
+          "fat_g": 0,
+          "grade": "C",
+          "carb_g": 39.2,
+          "sugar_g": 36.8,
+          "satfat_g": 0,
+          "protein_g": 2.6,
+          "sodium_mg": 38,
+          "sugar_pct": 7,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 166,
+          "fat_g": 0,
+          "grade": "C",
+          "carb_g": 35.3,
+          "sugar_g": 33.5,
+          "satfat_g": 0,
+          "protein_g": 2,
+          "sodium_mg": 29,
+          "sugar_pct": 8,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Grape Yakult Queen Jasmine Green Tea",
+        "Slug": "grape-yakult-queen-jasmine-green-tea",
+        "Category": "Yakult Tea / Series",
+        "Retail Price (M)": 5.2,
+        "Retail Price (L)": 6.7,
+        "Calories per 100ml (kcal)": "33",
+        "Calories per M cup (kcal)": "132",
+        "Calories per L cup (kcal)": "187",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Grape Yakult Queen Jasmine Green Tea",
+        "fld6cJn7bkETDWUKy": "grape-yakult-queen-jasmine-green-tea",
+        "fldg31a9rKincFfv8": "Yakult Tea / Series",
+        "fldEgGhc5iNKHLiMM": 5.2,
+        "fld6NIafSQQyYJAkP": 6.7,
+        "fldN4zstqWe07gjSe": "33",
+        "fldLrw0evtwSf4IyM": "132",
+        "fldJR3stkFoVh1ATp": "187",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recQeZiUa3S37TmqW"
+    },
+    {
+      "name": "Grape Yakult Taiwan Milk Tea",
+      "category": "Yakult Tea / Series",
+      "priceM": 5.8,
+      "priceL": 7.3,
+      "nutritionKey": "Grape Yakult Taiwan Milk Tea",
+      "menuGrade": "D",
+      "hotOption": false,
+      "description": null,
+      "slug": "grape-yakult-taiwan-milk-tea",
+      "nutritionSource": {
+        "displayName": "Grape Yakult Taiwan Milk Tea",
+        "servingMlM": 398,
+        "servingMlL": 541,
+        "level25M": {
+          "kcal": 350.9,
+          "fat_g": 13.8,
+          "grade": "D",
+          "carb_g": 50.3,
+          "sugar_g": 29.2,
+          "satfat_g": 12.7,
+          "protein_g": 2.8,
+          "sodium_mg": 63,
+          "sugar_pct": 8,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 516,
+          "fat_g": 20.8,
+          "grade": "D",
+          "carb_g": 73.5,
+          "sugar_g": 42.1,
+          "satfat_g": 19,
+          "protein_g": 3.9,
+          "sodium_mg": 89,
+          "sugar_pct": 8,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 385.5,
+          "fat_g": 13.8,
+          "grade": "D",
+          "carb_g": 58.1,
+          "sugar_g": 37,
+          "satfat_g": 12.7,
+          "protein_g": 2.8,
+          "sodium_mg": 63,
+          "sugar_pct": 9,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "D",
+      "fieldsByName": {
+        "Drink Name": "Grape Yakult Taiwan Milk Tea",
+        "Slug": "grape-yakult-taiwan-milk-tea",
+        "Category": "Yakult Tea / Series",
+        "Retail Price (M)": 5.8,
+        "Retail Price (L)": 7.3,
+        "Calories per 100ml (kcal)": "88",
+        "Calories per M cup (kcal)": "351",
+        "Calories per L cup (kcal)": "516",
+        "Nutri-Grade": "D",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Grape Yakult Taiwan Milk Tea",
+        "fld6cJn7bkETDWUKy": "grape-yakult-taiwan-milk-tea",
+        "fldg31a9rKincFfv8": "Yakult Tea / Series",
+        "fldEgGhc5iNKHLiMM": 5.8,
+        "fld6NIafSQQyYJAkP": 7.3,
+        "fldN4zstqWe07gjSe": "88",
+        "fldLrw0evtwSf4IyM": "351",
+        "fldJR3stkFoVh1ATp": "516",
+        "fld4G6dmdKvtN7p5p": "D",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "rec584gw4Nygu2JaQ"
+    },
+    {
+      "name": "Yuzu Queen Jasmine Green Tea",
+      "category": "Fresh Fruit Series",
+      "priceM": 4.4,
+      "priceL": 5.4,
+      "nutritionKey": "Yuzu Queen Jasmine Green Tea",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "yuzu-queen-jasmine-green-tea",
+      "nutritionSource": {
+        "displayName": "Yuzu Queen Jasmine Green Tea",
+        "servingMlM": 437,
+        "servingMlL": 633,
+        "level25M": {
+          "kcal": 84.5,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 21.3,
+          "sugar_g": 17.5,
+          "satfat_g": 0,
+          "protein_g": 0,
+          "sodium_mg": 25,
+          "sugar_pct": 4,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 128.3,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 32,
+          "sugar_g": 26.7,
+          "satfat_g": 0,
+          "protein_g": 0,
+          "sodium_mg": 35,
+          "sugar_pct": 4,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 84.5,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 21.3,
+          "sugar_g": 17.5,
+          "satfat_g": 0,
+          "protein_g": 0,
+          "sodium_mg": 25,
+          "sugar_pct": 4,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Yuzu Queen Jasmine Green Tea",
+        "Slug": "yuzu-queen-jasmine-green-tea",
+        "Category": "Fresh Fruit Series",
+        "Retail Price (M)": 4.4,
+        "Retail Price (L)": 5.4,
+        "Calories per 100ml (kcal)": "19",
+        "Calories per M cup (kcal)": "85",
+        "Calories per L cup (kcal)": "128",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Yuzu Queen Jasmine Green Tea",
+        "fld6cJn7bkETDWUKy": "yuzu-queen-jasmine-green-tea",
+        "fldg31a9rKincFfv8": "Fresh Fruit Series",
+        "fldEgGhc5iNKHLiMM": 4.4,
+        "fld6NIafSQQyYJAkP": 5.4,
+        "fldN4zstqWe07gjSe": "19",
+        "fldLrw0evtwSf4IyM": "85",
+        "fldJR3stkFoVh1ATp": "128",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recSBRmBXjsH1Wz04"
+    },
+    {
+      "name": "Yuzu Dong Ding Oolong Tea",
+      "category": "Fresh Fruit Series",
+      "priceM": 4.4,
+      "priceL": 5.4,
+      "nutritionKey": "Yuzu Dong Ding Oolong Tea",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "yuzu-dong-ding-oolong-tea",
+      "unresolvedNutrition": "No exact applicable recipe in the official calculator; no substitute from another tea base.",
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Yuzu Dong Ding Oolong Tea",
+        "Slug": "yuzu-dong-ding-oolong-tea",
+        "Category": "Fresh Fruit Series",
+        "Retail Price (M)": 4.4,
+        "Retail Price (L)": 5.4,
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Yuzu Dong Ding Oolong Tea",
+        "fld6cJn7bkETDWUKy": "yuzu-dong-ding-oolong-tea",
+        "fldg31a9rKincFfv8": "Fresh Fruit Series",
+        "fldEgGhc5iNKHLiMM": 4.4,
+        "fld6NIafSQQyYJAkP": 5.4,
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recNx9sIv0bbRediX"
+    },
+    {
+      "name": "Lychee Dong Ding Oolong Tea",
+      "category": "Fresh Fruit Series",
+      "priceM": 4.5,
+      "priceL": 5.5,
+      "nutritionKey": "Lychee Green/Dong Ding Tea",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "lychee-dong-ding-oolong-tea",
+      "nutritionSource": {
+        "displayName": "Lychee Green/Dong Ding Tea",
+        "servingMlM": 372,
+        "servingMlL": 628,
+        "level25M": {
+          "kcal": 121.6,
+          "grade": "C",
+          "sugar_g": 29.8,
+          "sugar_pct": 8
+        },
+        "level25L": {
+          "kcal": 183.6,
+          "grade": "C",
+          "sugar_g": 44.9,
+          "sugar_pct": 7
+        },
+        "level100M": {
+          "kcal": 121.6,
+          "grade": "C",
+          "sugar_g": 29.8,
+          "sugar_pct": 8
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Lychee Dong Ding Oolong Tea",
+        "Slug": "lychee-dong-ding-oolong-tea",
+        "Category": "Fresh Fruit Series",
+        "Retail Price (M)": 4.5,
+        "Retail Price (L)": 5.5,
+        "Calories per 100ml (kcal)": "33",
+        "Calories per M cup (kcal)": "122",
+        "Calories per L cup (kcal)": "184",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Lychee Dong Ding Oolong Tea",
+        "fld6cJn7bkETDWUKy": "lychee-dong-ding-oolong-tea",
+        "fldg31a9rKincFfv8": "Fresh Fruit Series",
+        "fldEgGhc5iNKHLiMM": 4.5,
+        "fld6NIafSQQyYJAkP": 5.5,
+        "fldN4zstqWe07gjSe": "33",
+        "fldLrw0evtwSf4IyM": "122",
+        "fldJR3stkFoVh1ATp": "184",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "reci4bN7HYL7lqUmv"
+    },
+    {
+      "name": "Lychee Queen Jasmine Green Tea",
+      "category": "Fresh Fruit Series",
+      "priceM": 4.5,
+      "priceL": 5.5,
+      "nutritionKey": "Lychee Green/Dong Ding Tea",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "lychee-queen-jasmine-green-tea",
+      "nutritionSource": {
+        "displayName": "Lychee Green/Dong Ding Tea",
+        "servingMlM": 372,
+        "servingMlL": 628,
+        "level25M": {
+          "kcal": 121.6,
+          "grade": "C",
+          "sugar_g": 29.8,
+          "sugar_pct": 8
+        },
+        "level25L": {
+          "kcal": 183.6,
+          "grade": "C",
+          "sugar_g": 44.9,
+          "sugar_pct": 7
+        },
+        "level100M": {
+          "kcal": 121.6,
+          "grade": "C",
+          "sugar_g": 29.8,
+          "sugar_pct": 8
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Lychee Queen Jasmine Green Tea",
+        "Slug": "lychee-queen-jasmine-green-tea",
+        "Category": "Fresh Fruit Series",
+        "Retail Price (M)": 4.5,
+        "Retail Price (L)": 5.5,
+        "Calories per 100ml (kcal)": "33",
+        "Calories per M cup (kcal)": "122",
+        "Calories per L cup (kcal)": "184",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Lychee Queen Jasmine Green Tea",
+        "fld6cJn7bkETDWUKy": "lychee-queen-jasmine-green-tea",
+        "fldg31a9rKincFfv8": "Fresh Fruit Series",
+        "fldEgGhc5iNKHLiMM": 4.5,
+        "fld6NIafSQQyYJAkP": 5.5,
+        "fldN4zstqWe07gjSe": "33",
+        "fldLrw0evtwSf4IyM": "122",
+        "fldJR3stkFoVh1ATp": "184",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recMVlU5Oo0sDlEmk"
+    },
+    {
+      "name": "Lychee Queen Jasmine Green Milk Tea",
+      "category": "Fresh Fruit Series",
+      "priceM": 5,
+      "priceL": 6,
+      "nutritionKey": "Lychee Milk Tea",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "lychee-queen-jasmine-green-milk-tea",
+      "nutritionSource": {
+        "displayName": "Lychee Milk Tea",
+        "servingMlM": 377,
+        "servingMlL": 578,
+        "level25M": {
+          "kcal": 286.2,
+          "grade": "C",
+          "sugar_g": 32.4,
+          "sugar_pct": 9
+        },
+        "level25L": {
+          "kcal": 403.1,
+          "grade": "C",
+          "sugar_g": 48.4,
+          "sugar_pct": 8
+        },
+        "level100M": {
+          "kcal": 286.2,
+          "grade": "C",
+          "sugar_g": 32.4,
+          "sugar_pct": 9
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Lychee Queen Jasmine Green Milk Tea",
+        "Slug": "lychee-queen-jasmine-green-milk-tea",
+        "Category": "Fresh Fruit Series",
+        "Retail Price (M)": 5,
+        "Retail Price (L)": 6,
+        "Calories per 100ml (kcal)": "76",
+        "Calories per M cup (kcal)": "286",
+        "Calories per L cup (kcal)": "403",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Lychee Queen Jasmine Green Milk Tea",
+        "fld6cJn7bkETDWUKy": "lychee-queen-jasmine-green-milk-tea",
+        "fldg31a9rKincFfv8": "Fresh Fruit Series",
+        "fldEgGhc5iNKHLiMM": 5,
+        "fld6NIafSQQyYJAkP": 6,
+        "fldN4zstqWe07gjSe": "76",
+        "fldLrw0evtwSf4IyM": "286",
+        "fldJR3stkFoVh1ATp": "403",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recW77AKiMDLDfcw1"
+    },
+    {
+      "name": "Mango Queen Jasmine Green Tea",
+      "category": "Fresh Fruit Series",
+      "priceM": 4.9,
+      "priceL": 5.9,
+      "nutritionKey": "Mango Queen Jasmine Green Tea",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "mango-queen-jasmine-green-tea",
+      "nutritionSource": {
+        "displayName": "Mango Queen Jasmine Green Tea",
+        "servingMlM": 417,
+        "servingMlL": 643,
+        "level25M": {
+          "kcal": 174,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 42.9,
+          "sugar_g": 38.9,
+          "satfat_g": 0,
+          "protein_g": 0.6,
+          "sodium_mg": 6,
+          "sugar_pct": 9,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 252.3,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 62.1,
+          "sugar_g": 56.5,
+          "satfat_g": 0,
+          "protein_g": 0.8,
+          "sodium_mg": 9,
+          "sugar_pct": 9,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 174,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 42.9,
+          "sugar_g": 38.9,
+          "satfat_g": 0,
+          "protein_g": 0.6,
+          "sodium_mg": 6,
+          "sugar_pct": 9,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Mango Queen Jasmine Green Tea",
+        "Slug": "mango-queen-jasmine-green-tea",
+        "Category": "Fresh Fruit Series",
+        "Retail Price (M)": 4.9,
+        "Retail Price (L)": 5.9,
+        "Calories per 100ml (kcal)": "42",
+        "Calories per M cup (kcal)": "174",
+        "Calories per L cup (kcal)": "252",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Mango Queen Jasmine Green Tea",
+        "fld6cJn7bkETDWUKy": "mango-queen-jasmine-green-tea",
+        "fldg31a9rKincFfv8": "Fresh Fruit Series",
+        "fldEgGhc5iNKHLiMM": 4.9,
+        "fld6NIafSQQyYJAkP": 5.9,
+        "fldN4zstqWe07gjSe": "42",
+        "fldLrw0evtwSf4IyM": "174",
+        "fldJR3stkFoVh1ATp": "252",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recD9u3RiSKiwT5U5"
+    },
+    {
+      "name": "Fresh Honey Lemon",
+      "category": "Fresh Fruit Series",
+      "priceM": 4,
+      "priceL": 5,
+      "nutritionKey": "Fresh Honey Lemon",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "fresh-honey-lemon",
+      "nutritionSource": {
+        "displayName": "Fresh Honey Lemon",
+        "servingMlM": 404,
+        "servingMlL": 591,
+        "level25M": {
+          "kcal": 105,
+          "fat_g": 0.1,
+          "grade": "C",
+          "carb_g": 26,
+          "sugar_g": 21.7,
+          "satfat_g": 0,
+          "protein_g": 0.1,
+          "sodium_mg": 2,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 139.5,
+          "fat_g": 0.1,
+          "grade": "C",
+          "carb_g": 34.6,
+          "sugar_g": 29,
+          "satfat_g": 0,
+          "protein_g": 0.1,
+          "sodium_mg": 3,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 105,
+          "fat_g": 0.1,
+          "grade": "C",
+          "carb_g": 26,
+          "sugar_g": 21.7,
+          "satfat_g": 0,
+          "protein_g": 0.1,
+          "sodium_mg": 2,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Fresh Honey Lemon",
+        "Slug": "fresh-honey-lemon",
+        "Category": "Fresh Fruit Series",
+        "Retail Price (M)": 4,
+        "Retail Price (L)": 5,
+        "Calories per 100ml (kcal)": "26",
+        "Calories per M cup (kcal)": "105",
+        "Calories per L cup (kcal)": "140",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Fresh Honey Lemon",
+        "fld6cJn7bkETDWUKy": "fresh-honey-lemon",
+        "fldg31a9rKincFfv8": "Fresh Fruit Series",
+        "fldEgGhc5iNKHLiMM": 4,
+        "fld6NIafSQQyYJAkP": 5,
+        "fldN4zstqWe07gjSe": "26",
+        "fldLrw0evtwSf4IyM": "105",
+        "fldJR3stkFoVh1ATp": "140",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recrjDxdZpjVKQllt"
+    },
+    {
+      "name": "Honey Lemon Amber Black Tea",
+      "category": "Fresh Fruit Series",
+      "priceM": 5.5,
+      "priceL": 6.5,
+      "nutritionKey": "Honey Lemon Amber Black Tea",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "honey-lemon-amber-black-tea",
+      "nutritionSource": {
+        "displayName": "Honey Lemon Amber Black Tea",
+        "servingMlM": 434,
+        "servingMlL": 620,
+        "level25M": {
+          "kcal": 105,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 26,
+          "sugar_g": 21.8,
+          "satfat_g": 0,
+          "protein_g": 0.1,
+          "sodium_mg": 2,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 139.5,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 34.6,
+          "sugar_g": 29,
+          "satfat_g": 0,
+          "protein_g": 0.1,
+          "sodium_mg": 3,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 105,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 26,
+          "sugar_g": 21.8,
+          "satfat_g": 0,
+          "protein_g": 0.1,
+          "sodium_mg": 2,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Honey Lemon Amber Black Tea",
+        "Slug": "honey-lemon-amber-black-tea",
+        "Category": "Fresh Fruit Series",
+        "Retail Price (M)": 5.5,
+        "Retail Price (L)": 6.5,
+        "Calories per 100ml (kcal)": "24",
+        "Calories per M cup (kcal)": "105",
+        "Calories per L cup (kcal)": "140",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Honey Lemon Amber Black Tea",
+        "fld6cJn7bkETDWUKy": "honey-lemon-amber-black-tea",
+        "fldg31a9rKincFfv8": "Fresh Fruit Series",
+        "fldEgGhc5iNKHLiMM": 5.5,
+        "fld6NIafSQQyYJAkP": 6.5,
+        "fldN4zstqWe07gjSe": "24",
+        "fldLrw0evtwSf4IyM": "105",
+        "fldJR3stkFoVh1ATp": "140",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recNb3yWSWUa4aVUW"
+    },
+    {
+      "name": "Honey Lemon Queen Jasmine Green Tea",
+      "category": "Fresh Fruit Series",
+      "priceM": 5.5,
+      "priceL": 6.5,
+      "nutritionKey": "Honey Lemon Queen Jasmine Green Tea",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "honey-lemon-queen-jasmine-green-tea",
+      "nutritionSource": {
+        "displayName": "Honey Lemon Queen Jasmine Green Tea",
+        "servingMlM": 434,
+        "servingMlL": 620,
+        "level25M": {
+          "kcal": 105,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 26,
+          "sugar_g": 21.8,
+          "satfat_g": 0,
+          "protein_g": 0.1,
+          "sodium_mg": 2,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 139.5,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 34.6,
+          "sugar_g": 29,
+          "satfat_g": 0,
+          "protein_g": 0.1,
+          "sodium_mg": 3,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 105,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 26,
+          "sugar_g": 21.8,
+          "satfat_g": 0,
+          "protein_g": 0.1,
+          "sodium_mg": 2,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Honey Lemon Queen Jasmine Green Tea",
+        "Slug": "honey-lemon-queen-jasmine-green-tea",
+        "Category": "Fresh Fruit Series",
+        "Retail Price (M)": 5.5,
+        "Retail Price (L)": 6.5,
+        "Calories per 100ml (kcal)": "24",
+        "Calories per M cup (kcal)": "105",
+        "Calories per L cup (kcal)": "140",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Honey Lemon Queen Jasmine Green Tea",
+        "fld6cJn7bkETDWUKy": "honey-lemon-queen-jasmine-green-tea",
+        "fldg31a9rKincFfv8": "Fresh Fruit Series",
+        "fldEgGhc5iNKHLiMM": 5.5,
+        "fld6NIafSQQyYJAkP": 6.5,
+        "fldN4zstqWe07gjSe": "24",
+        "fldLrw0evtwSf4IyM": "105",
+        "fldJR3stkFoVh1ATp": "140",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "reccGBYqanbLv5Zrp"
+    },
+    {
+      "name": "Orange Pulp Queen Jasmine Green Tea",
+      "category": "Fresh Fruit Series",
+      "priceM": 5.9,
+      "priceL": 7.4,
+      "nutritionKey": "Orange Pulp Queen Jasmine Green Tea",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "orange-pulp-queen-jasmine-green-tea",
+      "nutritionSource": {
+        "displayName": "Orange Pulp Queen Jasmine Green Tea",
+        "servingMlM": 368,
+        "servingMlL": 566,
+        "level25M": {
+          "kcal": 81.4,
+          "grade": "C",
+          "sugar_g": 18.3,
+          "sugar_pct": 5
+        },
+        "level25L": {
+          "kcal": 118.1,
+          "grade": "C",
+          "sugar_g": 26.5,
+          "sugar_pct": 5
+        },
+        "level100M": {
+          "kcal": 115.9,
+          "grade": "C",
+          "sugar_g": 26.1,
+          "sugar_pct": 7
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Orange Pulp Queen Jasmine Green Tea",
+        "Slug": "orange-pulp-queen-jasmine-green-tea",
+        "Category": "Fresh Fruit Series",
+        "Retail Price (M)": 5.9,
+        "Retail Price (L)": 7.4,
+        "Calories per 100ml (kcal)": "22",
+        "Calories per M cup (kcal)": "81",
+        "Calories per L cup (kcal)": "118",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Orange Pulp Queen Jasmine Green Tea",
+        "fld6cJn7bkETDWUKy": "orange-pulp-queen-jasmine-green-tea",
+        "fldg31a9rKincFfv8": "Fresh Fruit Series",
+        "fldEgGhc5iNKHLiMM": 5.9,
+        "fld6NIafSQQyYJAkP": 7.4,
+        "fldN4zstqWe07gjSe": "22",
+        "fldLrw0evtwSf4IyM": "81",
+        "fldJR3stkFoVh1ATp": "118",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recs0Epll1vBfrt2j"
+    },
+    {
+      "name": "Orange Pulp Dong Ding Oolong Tea",
+      "category": "Fresh Fruit Series",
+      "priceM": 5.9,
+      "priceL": 7.4,
+      "nutritionKey": "Orange Pulp Dong Ding Tea",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "orange-pulp-dong-ding-oolong-tea",
+      "nutritionSource": {
+        "displayName": "Orange Pulp Dong Ding Tea",
+        "servingMlM": 398,
+        "servingMlL": 566,
+        "level25M": {
+          "kcal": 81.3,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 18.3,
+          "sugar_g": 18.3,
+          "satfat_g": 0,
+          "protein_g": 1.1,
+          "sodium_mg": 2,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 118.2,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 26.5,
+          "sugar_g": 26.5,
+          "satfat_g": 0,
+          "protein_g": 1.5,
+          "sodium_mg": 3,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 115.9,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 26.1,
+          "sugar_g": 26.1,
+          "satfat_g": 0,
+          "protein_g": 1.1,
+          "sodium_mg": 2,
+          "sugar_pct": 7,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Orange Pulp Dong Ding Oolong Tea",
+        "Slug": "orange-pulp-dong-ding-oolong-tea",
+        "Category": "Fresh Fruit Series",
+        "Retail Price (M)": 5.9,
+        "Retail Price (L)": 7.4,
+        "Calories per 100ml (kcal)": "20",
+        "Calories per M cup (kcal)": "81",
+        "Calories per L cup (kcal)": "118",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Orange Pulp Dong Ding Oolong Tea",
+        "fld6cJn7bkETDWUKy": "orange-pulp-dong-ding-oolong-tea",
+        "fldg31a9rKincFfv8": "Fresh Fruit Series",
+        "fldEgGhc5iNKHLiMM": 5.9,
+        "fld6NIafSQQyYJAkP": 7.4,
+        "fldN4zstqWe07gjSe": "20",
+        "fldLrw0evtwSf4IyM": "81",
+        "fldJR3stkFoVh1ATp": "118",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recYBwiLqb8x4tHdQ"
+    },
+    {
+      "name": "Orange Pulp Chrysanthemum Honey Tea",
+      "category": "Fresh Fruit Series",
+      "priceM": 5.9,
+      "priceL": 7.4,
+      "nutritionKey": "Fresh Orange Chrysanthemum Honey Tea",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "orange-pulp-chrysanthemum-honey-tea",
+      "nutritionSource": {
+        "displayName": "Fresh Orange Chrysanthemum Honey Tea",
+        "servingMlM": 410,
+        "servingMlL": 555,
+        "level25M": {
+          "kcal": 172.3,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 41.6,
+          "sugar_g": 38,
+          "satfat_g": 0,
+          "protein_g": 1,
+          "sodium_mg": 3,
+          "sugar_pct": 9,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 230.3,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 55.6,
+          "sugar_g": 50.7,
+          "satfat_g": 0,
+          "protein_g": 1.3,
+          "sodium_mg": 4,
+          "sugar_pct": 9,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 172.3,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 41.6,
+          "sugar_g": 38,
+          "satfat_g": 0,
+          "protein_g": 1,
+          "sodium_mg": 3,
+          "sugar_pct": 9,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Orange Pulp Chrysanthemum Honey Tea",
+        "Slug": "orange-pulp-chrysanthemum-honey-tea",
+        "Category": "Fresh Fruit Series",
+        "Retail Price (M)": 5.9,
+        "Retail Price (L)": 7.4,
+        "Calories per 100ml (kcal)": "42",
+        "Calories per M cup (kcal)": "172",
+        "Calories per L cup (kcal)": "230",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Orange Pulp Chrysanthemum Honey Tea",
+        "fld6cJn7bkETDWUKy": "orange-pulp-chrysanthemum-honey-tea",
+        "fldg31a9rKincFfv8": "Fresh Fruit Series",
+        "fldEgGhc5iNKHLiMM": 5.9,
+        "fld6NIafSQQyYJAkP": 7.4,
+        "fldN4zstqWe07gjSe": "42",
+        "fldLrw0evtwSf4IyM": "172",
+        "fldJR3stkFoVh1ATp": "230",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recozgs3vBYZWseiG"
+    },
+    {
+      "name": "Grapefruit Dong Ding Oolong Tea",
+      "category": "Fresh Fruit Series",
+      "priceM": 6,
+      "priceL": 7.5,
+      "nutritionKey": "Grapefruit Green / Dong Ding Oolong Tea",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "grapefruit-dong-ding-oolong-tea",
+      "nutritionSource": {
+        "displayName": "Grapefruit Green / Dong Ding Oolong Tea",
+        "servingMlM": 403,
+        "servingMlL": 524,
+        "level25M": {
+          "kcal": 87,
+          "grade": "B",
+          "sugar_g": 16.8,
+          "sugar_pct": 4
+        },
+        "level25L": {
+          "kcal": 126.6,
+          "grade": "B",
+          "sugar_g": 24.4,
+          "sugar_pct": 5
+        },
+        "level100M": {
+          "kcal": 121.5,
+          "grade": "C",
+          "sugar_g": 24.7,
+          "sugar_pct": 6
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Grapefruit Dong Ding Oolong Tea",
+        "Slug": "grapefruit-dong-ding-oolong-tea",
+        "Category": "Fresh Fruit Series",
+        "Retail Price (M)": 6,
+        "Retail Price (L)": 7.5,
+        "Calories per 100ml (kcal)": "22",
+        "Calories per M cup (kcal)": "87",
+        "Calories per L cup (kcal)": "127",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Grapefruit Dong Ding Oolong Tea",
+        "fld6cJn7bkETDWUKy": "grapefruit-dong-ding-oolong-tea",
+        "fldg31a9rKincFfv8": "Fresh Fruit Series",
+        "fldEgGhc5iNKHLiMM": 6,
+        "fld6NIafSQQyYJAkP": 7.5,
+        "fldN4zstqWe07gjSe": "22",
+        "fldLrw0evtwSf4IyM": "87",
+        "fldJR3stkFoVh1ATp": "127",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recBRD95ken59yLYK"
+    },
+    {
+      "name": "Grapefruit Queen Jasmine Green Tea",
+      "category": "Fresh Fruit Series",
+      "priceM": 6,
+      "priceL": 7.5,
+      "nutritionKey": "Grapefruit Queen Jasmine Green Tea",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "grapefruit-queen-jasmine-green-tea",
+      "nutritionSource": {
+        "displayName": "Grapefruit Queen Jasmine Green Tea",
+        "servingMlM": 418,
+        "servingMlL": 596,
+        "level25M": {
+          "kcal": 94.8,
+          "fat_g": 0.1,
+          "grade": "B",
+          "carb_g": 22.5,
+          "sugar_g": 17.3,
+          "satfat_g": 0,
+          "protein_g": 1.1,
+          "sodium_mg": 0,
+          "sugar_pct": 4,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 138.3,
+          "fat_g": 0.2,
+          "grade": "B",
+          "carb_g": 32.8,
+          "sugar_g": 25,
+          "satfat_g": 0,
+          "protein_g": 1.5,
+          "sodium_mg": 0,
+          "sugar_pct": 4,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 129.3,
+          "fat_g": 0.1,
+          "grade": "C",
+          "carb_g": 30.3,
+          "sugar_g": 25.1,
+          "satfat_g": 0,
+          "protein_g": 1.1,
+          "sodium_mg": 0,
+          "sugar_pct": 6,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Grapefruit Queen Jasmine Green Tea",
+        "Slug": "grapefruit-queen-jasmine-green-tea",
+        "Category": "Fresh Fruit Series",
+        "Retail Price (M)": 6,
+        "Retail Price (L)": 7.5,
+        "Calories per 100ml (kcal)": "23",
+        "Calories per M cup (kcal)": "95",
+        "Calories per L cup (kcal)": "138",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Grapefruit Queen Jasmine Green Tea",
+        "fld6cJn7bkETDWUKy": "grapefruit-queen-jasmine-green-tea",
+        "fldg31a9rKincFfv8": "Fresh Fruit Series",
+        "fldEgGhc5iNKHLiMM": 6,
+        "fld6NIafSQQyYJAkP": 7.5,
+        "fldN4zstqWe07gjSe": "23",
+        "fldLrw0evtwSf4IyM": "95",
+        "fldJR3stkFoVh1ATp": "138",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recyDdTjsYjJubtiN"
+    },
+    {
+      "name": "Grapefruit Honey Slushie (Dong Ding Oolong)",
+      "category": "Fresh Fruit Series",
+      "priceM": 6.4,
+      "priceL": 7.9,
+      "nutritionKey": "Grapefruit Honey Slushie Green / Dong Ding Oolong Tea",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "grapefruit-honey-slushie-dong-ding-oolong",
+      "nutritionSource": {
+        "displayName": "Grapefruit Honey Slushie Green / Dong Ding Oolong Tea",
+        "servingMlM": 500,
+        "servingMlL": 414,
+        "level25M": {
+          "kcal": 153.6,
+          "fat_g": 0.1,
+          "grade": "C",
+          "carb_g": 38.5,
+          "sugar_g": 31.5,
+          "satfat_g": 0,
+          "protein_g": 0.9,
+          "sodium_mg": 1,
+          "sugar_pct": 6,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 217.8,
+          "fat_g": 0.1,
+          "grade": "C",
+          "carb_g": 53.6,
+          "sugar_g": 43.8,
+          "satfat_g": 0,
+          "protein_g": 1.3,
+          "sodium_mg": 1,
+          "sugar_pct": 6,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 153.6,
+          "fat_g": 0.1,
+          "grade": "C",
+          "carb_g": 38.5,
+          "sugar_g": 31.5,
+          "satfat_g": 0,
+          "protein_g": 0.9,
+          "sodium_mg": 1,
+          "sugar_pct": 6,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Grapefruit Honey Slushie (Dong Ding Oolong)",
+        "Slug": "grapefruit-honey-slushie-dong-ding-oolong",
+        "Category": "Fresh Fruit Series",
+        "Retail Price (M)": 6.4,
+        "Retail Price (L)": 7.9,
+        "Calories per 100ml (kcal)": "31",
+        "Calories per M cup (kcal)": "154",
+        "Calories per L cup (kcal)": "218",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Grapefruit Honey Slushie (Dong Ding Oolong)",
+        "fld6cJn7bkETDWUKy": "grapefruit-honey-slushie-dong-ding-oolong",
+        "fldg31a9rKincFfv8": "Fresh Fruit Series",
+        "fldEgGhc5iNKHLiMM": 6.4,
+        "fld6NIafSQQyYJAkP": 7.9,
+        "fldN4zstqWe07gjSe": "31",
+        "fldLrw0evtwSf4IyM": "154",
+        "fldJR3stkFoVh1ATp": "218",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recRee69nMrgsElzg"
+    },
+    {
+      "name": "Grapefruit Honey Slushie (Queen Jasmine Green)",
+      "category": "Fresh Fruit Series",
+      "priceM": 6.4,
+      "priceL": 7.9,
+      "nutritionKey": "Grapefruit Honey Slushie Green / Dong Ding Oolong Tea",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "grapefruit-honey-slushie-queen-jasmine-green",
+      "nutritionSource": {
+        "displayName": "Grapefruit Honey Slushie Green / Dong Ding Oolong Tea",
+        "servingMlM": 500,
+        "servingMlL": 414,
+        "level25M": {
+          "kcal": 153.6,
+          "fat_g": 0.1,
+          "grade": "C",
+          "carb_g": 38.5,
+          "sugar_g": 31.5,
+          "satfat_g": 0,
+          "protein_g": 0.9,
+          "sodium_mg": 1,
+          "sugar_pct": 6,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 217.8,
+          "fat_g": 0.1,
+          "grade": "C",
+          "carb_g": 53.6,
+          "sugar_g": 43.8,
+          "satfat_g": 0,
+          "protein_g": 1.3,
+          "sodium_mg": 1,
+          "sugar_pct": 6,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 153.6,
+          "fat_g": 0.1,
+          "grade": "C",
+          "carb_g": 38.5,
+          "sugar_g": 31.5,
+          "satfat_g": 0,
+          "protein_g": 0.9,
+          "sodium_mg": 1,
+          "sugar_pct": 6,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Grapefruit Honey Slushie (Queen Jasmine Green)",
+        "Slug": "grapefruit-honey-slushie-queen-jasmine-green",
+        "Category": "Fresh Fruit Series",
+        "Retail Price (M)": 6.4,
+        "Retail Price (L)": 7.9,
+        "Calories per 100ml (kcal)": "31",
+        "Calories per M cup (kcal)": "154",
+        "Calories per L cup (kcal)": "218",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Grapefruit Honey Slushie (Queen Jasmine Green)",
+        "fld6cJn7bkETDWUKy": "grapefruit-honey-slushie-queen-jasmine-green",
+        "fldg31a9rKincFfv8": "Fresh Fruit Series",
+        "fldEgGhc5iNKHLiMM": 6.4,
+        "fld6NIafSQQyYJAkP": 7.9,
+        "fldN4zstqWe07gjSe": "31",
+        "fldLrw0evtwSf4IyM": "154",
+        "fldJR3stkFoVh1ATp": "218",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recjrirdb6VQMXgCQ"
+    },
+    {
+      "name": "Brown Sugar Fresh Milk",
+      "category": "No / Low Caffeine",
+      "priceM": 5.1,
+      "priceL": 6.1,
+      "nutritionKey": "Brown Sugar Fresh Milk",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "brown-sugar-fresh-milk",
+      "nutritionSource": {
+        "displayName": "Brown Sugar Fresh Milk",
+        "servingMlM": 418,
+        "servingMlL": 541,
+        "level25M": {
+          "kcal": 349.5,
+          "fat_g": 13.7,
+          "grade": "C",
+          "carb_g": 45.6,
+          "sugar_g": 29.5,
+          "satfat_g": 9.1,
+          "protein_g": 12.3,
+          "sodium_mg": 165,
+          "sugar_pct": 10,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 462.1,
+          "fat_g": 17.6,
+          "grade": "C",
+          "carb_g": 62,
+          "sugar_g": 41.3,
+          "satfat_g": 11.7,
+          "protein_g": 15.8,
+          "sodium_mg": 212,
+          "sugar_pct": 10,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 349.5,
+          "fat_g": 13.7,
+          "grade": "C",
+          "carb_g": 45.6,
+          "sugar_g": 29.5,
+          "satfat_g": 9.1,
+          "protein_g": 12.3,
+          "sodium_mg": 165,
+          "sugar_pct": 10,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Brown Sugar Fresh Milk",
+        "Slug": "brown-sugar-fresh-milk",
+        "Category": "No / Low Caffeine",
+        "Retail Price (M)": 5.1,
+        "Retail Price (L)": 6.1,
+        "Calories per 100ml (kcal)": "84",
+        "Calories per M cup (kcal)": "350",
+        "Calories per L cup (kcal)": "462",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Brown Sugar Fresh Milk",
+        "fld6cJn7bkETDWUKy": "brown-sugar-fresh-milk",
+        "fldg31a9rKincFfv8": "No / Low Caffeine",
+        "fldEgGhc5iNKHLiMM": 5.1,
+        "fld6NIafSQQyYJAkP": 6.1,
+        "fldN4zstqWe07gjSe": "84",
+        "fldLrw0evtwSf4IyM": "350",
+        "fldJR3stkFoVh1ATp": "462",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recOQuYNEuGgCVPFd"
+    },
+    {
+      "name": "Cocoa Milk",
+      "category": "No / Low Caffeine",
+      "priceM": 5.1,
+      "priceL": 6.5,
+      "nutritionKey": "Cocoa",
+      "menuGrade": "C",
+      "hotOption": true,
+      "description": null,
+      "slug": "cocoa-milk",
+      "nutritionSource": {
+        "displayName": "Cocoa",
+        "servingMlM": 361,
+        "servingMlL": 486,
+        "level25M": {
+          "kcal": 219,
+          "fat_g": 9.1,
+          "grade": "C",
+          "carb_g": 33.3,
+          "sugar_g": 18,
+          "satfat_g": 7.5,
+          "protein_g": 2.9,
+          "sodium_mg": 23,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 321.8,
+          "fat_g": 13.3,
+          "grade": "C",
+          "carb_g": 48.9,
+          "sugar_g": 26.9,
+          "satfat_g": 11,
+          "protein_g": 3.9,
+          "sodium_mg": 33,
+          "sugar_pct": 6,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 253.5,
+          "fat_g": 9.1,
+          "grade": "C",
+          "carb_g": 41.1,
+          "sugar_g": 25.8,
+          "satfat_g": 7.5,
+          "protein_g": 2.9,
+          "sodium_mg": 23,
+          "sugar_pct": 7,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Cocoa Milk",
+        "Slug": "cocoa-milk",
+        "Category": "No / Low Caffeine",
+        "Retail Price (M)": 5.1,
+        "Retail Price (L)": 6.5,
+        "Calories per 100ml (kcal)": "61",
+        "Calories per M cup (kcal)": "219",
+        "Calories per L cup (kcal)": "322",
+        "Nutri-Grade": "C",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Cocoa Milk",
+        "fld6cJn7bkETDWUKy": "cocoa-milk",
+        "fldg31a9rKincFfv8": "No / Low Caffeine",
+        "fldEgGhc5iNKHLiMM": 5.1,
+        "fld6NIafSQQyYJAkP": 6.5,
+        "fldN4zstqWe07gjSe": "61",
+        "fldLrw0evtwSf4IyM": "219",
+        "fldJR3stkFoVh1ATp": "322",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recghOn5RRi1SDc79"
+    },
+    {
+      "name": "Chrysanthemum Yuzu Tea",
+      "category": "No / Low Caffeine",
+      "priceM": 5.4,
+      "priceL": 6.4,
+      "nutritionKey": "Chrysanthemum Yuzu Tea",
+      "menuGrade": "C",
+      "hotOption": true,
+      "description": null,
+      "slug": "chrysanthemum-yuzu-tea",
+      "nutritionSource": {
+        "displayName": "Chrysanthemum Yuzu Tea",
+        "servingMlM": 433,
+        "servingMlL": 613,
+        "level25M": {
+          "kcal": 103.9,
+          "grade": "C",
+          "sugar_g": 22.5,
+          "sugar_pct": 5
+        },
+        "level25L": {
+          "kcal": 157.8,
+          "grade": "C",
+          "sugar_g": 34.3,
+          "sugar_pct": 6
+        },
+        "level100M": {
+          "kcal": 103.9,
+          "grade": "C",
+          "sugar_g": 22.5,
+          "sugar_pct": 5
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Chrysanthemum Yuzu Tea",
+        "Slug": "chrysanthemum-yuzu-tea",
+        "Category": "No / Low Caffeine",
+        "Retail Price (M)": 5.4,
+        "Retail Price (L)": 6.4,
+        "Calories per 100ml (kcal)": "24",
+        "Calories per M cup (kcal)": "104",
+        "Calories per L cup (kcal)": "158",
+        "Nutri-Grade": "C",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Chrysanthemum Yuzu Tea",
+        "fld6cJn7bkETDWUKy": "chrysanthemum-yuzu-tea",
+        "fldg31a9rKincFfv8": "No / Low Caffeine",
+        "fldEgGhc5iNKHLiMM": 5.4,
+        "fld6NIafSQQyYJAkP": 6.4,
+        "fldN4zstqWe07gjSe": "24",
+        "fldLrw0evtwSf4IyM": "104",
+        "fldJR3stkFoVh1ATp": "158",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recnh3olrqqgivPXZ"
+    },
+    {
+      "name": "Honey Lemon Chrysanthemum Tea",
+      "category": "No / Low Caffeine",
+      "priceM": 5.5,
+      "priceL": 7,
+      "nutritionKey": "Honey Lemon Chrysanthemum Tea",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "honey-lemon-chrysanthemum-tea",
+      "nutritionSource": {
+        "displayName": "Honey Lemon Chrysanthemum Tea",
+        "servingMlM": 452,
+        "servingMlL": 641,
+        "level25M": {
+          "kcal": 143.1,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 35.4,
+          "sugar_g": 30.5,
+          "satfat_g": 0,
+          "protein_g": 0.1,
+          "sodium_mg": 2,
+          "sugar_pct": 7,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 194,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 48,
+          "sugar_g": 41.5,
+          "satfat_g": 0,
+          "protein_g": 0.2,
+          "sodium_mg": 3,
+          "sugar_pct": 7,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 143.1,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 35.4,
+          "sugar_g": 30.5,
+          "satfat_g": 0,
+          "protein_g": 0.1,
+          "sodium_mg": 2,
+          "sugar_pct": 7,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Honey Lemon Chrysanthemum Tea",
+        "Slug": "honey-lemon-chrysanthemum-tea",
+        "Category": "No / Low Caffeine",
+        "Retail Price (M)": 5.5,
+        "Retail Price (L)": 7,
+        "Calories per 100ml (kcal)": "32",
+        "Calories per M cup (kcal)": "143",
+        "Calories per L cup (kcal)": "194",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Honey Lemon Chrysanthemum Tea",
+        "fld6cJn7bkETDWUKy": "honey-lemon-chrysanthemum-tea",
+        "fldg31a9rKincFfv8": "No / Low Caffeine",
+        "fldEgGhc5iNKHLiMM": 5.5,
+        "fld6NIafSQQyYJAkP": 7,
+        "fldN4zstqWe07gjSe": "32",
+        "fldLrw0evtwSf4IyM": "143",
+        "fldJR3stkFoVh1ATp": "194",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "rec6b9AMYKvj25N1I"
+    },
+    {
+      "name": "Cocoa Fresh Milk",
+      "category": "No / Low Caffeine",
+      "priceM": 5.5,
+      "priceL": 6.5,
+      "nutritionKey": "Cocoa Fresh Milk",
+      "menuGrade": "C",
+      "hotOption": true,
+      "description": null,
+      "slug": "cocoa-fresh-milk",
+      "nutritionSource": {
+        "displayName": "Cocoa Fresh Milk",
+        "servingMlM": 281,
+        "servingMlL": 351,
+        "level25M": {
+          "kcal": 190.9,
+          "grade": "C",
+          "sugar_g": 16.2,
+          "sugar_pct": 6
+        },
+        "level25L": {
+          "kcal": 259.2,
+          "grade": "C",
+          "sugar_g": 24.3,
+          "sugar_pct": 7
+        },
+        "level100M": {
+          "kcal": 225.4,
+          "grade": "C",
+          "sugar_g": 24,
+          "sugar_pct": 9
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Cocoa Fresh Milk",
+        "Slug": "cocoa-fresh-milk",
+        "Category": "No / Low Caffeine",
+        "Retail Price (M)": 5.5,
+        "Retail Price (L)": 6.5,
+        "Calories per 100ml (kcal)": "68",
+        "Calories per M cup (kcal)": "191",
+        "Calories per L cup (kcal)": "259",
+        "Nutri-Grade": "C",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Cocoa Fresh Milk",
+        "fld6cJn7bkETDWUKy": "cocoa-fresh-milk",
+        "fldg31a9rKincFfv8": "No / Low Caffeine",
+        "fldEgGhc5iNKHLiMM": 5.5,
+        "fld6NIafSQQyYJAkP": 6.5,
+        "fldN4zstqWe07gjSe": "68",
+        "fldLrw0evtwSf4IyM": "191",
+        "fldJR3stkFoVh1ATp": "259",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recV7fcVMYe0jLM3u"
+    },
+    {
+      "name": "Mango Smoothie",
+      "category": "No / Low Caffeine",
+      "priceM": 6,
+      "priceL": 7,
+      "nutritionKey": "Mango Smoothie",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "mango-smoothie",
+      "nutritionSource": {
+        "displayName": "Mango Smoothie",
+        "servingMlM": 497,
+        "servingMlL": 693,
+        "level25M": {
+          "kcal": 255.6,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 48.4,
+          "sugar_g": 38.9,
+          "satfat_g": 3.1,
+          "protein_g": 4.8,
+          "sodium_mg": 63,
+          "sugar_pct": 8,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 354.3,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 68.9,
+          "sugar_g": 56.4,
+          "satfat_g": 3.9,
+          "protein_g": 6,
+          "sodium_mg": 79,
+          "sugar_pct": 8,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 255.6,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 48.4,
+          "sugar_g": 38.9,
+          "satfat_g": 3.1,
+          "protein_g": 4.8,
+          "sodium_mg": 63,
+          "sugar_pct": 8,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Mango Smoothie",
+        "Slug": "mango-smoothie",
+        "Category": "No / Low Caffeine",
+        "Retail Price (M)": 6,
+        "Retail Price (L)": 7,
+        "Calories per 100ml (kcal)": "51",
+        "Calories per M cup (kcal)": "256",
+        "Calories per L cup (kcal)": "354",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Mango Smoothie",
+        "fld6cJn7bkETDWUKy": "mango-smoothie",
+        "fldg31a9rKincFfv8": "No / Low Caffeine",
+        "fldEgGhc5iNKHLiMM": 6,
+        "fld6NIafSQQyYJAkP": 7,
+        "fldN4zstqWe07gjSe": "51",
+        "fldLrw0evtwSf4IyM": "256",
+        "fldJR3stkFoVh1ATp": "354",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "rec61G14qIhJblX2j"
+    },
+    {
+      "name": "Orange Yakult Smoothie",
+      "category": "No / Low Caffeine",
+      "priceM": 6.9,
+      "priceL": 8.4,
+      "nutritionKey": "Fresh Orange Yakult Smoothie",
+      "menuGrade": "C",
+      "hotOption": false,
+      "description": null,
+      "slug": "orange-yakult-smoothie",
+      "nutritionSource": {
+        "displayName": "Fresh Orange Yakult Smoothie",
+        "servingMlM": 500,
+        "servingMlL": 645,
+        "level25M": {
+          "kcal": 410.4,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 64.1,
+          "sugar_g": 44,
+          "satfat_g": 12.7,
+          "protein_g": 3.5,
+          "sodium_mg": 55,
+          "sugar_pct": 9,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 530.6,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 84.4,
+          "sugar_g": 58.4,
+          "satfat_g": 15.9,
+          "protein_g": 4.8,
+          "sodium_mg": 74,
+          "sugar_pct": 9,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 410.4,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 64.1,
+          "sugar_g": 44,
+          "satfat_g": 12.7,
+          "protein_g": 3.5,
+          "sodium_mg": 55,
+          "sugar_pct": 9,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Orange Yakult Smoothie",
+        "Slug": "orange-yakult-smoothie",
+        "Category": "No / Low Caffeine",
+        "Retail Price (M)": 6.9,
+        "Retail Price (L)": 8.4,
+        "Calories per 100ml (kcal)": "82",
+        "Calories per M cup (kcal)": "410",
+        "Calories per L cup (kcal)": "531",
+        "Nutri-Grade": "C",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Orange Yakult Smoothie",
+        "fld6cJn7bkETDWUKy": "orange-yakult-smoothie",
+        "fldg31a9rKincFfv8": "No / Low Caffeine",
+        "fldEgGhc5iNKHLiMM": 6.9,
+        "fld6NIafSQQyYJAkP": 8.4,
+        "fldN4zstqWe07gjSe": "82",
+        "fldLrw0evtwSf4IyM": "410",
+        "fldJR3stkFoVh1ATp": "531",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "reciRR4OgV3V9llbp"
+    },
+    {
+      "name": "Chrysanthemum Tea",
+      "category": "No / Low Caffeine",
+      "priceM": 3.5,
+      "priceL": 4.7,
+      "nutritionKey": "Chrysanthemum Tea",
+      "menuGrade": "C",
+      "hotOption": true,
+      "description": null,
+      "slug": "chrysanthemum-tea",
+      "nutritionSource": {
+        "displayName": "Chrysanthemum Tea",
+        "servingMlM": 398,
+        "servingMlL": 571,
+        "level25M": {
+          "kcal": 60.1,
+          "fat_g": 0,
+          "grade": "B",
+          "carb_g": 14.4,
+          "sugar_g": 13.8,
+          "satfat_g": 0,
+          "protein_g": 0,
+          "sodium_mg": 0,
+          "sugar_pct": 4,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 95.3,
+          "fat_g": 0.1,
+          "grade": "B",
+          "carb_g": 22.7,
+          "sugar_g": 21.8,
+          "satfat_g": 0,
+          "protein_g": 0.1,
+          "sodium_mg": 1,
+          "sugar_pct": 4,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 94.6,
+          "fat_g": 0,
+          "grade": "C",
+          "carb_g": 22.2,
+          "sugar_g": 21.6,
+          "satfat_g": 0,
+          "protein_g": 0,
+          "sodium_mg": 0,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Chrysanthemum Tea",
+        "Slug": "chrysanthemum-tea",
+        "Category": "No / Low Caffeine",
+        "Retail Price (M)": 3.5,
+        "Retail Price (L)": 4.7,
+        "Calories per 100ml (kcal)": "15",
+        "Calories per M cup (kcal)": "60",
+        "Calories per L cup (kcal)": "95",
+        "Nutri-Grade": "C",
+        "Description": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Chrysanthemum Tea",
+        "fld6cJn7bkETDWUKy": "chrysanthemum-tea",
+        "fldg31a9rKincFfv8": "No / Low Caffeine",
+        "fldEgGhc5iNKHLiMM": 3.5,
+        "fld6NIafSQQyYJAkP": 4.7,
+        "fldN4zstqWe07gjSe": "15",
+        "fldLrw0evtwSf4IyM": "60",
+        "fldJR3stkFoVh1ATp": "95",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldwvgRLJpK7r7PNu": "A hot option is also listed on PlayMade's menu. The calorie figures shown apply to the iced drink.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recylH9rL1wOqBMtQ"
+    },
+    {
+      "name": "Amber Black Almond Milk Tea",
+      "category": "Almond Milk Tea",
+      "priceM": 5.3,
+      "priceL": 6.3,
+      "nutritionKey": "Amber Black Almond Milk Tea",
+      "menuGrade": null,
+      "hotOption": false,
+      "description": null,
+      "slug": "amber-black-almond-milk-tea",
+      "nutritionSource": {
+        "displayName": "Amber Black Almond Milk Tea",
+        "servingMlM": 468,
+        "servingMlL": 521,
+        "level25M": {
+          "kcal": 47.2,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 9.9,
+          "sugar_g": 5.2,
+          "satfat_g": 0.1,
+          "protein_g": 1.1,
+          "sodium_mg": 113,
+          "sugar_pct": 1,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 72.3,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 15.4,
+          "sugar_g": 9.5,
+          "satfat_g": 0.2,
+          "protein_g": 1.4,
+          "sodium_mg": 141,
+          "sugar_pct": 2,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 81.7,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 17.7,
+          "sugar_g": 13,
+          "satfat_g": 0.1,
+          "protein_g": 1.1,
+          "sodium_mg": 113,
+          "sugar_pct": 3,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "B",
+      "fieldsByName": {
+        "Drink Name": "Amber Black Almond Milk Tea",
+        "Slug": "amber-black-almond-milk-tea",
+        "Category": "Almond Milk Tea",
+        "Retail Price (M)": 5.3,
+        "Retail Price (L)": 6.3,
+        "Calories per 100ml (kcal)": "10",
+        "Calories per M cup (kcal)": "47",
+        "Calories per L cup (kcal)": "72",
+        "Nutri-Grade": "B",
+        "Description": "The almond milk option adds $0.30 to the corresponding fresh milk tea.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Amber Black Almond Milk Tea",
+        "fld6cJn7bkETDWUKy": "amber-black-almond-milk-tea",
+        "fldg31a9rKincFfv8": "Almond Milk Tea",
+        "fldEgGhc5iNKHLiMM": 5.3,
+        "fld6NIafSQQyYJAkP": 6.3,
+        "fldN4zstqWe07gjSe": "10",
+        "fldLrw0evtwSf4IyM": "47",
+        "fldJR3stkFoVh1ATp": "72",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldwvgRLJpK7r7PNu": "The almond milk option adds $0.30 to the corresponding fresh milk tea.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recZtIY9VwPhkVRD1"
+    },
+    {
+      "name": "Dong Ding Oolong Almond Milk Tea",
+      "category": "Almond Milk Tea",
+      "priceM": 5.3,
+      "priceL": 6.3,
+      "nutritionKey": "Dong Ding Oolong Almond Milk Tea",
+      "menuGrade": null,
+      "hotOption": false,
+      "description": null,
+      "slug": "dong-ding-oolong-almond-milk-tea",
+      "nutritionSource": {
+        "displayName": " Dong Ding Oolong Almond Milk Tea",
+        "servingMlM": 468,
+        "servingMlL": 521,
+        "level25M": {
+          "kcal": 47.2,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 9.9,
+          "sugar_g": 5.2,
+          "satfat_g": 0.1,
+          "protein_g": 1.1,
+          "sodium_mg": 113,
+          "sugar_pct": 1,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 72.3,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 15.4,
+          "sugar_g": 9.5,
+          "satfat_g": 0.2,
+          "protein_g": 1.4,
+          "sodium_mg": 141,
+          "sugar_pct": 2,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 81.7,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 17.7,
+          "sugar_g": 13,
+          "satfat_g": 0.1,
+          "protein_g": 1.1,
+          "sodium_mg": 113,
+          "sugar_pct": 3,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "B",
+      "fieldsByName": {
+        "Drink Name": "Dong Ding Oolong Almond Milk Tea",
+        "Slug": "dong-ding-oolong-almond-milk-tea",
+        "Category": "Almond Milk Tea",
+        "Retail Price (M)": 5.3,
+        "Retail Price (L)": 6.3,
+        "Calories per 100ml (kcal)": "10",
+        "Calories per M cup (kcal)": "47",
+        "Calories per L cup (kcal)": "72",
+        "Nutri-Grade": "B",
+        "Description": "The almond milk option adds $0.30 to the corresponding fresh milk tea.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Dong Ding Oolong Almond Milk Tea",
+        "fld6cJn7bkETDWUKy": "dong-ding-oolong-almond-milk-tea",
+        "fldg31a9rKincFfv8": "Almond Milk Tea",
+        "fldEgGhc5iNKHLiMM": 5.3,
+        "fld6NIafSQQyYJAkP": 6.3,
+        "fldN4zstqWe07gjSe": "10",
+        "fldLrw0evtwSf4IyM": "47",
+        "fldJR3stkFoVh1ATp": "72",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldwvgRLJpK7r7PNu": "The almond milk option adds $0.30 to the corresponding fresh milk tea.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recR39yexbNCa3OoM"
+    },
+    {
+      "name": "Osmanthus Oolong Almond Milk Tea",
+      "category": "Almond Milk Tea",
+      "priceM": 5.3,
+      "priceL": 6.3,
+      "nutritionKey": "Osmanthus Oolong Almond Milk Tea",
+      "menuGrade": null,
+      "hotOption": false,
+      "description": null,
+      "slug": "osmanthus-oolong-almond-milk-tea",
+      "nutritionSource": {
+        "displayName": " Osmanthus Oolong Almond Milk Tea",
+        "servingMlM": 468,
+        "servingMlL": 521,
+        "level25M": {
+          "kcal": 47.2,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 9.9,
+          "sugar_g": 5.2,
+          "satfat_g": 0.1,
+          "protein_g": 1.1,
+          "sodium_mg": 113,
+          "sugar_pct": 1,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 72.3,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 15.4,
+          "sugar_g": 9.5,
+          "satfat_g": 0.2,
+          "protein_g": 1.4,
+          "sodium_mg": 141,
+          "sugar_pct": 2,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 81.7,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 17.7,
+          "sugar_g": 13,
+          "satfat_g": 0.1,
+          "protein_g": 1.1,
+          "sodium_mg": 113,
+          "sugar_pct": 3,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "B",
+      "fieldsByName": {
+        "Drink Name": "Osmanthus Oolong Almond Milk Tea",
+        "Slug": "osmanthus-oolong-almond-milk-tea",
+        "Category": "Almond Milk Tea",
+        "Retail Price (M)": 5.3,
+        "Retail Price (L)": 6.3,
+        "Calories per 100ml (kcal)": "10",
+        "Calories per M cup (kcal)": "47",
+        "Calories per L cup (kcal)": "72",
+        "Nutri-Grade": "B",
+        "Description": "The almond milk option adds $0.30 to the corresponding fresh milk tea.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Osmanthus Oolong Almond Milk Tea",
+        "fld6cJn7bkETDWUKy": "osmanthus-oolong-almond-milk-tea",
+        "fldg31a9rKincFfv8": "Almond Milk Tea",
+        "fldEgGhc5iNKHLiMM": 5.3,
+        "fld6NIafSQQyYJAkP": 6.3,
+        "fldN4zstqWe07gjSe": "10",
+        "fldLrw0evtwSf4IyM": "47",
+        "fldJR3stkFoVh1ATp": "72",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldwvgRLJpK7r7PNu": "The almond milk option adds $0.30 to the corresponding fresh milk tea.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recWTC77SID0o8M2R"
+    },
+    {
+      "name": "Chrysanthemum Almond Milk Tea",
+      "category": "Almond Milk Tea",
+      "priceM": 5.3,
+      "priceL": 6.3,
+      "nutritionKey": "Chrysanthemum Almond Milk Tea",
+      "menuGrade": null,
+      "hotOption": false,
+      "description": null,
+      "slug": "chrysanthemum-almond-milk-tea",
+      "nutritionSource": {
+        "displayName": "Chrysanthemum Almond Milk Tea",
+        "servingMlM": 368,
+        "servingMlL": 521,
+        "level25M": {
+          "kcal": 69,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 15.2,
+          "sugar_g": 10.2,
+          "satfat_g": 0.1,
+          "protein_g": 1.1,
+          "sodium_mg": 113,
+          "sugar_pct": 3,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 105,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 23.5,
+          "sugar_g": 17.1,
+          "satfat_g": 0.2,
+          "protein_g": 1.4,
+          "sodium_mg": 141,
+          "sugar_pct": 3,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 103.5,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 23,
+          "sugar_g": 18,
+          "satfat_g": 0.1,
+          "protein_g": 1.1,
+          "sodium_mg": 113,
+          "sugar_pct": 5,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "B",
+      "fieldsByName": {
+        "Drink Name": "Chrysanthemum Almond Milk Tea",
+        "Slug": "chrysanthemum-almond-milk-tea",
+        "Category": "Almond Milk Tea",
+        "Retail Price (M)": 5.3,
+        "Retail Price (L)": 6.3,
+        "Calories per 100ml (kcal)": "19",
+        "Calories per M cup (kcal)": "69",
+        "Calories per L cup (kcal)": "105",
+        "Nutri-Grade": "B",
+        "Description": "The almond milk option adds $0.30 to the corresponding fresh milk tea.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Chrysanthemum Almond Milk Tea",
+        "fld6cJn7bkETDWUKy": "chrysanthemum-almond-milk-tea",
+        "fldg31a9rKincFfv8": "Almond Milk Tea",
+        "fldEgGhc5iNKHLiMM": 5.3,
+        "fld6NIafSQQyYJAkP": 6.3,
+        "fldN4zstqWe07gjSe": "19",
+        "fldLrw0evtwSf4IyM": "69",
+        "fldJR3stkFoVh1ATp": "105",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldwvgRLJpK7r7PNu": "The almond milk option adds $0.30 to the corresponding fresh milk tea.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recpREY8omSVQbH20"
+    },
+    {
+      "name": "Queen Jasmine Almond Milk Tea",
+      "category": "Almond Milk Tea",
+      "priceM": 5.3,
+      "priceL": 6.3,
+      "nutritionKey": "Queen Jasmine Almond Milk Tea",
+      "menuGrade": null,
+      "hotOption": false,
+      "description": null,
+      "slug": "queen-jasmine-almond-milk-tea",
+      "nutritionSource": {
+        "displayName": "Queen Jasmine Almond Milk Tea",
+        "servingMlM": 468,
+        "servingMlL": 521,
+        "level25M": {
+          "kcal": 47.2,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 9.9,
+          "sugar_g": 5.2,
+          "satfat_g": 0.1,
+          "protein_g": 1.1,
+          "sodium_mg": 113,
+          "sugar_pct": 1,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 72.3,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 15.4,
+          "sugar_g": 9.5,
+          "satfat_g": 0.2,
+          "protein_g": 1.4,
+          "sodium_mg": 141,
+          "sugar_pct": 2,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 81.7,
+          "fat_g": null,
+          "grade": "B",
+          "carb_g": 17.7,
+          "sugar_g": 13,
+          "satfat_g": 0.1,
+          "protein_g": 1.1,
+          "sodium_mg": 113,
+          "sugar_pct": 3,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "B",
+      "fieldsByName": {
+        "Drink Name": "Queen Jasmine Almond Milk Tea",
+        "Slug": "queen-jasmine-almond-milk-tea",
+        "Category": "Almond Milk Tea",
+        "Retail Price (M)": 5.3,
+        "Retail Price (L)": 6.3,
+        "Calories per 100ml (kcal)": "10",
+        "Calories per M cup (kcal)": "47",
+        "Calories per L cup (kcal)": "72",
+        "Nutri-Grade": "B",
+        "Description": "The almond milk option adds $0.30 to the corresponding fresh milk tea.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Queen Jasmine Almond Milk Tea",
+        "fld6cJn7bkETDWUKy": "queen-jasmine-almond-milk-tea",
+        "fldg31a9rKincFfv8": "Almond Milk Tea",
+        "fldEgGhc5iNKHLiMM": 5.3,
+        "fld6NIafSQQyYJAkP": 6.3,
+        "fldN4zstqWe07gjSe": "10",
+        "fldLrw0evtwSf4IyM": "47",
+        "fldJR3stkFoVh1ATp": "72",
+        "fld4G6dmdKvtN7p5p": "B",
+        "fldwvgRLJpK7r7PNu": "The almond milk option adds $0.30 to the corresponding fresh milk tea.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recYi9uYpLkgt6Brh"
+    },
+    {
+      "name": "Matcha Almond Milk",
+      "category": "Almond Milk Tea",
+      "priceM": 6,
+      "priceL": 7.3,
+      "nutritionKey": "Matcha Almond Milk",
+      "menuGrade": null,
+      "hotOption": false,
+      "description": null,
+      "slug": "matcha-almond-milk",
+      "nutritionSource": {
+        "displayName": "Matcha Almond Milk",
+        "servingMlM": 316,
+        "servingMlL": 405,
+        "level25M": {
+          "kcal": 126.5,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 25,
+          "sugar_g": 18.8,
+          "satfat_g": 0.3,
+          "protein_g": 2.9,
+          "sodium_mg": 151,
+          "sugar_pct": 6,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 185.8,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 37.1,
+          "sugar_g": 27.7,
+          "satfat_g": 0.4,
+          "protein_g": 4.1,
+          "sodium_mg": 226,
+          "sugar_pct": 7,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 161,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 32.8,
+          "sugar_g": 26.6,
+          "satfat_g": 0.3,
+          "protein_g": 2.9,
+          "sodium_mg": 151,
+          "sugar_pct": 8,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Matcha Almond Milk",
+        "Slug": "matcha-almond-milk",
+        "Category": "Almond Milk Tea",
+        "Retail Price (M)": 6,
+        "Retail Price (L)": 7.3,
+        "Calories per 100ml (kcal)": "40",
+        "Calories per M cup (kcal)": "127",
+        "Calories per L cup (kcal)": "186",
+        "Nutri-Grade": "C",
+        "Description": "The almond milk option adds $0.30 to the corresponding fresh milk tea.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Matcha Almond Milk",
+        "fld6cJn7bkETDWUKy": "matcha-almond-milk",
+        "fldg31a9rKincFfv8": "Almond Milk Tea",
+        "fldEgGhc5iNKHLiMM": 6,
+        "fld6NIafSQQyYJAkP": 7.3,
+        "fldN4zstqWe07gjSe": "40",
+        "fldLrw0evtwSf4IyM": "127",
+        "fldJR3stkFoVh1ATp": "186",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldwvgRLJpK7r7PNu": "The almond milk option adds $0.30 to the corresponding fresh milk tea.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recB6AIbV1KHgfR1U"
+    },
+    {
+      "name": "Burnt Caramel Almond Milk Tea",
+      "category": "Almond Milk Tea",
+      "priceM": 6.3,
+      "priceL": 7.3,
+      "nutritionKey": "Burnt Caramel Almond Milk Tea",
+      "menuGrade": null,
+      "hotOption": false,
+      "description": null,
+      "slug": "burnt-caramel-almond-milk-tea",
+      "nutritionSource": {
+        "displayName": "Burnt Caramel Almond Milk Tea",
+        "servingMlM": 538,
+        "servingMlL": 591,
+        "level25M": {
+          "kcal": 211,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 49.8,
+          "sugar_g": 45.1,
+          "satfat_g": 0.1,
+          "protein_g": 1.1,
+          "sodium_mg": 113,
+          "sugar_pct": 9,
+          "caffeine_mg": null
+        },
+        "level25L": {
+          "kcal": 236.1,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 55.3,
+          "sugar_g": 49.4,
+          "satfat_g": 0.2,
+          "protein_g": 1.4,
+          "sodium_mg": 141,
+          "sugar_pct": 8,
+          "caffeine_mg": null
+        },
+        "level100M": {
+          "kcal": 245.5,
+          "fat_g": null,
+          "grade": "C",
+          "carb_g": 57.6,
+          "sugar_g": 52.9,
+          "satfat_g": 0.1,
+          "protein_g": 1.1,
+          "sodium_mg": 113,
+          "sugar_pct": 10,
+          "caffeine_mg": null
+        }
+      },
+      "gradeAt100": "C",
+      "fieldsByName": {
+        "Drink Name": "Burnt Caramel Almond Milk Tea",
+        "Slug": "burnt-caramel-almond-milk-tea",
+        "Category": "Almond Milk Tea",
+        "Retail Price (M)": 6.3,
+        "Retail Price (L)": 7.3,
+        "Calories per 100ml (kcal)": "39",
+        "Calories per M cup (kcal)": "211",
+        "Calories per L cup (kcal)": "236",
+        "Nutri-Grade": "C",
+        "Description": "The almond milk option adds $0.30 to the corresponding fresh milk tea.",
+        "Brands": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "fields": {
+        "fldIiPtCUkfBS3BC1": "Burnt Caramel Almond Milk Tea",
+        "fld6cJn7bkETDWUKy": "burnt-caramel-almond-milk-tea",
+        "fldg31a9rKincFfv8": "Almond Milk Tea",
+        "fldEgGhc5iNKHLiMM": 6.3,
+        "fld6NIafSQQyYJAkP": 7.3,
+        "fldN4zstqWe07gjSe": "39",
+        "fldLrw0evtwSf4IyM": "211",
+        "fldJR3stkFoVh1ATp": "236",
+        "fld4G6dmdKvtN7p5p": "C",
+        "fldwvgRLJpK7r7PNu": "The almond milk option adds $0.30 to the corresponding fresh milk tea.",
+        "fldKQg2dBe7PPeP06": [
+          "recLbPCRvJWAEW86O"
+        ]
+      },
+      "airtableRecordId": "recOTXeOVabDacHa8"
+    }
+  ],
+  "importStatus": "All62 Airtable drink records verified against prepared fields; menu record created",
+  "sourceReconciliation": "Use the current official linked calculator for nutrition when menu illustrations have older numeric values. Current menu prices and printed Nutri-Grade labels remain authoritative for those fields. Similar calculator/menu aliases are retained as nutritionKey per entry; ambiguous Yuzu Dong Ding remains unmatched.",
+  "menuRecordId": "recdZFp4NT3mwEjHk"
+}

@@ -1,0 +1,20 @@
+---
+interface Props {
+  show: boolean;
+}
+
+const { show } = Astro.props;
+---
+
+{show && (
+  <aside class="text-sm text-[var(--color-stone-600)] space-y-2" aria-label="PlayMade menu sources">
+    <p>Prices follow PlayMade's regular-store menu, checked on 27 November 2026. Almond milk prices include the listed $0.30 substitution charge.</p>
+    <p>Calories follow PlayMade's official calculator at 25% sugar, with regular ice and no toppings. Cup totals use the brand's drink-specific medium and large figures. Nutri-Grade follows the menu's iced drinks at 100% sugar.</p>
+    <p>Hot options are noted where listed, but the calorie figures apply to iced drinks. Availability can vary by outlet.</p>
+    <p>
+      <a href="https://www.playmade.com/store-menu" class="underline" target="_blank" rel="noopener noreferrer">PlayMade's current menu</a>
+      <span aria-hidden="true"> · </span>
+      <a href="https://playmade-hq.vercel.app/nutrition" class="underline" target="_blank" rel="noopener noreferrer">Official calorie calculator</a>
+    </p>
+  </aside>
+)}
