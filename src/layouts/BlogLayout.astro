@@ -1,5 +1,6 @@
 ---
 import Layout from '../components/Layout.astro';
+import PreferredSource from '../components/PreferredSource.astro';
 
 interface FrontmatterProps {
   title: string;
@@ -132,6 +133,10 @@ const articleJsonLd = jsonLd ?? {
     <!-- Body -->
     <div class="blog-prose max-w-none">
       <slot />
+    </div>
+
+    <div class="mt-10">
+      <PreferredSource />
     </div>
 
     <!-- Back to blog -->

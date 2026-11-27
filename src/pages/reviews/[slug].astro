@@ -1,5 +1,6 @@
 ---
 import Layout from '../../components/Layout.astro';
+import PreferredSource from '../../components/PreferredSource.astro';
 import StarRating from '../../components/StarRating.astro';
 import { getBrands, getCoffeeOutlets, getDrinks, getJuiceOutlets, getOutlets, getReviews } from '../../lib/airtable';
 import { reviewEntityLinks } from '../../lib/internalLinks';
@@ -213,6 +214,9 @@ const jsonLd = {
             )}
           </div>
         </aside>
+      </div>
+      <div class="mt-10">
+        <PreferredSource />
       </div>
     </div>
   </article>

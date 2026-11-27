@@ -1,0 +1,85 @@
+---
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+// Use the publication domain even on localhost and preview deployments.
+const preferredSourceUrl = 'https://www.google.com/preferences/source?q=bbtea.sg';
+---
+
+<div class:list={['preferred-source', { 'preferred-source--compact': compact }]} data-pagefind-ignore>
+  {!compact && (
+    <div class="preferred-source__copy">
+      <h2>Find BBTea.sg on Google</h2>
+      <p>Choose BBTea.sg as a preferred source in your Google Search settings.</p>
+    </div>
+  )}
+  <a class="preferred-source__button" href={preferredSourceUrl}>
+    Add as a preferred source on Google
+  </a>
+</div>
+
+<style>
+  .preferred-source {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.5rem;
+    border: 1px solid var(--color-stone-200);
+    border-radius: 0.5rem;
+    background: var(--color-cream-100);
+  }
+
+  .preferred-source__copy {
+    flex: 1 1 16rem;
+  }
+
+  .preferred-source__copy h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .preferred-source__copy p {
+    margin: 0;
+    color: var(--color-stone-600);
+    font-size: 0.875rem;
+  }
+
+  .preferred-source__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    max-width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-forest-800);
+    border-radius: 0.5rem;
+    background: white;
+    color: var(--color-forest-800);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.5;
+    text-align: center;
+    transition: background-color 150ms, color 150ms;
+  }
+
+  .preferred-source__button:hover {
+    background: var(--color-forest-800);
+    color: white;
+  }
+
+  .preferred-source__button:focus-visible {
+    outline: 3px solid var(--color-forest-800);
+    outline-offset: 3px;
+  }
+
+  .preferred-source--compact {
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+</style>
