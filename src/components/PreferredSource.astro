@@ -16,7 +16,14 @@ const preferredSourceUrl = 'https://www.google.com/preferences/source?q=bbtea.sg
     </div>
   )}
   <a class="preferred-source__button" href={preferredSourceUrl}>
-    Add as a preferred source on Google
+    <img
+      src="/images/google/preferred-source-light-en@2x.png"
+      alt="Add as a preferred source on Google"
+      width="676"
+      height="213"
+      loading="lazy"
+      decoding="async"
+    />
   </a>
 </div>
 
@@ -54,22 +61,20 @@ const preferredSourceUrl = 'https://www.google.com/preferences/source?q=bbtea.sg
     align-items: center;
     justify-content: center;
     min-height: 44px;
+    width: 280px;
     max-width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--color-forest-800);
     border-radius: 0.5rem;
-    background: white;
-    color: var(--color-forest-800);
-    font-size: 0.875rem;
-    font-weight: 600;
-    line-height: 1.5;
-    text-align: center;
-    transition: background-color 150ms, color 150ms;
+    transition: opacity 150ms;
+  }
+
+  .preferred-source__button img {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
   .preferred-source__button:hover {
-    background: var(--color-forest-800);
-    color: white;
+    opacity: 0.8;
   }
 
   .preferred-source__button:focus-visible {
