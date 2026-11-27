@@ -9,22 +9,16 @@
     "officialMenuPage": "https://mrcoconut.sg/menu/",
     "officialNutritionLinkPage": "https://mrcoconut.sg/faq/"
   },
-  "method": "Published energy is per 100ml. Estimated medium cups use 480–500ml; large cups use 680–700ml. Where published sweetener or flesh variants differ, retain the full published energy range for each size. Multiply the minimum by the minimum cup volume/100, and maximum by maximum volume/100; round to nearest whole kcal and label estimated. These are arithmetic ranges from source assumptions, not measured servings or confidence intervals. No extrapolation to other sugar levels or toppings. Hot serving volumes, recipes without published energy, and inconsistent milk tea/Hojicha energy are withheld. Nutri-Grade is transcribed from the current official menu, independent of Healthier Choice certification. No certification claim added.",
-  "statisticsValidation": "ARS validate, ANALYZED. Descriptive deterministic arithmetic only, no sample size, hypothesis tests or confidence intervals apply. Uncertainty is the source's serving-volume and preparation range; actual portions and recipe changes may differ. All 11 fallacy classes reviewed: no group-to-individual, subgroup reversal, selected-sample correlation, adjusted model, diagnostic rate, pre/post effect, survival inference, significance selection, analytic significance search, causation or reverse-causation claim. Reproducibility: source table pages and inputs retained per entry.",
+  "method": "Owner-directed cleanup on 27 November 2026: display one number per calorie field, without ranges or parenthetical estimate labels. Use the official standard (non-fructose) recipe, with medium 480ml and large 700ml following the site's established convention and values within the brand's published volume intervals. The per-100ml field records the standard medium recipe. Calculate M = round(official medium kcal/100ml × 4.8), L = round(official large kcal/100ml × 7); retain the official large recipe where separately published. Coconut Fresh Juice uses the without-flesh recipe (26 kcal/100ml). Keep hot cup totals and calories without a verified source blank; do not extrapolate to sizes not sold. Source figures flagged as inconsistent remain withheld. Previous ranges remain only in audit source inputs for provenance, not in Airtable calorie fields.",
+  "statisticsValidation": "ARS validate, ANALYZED. Deterministic serving arithmetic, independently recalculated with Decimal ROUND_HALF_UP. These are calculated reference servings, not measured cups or confidence intervals. Nominal volumes are 480ml/700ml; the source gives approximate 480–500ml/680–700ml intervals. No sample size or hypothesis test applies. All 11 fallacy classes reviewed: no group-to-individual inference, subgroup trend, selected-sample correlation, adjusted model, diagnostic probability, pre/post effect, survival inference, significance selection, model search, causal or reverse-causal claim.",
   "records": [
     {
       "name": "Signature Coconut Shake",
       "category": "Fresh Coconut Signature Shake",
       "priceM": 5.3,
       "priceL": 6.3,
-      "energyM": [
-        49.9,
-        53
-      ],
-      "energyL": [
-        47.6,
-        50.6
-      ],
+      "energyM": 53,
+      "energyL": 50.6,
       "grade": "C",
       "description": "A blended coconut drink with coconut ice cream and coconut flesh.",
       "page": 4,
@@ -40,24 +34,26 @@
         "fldEgGhc5iNKHLiMM": 5.3,
         "fld4G6dmdKvtN7p5p": "C",
         "fld6NIafSQQyYJAkP": 6.3,
-        "fldN4zstqWe07gjSe": "M: 49.9–53; L: 47.6–50.6",
-        "fldLrw0evtwSf4IyM": "240–265 (estimated)",
-        "fldJR3stkFoVh1ATp": "324–354 (estimated)"
-      }
+        "fldN4zstqWe07gjSe": "53",
+        "fldLrw0evtwSf4IyM": "254",
+        "fldJR3stkFoVh1ATp": "354"
+      },
+      "previousSourceEnergyM": [
+        49.9,
+        53
+      ],
+      "previousSourceEnergyL": [
+        47.6,
+        50.6
+      ]
     },
     {
       "name": "Coconut Oreo Shake",
       "category": "Fresh Coconut Signature Shake",
       "priceM": 5.7,
       "priceL": 6.7,
-      "energyM": [
-        66.4,
-        70.4
-      ],
-      "energyL": [
-        66,
-        69.9
-      ],
+      "energyM": 70.4,
+      "energyL": 69.9,
       "grade": "C",
       "description": "A coconut shake with Oreo cookies.",
       "page": 4,
@@ -73,24 +69,26 @@
         "fldEgGhc5iNKHLiMM": 5.7,
         "fld4G6dmdKvtN7p5p": "C",
         "fld6NIafSQQyYJAkP": 6.7,
-        "fldN4zstqWe07gjSe": "M: 66.4–70.4; L: 66–69.9",
-        "fldLrw0evtwSf4IyM": "319–352 (estimated)",
-        "fldJR3stkFoVh1ATp": "449–489 (estimated)"
-      }
+        "fldN4zstqWe07gjSe": "70.4",
+        "fldLrw0evtwSf4IyM": "338",
+        "fldJR3stkFoVh1ATp": "489"
+      },
+      "previousSourceEnergyM": [
+        66.4,
+        70.4
+      ],
+      "previousSourceEnergyL": [
+        66,
+        69.9
+      ]
     },
     {
       "name": "Coconut Strawberry Shake",
       "category": "Fresh Coconut Signature Shake",
       "priceM": 6.2,
       "priceL": 7.2,
-      "energyM": [
-        57.9,
-        59.1
-      ],
-      "energyL": [
-        55.4,
-        57
-      ],
+      "energyM": 59.1,
+      "energyL": 57,
       "grade": "C",
       "description": "A strawberry-flavoured coconut shake.",
       "page": 4,
@@ -106,24 +104,26 @@
         "fldEgGhc5iNKHLiMM": 6.2,
         "fld4G6dmdKvtN7p5p": "C",
         "fld6NIafSQQyYJAkP": 7.2,
-        "fldN4zstqWe07gjSe": "M: 57.9–59.1; L: 55.4–57",
-        "fldLrw0evtwSf4IyM": "278–296 (estimated)",
-        "fldJR3stkFoVh1ATp": "377–399 (estimated)"
-      }
+        "fldN4zstqWe07gjSe": "59.1",
+        "fldLrw0evtwSf4IyM": "284",
+        "fldJR3stkFoVh1ATp": "399"
+      },
+      "previousSourceEnergyM": [
+        57.9,
+        59.1
+      ],
+      "previousSourceEnergyL": [
+        55.4,
+        57
+      ]
     },
     {
       "name": "Coconut Mango Shake",
       "category": "Fresh Coconut Signature Shake",
       "priceM": 6.2,
       "priceL": 7.2,
-      "energyM": [
-        57.5,
-        58.7
-      ],
-      "energyL": [
-        54.9,
-        56.5
-      ],
+      "energyM": 58.7,
+      "energyL": 56.5,
       "grade": "C",
       "description": "A mango-flavoured coconut shake.",
       "page": 4,
@@ -139,24 +139,26 @@
         "fldEgGhc5iNKHLiMM": 6.2,
         "fld4G6dmdKvtN7p5p": "C",
         "fld6NIafSQQyYJAkP": 7.2,
-        "fldN4zstqWe07gjSe": "M: 57.5–58.7; L: 54.9–56.5",
-        "fldLrw0evtwSf4IyM": "276–294 (estimated)",
-        "fldJR3stkFoVh1ATp": "373–396 (estimated)"
-      }
+        "fldN4zstqWe07gjSe": "58.7",
+        "fldLrw0evtwSf4IyM": "282",
+        "fldJR3stkFoVh1ATp": "396"
+      },
+      "previousSourceEnergyM": [
+        57.5,
+        58.7
+      ],
+      "previousSourceEnergyL": [
+        54.9,
+        56.5
+      ]
     },
     {
       "name": "Coconut Soursop Shake",
       "category": "Fresh Coconut Signature Shake",
       "priceM": 6.2,
       "priceL": 7.2,
-      "energyM": [
-        62.6,
-        63.9
-      ],
-      "energyL": [
-        60.4,
-        62.2
-      ],
+      "energyM": 63.9,
+      "energyL": 62.2,
       "grade": "C",
       "description": "A soursop-flavoured coconut shake.",
       "page": 5,
@@ -172,24 +174,26 @@
         "fldEgGhc5iNKHLiMM": 6.2,
         "fld4G6dmdKvtN7p5p": "C",
         "fld6NIafSQQyYJAkP": 7.2,
-        "fldN4zstqWe07gjSe": "M: 62.6–63.9; L: 60.4–62.2",
-        "fldLrw0evtwSf4IyM": "300–320 (estimated)",
-        "fldJR3stkFoVh1ATp": "411–435 (estimated)"
-      }
+        "fldN4zstqWe07gjSe": "63.9",
+        "fldLrw0evtwSf4IyM": "307",
+        "fldJR3stkFoVh1ATp": "435"
+      },
+      "previousSourceEnergyM": [
+        62.6,
+        63.9
+      ],
+      "previousSourceEnergyL": [
+        60.4,
+        62.2
+      ]
     },
     {
       "name": "Coconut Avocado Shake",
       "category": "Fresh Coconut Signature Shake",
       "priceM": 6.4,
       "priceL": 7.4,
-      "energyM": [
-        61.9,
-        63.2
-      ],
-      "energyL": [
-        59.7,
-        61.4
-      ],
+      "energyM": 63.2,
+      "energyL": 61.4,
       "grade": "C",
       "description": "A coconut shake with avocado.",
       "page": 5,
@@ -205,24 +209,26 @@
         "fldEgGhc5iNKHLiMM": 6.4,
         "fld4G6dmdKvtN7p5p": "C",
         "fld6NIafSQQyYJAkP": 7.4,
-        "fldN4zstqWe07gjSe": "M: 61.9–63.2; L: 59.7–61.4",
-        "fldLrw0evtwSf4IyM": "297–316 (estimated)",
-        "fldJR3stkFoVh1ATp": "406–430 (estimated)"
-      }
+        "fldN4zstqWe07gjSe": "63.2",
+        "fldLrw0evtwSf4IyM": "303",
+        "fldJR3stkFoVh1ATp": "430"
+      },
+      "previousSourceEnergyM": [
+        61.9,
+        63.2
+      ],
+      "previousSourceEnergyL": [
+        59.7,
+        61.4
+      ]
     },
     {
       "name": "Coconut Cappuccino Shake",
       "category": "Fresh Coconut Signature Shake",
       "priceM": 6.8,
       "priceL": 7.8,
-      "energyM": [
-        76.8,
-        78.3
-      ],
-      "energyL": [
-        72.9,
-        75.1
-      ],
+      "energyM": 78.3,
+      "energyL": 75.1,
       "grade": "C",
       "description": "A cappuccino-flavoured coconut shake.",
       "page": 5,
@@ -238,24 +244,26 @@
         "fldEgGhc5iNKHLiMM": 6.8,
         "fld4G6dmdKvtN7p5p": "C",
         "fld6NIafSQQyYJAkP": 7.8,
-        "fldN4zstqWe07gjSe": "M: 76.8–78.3; L: 72.9–75.1",
-        "fldLrw0evtwSf4IyM": "369–392 (estimated)",
-        "fldJR3stkFoVh1ATp": "496–526 (estimated)"
-      }
+        "fldN4zstqWe07gjSe": "78.3",
+        "fldLrw0evtwSf4IyM": "376",
+        "fldJR3stkFoVh1ATp": "526"
+      },
+      "previousSourceEnergyM": [
+        76.8,
+        78.3
+      ],
+      "previousSourceEnergyL": [
+        72.9,
+        75.1
+      ]
     },
     {
       "name": "Coconut Taro Shake",
       "category": "Fresh Coconut Signature Shake",
       "priceM": 6.4,
       "priceL": 7.4,
-      "energyM": [
-        56.5,
-        59.6
-      ],
-      "energyL": [
-        54.4,
-        57.4
-      ],
+      "energyM": 59.6,
+      "energyL": 57.4,
       "grade": "C",
       "description": "A taro-flavoured coconut shake.",
       "page": 5,
@@ -271,10 +279,18 @@
         "fldEgGhc5iNKHLiMM": 6.4,
         "fld4G6dmdKvtN7p5p": "C",
         "fld6NIafSQQyYJAkP": 7.4,
-        "fldN4zstqWe07gjSe": "M: 56.5–59.6; L: 54.4–57.4",
-        "fldLrw0evtwSf4IyM": "271–298 (estimated)",
-        "fldJR3stkFoVh1ATp": "370–402 (estimated)"
-      }
+        "fldN4zstqWe07gjSe": "59.6",
+        "fldLrw0evtwSf4IyM": "286",
+        "fldJR3stkFoVh1ATp": "402"
+      },
+      "previousSourceEnergyM": [
+        56.5,
+        59.6
+      ],
+      "previousSourceEnergyL": [
+        54.4,
+        57.4
+      ]
     },
     {
       "name": "Coconut Avocado Shake with Gula Melaka Sago",
@@ -321,10 +337,12 @@
         "fldEgGhc5iNKHLiMM": 5.3,
         "fld4G6dmdKvtN7p5p": "B",
         "fld6NIafSQQyYJAkP": 6.3,
-        "fldN4zstqWe07gjSe": "M: 39.9; L: 40.9",
-        "fldLrw0evtwSf4IyM": "192–200 (estimated)",
-        "fldJR3stkFoVh1ATp": "278–286 (estimated)"
-      }
+        "fldN4zstqWe07gjSe": "39.9",
+        "fldLrw0evtwSf4IyM": "192",
+        "fldJR3stkFoVh1ATp": "286"
+      },
+      "previousSourceEnergyM": 39.9,
+      "previousSourceEnergyL": 40.9
     },
     {
       "name": "Coconut Oreo Shake Lite",
@@ -348,10 +366,12 @@
         "fldEgGhc5iNKHLiMM": 5.7,
         "fld4G6dmdKvtN7p5p": "B",
         "fld6NIafSQQyYJAkP": 6.7,
-        "fldN4zstqWe07gjSe": "M: 48.4; L: 49.1",
-        "fldLrw0evtwSf4IyM": "232–242 (estimated)",
-        "fldJR3stkFoVh1ATp": "334–344 (estimated)"
-      }
+        "fldN4zstqWe07gjSe": "48.4",
+        "fldLrw0evtwSf4IyM": "232",
+        "fldJR3stkFoVh1ATp": "344"
+      },
+      "previousSourceEnergyM": 48.4,
+      "previousSourceEnergyL": 49.1
     },
     {
       "name": "Coconut Taro Shake Lite",
@@ -375,10 +395,12 @@
         "fldEgGhc5iNKHLiMM": 6.4,
         "fld4G6dmdKvtN7p5p": "B",
         "fld6NIafSQQyYJAkP": 7.4,
-        "fldN4zstqWe07gjSe": "M: 39.3; L: 38",
-        "fldLrw0evtwSf4IyM": "189–197 (estimated)",
-        "fldJR3stkFoVh1ATp": "258–266 (estimated)"
-      }
+        "fldN4zstqWe07gjSe": "39.3",
+        "fldLrw0evtwSf4IyM": "189",
+        "fldJR3stkFoVh1ATp": "266"
+      },
+      "previousSourceEnergyM": 39.3,
+      "previousSourceEnergyL": 38
     },
     {
       "name": "Coconut Avocado Shake Lite",
@@ -402,10 +424,12 @@
         "fldEgGhc5iNKHLiMM": 6.4,
         "fld4G6dmdKvtN7p5p": "B",
         "fld6NIafSQQyYJAkP": 7.4,
-        "fldN4zstqWe07gjSe": "M: 40.6; L: 40.5",
-        "fldLrw0evtwSf4IyM": "195–203 (estimated)",
-        "fldJR3stkFoVh1ATp": "275–284 (estimated)"
-      }
+        "fldN4zstqWe07gjSe": "40.6",
+        "fldLrw0evtwSf4IyM": "195",
+        "fldJR3stkFoVh1ATp": "284"
+      },
+      "previousSourceEnergyM": 40.6,
+      "previousSourceEnergyL": 40.5
     },
     {
       "name": "Coconut Avocado Shake Lite with Gula Melaka Sago",
@@ -452,10 +476,12 @@
         "fldEgGhc5iNKHLiMM": 5.3,
         "fld4G6dmdKvtN7p5p": "C",
         "fld6NIafSQQyYJAkP": 6.3,
-        "fldN4zstqWe07gjSe": "M: 83.4; L: 79.6",
-        "fldLrw0evtwSf4IyM": "400–417 (estimated)",
-        "fldJR3stkFoVh1ATp": "541–557 (estimated)"
-      }
+        "fldN4zstqWe07gjSe": "83.4",
+        "fldLrw0evtwSf4IyM": "400",
+        "fldJR3stkFoVh1ATp": "557"
+      },
+      "previousSourceEnergyM": 83.4,
+      "previousSourceEnergyL": 79.6
     },
     {
       "name": "Coconut Caffe Latte",
@@ -479,8 +505,10 @@
         "fldEgGhc5iNKHLiMM": 6.4,
         "fld4G6dmdKvtN7p5p": "C",
         "fldN4zstqWe07gjSe": "72.7",
-        "fldLrw0evtwSf4IyM": "349–364 (estimated)"
-      }
+        "fldLrw0evtwSf4IyM": "349"
+      },
+      "previousSourceEnergyM": 72.7,
+      "previousSourceEnergyL": null
     },
     {
       "name": "Mocha Coconut Caffe Latte",
@@ -504,8 +532,10 @@
         "fldEgGhc5iNKHLiMM": 6.6,
         "fld4G6dmdKvtN7p5p": "C",
         "fldN4zstqWe07gjSe": "96.9",
-        "fldLrw0evtwSf4IyM": "465–485 (estimated)"
-      }
+        "fldLrw0evtwSf4IyM": "465"
+      },
+      "previousSourceEnergyM": 96.9,
+      "previousSourceEnergyL": null
     },
     {
       "name": "Coconut Caffe Latte with Gula Melaka Sago",
@@ -529,8 +559,10 @@
         "fldEgGhc5iNKHLiMM": 6.6,
         "fld4G6dmdKvtN7p5p": "C",
         "fldN4zstqWe07gjSe": "76.7",
-        "fldLrw0evtwSf4IyM": "368–384 (estimated)"
-      }
+        "fldLrw0evtwSf4IyM": "368"
+      },
+      "previousSourceEnergyM": 76.7,
+      "previousSourceEnergyL": null
     },
     {
       "name": "Coconut Americano",
@@ -554,8 +586,10 @@
         "fldEgGhc5iNKHLiMM": 7.1,
         "fld4G6dmdKvtN7p5p": "B",
         "fldN4zstqWe07gjSe": "58",
-        "fldLrw0evtwSf4IyM": "278–290 (estimated)"
-      }
+        "fldLrw0evtwSf4IyM": "278"
+      },
+      "previousSourceEnergyM": 58,
+      "previousSourceEnergyL": null
     },
     {
       "name": "Four Season Coconut Fresh Milk Tea",
@@ -634,14 +668,8 @@
       "category": "Coconut Fresh Juice",
       "priceM": 5.4,
       "priceL": 6.4,
-      "energyM": [
-        26,
-        27
-      ],
-      "energyL": [
-        26,
-        26.9
-      ],
+      "energyM": 26,
+      "energyL": 26,
       "grade": "B",
       "description": "Coconut water, available with or without coconut flesh.",
       "page": 7,
@@ -657,10 +685,18 @@
         "fldEgGhc5iNKHLiMM": 5.4,
         "fld4G6dmdKvtN7p5p": "B",
         "fld6NIafSQQyYJAkP": 6.4,
-        "fldN4zstqWe07gjSe": "M: 26–27; L: 26–26.9",
-        "fldLrw0evtwSf4IyM": "125–135 (estimated)",
-        "fldJR3stkFoVh1ATp": "177–188 (estimated)"
-      }
+        "fldN4zstqWe07gjSe": "26",
+        "fldLrw0evtwSf4IyM": "125",
+        "fldJR3stkFoVh1ATp": "182"
+      },
+      "previousSourceEnergyM": [
+        26,
+        27
+      ],
+      "previousSourceEnergyL": [
+        26,
+        26.9
+      ]
     },
     {
       "name": "Peach Gum Coconut Juice",
@@ -875,7 +911,9 @@
         "fldEgGhc5iNKHLiMM": 6.4,
         "fld4G6dmdKvtN7p5p": "C",
         "fldN4zstqWe07gjSe": "72.7"
-      }
+      },
+      "previousSourceEnergyM": 72.7,
+      "previousSourceEnergyL": null
     },
     {
       "name": "Hot Mocha Coconut Caffe Latte",
@@ -900,7 +938,9 @@
         "fldEgGhc5iNKHLiMM": 6.6,
         "fld4G6dmdKvtN7p5p": "C",
         "fldN4zstqWe07gjSe": "96.9"
-      }
+      },
+      "previousSourceEnergyM": 96.9,
+      "previousSourceEnergyL": null
     },
     {
       "name": "Hot Coconut Americano",
@@ -925,7 +965,9 @@
         "fldEgGhc5iNKHLiMM": 7.1,
         "fld4G6dmdKvtN7p5p": "B",
         "fldN4zstqWe07gjSe": "58"
-      }
+      },
+      "previousSourceEnergyM": 58,
+      "previousSourceEnergyL": null
     },
     {
       "name": "Hot Four Season Coconut Fresh Milk Tea",
@@ -1022,7 +1064,9 @@
         "fldEgGhc5iNKHLiMM": 5.4,
         "fld4G6dmdKvtN7p5p": "B",
         "fldN4zstqWe07gjSe": "26"
-      }
+      },
+      "previousSourceEnergyM": 26,
+      "previousSourceEnergyL": null
     },
     {
       "name": "Hot Coconut Fresh Milk",
