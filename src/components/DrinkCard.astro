@@ -6,6 +6,7 @@ interface Props {
 }
 
 const { drink } = Astro.props;
+const caloriePrefix = drink.brands.some(brand => brand.slug === 'itea') ? 'Est. ' : '';
 
 const priceParts = [
   typeof drink.priceM === 'number' ? `M $${drink.priceM.toFixed(2)}` : undefined,
@@ -16,9 +17,9 @@ const priceParts = [
 const detailText = priceParts.length > 0
   ? priceParts.join(' · ')
   : drink.caloriesM
-    ? `${drink.caloriesM} kcal (M)`
+    ? `${caloriePrefix}${drink.caloriesM} kcal (M)`
     : drink.calories
-      ? `${drink.calories} kcal`
+      ? `${caloriePrefix}${drink.calories} kcal`
       : 'See menu details';
 ---
 

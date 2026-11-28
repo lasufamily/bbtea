@@ -1,0 +1,2105 @@
+{
+  "requestId": "d15ecadf-9c99-4846-ad3c-16570480e22a",
+  "checkedDate": "2026-11-29",
+  "brandId": "recLfxaRWfo5GlQj2",
+  "officialIteaSearch": {
+    "urls": [
+      "https://itea.sg/menu/our-signatures",
+      "https://itea.sg/menu/fresh-milk-tea",
+      "https://itea.sg/menu/fruit-tea"
+    ],
+    "result": "No item-level energy or verified serving volumes located. Product images supply names/grades, not calories. Historical zero-calorie sweetener advertising is not used as drink-energy evidence."
+  },
+  "sources": {
+    "playmade": {
+      "url": "https://playmade-hq.vercel.app/nutrition",
+      "authorityPage": "https://www.playmade.com/menu",
+      "role": "Official Singapore whole-cup recipe proxies, not iTEA measurements",
+      "retrieved": "2026-11-29",
+      "snapshotSha256": "24f8ee6ba19c347c63de783de6a11348a90590b9c6509e79aa3253a926521a3a"
+    },
+    "alvernia": {
+      "url": "https://mtalvernia.sg/wp-content/uploads/2019/12/My-Alvernia_issue-39_FA4_spread.pdf",
+      "role": "Generic Singapore serving and topping reference; 500ml/700ml nominal cups, black pearls156, white pearls42, aloe31, herbal jelly57, aiyu45 kcal per scoop; cheese foam160\u2013200 kcal, chosen midpoint180"
+    },
+    "chestnut": {
+      "url": "https://bffdistribution.com.sg/product/pink-color-water-chestnut-popping-boba-%E7%B2%89%E8%89%B2%E9%A9%AC%E8%B9%84%E7%88%86%E7%88%86%E7%8F%A0/",
+      "role": "Singapore supplier proxy:524kJ/100g, not confirmed iTEA supplier; assumed50g topping"
+    },
+    "peach": {
+      "url": "https://www.galaxus.ch/en/s7/product/monin-peach-1-x-100-cl-syrups-15800280",
+      "role": "Retailer supplier-label proxy:313kcal/100ml peach fruit preparation; assumed35ml in fruit tea,50ml in ice blend"
+    },
+    "mango": {
+      "url": "https://www.sephra.com/Media/PDF%20Spec%20Sheets/Monin/Spec-Sheet-Monin-Fruit-Mix-Mango.pdf",
+      "role": "Monin manufacturer specification dated2024-11-25:346kcal/100ml mango fruit preparation; proxy only;30ml in Yakult,50ml ice blend"
+    },
+    "ribena": {
+      "url": "https://omni.fairprice.com.sg/product/ribena-blackcurrant-cordial---regular-12576-01",
+      "role": "Singapore regular cordial label:291kcal/100ml concentrate;50ml tea/Yakult,75ml ice blend assumed; reduced-sugar UK recipe rejected"
+    },
+    "yakult": {
+      "url": "https://yakult.com.sg/about-yakult/",
+      "servingUrl": "https://yakult.com.sg/pr_matters/launch-of-yakult-original-family-pack/",
+      "role": "70kcal per100ml bottle; assume one bottle per Medium fruit Yakult"
+    },
+    "milk": {
+      "url": "https://www.fatsecret.com.sg/calories-nutrition/farmhouse/fresh-milk/100ml",
+      "role": "Third-party Singapore product label proxy:65kcal/100ml;300ml dairy-rich fresh milk drinks,50ml Milo assumed"
+    },
+    "milo": {
+      "url": "https://www.nestleprofessional.com.sg/milo/milo-activ-go-tin-18kg",
+      "role": "Official Singapore powder:123kcal/30g =4.1kcal/g;45g Medium powder assumed"
+    },
+    "coconut": {
+      "url": "https://drive.google.com/file/d/1EvkCOmlwp-J7bVDlMTpZd_cc2K21Kl-U/view",
+      "authorityPage": "https://mrcoconut.sg/faq/",
+      "documentDate": "2026-06-12",
+      "priorVerifiedAudit": "audits/mr-coconut-menu-2026-11-27.json",
+      "role": "Official Mr Coconut standard signature shake53kcal/100ml; recipe proxy for Coco Shiok, not same brand"
+    },
+    "durian": {
+      "url": "https://library.buplant.da.gov.ph/images/1640919293Durian%20Production%20Guide.pdf",
+      "role": "Government food composition:147kcal/100g edible durian;60g Medium assumed"
+    },
+    "fruit": {
+      "url": "https://www.ars.usda.gov/ARSUserFiles/80400535/Data/SR/SR28/reports/sr28fg09.pdf",
+      "role": "USDA SR28 pomelo38 and lemon juice22 kcal/100g;20g fruit/juice assumed; juice density approximated1g/ml"
+    },
+    "sago": {
+      "url": "https://www.ars.usda.gov/ARSUserFiles/80400535/Data/SR/SR28/reports/sr28fg20.pdf",
+      "role": "USDA SR28 dry tapioca pearls358kcal/100g as sago-starch proxy;15g dry equivalent per Medium; hydration adds no energy"
+    },
+    "taro": {
+      "url": "https://i.fnri.dost.gov.ph/fct/library/report/3182",
+      "role": "DOST-FNRI food composition:141kcal/100g edible taro;60g puree plus10g sucrose assumed; no oil added"
+    },
+    "sugar": {
+      "url": "https://www.fao.org/4/y5022e/y5022e04.htm",
+      "role": "General carbohydrate energy4kcal/g; assumed added sucrose doses, not inferred from Nutri-Grade"
+    }
+  },
+  "rejectedSources": [
+    {
+      "url": "https://sgmenus.org/itea-menu/",
+      "reason": "No serving sizes or methodology; several energy/macronutrient totals internally disagree; not treated as measured iTEA data."
+    },
+    {
+      "url": "https://sgmenus.net/itea-menu-singapore/",
+      "reason": "Nutrition table search snippet exists but page access403; unverified values not used."
+    },
+    {
+      "url": "https://latestmenus.com/blogs/coffee-drinks-menus/itea-menu-prices-calories",
+      "reason": "Mixes unrelated California/Singapore brands and generic ranges."
+    }
+  ],
+  "method": {
+    "authorization": "Owner explicitly requested filling every calorie field using research and estimates from similarly named drinks or ingredients.",
+    "classification": "All54 are model estimates; zero directly published matching iTEA energy values found. No calorie derived from Nutri-Grade, pictured sugar percentage or another brand claimed as iTEA measurement.",
+    "preparation": "Reference cane-sugar, regular-ice order;50% for tea/milk/matcha/Milo; fruit minimum/no-added and fixed-sweetness preparations. Proxies retain intrinsic sugar. Included toppings counted once; optional extras excluded.",
+    "servingBasis": "Assumed nominal Medium500ml and Large700ml as generic Singapore reference, not verified iTEA volumes. Whole-cup reference energy includes included toppings; per100ml uses nominal cup volume, including melted regular ice.",
+    "equations": "M = sum(amountM \u00d7 energyKcalPerBasis / basisAmount); L = unroundedM \u00d7700/500; per100ml = unroundedM \u00d7100/500. Each ingredient portion is assumed to scale1.4\u00d7 for L.",
+    "rounding": "Decimal ROUND_HALF_UP to whole cup kcal and one decimal per100ml; strip trailing decimal zeros; no units/estimate labels inside Airtable cells.",
+    "proxyChoices": "Match tea/dairy/fruit/blended family first. Teas contribute negligible energy beyond named donor recipe. Grape uses lychee fruit tea; starfruit uses yuzu fruit tea; guava uses mango fruit tea; tamarind uses sweet citrus drink; passionfruit uses lychee fruit tea. These are composition-family proxies, not identical recipes.",
+    "uncertainty": "Actual cup fill, ice, ingredient brands, scoop size, milk fraction and sugar dose are unknown. Values are practical reference estimates, not lab measurements, official iTEA nutrition or calibrated predictions.",
+    "sensitivity": "For each item, independent low/high scenario varies all estimated ingredient portions by\u00b125%; these are scenario bounds, not confidence intervals, and are not written to Airtable."
+  },
+  "statisticsValidation": {
+    "workflow": "academic-research-suite / experiment-agent validate, applied proportionately to deterministic nutritional modelling",
+    "status": "ANALYZED",
+    "sampleSize": "Not applicable:54 menu recipes modelled; no measured iTEA cups and no sampling study.",
+    "fallacyCoverage": "11/11 reviewed: no subgroup-trend, ecological, selected-sample correlation, collider, base-rate, regression-to-mean, survivor, significance-selection, undisclosed model search, causal or reverse-causal inference made. Cross-brand transfer uncertainty explicitly retained.",
+    "precision": "Single numbers are model outputs, not measurement precision or statistical confidence."
+  },
+  "humanizerReview": "Removed the requested source note and links. Only short Estimated calories labels added to distinguish calculations from published brand nutrition; final wording reviewed for factual accuracy and direct language.",
+  "items": [
+    {
+      "recordId": "recoKxcWW954FFy33",
+      "name": "Brown Sugar Pearl Milk Tea",
+      "slug": "brown-sugar-pearl-milk-tea-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Queen Jasmine Green Milk Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "205.4",
+          "basisAmount": "1",
+          "energyMUnrounded": "205.4",
+          "donorSugarLevel": 50,
+          "donorServingMl": 363
+        },
+        {
+          "label": "Brown sugar syrup sugar solids, assumed20g sucrose equivalent",
+          "source": "sugar",
+          "amountM": "20",
+          "unit": "g",
+          "energyKcalPerBasis": "4",
+          "basisAmount": "1",
+          "energyMUnrounded": "80"
+        },
+        {
+          "label": "Included black tapioca pearl scoop",
+          "source": "alvernia",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "156",
+          "basisAmount": "1",
+          "energyMUnrounded": "156"
+        }
+      ],
+      "energyMUnrounded": "441.4",
+      "energyLUnrounded": "617.96",
+      "fields": {
+        "fldN4zstqWe07gjSe": "88.3",
+        "fldLrw0evtwSf4IyM": "441",
+        "fldJR3stkFoVh1ATp": "618"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "331",
+        "highPortions25PercentHigher": "552"
+      }
+    },
+    {
+      "recordId": "rec1zIUczYujnmsGx",
+      "name": "Starfruit Jasmine Green Tea with Aloe Vera",
+      "slug": "starfruit-jasmine-green-tea-with-aloe-vera",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Yuzu Queen Jasmine Green Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "62.5",
+          "basisAmount": "1",
+          "energyMUnrounded": "62.5",
+          "donorSugarLevel": 0,
+          "donorServingMl": 437
+        },
+        {
+          "label": "Included aloe vera scoop",
+          "source": "alvernia",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "31",
+          "basisAmount": "1",
+          "energyMUnrounded": "31"
+        }
+      ],
+      "energyMUnrounded": "93.5",
+      "energyLUnrounded": "130.90",
+      "fields": {
+        "fldN4zstqWe07gjSe": "18.7",
+        "fldLrw0evtwSf4IyM": "94",
+        "fldJR3stkFoVh1ATp": "131"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "70",
+        "highPortions25PercentHigher": "117"
+      }
+    },
+    {
+      "recordId": "recQd6mtjW1VJqkve",
+      "name": "Jasmine Fresh Milk Tea",
+      "slug": "jasmine-fresh-milk-tea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Queen Jasmine Fresh Milk Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "95.2",
+          "basisAmount": "1",
+          "energyMUnrounded": "95.2",
+          "donorSugarLevel": 50,
+          "donorServingMl": 298
+        }
+      ],
+      "energyMUnrounded": "95.2",
+      "energyLUnrounded": "133.28",
+      "fields": {
+        "fldN4zstqWe07gjSe": "19",
+        "fldLrw0evtwSf4IyM": "95",
+        "fldJR3stkFoVh1ATp": "133"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "71",
+        "highPortions25PercentHigher": "119"
+      }
+    },
+    {
+      "recordId": "rec6riUNVSTDBfPGa",
+      "name": "Osmanthus Longjing Fresh Milk Tea",
+      "slug": "osmanthus-longjing-fresh-milk-tea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Long Jing Fresh Milk Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "95.2",
+          "basisAmount": "1",
+          "energyMUnrounded": "95.2",
+          "donorSugarLevel": 50,
+          "donorServingMl": 348
+        }
+      ],
+      "energyMUnrounded": "95.2",
+      "energyLUnrounded": "133.28",
+      "fields": {
+        "fldN4zstqWe07gjSe": "19",
+        "fldLrw0evtwSf4IyM": "95",
+        "fldJR3stkFoVh1ATp": "133"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "71",
+        "highPortions25PercentHigher": "119"
+      }
+    },
+    {
+      "recordId": "recTSkqQ2gXKhGvy3",
+      "name": "Da Hong Pao Fresh Milk Tea",
+      "slug": "da-hong-pao-fresh-milk-tea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Dong Ding Oolong Fresh Milk Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "95.2",
+          "basisAmount": "1",
+          "energyMUnrounded": "95.2",
+          "donorSugarLevel": 50,
+          "donorServingMl": 328
+        }
+      ],
+      "energyMUnrounded": "95.2",
+      "energyLUnrounded": "133.28",
+      "fields": {
+        "fldN4zstqWe07gjSe": "19",
+        "fldLrw0evtwSf4IyM": "95",
+        "fldJR3stkFoVh1ATp": "133"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "71",
+        "highPortions25PercentHigher": "119"
+      }
+    },
+    {
+      "recordId": "reczZOaJIx4QIVb2g",
+      "name": "Oolong Fresh Milk Tea",
+      "slug": "oolong-fresh-milk-tea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Dong Ding Oolong Fresh Milk Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "95.2",
+          "basisAmount": "1",
+          "energyMUnrounded": "95.2",
+          "donorSugarLevel": 50,
+          "donorServingMl": 328
+        }
+      ],
+      "energyMUnrounded": "95.2",
+      "energyLUnrounded": "133.28",
+      "fields": {
+        "fldN4zstqWe07gjSe": "19",
+        "fldLrw0evtwSf4IyM": "95",
+        "fldJR3stkFoVh1ATp": "133"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "71",
+        "highPortions25PercentHigher": "119"
+      }
+    },
+    {
+      "recordId": "recYUqbTnobWqVAYV",
+      "name": "Peach Green Tea White Pearl",
+      "slug": "peach-green-tea-white-pearl",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Sweetened peach fruit preparation",
+          "source": "peach",
+          "amountM": "35",
+          "unit": "ml",
+          "energyKcalPerBasis": "313",
+          "basisAmount": "100",
+          "energyMUnrounded": "109.55"
+        },
+        {
+          "label": "Included white pearl scoop",
+          "source": "alvernia",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "42",
+          "basisAmount": "1",
+          "energyMUnrounded": "42"
+        }
+      ],
+      "energyMUnrounded": "151.55",
+      "energyLUnrounded": "212.170",
+      "fields": {
+        "fldN4zstqWe07gjSe": "30.3",
+        "fldLrw0evtwSf4IyM": "152",
+        "fldJR3stkFoVh1ATp": "212"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "114",
+        "highPortions25PercentHigher": "189"
+      }
+    },
+    {
+      "recordId": "recZvfuLHi0DOJctV",
+      "name": "Tamarind Citrus Cooler",
+      "slug": "tamarind-citrus-cooler",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Fresh Honey Lemon",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "105",
+          "basisAmount": "1",
+          "energyMUnrounded": "105",
+          "donorSugarLevel": 0,
+          "donorServingMl": 404
+        }
+      ],
+      "energyMUnrounded": "105",
+      "energyLUnrounded": "147.0",
+      "fields": {
+        "fldN4zstqWe07gjSe": "21",
+        "fldLrw0evtwSf4IyM": "105",
+        "fldJR3stkFoVh1ATp": "147"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "79",
+        "highPortions25PercentHigher": "131"
+      }
+    },
+    {
+      "recordId": "recGgURiTz5SyeUmS",
+      "name": "Coco Shiok with Chestnut Popping Pearl",
+      "slug": "coco-shiok-with-chestnut-popping-pearl",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Coconut shake base, Mr Coconut standard recipe proxy",
+          "source": "coconut",
+          "amountM": "500",
+          "unit": "ml nominal cup",
+          "energyKcalPerBasis": "53",
+          "basisAmount": "100",
+          "energyMUnrounded": "265"
+        },
+        {
+          "label": "Water chestnut popping pearls,524kJ/100g converted using4.184kJ/kcal",
+          "source": "chestnut",
+          "amountM": "50",
+          "unit": "g",
+          "energyKcalPerBasis": "125.2390057361376673040152964",
+          "basisAmount": "100",
+          "energyMUnrounded": "62.6195028680688336520076482"
+        }
+      ],
+      "energyMUnrounded": "327.6195028680688336520076482",
+      "energyLUnrounded": "458.6673040152963671128107075",
+      "fields": {
+        "fldN4zstqWe07gjSe": "65.5",
+        "fldLrw0evtwSf4IyM": "328",
+        "fldJR3stkFoVh1ATp": "459"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "246",
+        "highPortions25PercentHigher": "410"
+      }
+    },
+    {
+      "recordId": "rec440kqU4lb1NJ8u",
+      "name": "Pink Guava Green Tea with Chestnut Popping Pearl",
+      "slug": "pink-guava-green-tea-with-chestnut-popping-pearl",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Mango Queen Jasmine Green Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "152",
+          "basisAmount": "1",
+          "energyMUnrounded": "152",
+          "donorSugarLevel": 0,
+          "donorServingMl": 417
+        },
+        {
+          "label": "Water chestnut popping pearls,524kJ/100g converted using4.184kJ/kcal",
+          "source": "chestnut",
+          "amountM": "50",
+          "unit": "g",
+          "energyKcalPerBasis": "125.2390057361376673040152964",
+          "basisAmount": "100",
+          "energyMUnrounded": "62.6195028680688336520076482"
+        }
+      ],
+      "energyMUnrounded": "214.6195028680688336520076482",
+      "energyLUnrounded": "300.4673040152963671128107075",
+      "fields": {
+        "fldN4zstqWe07gjSe": "42.9",
+        "fldLrw0evtwSf4IyM": "215",
+        "fldJR3stkFoVh1ATp": "300"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "161",
+        "highPortions25PercentHigher": "268"
+      }
+    },
+    {
+      "recordId": "rec47t9LKwehuR1GN",
+      "name": "Grapefruit Golden Oolong with Pomelo",
+      "slug": "grapefruit-golden-oolong-with-pomelo",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Grapefruit Green / Dong Ding Oolong Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "87",
+          "basisAmount": "1",
+          "energyMUnrounded": "87",
+          "donorSugarLevel": 25,
+          "donorServingMl": 403
+        },
+        {
+          "label": "Pomelo flesh",
+          "source": "fruit",
+          "amountM": "20",
+          "unit": "g",
+          "energyKcalPerBasis": "38",
+          "basisAmount": "100",
+          "energyMUnrounded": "7.6"
+        }
+      ],
+      "energyMUnrounded": "94.6",
+      "energyLUnrounded": "132.44",
+      "fields": {
+        "fldN4zstqWe07gjSe": "18.9",
+        "fldLrw0evtwSf4IyM": "95",
+        "fldJR3stkFoVh1ATp": "132"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "71",
+        "highPortions25PercentHigher": "118"
+      }
+    },
+    {
+      "recordId": "recocsE78IbNopLaF",
+      "name": "Grape Jasmine Cheese Slush",
+      "slug": "grape-jasmine-cheese-slush",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Sweetened grape tea, lychee fruit-tea recipe proxy",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "99.6",
+          "basisAmount": "1",
+          "energyMUnrounded": "99.6",
+          "donorSugarLevel": 0,
+          "donorServingMl": 372
+        },
+        {
+          "label": "Cheese foam serving, midpoint of published160\u2013200kcal interval",
+          "source": "alvernia",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "180",
+          "basisAmount": "1",
+          "energyMUnrounded": "180"
+        }
+      ],
+      "energyMUnrounded": "279.6",
+      "energyLUnrounded": "391.44",
+      "fields": {
+        "fldN4zstqWe07gjSe": "55.9",
+        "fldLrw0evtwSf4IyM": "280",
+        "fldJR3stkFoVh1ATp": "391"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "210",
+        "highPortions25PercentHigher": "350"
+      }
+    },
+    {
+      "recordId": "recUXyI5pblo527zL",
+      "name": "Aloe Vera Passion Fruit Green Tea",
+      "slug": "aloe-vera-passion-fruit-green-tea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Lychee Green/Dong Ding Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "121.6",
+          "basisAmount": "1",
+          "energyMUnrounded": "121.6",
+          "donorSugarLevel": 25,
+          "donorServingMl": 372
+        },
+        {
+          "label": "Included aloe vera scoop",
+          "source": "alvernia",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "31",
+          "basisAmount": "1",
+          "energyMUnrounded": "31"
+        }
+      ],
+      "energyMUnrounded": "152.6",
+      "energyLUnrounded": "213.64",
+      "fields": {
+        "fldN4zstqWe07gjSe": "30.5",
+        "fldLrw0evtwSf4IyM": "153",
+        "fldJR3stkFoVh1ATp": "214"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "114",
+        "highPortions25PercentHigher": "191"
+      }
+    },
+    {
+      "recordId": "recQOERwLMwB8OjM5",
+      "name": "Osmanthus Oolong Fresh Milk Tea",
+      "slug": "osmanthus-oolong-fresh-milk-tea-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Osmanthus Oolong Fresh Milk Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "95.2",
+          "basisAmount": "1",
+          "energyMUnrounded": "95.2",
+          "donorSugarLevel": 50,
+          "donorServingMl": 328
+        }
+      ],
+      "energyMUnrounded": "95.2",
+      "energyLUnrounded": "133.28",
+      "fields": {
+        "fldN4zstqWe07gjSe": "19",
+        "fldLrw0evtwSf4IyM": "95",
+        "fldJR3stkFoVh1ATp": "133"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "71",
+        "highPortions25PercentHigher": "119"
+      }
+    },
+    {
+      "recordId": "recvOv3VNmsjkXfBf",
+      "name": "Starfruit Green Tea White Pearl",
+      "slug": "starfruit-green-tea-white-pearl-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Yuzu Queen Jasmine Green Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "62.5",
+          "basisAmount": "1",
+          "energyMUnrounded": "62.5",
+          "donorSugarLevel": 0,
+          "donorServingMl": 437
+        },
+        {
+          "label": "Included white pearl scoop",
+          "source": "alvernia",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "42",
+          "basisAmount": "1",
+          "energyMUnrounded": "42"
+        }
+      ],
+      "energyMUnrounded": "104.5",
+      "energyLUnrounded": "146.30",
+      "fields": {
+        "fldN4zstqWe07gjSe": "20.9",
+        "fldLrw0evtwSf4IyM": "105",
+        "fldJR3stkFoVh1ATp": "146"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "78",
+        "highPortions25PercentHigher": "131"
+      }
+    },
+    {
+      "recordId": "recLC7Opjkfp3FprZ",
+      "name": "Tamarind Green Tea with Jelly",
+      "slug": "tamarind-green-tea-with-jelly-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Fresh Honey Lemon",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "105",
+          "basisAmount": "1",
+          "energyMUnrounded": "105",
+          "donorSugarLevel": 0,
+          "donorServingMl": 404
+        },
+        {
+          "label": "Included jelly scoop, herbal-jelly energy proxy",
+          "source": "alvernia",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "57",
+          "basisAmount": "1",
+          "energyMUnrounded": "57"
+        }
+      ],
+      "energyMUnrounded": "162",
+      "energyLUnrounded": "226.8",
+      "fields": {
+        "fldN4zstqWe07gjSe": "32.4",
+        "fldLrw0evtwSf4IyM": "162",
+        "fldJR3stkFoVh1ATp": "227"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "122",
+        "highPortions25PercentHigher": "203"
+      }
+    },
+    {
+      "recordId": "recIkUYO7R29yYVgz",
+      "name": "Grape Jasmine Tea White Pearl",
+      "slug": "grape-jasmine-tea-white-pearl-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Sweetened grape tea, lychee fruit-tea recipe proxy",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "99.6",
+          "basisAmount": "1",
+          "energyMUnrounded": "99.6",
+          "donorSugarLevel": 0,
+          "donorServingMl": 372
+        },
+        {
+          "label": "Included white pearl scoop",
+          "source": "alvernia",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "42",
+          "basisAmount": "1",
+          "energyMUnrounded": "42"
+        }
+      ],
+      "energyMUnrounded": "141.6",
+      "energyLUnrounded": "198.24",
+      "fields": {
+        "fldN4zstqWe07gjSe": "28.3",
+        "fldLrw0evtwSf4IyM": "142",
+        "fldJR3stkFoVh1ATp": "198"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "106",
+        "highPortions25PercentHigher": "177"
+      }
+    },
+    {
+      "recordId": "rechRXPTZ1HJwbAnF",
+      "name": "Grape Cream Cheese Milk Tea",
+      "slug": "grape-cream-cheese-milk-tea-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Queen Jasmine Green Milk Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "205.4",
+          "basisAmount": "1",
+          "energyMUnrounded": "205.4",
+          "donorSugarLevel": 50,
+          "donorServingMl": 363
+        },
+        {
+          "label": "Sweetened grape tea, lychee fruit-tea recipe proxy",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "99.6",
+          "basisAmount": "1",
+          "energyMUnrounded": "99.6",
+          "donorSugarLevel": 0,
+          "donorServingMl": 372
+        },
+        {
+          "label": "Cheese foam serving, midpoint of published160\u2013200kcal interval",
+          "source": "alvernia",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "180",
+          "basisAmount": "1",
+          "energyMUnrounded": "180"
+        }
+      ],
+      "energyMUnrounded": "485.0",
+      "energyLUnrounded": "679.00",
+      "fields": {
+        "fldN4zstqWe07gjSe": "97",
+        "fldLrw0evtwSf4IyM": "485",
+        "fldJR3stkFoVh1ATp": "679"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "364",
+        "highPortions25PercentHigher": "606"
+      }
+    },
+    {
+      "recordId": "rechalYwhlQxtT4Xn",
+      "name": "Strawberry Green Tea with Jelly",
+      "slug": "strawberry-green-tea-with-jelly-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Fresh Strawberry Black Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "98.5",
+          "basisAmount": "1",
+          "energyMUnrounded": "98.5",
+          "donorSugarLevel": 0,
+          "donorServingMl": 352
+        },
+        {
+          "label": "Included jelly scoop, herbal-jelly energy proxy",
+          "source": "alvernia",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "57",
+          "basisAmount": "1",
+          "energyMUnrounded": "57"
+        }
+      ],
+      "energyMUnrounded": "155.5",
+      "energyLUnrounded": "217.70",
+      "fields": {
+        "fldN4zstqWe07gjSe": "31.1",
+        "fldLrw0evtwSf4IyM": "156",
+        "fldJR3stkFoVh1ATp": "218"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "117",
+        "highPortions25PercentHigher": "194"
+      }
+    },
+    {
+      "recordId": "recYU2Wgef8uow9IC",
+      "name": "Strawberry Slush with Jelly",
+      "slug": "strawberry-slush-with-jelly-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Fresh Strawberry Black Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "98.5",
+          "basisAmount": "1",
+          "energyMUnrounded": "98.5",
+          "donorSugarLevel": 0,
+          "donorServingMl": 352
+        },
+        {
+          "label": "Included jelly scoop, herbal-jelly energy proxy",
+          "source": "alvernia",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "57",
+          "basisAmount": "1",
+          "energyMUnrounded": "57"
+        }
+      ],
+      "energyMUnrounded": "155.5",
+      "energyLUnrounded": "217.70",
+      "fields": {
+        "fldN4zstqWe07gjSe": "31.1",
+        "fldLrw0evtwSf4IyM": "156",
+        "fldJR3stkFoVh1ATp": "218"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "117",
+        "highPortions25PercentHigher": "194"
+      }
+    },
+    {
+      "recordId": "recVPaBgXsWPeGrxc",
+      "name": "Strawberry Cheese Slush",
+      "slug": "strawberry-cheese-slush-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Fresh Strawberry Black Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "98.5",
+          "basisAmount": "1",
+          "energyMUnrounded": "98.5",
+          "donorSugarLevel": 0,
+          "donorServingMl": 352
+        },
+        {
+          "label": "Cheese foam serving, midpoint of published160\u2013200kcal interval",
+          "source": "alvernia",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "180",
+          "basisAmount": "1",
+          "energyMUnrounded": "180"
+        }
+      ],
+      "energyMUnrounded": "278.5",
+      "energyLUnrounded": "389.90",
+      "fields": {
+        "fldN4zstqWe07gjSe": "55.7",
+        "fldLrw0evtwSf4IyM": "279",
+        "fldJR3stkFoVh1ATp": "390"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "209",
+        "highPortions25PercentHigher": "348"
+      }
+    },
+    {
+      "recordId": "recXidAOgK4vswlsQ",
+      "name": "Musang King Coco Shiok",
+      "slug": "musang-king-coco-shiok-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Coconut shake base, Mr Coconut standard recipe proxy",
+          "source": "coconut",
+          "amountM": "500",
+          "unit": "ml nominal cup",
+          "energyKcalPerBasis": "53",
+          "basisAmount": "100",
+          "energyMUnrounded": "265"
+        },
+        {
+          "label": "Edible durian pulp",
+          "source": "durian",
+          "amountM": "60",
+          "unit": "g",
+          "energyKcalPerBasis": "147",
+          "basisAmount": "100",
+          "energyMUnrounded": "88.2"
+        }
+      ],
+      "energyMUnrounded": "353.2",
+      "energyLUnrounded": "494.48",
+      "fields": {
+        "fldN4zstqWe07gjSe": "70.6",
+        "fldLrw0evtwSf4IyM": "353",
+        "fldJR3stkFoVh1ATp": "494"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "265",
+        "highPortions25PercentHigher": "442"
+      }
+    },
+    {
+      "recordId": "recA1VQtSf0zXMhai",
+      "name": "Jasmine Citrus Burst",
+      "slug": "jasmine-citrus-burst-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Fresh Honey Lemon",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "105",
+          "basisAmount": "1",
+          "energyMUnrounded": "105",
+          "donorSugarLevel": 0,
+          "donorServingMl": 404
+        }
+      ],
+      "energyMUnrounded": "105",
+      "energyLUnrounded": "147.0",
+      "fields": {
+        "fldN4zstqWe07gjSe": "21",
+        "fldLrw0evtwSf4IyM": "105",
+        "fldJR3stkFoVh1ATp": "147"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "79",
+        "highPortions25PercentHigher": "131"
+      }
+    },
+    {
+      "recordId": "recp0HHpWqE8pf76S",
+      "name": "Mango Pomelo (Classic)",
+      "slug": "mango-pomelo-classic-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Mango Smoothie",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "255.6",
+          "basisAmount": "1",
+          "energyMUnrounded": "255.6",
+          "donorSugarLevel": 0,
+          "donorServingMl": 497
+        },
+        {
+          "label": "Pomelo flesh",
+          "source": "fruit",
+          "amountM": "20",
+          "unit": "g",
+          "energyKcalPerBasis": "38",
+          "basisAmount": "100",
+          "energyMUnrounded": "7.6"
+        },
+        {
+          "label": "Sago, dry tapioca starch equivalent",
+          "source": "sago",
+          "amountM": "15",
+          "unit": "g dry",
+          "energyKcalPerBasis": "358",
+          "basisAmount": "100",
+          "energyMUnrounded": "53.7"
+        }
+      ],
+      "energyMUnrounded": "316.9",
+      "energyLUnrounded": "443.66",
+      "fields": {
+        "fldN4zstqWe07gjSe": "63.4",
+        "fldLrw0evtwSf4IyM": "317",
+        "fldJR3stkFoVh1ATp": "444"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "238",
+        "highPortions25PercentHigher": "396"
+      }
+    },
+    {
+      "recordId": "reczdTdXNjTonxZAp",
+      "name": "Matcha Latte",
+      "slug": "matcha-latte-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Matcha Fresh Milk",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "256",
+          "basisAmount": "1",
+          "energyMUnrounded": "256",
+          "donorSugarLevel": 50,
+          "donorServingMl": 365
+        }
+      ],
+      "energyMUnrounded": "256",
+      "energyLUnrounded": "358.4",
+      "fields": {
+        "fldN4zstqWe07gjSe": "51.2",
+        "fldLrw0evtwSf4IyM": "256",
+        "fldJR3stkFoVh1ATp": "358"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "192",
+        "highPortions25PercentHigher": "320"
+      }
+    },
+    {
+      "recordId": "recIAJXJTUpCRcd0v",
+      "name": "Pearl Milk Tea",
+      "slug": "pearl-milk-tea-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Queen Jasmine Green Milk Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "205.4",
+          "basisAmount": "1",
+          "energyMUnrounded": "205.4",
+          "donorSugarLevel": 50,
+          "donorServingMl": 363
+        },
+        {
+          "label": "Included black tapioca pearl scoop",
+          "source": "alvernia",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "156",
+          "basisAmount": "1",
+          "energyMUnrounded": "156"
+        }
+      ],
+      "energyMUnrounded": "361.4",
+      "energyLUnrounded": "505.96",
+      "fields": {
+        "fldN4zstqWe07gjSe": "72.3",
+        "fldLrw0evtwSf4IyM": "361",
+        "fldJR3stkFoVh1ATp": "506"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "271",
+        "highPortions25PercentHigher": "452"
+      }
+    },
+    {
+      "recordId": "recD5MgCkH3u9O0i6",
+      "name": "Taro Bobo Pearl Milk Tea",
+      "slug": "taro-bobo-pearl-milk-tea-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Queen Jasmine Green Milk Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "205.4",
+          "basisAmount": "1",
+          "energyMUnrounded": "205.4",
+          "donorSugarLevel": 50,
+          "donorServingMl": 363
+        },
+        {
+          "label": "Taro puree, edible taro proxy",
+          "source": "taro",
+          "amountM": "60",
+          "unit": "g",
+          "energyKcalPerBasis": "141",
+          "basisAmount": "100",
+          "energyMUnrounded": "84.6"
+        },
+        {
+          "label": "Added sucrose, assumed10g",
+          "source": "sugar",
+          "amountM": "10",
+          "unit": "g",
+          "energyKcalPerBasis": "4",
+          "basisAmount": "1",
+          "energyMUnrounded": "40"
+        },
+        {
+          "label": "Included black tapioca pearl scoop",
+          "source": "alvernia",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "156",
+          "basisAmount": "1",
+          "energyMUnrounded": "156"
+        }
+      ],
+      "energyMUnrounded": "486.0",
+      "energyLUnrounded": "680.40",
+      "fields": {
+        "fldN4zstqWe07gjSe": "97.2",
+        "fldLrw0evtwSf4IyM": "486",
+        "fldJR3stkFoVh1ATp": "680"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "365",
+        "highPortions25PercentHigher": "608"
+      }
+    },
+    {
+      "recordId": "rechbUKGH7yznPy1Z",
+      "name": "Honey Milk Tea",
+      "slug": "honey-milk-tea-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Honey Queen Jasmine Green Milk Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "263.6",
+          "basisAmount": "1",
+          "energyMUnrounded": "263.6",
+          "donorSugarLevel": 50,
+          "donorServingMl": 375
+        }
+      ],
+      "energyMUnrounded": "263.6",
+      "energyLUnrounded": "369.04",
+      "fields": {
+        "fldN4zstqWe07gjSe": "52.7",
+        "fldLrw0evtwSf4IyM": "264",
+        "fldJR3stkFoVh1ATp": "369"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "198",
+        "highPortions25PercentHigher": "330"
+      }
+    },
+    {
+      "recordId": "rec4l1knNNo0xE6S1",
+      "name": "Strawberry Milk Tea",
+      "slug": "strawberry-milk-tea-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Fresh Strawberry Milk Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "285.1",
+          "basisAmount": "1",
+          "energyMUnrounded": "285.1",
+          "donorSugarLevel": 50,
+          "donorServingMl": 377
+        }
+      ],
+      "energyMUnrounded": "285.1",
+      "energyLUnrounded": "399.14",
+      "fields": {
+        "fldN4zstqWe07gjSe": "57",
+        "fldLrw0evtwSf4IyM": "285",
+        "fldJR3stkFoVh1ATp": "399"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "214",
+        "highPortions25PercentHigher": "356"
+      }
+    },
+    {
+      "recordId": "rec5qwcfK86pNewGW",
+      "name": "Golden Oolong Milk Tea",
+      "slug": "golden-oolong-milk-tea-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Dong Ding Oolong Milk Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "205.4",
+          "basisAmount": "1",
+          "energyMUnrounded": "205.4",
+          "donorSugarLevel": 50,
+          "donorServingMl": 363
+        }
+      ],
+      "energyMUnrounded": "205.4",
+      "energyLUnrounded": "287.56",
+      "fields": {
+        "fldN4zstqWe07gjSe": "41.1",
+        "fldLrw0evtwSf4IyM": "205",
+        "fldJR3stkFoVh1ATp": "288"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "154",
+        "highPortions25PercentHigher": "257"
+      }
+    },
+    {
+      "recordId": "rec6VOWxmoeSisD3i",
+      "name": "Pearl Green Milk Tea",
+      "slug": "pearl-green-milk-tea-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Queen Jasmine Green Milk Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "205.4",
+          "basisAmount": "1",
+          "energyMUnrounded": "205.4",
+          "donorSugarLevel": 50,
+          "donorServingMl": 363
+        },
+        {
+          "label": "Included black tapioca pearl scoop",
+          "source": "alvernia",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "156",
+          "basisAmount": "1",
+          "energyMUnrounded": "156"
+        }
+      ],
+      "energyMUnrounded": "361.4",
+      "energyLUnrounded": "505.96",
+      "fields": {
+        "fldN4zstqWe07gjSe": "72.3",
+        "fldLrw0evtwSf4IyM": "361",
+        "fldJR3stkFoVh1ATp": "506"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "271",
+        "highPortions25PercentHigher": "452"
+      }
+    },
+    {
+      "recordId": "rec4oB0fBDSqM1WCF",
+      "name": "Milk Tea",
+      "slug": "milk-tea-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Queen Jasmine Green Milk Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "205.4",
+          "basisAmount": "1",
+          "energyMUnrounded": "205.4",
+          "donorSugarLevel": 50,
+          "donorServingMl": 363
+        }
+      ],
+      "energyMUnrounded": "205.4",
+      "energyLUnrounded": "287.56",
+      "fields": {
+        "fldN4zstqWe07gjSe": "41.1",
+        "fldLrw0evtwSf4IyM": "205",
+        "fldJR3stkFoVh1ATp": "288"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "154",
+        "highPortions25PercentHigher": "257"
+      }
+    },
+    {
+      "recordId": "recNbt7t2I8dXP7FF",
+      "name": "Ribena Green Tea",
+      "slug": "ribena-green-tea-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Ribena regular cordial concentrate",
+          "source": "ribena",
+          "amountM": "50",
+          "unit": "ml",
+          "energyKcalPerBasis": "291",
+          "basisAmount": "100",
+          "energyMUnrounded": "145.5"
+        }
+      ],
+      "energyMUnrounded": "145.5",
+      "energyLUnrounded": "203.70",
+      "fields": {
+        "fldN4zstqWe07gjSe": "29.1",
+        "fldLrw0evtwSf4IyM": "146",
+        "fldJR3stkFoVh1ATp": "204"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "109",
+        "highPortions25PercentHigher": "182"
+      }
+    },
+    {
+      "recordId": "recd2nAgPsKx4VH2t",
+      "name": "Honey Green Tea",
+      "slug": "honey-green-tea-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Honey Queen Jasmine Green Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "99",
+          "basisAmount": "1",
+          "energyMUnrounded": "99",
+          "donorSugarLevel": 50,
+          "donorServingMl": 410
+        }
+      ],
+      "energyMUnrounded": "99",
+      "energyLUnrounded": "138.6",
+      "fields": {
+        "fldN4zstqWe07gjSe": "19.8",
+        "fldLrw0evtwSf4IyM": "99",
+        "fldJR3stkFoVh1ATp": "139"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "74",
+        "highPortions25PercentHigher": "124"
+      }
+    },
+    {
+      "recordId": "reclZ76H628Q47Wgg",
+      "name": "Grapefruit Green Tea Pomelo",
+      "slug": "grapefruit-green-tea-pomelo-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Grapefruit Queen Jasmine Green Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "94.8",
+          "basisAmount": "1",
+          "energyMUnrounded": "94.8",
+          "donorSugarLevel": 25,
+          "donorServingMl": 418
+        },
+        {
+          "label": "Pomelo flesh",
+          "source": "fruit",
+          "amountM": "20",
+          "unit": "g",
+          "energyKcalPerBasis": "38",
+          "basisAmount": "100",
+          "energyMUnrounded": "7.6"
+        }
+      ],
+      "energyMUnrounded": "102.4",
+      "energyLUnrounded": "143.36",
+      "fields": {
+        "fldN4zstqWe07gjSe": "20.5",
+        "fldLrw0evtwSf4IyM": "102",
+        "fldJR3stkFoVh1ATp": "143"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "77",
+        "highPortions25PercentHigher": "128"
+      }
+    },
+    {
+      "recordId": "recxIhLnfgp5x8ssB",
+      "name": "Yakult Green Tea",
+      "slug": "yakult-green-tea-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Yakult Queen Jasmine Green Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "150.3",
+          "basisAmount": "1",
+          "energyMUnrounded": "150.3",
+          "donorSugarLevel": 50,
+          "donorServingMl": 398
+        }
+      ],
+      "energyMUnrounded": "150.3",
+      "energyLUnrounded": "210.42",
+      "fields": {
+        "fldN4zstqWe07gjSe": "30.1",
+        "fldLrw0evtwSf4IyM": "150",
+        "fldJR3stkFoVh1ATp": "210"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "113",
+        "highPortions25PercentHigher": "188"
+      }
+    },
+    {
+      "recordId": "recK7Bt5Hb1JRvV03",
+      "name": "Fresh Lemon Yakult",
+      "slug": "fresh-lemon-yakult-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Yakult Original",
+          "source": "yakult",
+          "amountM": "100",
+          "unit": "ml",
+          "energyKcalPerBasis": "70",
+          "basisAmount": "100",
+          "energyMUnrounded": "70"
+        },
+        {
+          "label": "Fresh lemon juice",
+          "source": "fruit",
+          "amountM": "20",
+          "unit": "ml",
+          "energyKcalPerBasis": "22",
+          "basisAmount": "100",
+          "energyMUnrounded": "4.4"
+        },
+        {
+          "label": "Added sugar at25% proxy, PlayMade25% fructose energy",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "22",
+          "basisAmount": "1",
+          "energyMUnrounded": "22"
+        }
+      ],
+      "energyMUnrounded": "96.4",
+      "energyLUnrounded": "134.96",
+      "fields": {
+        "fldN4zstqWe07gjSe": "19.3",
+        "fldLrw0evtwSf4IyM": "96",
+        "fldJR3stkFoVh1ATp": "135"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "72",
+        "highPortions25PercentHigher": "121"
+      }
+    },
+    {
+      "recordId": "rec1lr69zwzIyjN6n",
+      "name": "Aloe Vera Honey Lemon Ai-Yu",
+      "slug": "aloe-vera-honey-lemon-ai-yu-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Fresh Honey Lemon",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "105",
+          "basisAmount": "1",
+          "energyMUnrounded": "105",
+          "donorSugarLevel": 50,
+          "donorServingMl": 404
+        },
+        {
+          "label": "Included aloe vera scoop",
+          "source": "alvernia",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "31",
+          "basisAmount": "1",
+          "energyMUnrounded": "31"
+        },
+        {
+          "label": "Included Ai-Yu scoop",
+          "source": "alvernia",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "45",
+          "basisAmount": "1",
+          "energyMUnrounded": "45"
+        }
+      ],
+      "energyMUnrounded": "181",
+      "energyLUnrounded": "253.4",
+      "fields": {
+        "fldN4zstqWe07gjSe": "36.2",
+        "fldLrw0evtwSf4IyM": "181",
+        "fldJR3stkFoVh1ATp": "253"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "136",
+        "highPortions25PercentHigher": "226"
+      }
+    },
+    {
+      "recordId": "recpGm71TMf3so9eG",
+      "name": "Mango Yakult",
+      "slug": "mango-yakult-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Yakult Original",
+          "source": "yakult",
+          "amountM": "100",
+          "unit": "ml",
+          "energyKcalPerBasis": "70",
+          "basisAmount": "100",
+          "energyMUnrounded": "70"
+        },
+        {
+          "label": "Mango fruit preparation",
+          "source": "mango",
+          "amountM": "30",
+          "unit": "ml",
+          "energyKcalPerBasis": "346",
+          "basisAmount": "100",
+          "energyMUnrounded": "103.8"
+        }
+      ],
+      "energyMUnrounded": "173.8",
+      "energyLUnrounded": "243.32",
+      "fields": {
+        "fldN4zstqWe07gjSe": "34.8",
+        "fldLrw0evtwSf4IyM": "174",
+        "fldJR3stkFoVh1ATp": "243"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "130",
+        "highPortions25PercentHigher": "217"
+      }
+    },
+    {
+      "recordId": "recJxxZG8iJZqCN1A",
+      "name": "Coco Shiok",
+      "slug": "coco-shiok-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Coconut shake base, Mr Coconut standard recipe proxy",
+          "source": "coconut",
+          "amountM": "500",
+          "unit": "ml nominal cup",
+          "energyKcalPerBasis": "53",
+          "basisAmount": "100",
+          "energyMUnrounded": "265"
+        }
+      ],
+      "energyMUnrounded": "265",
+      "energyLUnrounded": "371.0",
+      "fields": {
+        "fldN4zstqWe07gjSe": "53",
+        "fldLrw0evtwSf4IyM": "265",
+        "fldJR3stkFoVh1ATp": "371"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "199",
+        "highPortions25PercentHigher": "331"
+      }
+    },
+    {
+      "recordId": "rec4yxZLCjar3ofvU",
+      "name": "Strawberry Yakult",
+      "slug": "strawberry-yakult-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Yakult Original",
+          "source": "yakult",
+          "amountM": "100",
+          "unit": "ml",
+          "energyKcalPerBasis": "70",
+          "basisAmount": "100",
+          "energyMUnrounded": "70"
+        },
+        {
+          "label": "Fresh Strawberry Black Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "98.5",
+          "basisAmount": "1",
+          "energyMUnrounded": "98.5",
+          "donorSugarLevel": 0,
+          "donorServingMl": 352
+        }
+      ],
+      "energyMUnrounded": "168.5",
+      "energyLUnrounded": "235.90",
+      "fields": {
+        "fldN4zstqWe07gjSe": "33.7",
+        "fldLrw0evtwSf4IyM": "169",
+        "fldJR3stkFoVh1ATp": "236"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "126",
+        "highPortions25PercentHigher": "211"
+      }
+    },
+    {
+      "recordId": "recJxDnCvX4jjtZYa",
+      "name": "Mango Pomelo (Light)",
+      "slug": "mango-pomelo-light-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Mango Queen Jasmine Green Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "152",
+          "basisAmount": "1",
+          "energyMUnrounded": "152",
+          "donorSugarLevel": 0,
+          "donorServingMl": 417
+        },
+        {
+          "label": "Pomelo flesh",
+          "source": "fruit",
+          "amountM": "20",
+          "unit": "g",
+          "energyKcalPerBasis": "38",
+          "basisAmount": "100",
+          "energyMUnrounded": "7.6"
+        },
+        {
+          "label": "Sago, dry tapioca starch equivalent",
+          "source": "sago",
+          "amountM": "15",
+          "unit": "g dry",
+          "energyKcalPerBasis": "358",
+          "basisAmount": "100",
+          "energyMUnrounded": "53.7"
+        }
+      ],
+      "energyMUnrounded": "213.3",
+      "energyLUnrounded": "298.62",
+      "fields": {
+        "fldN4zstqWe07gjSe": "42.7",
+        "fldLrw0evtwSf4IyM": "213",
+        "fldJR3stkFoVh1ATp": "299"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "160",
+        "highPortions25PercentHigher": "267"
+      }
+    },
+    {
+      "recordId": "rec7Qu7OI0lIF0p6K",
+      "name": "Taro Bobo Pearl Fresh Milk",
+      "slug": "taro-bobo-pearl-fresh-milk-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Fresh dairy milk",
+          "source": "milk",
+          "amountM": "300",
+          "unit": "ml",
+          "energyKcalPerBasis": "65",
+          "basisAmount": "100",
+          "energyMUnrounded": "195"
+        },
+        {
+          "label": "Taro puree, edible taro proxy",
+          "source": "taro",
+          "amountM": "60",
+          "unit": "g",
+          "energyKcalPerBasis": "141",
+          "basisAmount": "100",
+          "energyMUnrounded": "84.6"
+        },
+        {
+          "label": "Added sucrose, assumed10g",
+          "source": "sugar",
+          "amountM": "10",
+          "unit": "g",
+          "energyKcalPerBasis": "4",
+          "basisAmount": "1",
+          "energyMUnrounded": "40"
+        },
+        {
+          "label": "Included black tapioca pearl scoop",
+          "source": "alvernia",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "156",
+          "basisAmount": "1",
+          "energyMUnrounded": "156"
+        }
+      ],
+      "energyMUnrounded": "475.6",
+      "energyLUnrounded": "665.84",
+      "fields": {
+        "fldN4zstqWe07gjSe": "95.1",
+        "fldLrw0evtwSf4IyM": "476",
+        "fldJR3stkFoVh1ATp": "666"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "357",
+        "highPortions25PercentHigher": "595"
+      }
+    },
+    {
+      "recordId": "recFF5rfGCs14Bwz5",
+      "name": "Brown Sugar Pearl Fresh Milk",
+      "slug": "brown-sugar-pearl-fresh-milk-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Fresh dairy milk",
+          "source": "milk",
+          "amountM": "300",
+          "unit": "ml",
+          "energyKcalPerBasis": "65",
+          "basisAmount": "100",
+          "energyMUnrounded": "195"
+        },
+        {
+          "label": "Brown sugar syrup sugar solids, assumed20g sucrose equivalent",
+          "source": "sugar",
+          "amountM": "20",
+          "unit": "g",
+          "energyKcalPerBasis": "4",
+          "basisAmount": "1",
+          "energyMUnrounded": "80"
+        },
+        {
+          "label": "Included black tapioca pearl scoop",
+          "source": "alvernia",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "156",
+          "basisAmount": "1",
+          "energyMUnrounded": "156"
+        }
+      ],
+      "energyMUnrounded": "431",
+      "energyLUnrounded": "603.4",
+      "fields": {
+        "fldN4zstqWe07gjSe": "86.2",
+        "fldLrw0evtwSf4IyM": "431",
+        "fldJR3stkFoVh1ATp": "603"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "323",
+        "highPortions25PercentHigher": "539"
+      }
+    },
+    {
+      "recordId": "recu5FjkF7IbbAqm4",
+      "name": "Ribena Yakult",
+      "slug": "ribena-yakult-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Yakult Original",
+          "source": "yakult",
+          "amountM": "100",
+          "unit": "ml",
+          "energyKcalPerBasis": "70",
+          "basisAmount": "100",
+          "energyMUnrounded": "70"
+        },
+        {
+          "label": "Ribena regular cordial concentrate",
+          "source": "ribena",
+          "amountM": "50",
+          "unit": "ml",
+          "energyKcalPerBasis": "291",
+          "basisAmount": "100",
+          "energyMUnrounded": "145.5"
+        }
+      ],
+      "energyMUnrounded": "215.5",
+      "energyLUnrounded": "301.70",
+      "fields": {
+        "fldN4zstqWe07gjSe": "43.1",
+        "fldLrw0evtwSf4IyM": "216",
+        "fldJR3stkFoVh1ATp": "302"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "162",
+        "highPortions25PercentHigher": "269"
+      }
+    },
+    {
+      "recordId": "recdD7YfB3zd1zk1p",
+      "name": "Peach Yakult",
+      "slug": "peach-yakult-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Yakult Original",
+          "source": "yakult",
+          "amountM": "100",
+          "unit": "ml",
+          "energyKcalPerBasis": "70",
+          "basisAmount": "100",
+          "energyMUnrounded": "70"
+        },
+        {
+          "label": "Peach fruit preparation",
+          "source": "peach",
+          "amountM": "30",
+          "unit": "ml",
+          "energyKcalPerBasis": "313",
+          "basisAmount": "100",
+          "energyMUnrounded": "93.9"
+        }
+      ],
+      "energyMUnrounded": "163.9",
+      "energyLUnrounded": "229.46",
+      "fields": {
+        "fldN4zstqWe07gjSe": "32.8",
+        "fldLrw0evtwSf4IyM": "164",
+        "fldJR3stkFoVh1ATp": "229"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "123",
+        "highPortions25PercentHigher": "205"
+      }
+    },
+    {
+      "recordId": "recQH5qAKKNXQfmne",
+      "name": "Jasmine Green Tea",
+      "slug": "jasmine-green-tea-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Queen Jasmine Green Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "40.8",
+          "basisAmount": "1",
+          "energyMUnrounded": "40.8",
+          "donorSugarLevel": 50,
+          "donorServingMl": 368
+        }
+      ],
+      "energyMUnrounded": "40.8",
+      "energyLUnrounded": "57.12",
+      "fields": {
+        "fldN4zstqWe07gjSe": "8.2",
+        "fldLrw0evtwSf4IyM": "41",
+        "fldJR3stkFoVh1ATp": "57"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "31",
+        "highPortions25PercentHigher": "51"
+      }
+    },
+    {
+      "recordId": "recZTHyjF63lvSqPj",
+      "name": "Golden Oolong Tea",
+      "slug": "golden-oolong-tea-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Dong Ding Oolong Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "40.8",
+          "basisAmount": "1",
+          "energyMUnrounded": "40.8",
+          "donorSugarLevel": 50,
+          "donorServingMl": 368
+        }
+      ],
+      "energyMUnrounded": "40.8",
+      "energyLUnrounded": "57.12",
+      "fields": {
+        "fldN4zstqWe07gjSe": "8.2",
+        "fldLrw0evtwSf4IyM": "41",
+        "fldJR3stkFoVh1ATp": "57"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "31",
+        "highPortions25PercentHigher": "51"
+      }
+    },
+    {
+      "recordId": "receFQonQDf15Sb1p",
+      "name": "Milo Ice Blended",
+      "slug": "milo-ice-blended-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "MILO powder",
+          "source": "milo",
+          "amountM": "45",
+          "unit": "g",
+          "energyKcalPerBasis": "123",
+          "basisAmount": "30",
+          "energyMUnrounded": "184.5"
+        },
+        {
+          "label": "Added sucrose, assumed10g",
+          "source": "sugar",
+          "amountM": "10",
+          "unit": "g",
+          "energyKcalPerBasis": "4",
+          "basisAmount": "1",
+          "energyMUnrounded": "40"
+        },
+        {
+          "label": "Fresh dairy milk",
+          "source": "milk",
+          "amountM": "50",
+          "unit": "ml",
+          "energyKcalPerBasis": "65",
+          "basisAmount": "100",
+          "energyMUnrounded": "32.5"
+        }
+      ],
+      "energyMUnrounded": "257.0",
+      "energyLUnrounded": "359.80",
+      "fields": {
+        "fldN4zstqWe07gjSe": "51.4",
+        "fldLrw0evtwSf4IyM": "257",
+        "fldJR3stkFoVh1ATp": "360"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "193",
+        "highPortions25PercentHigher": "321"
+      }
+    },
+    {
+      "recordId": "recuuLidojrOPmeLy",
+      "name": "Mango Ice Blended",
+      "slug": "mango-ice-blended-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Mango fruit preparation",
+          "source": "mango",
+          "amountM": "50",
+          "unit": "ml",
+          "energyKcalPerBasis": "346",
+          "basisAmount": "100",
+          "energyMUnrounded": "173"
+        }
+      ],
+      "energyMUnrounded": "173",
+      "energyLUnrounded": "242.2",
+      "fields": {
+        "fldN4zstqWe07gjSe": "34.6",
+        "fldLrw0evtwSf4IyM": "173",
+        "fldJR3stkFoVh1ATp": "242"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "130",
+        "highPortions25PercentHigher": "216"
+      }
+    },
+    {
+      "recordId": "recAP4nmbtWD52CRe",
+      "name": "Peach Ice Blended",
+      "slug": "peach-ice-blended-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Peach fruit preparation",
+          "source": "peach",
+          "amountM": "50",
+          "unit": "ml",
+          "energyKcalPerBasis": "313",
+          "basisAmount": "100",
+          "energyMUnrounded": "156.5"
+        }
+      ],
+      "energyMUnrounded": "156.5",
+      "energyLUnrounded": "219.10",
+      "fields": {
+        "fldN4zstqWe07gjSe": "31.3",
+        "fldLrw0evtwSf4IyM": "157",
+        "fldJR3stkFoVh1ATp": "219"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "117",
+        "highPortions25PercentHigher": "196"
+      }
+    },
+    {
+      "recordId": "recuujhiN1IOTGi8i",
+      "name": "Chocolate Ice",
+      "slug": "chocolate-ice-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Cocoa",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "237.8",
+          "basisAmount": "1",
+          "energyMUnrounded": "237.8",
+          "donorSugarLevel": 50,
+          "donorServingMl": 361
+        }
+      ],
+      "energyMUnrounded": "237.8",
+      "energyLUnrounded": "332.92",
+      "fields": {
+        "fldN4zstqWe07gjSe": "47.6",
+        "fldLrw0evtwSf4IyM": "238",
+        "fldJR3stkFoVh1ATp": "333"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "178",
+        "highPortions25PercentHigher": "297"
+      }
+    },
+    {
+      "recordId": "rec1PtewmkWxax5CO",
+      "name": "Strawberry Ice Blended",
+      "slug": "strawberry-ice-blended-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Fresh Strawberry Black Tea",
+          "source": "playmade",
+          "amountM": "1",
+          "unit": "serving",
+          "energyKcalPerBasis": "98.5",
+          "basisAmount": "1",
+          "energyMUnrounded": "98.5",
+          "donorSugarLevel": 0,
+          "donorServingMl": 352
+        }
+      ],
+      "energyMUnrounded": "98.5",
+      "energyLUnrounded": "137.90",
+      "fields": {
+        "fldN4zstqWe07gjSe": "19.7",
+        "fldLrw0evtwSf4IyM": "99",
+        "fldJR3stkFoVh1ATp": "138"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "74",
+        "highPortions25PercentHigher": "123"
+      }
+    },
+    {
+      "recordId": "recImp9lTaxFnYdqF",
+      "name": "Ribena Ice",
+      "slug": "ribena-ice-itea",
+      "status": "estimated",
+      "components": [
+        {
+          "label": "Ribena regular cordial concentrate",
+          "source": "ribena",
+          "amountM": "75",
+          "unit": "ml",
+          "energyKcalPerBasis": "291",
+          "basisAmount": "100",
+          "energyMUnrounded": "218.25"
+        }
+      ],
+      "energyMUnrounded": "218.25",
+      "energyLUnrounded": "305.550",
+      "fields": {
+        "fldN4zstqWe07gjSe": "43.7",
+        "fldLrw0evtwSf4IyM": "218",
+        "fldJR3stkFoVh1ATp": "306"
+      },
+      "sensitivityScenariosM": {
+        "lowPortions25PercentLower": "164",
+        "highPortions25PercentHigher": "273"
+      }
+    }
+  ],
+  "verification": {
+    "independentArithmetic": "54 recipes recalculated from component amount and energy basis;162 numeric-only field values checked; no duplicate record IDs.",
+    "humanizer": "Final Humanizer review completed after the last copy edit: brief Estimated calories headings and Est. card prefixes; no unsupported official-nutrition claim.",
+    "sourceCurrency": "PlayMade and ingredient data checked29Nov2026. Coconut53kcal/100ml retained as historical12Jun2026 MrCoconut proxy previously verified27Nov; current FAQ points to a different Drive file that returned404, so it is not claimed as current iTEA evidence.",
+    "airtable": "54 drinks and162 calorie cells read back exactly; prices, names, categories, slugs, grades, certification and brand links unchanged.",
+    "checks": "68 tests pass; build:verify and strict link audit pass;4370 pages,0 broken or non-canonical links/references.",
+    "pages": "All162 menu calorie cells and54 drink pages match the manifest; requested source paragraphs and3 external anchors absent.",
+    "layout": "Desktop preview inspected; mobile390px viewport has390px document width; table scrolling remains contained."
+  }
+}
