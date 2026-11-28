@@ -1,0 +1,21 @@
+---
+interface Props {
+  show: boolean;
+}
+
+const { show } = Astro.props;
+---
+
+{show && (
+  <aside class="text-sm text-[var(--color-stone-600)] space-y-2" aria-label="itea menu sources">
+    <p>This list covers the drinks shown in itea's current online product series, checked on 28 November 2026. Outlets may offer other drinks.</p>
+    <p>Nutri-Grade follows the drink images on the official site. Prices, calories, cup volumes and sugar customisation details were not listed. Check with your outlet for prices and available sizes.</p>
+    <p>
+      <a href="https://itea.sg/menu/our-signatures" class="underline" target="_blank" rel="noopener noreferrer">Signatures</a>
+      <span aria-hidden="true"> · </span>
+      <a href="https://itea.sg/menu/fresh-milk-tea" class="underline" target="_blank" rel="noopener noreferrer">Fresh milk tea</a>
+      <span aria-hidden="true"> · </span>
+      <a href="https://itea.sg/menu/fruit-tea" class="underline" target="_blank" rel="noopener noreferrer">Fruit tea</a>
+    </p>
+  </aside>
+)}

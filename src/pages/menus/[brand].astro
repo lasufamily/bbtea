@@ -4,6 +4,7 @@ import PreferredSource from '../../components/PreferredSource.astro';
 import MrCoconutNutritionNote from '../../components/MrCoconutNutritionNote.astro';
 import PlayMadeNutritionNote from '../../components/PlayMadeNutritionNote.astro';
 import BoostNutritionNote from '../../components/BoostNutritionNote.astro';
+import IteaMenuNote from '../../components/IteaMenuNote.astro';
 import { getBrands, getDrinks, getDrinksByBrand } from '../../lib/airtable';
 import { pathSegment } from '../../lib/url';
 import type { Brand, Drink } from '../../lib/types';
@@ -157,6 +158,7 @@ const jsonLd = {
     <MrCoconutNutritionNote show={brand.slug === 'mr-coconut'} />
     <PlayMadeNutritionNote show={brand.slug === 'playmade'} />
     <BoostNutritionNote show={isBoost} />
+    <IteaMenuNote show={brand.slug === 'itea'} />
     {groupedDrinks.map(group => (
       <section class="space-y-4" data-pagefind-body>
         <header class="flex flex-wrap items-end justify-between gap-3 border-b border-[var(--color-stone-200)] pb-3">

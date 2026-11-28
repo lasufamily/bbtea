@@ -3,6 +3,7 @@ import Layout from '../../components/Layout.astro';
 import MrCoconutNutritionNote from '../../components/MrCoconutNutritionNote.astro';
 import PlayMadeNutritionNote from '../../components/PlayMadeNutritionNote.astro';
 import BoostNutritionNote from '../../components/BoostNutritionNote.astro';
+import IteaMenuNote from '../../components/IteaMenuNote.astro';
 import DrinkCard from '../../components/DrinkCard.astro';
 import ListingCard from '../../components/ListingCard.astro';
 import { getDrinks, getBrands, getOutlets, getCoffeeOutlets, getJuiceOutlets } from '../../lib/airtable';
@@ -155,6 +156,7 @@ const jsonLd = {
           <MrCoconutNutritionNote show={drink.brands.some(brand => brand.slug === 'mr-coconut')} />
           <PlayMadeNutritionNote show={drink.brands.some(brand => brand.slug === 'playmade')} />
           <BoostNutritionNote show={isBoost} />
+          <IteaMenuNote show={drink.brands.some(brand => brand.slug === 'itea')} />
           {sourceBrands.length > 0 && <div class="space-y-2"><h2 class="font-semibold">Check with the brand</h2><ul>{sourceBrands.map(brand => <li><a href={brand.websiteUrl} class="underline" target="_blank" rel="noopener noreferrer">{brand.name} website</a></li>)}</ul></div>}
           <a href="/contact/" class="underline text-sm">Report a menu correction</a>
         </div>

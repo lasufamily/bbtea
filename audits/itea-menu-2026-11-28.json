@@ -1,0 +1,180 @@
+{
+  "requestId": "01a22159-3ea7-7ef0-b84b-ba2018f17fb5:itea-menu",
+  "brandId": "recLfxaRWfo5GlQj2",
+  "checkedDate": "2026-11-28",
+  "sources": [
+    {
+      "url": "https://itea.sg/menu/our-signatures",
+      "image": "https://itea.sg/assets/menu/menu-our-signatures-v2-right.png?v=5",
+      "documentDate": null,
+      "method": "Downloaded and visually inspected the complete image menu."
+    },
+    {
+      "url": "https://itea.sg/menu/fresh-milk-tea",
+      "image": "https://itea.sg/assets/menu/menu-fresh-milk-tea-v2-right.png?v=5",
+      "documentDate": null,
+      "method": "Downloaded and visually inspected the complete image menu."
+    },
+    {
+      "url": "https://itea.sg/menu/fruit-tea",
+      "image": "https://itea.sg/assets/menu/menu-fruit-tea-v2-right.png?v=5",
+      "documentDate": null,
+      "method": "Downloaded and visually inspected the complete image menu."
+    }
+  ],
+  "method": {
+    "coverage": "13 unique drinks across the three current official product series; cross-listed drinks appear once in their specific series. Signatures contains the two remaining signature drinks.",
+    "preparation": "Named preparation shown in each current official product image; exact sugar customisation and cup volume are not specified.",
+    "calories": "No official energy values or serving volumes found. All calorie fields remain blank; no arithmetic, statistical inference or estimates performed.",
+    "prices": "Current official menus do not publish prices. Older cached Wix menus and delivery prices are not applied to the new recipes.",
+    "certification": "Nutri-Grade copied from matching cup image. No Healthier Choice certification inferred.",
+    "limitations": "Current site shows representative products rather than an exhaustive outlet ordering menu. No separate hot variants or sizes can be verified."
+  },
+  "humanizerReview": "Short factual descriptions and source note reviewed for unsupported claims, promotional wording and AI patterns; final wording uses direct ingredient descriptions.",
+  "items": [
+    {
+      "name": "Brown Sugar Pearl Milk Tea",
+      "category": "Signatures",
+      "slug": "brown-sugar-pearl-milk-tea-itea",
+      "description": "Milk tea with brown sugar pearls.",
+      "nutriGrade": "C",
+      "sourceIndex": 0,
+      "prices": null,
+      "calories": null,
+      "recordId": "recoKxcWW954FFy33"
+    },
+    {
+      "name": "Starfruit Jasmine Green Tea with Aloe Vera",
+      "category": "Signatures",
+      "slug": "starfruit-jasmine-green-tea-with-aloe-vera",
+      "description": "Jasmine green tea with starfruit and aloe vera.",
+      "nutriGrade": "C",
+      "sourceIndex": 0,
+      "prices": null,
+      "calories": null,
+      "recordId": "rec1zIUczYujnmsGx"
+    },
+    {
+      "name": "Jasmine Fresh Milk Tea",
+      "category": "Fresh Milk Tea",
+      "slug": "jasmine-fresh-milk-tea",
+      "description": "Jasmine tea with fresh milk.",
+      "nutriGrade": "B",
+      "sourceIndex": 1,
+      "prices": null,
+      "calories": null,
+      "recordId": "recQd6mtjW1VJqkve"
+    },
+    {
+      "name": "Osmanthus Longjing Fresh Milk Tea",
+      "category": "Fresh Milk Tea",
+      "slug": "osmanthus-longjing-fresh-milk-tea",
+      "description": "Osmanthus Longjing tea with fresh milk.",
+      "nutriGrade": "B",
+      "sourceIndex": 1,
+      "prices": null,
+      "calories": null,
+      "recordId": "rec6riUNVSTDBfPGa"
+    },
+    {
+      "name": "Da Hong Pao Fresh Milk Tea",
+      "category": "Fresh Milk Tea",
+      "slug": "da-hong-pao-fresh-milk-tea",
+      "description": "Da Hong Pao tea with fresh milk.",
+      "nutriGrade": "B",
+      "sourceIndex": 1,
+      "prices": null,
+      "calories": null,
+      "recordId": "recTSkqQ2gXKhGvy3"
+    },
+    {
+      "name": "Oolong Fresh Milk Tea",
+      "category": "Fresh Milk Tea",
+      "slug": "oolong-fresh-milk-tea",
+      "description": "Oolong tea with fresh milk.",
+      "nutriGrade": "B",
+      "sourceIndex": 1,
+      "prices": null,
+      "calories": null,
+      "recordId": "reczZOaJIx4QIVb2g"
+    },
+    {
+      "name": "Peach Green Tea White Pearl",
+      "category": "Fruit Tea",
+      "slug": "peach-green-tea-white-pearl",
+      "description": "Peach green tea with white pearls.",
+      "nutriGrade": "C",
+      "sourceIndex": 2,
+      "prices": null,
+      "calories": null,
+      "recordId": "recYUqbTnobWqVAYV"
+    },
+    {
+      "name": "Tamarind Citrus Cooler",
+      "category": "Fruit Tea",
+      "slug": "tamarind-citrus-cooler",
+      "description": "A tamarind and citrus drink.",
+      "nutriGrade": "C",
+      "sourceIndex": 2,
+      "prices": null,
+      "calories": null,
+      "recordId": "recZvfuLHi0DOJctV"
+    },
+    {
+      "name": "Coco Shiok with Chestnut Popping Pearl",
+      "category": "Fruit Tea",
+      "slug": "coco-shiok-with-chestnut-popping-pearl",
+      "description": "A coconut drink with chestnut popping pearls.",
+      "nutriGrade": "C",
+      "sourceIndex": 2,
+      "prices": null,
+      "calories": null,
+      "recordId": "recGgURiTz5SyeUmS"
+    },
+    {
+      "name": "Pink Guava Green Tea with Chestnut Popping Pearl",
+      "category": "Fruit Tea",
+      "slug": "pink-guava-green-tea-with-chestnut-popping-pearl",
+      "description": "Pink guava green tea with chestnut popping pearls.",
+      "nutriGrade": "C",
+      "sourceIndex": 2,
+      "prices": null,
+      "calories": null,
+      "recordId": "rec440kqU4lb1NJ8u"
+    },
+    {
+      "name": "Grapefruit Golden Oolong with Pomelo",
+      "category": "Fruit Tea",
+      "slug": "grapefruit-golden-oolong-with-pomelo",
+      "description": "Golden oolong tea with grapefruit and pomelo.",
+      "nutriGrade": "C",
+      "sourceIndex": 2,
+      "prices": null,
+      "calories": null,
+      "recordId": "rec47t9LKwehuR1GN"
+    },
+    {
+      "name": "Grape Jasmine Cheese Slush",
+      "category": "Fruit Tea",
+      "slug": "grape-jasmine-cheese-slush",
+      "description": "A grape and jasmine slush with cheese.",
+      "nutriGrade": "C",
+      "sourceIndex": 2,
+      "prices": null,
+      "calories": null,
+      "recordId": "recocsE78IbNopLaF"
+    },
+    {
+      "name": "Aloe Vera Passion Fruit Green Tea",
+      "category": "Fruit Tea",
+      "slug": "aloe-vera-passion-fruit-green-tea",
+      "description": "Green tea with passion fruit and aloe vera.",
+      "nutriGrade": "C",
+      "sourceIndex": 2,
+      "prices": null,
+      "calories": null,
+      "recordId": "recUXyI5pblo527zL"
+    }
+  ],
+  "menuRecordId": "recsst3Z3FV9uHIab"
+}
