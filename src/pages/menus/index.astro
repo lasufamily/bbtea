@@ -3,6 +3,7 @@ import Layout from '../../components/Layout.astro';
 import PreferredSource from '../../components/PreferredSource.astro';
 import { getBrands, getDrinks } from '../../lib/airtable';
 import { pathSegment } from '../../lib/url';
+import menuBrandLogos from '../../data/menu-brand-logos.json';
 
 const [brands, drinks] = await Promise.all([getBrands(), getDrinks()]);
 
@@ -16,6 +17,8 @@ for (const drink of drinks) {
 const menuBrands = brands
   .map(brand => ({
     ...brand,
+    logo: menuBrandLogos[brand.slug as keyof typeof menuBrandLogos]?.url ?? brand.logo,
+    logoAlt: menuBrandLogos[brand.slug as keyof typeof menuBrandLogos]?.alt ?? `${brand.name} logo`,
     drinkCount: drinksByBrandSlug.get(brand.slug) ?? 0,
   }))
   .filter(brand => brand.drinkCount > 0)
@@ -83,8 +86,8 @@ const jsonLd = {
                   {brand.logo ? (
                     <img
                       src={brand.logo}
-                      alt={`${brand.name} logo`}
-                      class="w-full h-full object-cover"
+                      alt={brand.logoAlt}
+                      class="w-full h-full object-contain"
                       loading="lazy"
                       decoding="async"
                       width="56"

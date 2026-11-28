@@ -7,6 +7,7 @@ import BoostNutritionNote from '../../components/BoostNutritionNote.astro';
 import { getBrands, getDrinks, getDrinksByBrand } from '../../lib/airtable';
 import { pathSegment } from '../../lib/url';
 import type { Brand, Drink } from '../../lib/types';
+import menuBrandLogos from '../../data/menu-brand-logos.json';
 
 export async function getStaticPaths() {
   const [brands, drinks] = await Promise.all([getBrands(), getDrinks()]);
@@ -33,6 +34,9 @@ type DrinkGroup = {
 };
 
 const { brand } = Astro.props;
+const menuLogo = menuBrandLogos[brand.slug as keyof typeof menuBrandLogos];
+const logo = menuLogo?.url ?? brand.logo;
+const logoAlt = menuLogo?.alt ?? `${brand.name} logo`;
 const drinks = await getDrinksByBrand(brand.slug);
 const isBoost = brand.slug === 'boost';
 
@@ -93,7 +97,7 @@ const jsonLd = {
 <Layout
   title={`${brand.name} Menu Singapore | Prices & Calories | BBTea.sg`}
   description={`Browse the ${brand.name} menu in Singapore with prices, calories, Nutri-Grade and Healthier Choice details where listed.`}
-  image={brand.logo}
+  image={logo}
   type="article"
   canonical={`https://bbtea.sg/menus/${brand.slug}/`}
   jsonLd={jsonLd}
@@ -110,12 +114,12 @@ const jsonLd = {
       </nav>
 
       <div class="flex items-start gap-6">
-        {brand.logo && (
+        {logo && (
           <div class="w-16 h-16 lg:w-20 lg:h-20 rounded-lg overflow-hidden border border-[var(--color-stone-200)] bg-white flex-shrink-0 shadow-none">
             <img
-              src={brand.logo}
-              alt={`${brand.name} logo`}
-              class="w-full h-full object-cover"
+              src={logo}
+              alt={logoAlt}
+              class="w-full h-full object-contain"
               loading="eager"
               decoding="async"
               width="80"

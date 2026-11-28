@@ -1,0 +1,92 @@
+{
+  "boost": {
+    "name": "Boost Juice",
+    "alt": "Boost Juice logo",
+    "url": "https://images.bbtea.sg/brands/boost-logo.webp",
+    "width": 640,
+    "height": 640,
+    "sourcePage": "https://www.boostjuicebars.com.sg/",
+    "sourceImage": "https://www.boostjuicebars.com.sg/img/boost-juice-logo.png",
+    "sha256": "776223e467da66fa2fb89bb5c5ca2ffb795936645a0a2f16463bede48a517801"
+  },
+  "koi-the": {
+    "name": "KOI Thé",
+    "alt": "KOI Thé logo",
+    "url": "https://images.bbtea.sg/brands/koi-the-logo.webp",
+    "width": 640,
+    "height": 640,
+    "sourcePage": "https://www.koithe.com/en/",
+    "sourceImage": "https://www.koithe.com/en/images/index-lan-logo.svg",
+    "sha256": "518a7d9af1ed6129a04f16bdf0d4bdb4f5698cb5a2d68baccea61a2473cd8d46"
+  },
+  "liho-tea": {
+    "name": "LiHO TEA",
+    "alt": "LiHO TEA logo",
+    "url": "https://images.bbtea.sg/brands/liho-tea-logo.webp",
+    "width": 640,
+    "height": 640,
+    "sourcePage": "https://www.capitaland.com/sg/en/shop/malls/stores/liho.html",
+    "sourceImage": "https://www.capitaland.com/content/dam/capitaland-sites/singapore/shop/malls/group-marcom/tenants/LiHO.jpg",
+    "sha256": "45ca5d08140e145381bd11462e99117070705706178c5c7facf7a9c8d5f95755"
+  },
+  "luckin-coffee": {
+    "name": "Luckin Coffee",
+    "alt": "Luckin Coffee logo",
+    "url": "https://images.bbtea.sg/brands/luckin-coffee-logo.webp",
+    "width": 640,
+    "height": 640,
+    "sourcePage": "https://www.luckincoffee.com.sg/",
+    "sourceImage": "https://web.luckincdn.com/default/assets/logo2-9d412147.svg",
+    "sha256": "25a46b5ebc77be89b04c1886183d159a9d17141a0107547d936f73b4ec8953a7"
+  },
+  "mixue": {
+    "name": "MIXUE",
+    "alt": "MIXUE logo",
+    "url": "https://images.bbtea.sg/brands/mixue-logo.webp",
+    "width": 640,
+    "height": 640,
+    "sourcePage": "https://my.mixue.com/",
+    "sourceImage": "https://mymixues.oss-ap-southeast-1.aliyuncs.com/uploads/images/202509/2d624328c6368dd11cd850ed65abfc2d.svg",
+    "sha256": "943b83bbdaf2c521fb41839a2205d50b10bbdd91ce19b674307fe35c7bf04734"
+  },
+  "mr-coconut": {
+    "name": "Mr Coconut",
+    "alt": "Mr Coconut logo",
+    "url": "https://images.bbtea.sg/brands/mr-coconut-logo.webp",
+    "width": 640,
+    "height": 640,
+    "sourcePage": "https://mrcoconut.sg/",
+    "sourceImage": "https://mrcoconut.sg/wp-content/uploads/2020/11/Mr-Coconut-Logo.png",
+    "sha256": "c20e91e54563668c6b31530c03026157a822cabc9796405f652b6d804a32cbc6"
+  },
+  "playmade": {
+    "name": "PlayMade",
+    "alt": "PlayMade logo",
+    "url": "https://images.bbtea.sg/brands/playmade-logo.webp",
+    "width": 640,
+    "height": 640,
+    "sourcePage": "https://www.playmade.com/",
+    "sourceImage": "https://static.wixstatic.com/media/b8185a_e80cb12d0c1d4299a3722310bbbd1d0f~mv2.png",
+    "sha256": "36a40a09fda4206a832850606295ab940272953e5acce3ae3b6801849417dbbb"
+  },
+  "zus-coffee": {
+    "name": "ZUS Coffee",
+    "alt": "ZUS Coffee logo",
+    "url": "https://images.bbtea.sg/brands/zus-coffee-logo.webp",
+    "width": 640,
+    "height": 640,
+    "sourcePage": "https://zuscoffee.sg/",
+    "sourceImage": "https://zuscoffee.sg/wp-content/uploads/2026/09/cropped-cropped-zus-primary_logo-logomark-full_color-light_background.png",
+    "sha256": "9814d76297797b9bf4a90e16ff5bd92f2fb7aa57c3e4bae674b87788a16bfaaf"
+  },
+  "chagee": {
+    "name": "CHAGEE",
+    "alt": "CHAGEE logo",
+    "url": "https://images.bbtea.sg/brands/chagee-logo.webp",
+    "width": 640,
+    "height": 640,
+    "sourcePage": "https://www.chagee.com.sg/",
+    "sourceImage": "https://www.chagee.com.sg/ (inline header SVG)",
+    "sha256": "78aac9875023a05229802d86655fb91731b3c51c109b5d7dfbe8f1bcc4642f41"
+  }
+}
