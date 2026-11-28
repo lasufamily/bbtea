@@ -88,5 +88,15 @@
     "sourcePage": "https://www.chagee.com.sg/",
     "sourceImage": "https://www.chagee.com.sg/ (inline header SVG)",
     "sha256": "78aac9875023a05229802d86655fb91731b3c51c109b5d7dfbe8f1bcc4642f41"
+  },
+  "itea": {
+    "name": "itea",
+    "alt": "itea logo",
+    "url": "https://images.bbtea.sg/brands/itea-logo.webp",
+    "width": 640,
+    "height": 640,
+    "sourcePage": "https://itea.sg/",
+    "sourceImage": "https://itea.sg/assets/brand/itea-logo-primary.png",
+    "sha256": "3a6e1be04123fe504b612236695fe6ea3c06f65da50f7cc1976ec7c2475ba8d7"
   }
 }
