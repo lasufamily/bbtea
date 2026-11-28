@@ -22,7 +22,7 @@ for (const pagePath of menuPages) {
     assert.match(source, /scope="col"/);
     assert.match(source, /scope="row"/);
     assert.match(source, /retailPriceParts\(drink\)\.map/);
-    assert.match(source, /Report a menu correction/);
+    assert.doesNotMatch(source, /Before you order|Check current prices and availability with the brand|Report a menu correction/);
   });
 }
 

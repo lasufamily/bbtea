@@ -157,7 +157,6 @@ const jsonLd = {
     <MrCoconutNutritionNote show={brand.slug === 'mr-coconut'} />
     <PlayMadeNutritionNote show={brand.slug === 'playmade'} />
     <BoostNutritionNote show={isBoost} />
-    <aside class="rounded-lg bg-[var(--color-cream-100)] p-5 space-y-3"><h2 class="font-semibold">Before you order</h2><p>Check current prices and availability with the brand. Calories and nutrition labels apply to the listed serving; size, sugar level and toppings can change the values. Missing information is marked "Not listed".</p>{brand.websiteUrl && <a href={brand.websiteUrl} class="underline" target="_blank" rel="noopener noreferrer">Check {brand.name}'s website</a>}<p><a href="/contact/" class="underline">Report a menu correction</a></p></aside>
     {groupedDrinks.map(group => (
       <section class="space-y-4" data-pagefind-body>
         <header class="flex flex-wrap items-end justify-between gap-3 border-b border-[var(--color-stone-200)] pb-3">
